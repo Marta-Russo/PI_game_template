@@ -30,10 +30,10 @@ let A = {};
 let canvas = {};
 
 /**
- * Game implementation for crocodile game
+ * FeedCroc implementation for crocodile game
  * TODO: create base game class for main game parameters out of this file
  */
-export default class Game extends Base{
+export default class FeedCroc extends Base{
 
 
   /**
@@ -49,8 +49,7 @@ export default class Game extends Base{
     canvas = this.canvas;
     ctx = this.ctx;
     paddleWidth = canvas.width/9;
-    this.document.addEventListener("keydown", this.keyDownHandler, false);
-    this.document.addEventListener("keyup", this.keyUpHandler, false);
+
 
   }
 
@@ -58,13 +57,14 @@ export default class Game extends Base{
    * initialize on start button
    */
   init(){
-    currentRounds = 0;
+    super.init();
     this.initGame();
   }
 
 
 
   keyDownHandler(e) {
+    super.keyDownHandler(e);
     if(e.key === "Up" || e.key === "ArrowUp") {
       upPressed = true;
     }
@@ -75,6 +75,7 @@ export default class Game extends Base{
 
 
   keyUpHandler(e) {
+    super.keyUpHandler(e);
     if(e.key === "Up" || e.key ==="ArrowUp") {
       upPressed = false;
     }
@@ -102,12 +103,6 @@ export default class Game extends Base{
     ctx.strokeStyle = "#1931dd";
     ctx.fill();
     ctx.closePath();
-  }
-
-  drawScore() {
-    ctx.font = "16px Arial";
-    ctx.fillStyle = "#09b4dd";
-    ctx.fillText("Score: "+gameScore, 8, 20);
   }
 
 
@@ -178,7 +173,7 @@ export default class Game extends Base{
     if(ball.position.y > canvas.height - ball.radius || ball.position.x > canvas.width - ball.radius || ball.position.x < ball.radius){
 
 
-      this.finishGame();
+      super.finishGame();
     }
 
 
@@ -188,7 +183,7 @@ export default class Game extends Base{
      */
     if(ball.position.x > target.position.x+ 40 && (ball.position.y < (target.position.y + target.dimensions.height)/1.6)){
 
-      this.finishGame();
+      super.finishGame();
 
     }
 
@@ -200,8 +195,8 @@ export default class Game extends Base{
     if((ball.position.y < target.position.y + target.dimensions.height) &&  (ball.position.y > (target.position.y + target.dimensions.height)/1.6) && ball.position.x > target.position.x + 40 ){
 
 
-      gameScore++;
-      this.finishGame();
+      super.increaseScore();
+      super.finishGame();
 
     }
 
@@ -249,25 +244,6 @@ export default class Game extends Base{
   }
 
 
-  /**
-   * Finish current round and check for rounds left
-   * TODO : add this to base class
-   */
-  finishGame(){
-
-    currentRounds++;
-    clearInterval(dataLoop);
-    clearInterval(gameLoop);
-
-    if(currentRounds < this.context.game_rounds){
-
-      this.initGame();
-
-    }
-
-
-  }
-
 
   /**
    * Initialize game state before each round
@@ -276,7 +252,7 @@ export default class Game extends Base{
    */
   initGame(){
 
-
+    super.initGame();
     paddle = {
 
       dimensions: {width: paddleWidth, height: paddleHeight},
@@ -307,23 +283,6 @@ export default class Game extends Base{
 
     };
     A = Math.PI * ball.radius * ball.radius / (10000); // m^2
-
-
-    this.loopTimer = function () {
-      let inst = this;
-      gameLoop = setInterval( function (){
-        inst.loop();
-      }, frameDelay);
-
-
-      dataLoop = setInterval( function (){
-        inst.dataCollection();
-      }, 10);
-
-    };
-
-
-    this.loopTimer();
 
 
 
