@@ -12,20 +12,12 @@ import Base from './base.js';
 
 let paddleWidth = 0;
 let paddleHeight = 10;
-let downPressed = false;
-let upPressed = false;
-let rho = 1.22; // kg/ m^3
-let Cd = 0.47;  // Dimensionless
 let paddle = {};
 let ball = {};
-let ctx = {};
 let target = {};
-let A = {};
-let canvas = {};
 
 /**
  * FeedCroc implementation for crocodile game
- * TODO: create base game class for main game parameters out of this file
  */
 export default class FeedCroc extends Base{
 
@@ -38,11 +30,7 @@ export default class FeedCroc extends Base{
   constructor(context,document){
 
     super(context,document);
-
-    this.gravity = context.gravity_factor * 9.81;  // m / s^2
-    canvas = this.canvas;
-    ctx = this.ctx;
-    paddleWidth = canvas.width/9;
+    paddleWidth = this.canvas.width/9;
 
 
   }
@@ -57,73 +45,44 @@ export default class FeedCroc extends Base{
 
 
 
-  keyDownHandler(e) {
-    super.keyDownHandler(e);
-    if(e.key === "Up" || e.key === "ArrowUp") {
-      upPressed = true;
-    }
-    else if(e.key === "Down" || e.key === "ArrowDown") {
-      downPressed = true;
-    }
-  }
-
-
-  keyUpHandler(e) {
-    super.keyUpHandler(e);
-    if(e.key === "Up" || e.key ==="ArrowUp") {
-      upPressed = false;
-    }
-    else if(e.key === "Down" || e.key === "ArrowDown") {
-      downPressed = false;
-    }
-  }
-
-
 
   drawPaddle () {
-    ctx.beginPath();
-    ctx.rect(paddle.position.x, paddle.position.y, paddle.dimensions.width, paddle.dimensions.height);
-    ctx.fillStyle = "#ffffff";
-    ctx.fill();
-    ctx.closePath();
+    this.ctx.beginPath();
+    this.ctx.rect(paddle.position.x, paddle.position.y, paddle.dimensions.width, paddle.dimensions.height);
+    this.ctx.fillStyle = "#ffffff";
+    this.ctx.fill();
+    this.ctx.closePath();
   }
 
   createPaddleBox() {
-    ctx.beginPath();
-    ctx.rect(canvas.width/2-paddle.dimensions.width,canvas.height-paddle.dimensions.width*1.3,paddle.dimensions.width,paddle.dimensions.width);
-    ctx.fillStyle= "#020102";
-    ctx.stroke();
-    ctx.lineWidth = "4";
-    ctx.strokeStyle = "#1931dd";
-    ctx.fill();
-    ctx.closePath();
+    this.ctx.beginPath();
+    this.ctx.rect(this.canvas.width/2-paddle.dimensions.width,this.canvas.height-paddle.dimensions.width*1.3,paddle.dimensions.width,paddle.dimensions.width);
+    this.ctx.fillStyle= "#020102";
+    this.ctx.stroke();
+    this.ctx.lineWidth = "4";
+    this.ctx.strokeStyle = "#1931dd";
+    this.ctx.fill();
+    this.ctx.closePath();
   }
 
 
-  crocImage() {
 
-    let croc = new Image();
-    croc.src = target.imageURL;
-    ctx.drawImage(croc,target.position.x,target.position.y,target.dimensions.width,target.dimensions.height);
-
-  }
 
 
   createBallBox() {
 
-    ctx.beginPath();
-    ctx.fillStyle= "#020102";
-    ctx.lineWidth = "4";
-    ctx.strokeStyle = "#1931dd";
-    ctx.strokeRect(10,canvas.height-paddle.dimensions.width*1.56,paddle.dimensions.width/2,paddle.dimensions.width*1.2);
-    ctx.fill();
-    ctx.closePath();
+    this.ctx.beginPath();
+    this.ctx.fillStyle= "#020102";
+    this.ctx.lineWidth = "4";
+    this.ctx.strokeStyle = "#1931dd";
+    this.ctx.strokeRect(10,this.canvas.height-paddle.dimensions.width*1.56,paddle.dimensions.width/2,paddle.dimensions.width*1.2);
+    this.ctx.fill();
+    this.ctx.closePath();
   }
 
 
   /**
    * Main game loop
-   * TODO : add this to base class
    */
   loop() {
 
@@ -133,7 +92,7 @@ export default class FeedCroc extends Base{
     this.createBallBox();
     this.drawPaddle();
     this.createPaddleBox();
-    this.crocImage();
+    this.drawImage(target);
     this.drawScore();
     /**
      * Handle paddle collision here
@@ -164,7 +123,7 @@ export default class FeedCroc extends Base{
      * Walls and target collisions detection
      */
 
-    if(ball.position.y > canvas.height - ball.radius || ball.position.x > canvas.width - ball.radius || ball.position.x < ball.radius){
+    if(ball.position.y > this.canvas.height - ball.radius || ball.position.x > this.canvas.width - ball.radius || ball.position.x < ball.radius){
 
 
       super.finishGame();
@@ -202,47 +161,17 @@ export default class FeedCroc extends Base{
      * Handle paddle direction on key pressed
      */
 
-    if(downPressed && paddle.position.y < canvas.height-paddle.dimensions.height ) {
-
-      paddle.position.y += paddle.velocity;
-      paddle.paddleLastMovedMillis = new Date().getTime();
-
-    }
-    else if(upPressed && paddle.position.y > 0) {
-      paddle.position.y -= paddle.velocity;
-      paddle.paddleLastMovedMillis = new Date().getTime();
-    }
-
-    let Fx = -0.5 * Cd * A * rho * ball.velocity.x * ball.velocity.x * ball.velocity.x / Math.abs(ball.velocity.x);
-    let Fy = -0.5 * Cd * A * rho * ball.velocity.y * ball.velocity.y * ball.velocity.y / Math.abs(ball.velocity.y);
-
-    Fx = (isNaN(Fx) ? 0 : Fx);
-    Fy = (isNaN(Fy) ? 0 : Fy);
-
-    let ax = Fx / ball.mass;
-    let ay = this.gravity + (Fy / ball.mass);
-
-    ball.velocity.x += ax*Utils.frameRate;
-    ball.velocity.y += ay*Utils.frameRate;
-    ball.position.x += ball.velocity.x*Utils.frameRate*100;
-    ball.position.y += ball.velocity.y*Utils.frameRate*100;
-
-    ctx.translate(ball.position.x, ball.position.y);
-    ctx.beginPath();
-    ctx.arc(0,0,ball.radius, 0, Math.PI*2,true);
-    ctx.fillStyle = ball.color;
-    ctx.fill();
-    ctx.closePath();
-    ctx.restore();
+    super.paddleMove(paddle);
+    super.ballTrajectory(ball);
 
   }
+
 
 
 
   /**
    * Initialize game state before each round
    *
-   * TODO : add this to base class
    */
   initGame(){
 
@@ -250,7 +179,7 @@ export default class FeedCroc extends Base{
     paddle = {
 
       dimensions: {width: paddleWidth, height: paddleHeight},
-      position: {x: canvas.width/2 - paddleWidth, y : (canvas.height-paddleHeight)/2 },
+      position: {x: this.canvas.width/2 - paddleWidth, y : (this.canvas.height-paddleHeight)/2 },
       paddleRestitution: -1 - this.context.paddle_restitution/10,
       paddleLastMovedMillis: 100,
       velocity:this.context.paddle_speed
@@ -259,7 +188,7 @@ export default class FeedCroc extends Base{
 
     ball = {
 
-      position : {x: paddle.dimensions.width/2, y:canvas.height-paddle.dimensions.width*1.56 - paddle.dimensions.width*1.2},
+      position : {x: paddle.dimensions.width/2, y:this.canvas.height-paddle.dimensions.width*1.56 - paddle.dimensions.width*1.2},
       velocity : {x: this.context.x_velocity/10, y:-1*this.context.y_velocity/10},
       mass: this.context.ball_mass/10,
       radius: 10,
@@ -271,12 +200,12 @@ export default class FeedCroc extends Base{
 
     target = {
 
-      dimensions: {width: canvas.width/3.5, height: canvas.width/3.5},
-      position : {x: canvas.width - canvas.width/3.5 -20, y:10 },
+      dimensions: {width: this.canvas.width/3.5, height: this.canvas.width/3.5},
+      position : {x: this.canvas.width - this.canvas.width/3.5 -20, y:10 },
       imageURL : 'https://i.ibb.co/yFYTmBJ/croc.png'
 
     };
-    A = Math.PI * ball.radius * ball.radius / (10000); // m^2
+
 
 
 
@@ -284,7 +213,6 @@ export default class FeedCroc extends Base{
 
   /**
    * Export data
-   * TODO : add this to base class
    */
   dataCollection(){
 
@@ -300,7 +228,7 @@ export default class FeedCroc extends Base{
     };
 
    // this.context.get('export_arr').addObject(exportData);
-  super.storeData(exportData);
+    super.storeData(exportData);
 
   }
 

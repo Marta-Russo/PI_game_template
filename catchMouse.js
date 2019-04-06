@@ -8,13 +8,10 @@ import Base from "./base.js";
 let mice = {};
 let cheeseClock = {};
 let basket = {};
-let paddleWidth = 80;
-let paddleHeight = 80;
-let currentRounds = 0;
+let paddleWidth = 0;
+let paddleHeight = 0;
 let upPressed = false;
 let downPressed = false;
-let frameRate = 1/200; // Seconds
-let frameDelay = frameRate * 1000; // ms
 
 export  default  class catchMouse extends Base{
 
@@ -32,36 +29,12 @@ export  default  class catchMouse extends Base{
    */
   init(){
       super.init();
-    currentRounds = 0;
-    this.initGame();
+      this.initGame();
   }
 
 
 
 
-  keyDownHandler(e) {
-      super.keyDownHandler(e);
-
-      if(e.key === "Up" || e.key === "ArrowUp") {
-          upPressed = true;
-      }
-      else if(e.key === "Down" || e.key === "ArrowDown") {
-          downPressed = true;
-      }
-
-  }
-
-  keyUpHandler(e) {
-      super.keyUpHandler(e);
-
-      if(e.key === "Up" || e.key ==="ArrowUp") {
-          upPressed = false;
-      }
-      else if(e.key === "Down" || e.key === "ArrowDown") {
-          downPressed = false;
-      }
-
-  }
 
   createPaddleBox() {
         this.ctx.beginPath();
@@ -130,23 +103,7 @@ export  default  class catchMouse extends Base{
      */
     startClock(){
         super.drawImage(mice)
-        /**
-         * Set basket movement
-         */
-        if(downPressed && basket.position.y < this.canvas.height-basket.dimensions.height ) {
-
-            basket.position.y += basket.velocity;
-
-        }
-        if(downPressed && basket.position.y < this.canvas.height-basket.dimensions.height ) {
-
-            basket.position.y += basket.velocity;
-
-
-        }
-        else if(upPressed && basket.position.y > 0) {
-            basket.position.y -= basket.velocity;
-        }
+        super.paddleMove(basket);
 
 
         //Collision detection basket with mice
@@ -178,6 +135,8 @@ export  default  class catchMouse extends Base{
 
 
     }
+
+
 
 
     loop(){
