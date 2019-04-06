@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<link rel="modulepreload" href="./testGame.js">
+<link rel="modulepreload" href="./game.js">
+<link rel="modulepreload" href="./base.js">
+
+
+<body >
+
+      <canvas  id="myCanvas" width="600" height="450"></canvas>
+
+
+
+
+<script id="code" type="module">
+    import testGame from "./testGame.js";
+
+
+    function init(){
+      new testGame(document).init();
+    }
+    init();
+</script>
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
