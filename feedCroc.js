@@ -3,7 +3,7 @@
  * Last modified 3/31/19 8:07 PM.
  * Copyright (c) 2019 . All rights reserved.
  */
-
+import Utils from "./utils.js";
 import Base from './base.js';
 /**
  * Main class for catch the crocodile game
@@ -16,14 +16,8 @@ let downPressed = false;
 let upPressed = false;
 let rho = 1.22; // kg/ m^3
 let Cd = 0.47;  // Dimensionless
-let frameRate = 1/200; // Seconds
-let frameDelay = frameRate * 1000; // ms
 let paddle = {};
 let ball = {};
-let dataLoop ={};
-let gameLoop = {};
-let currentRounds = 0;
-let gameScore = 0;
 let ctx = {};
 let target = {};
 let A = {};
@@ -228,10 +222,10 @@ export default class FeedCroc extends Base{
     let ax = Fx / ball.mass;
     let ay = this.gravity + (Fy / ball.mass);
 
-    ball.velocity.x += ax*frameRate;
-    ball.velocity.y += ay*frameRate;
-    ball.position.x += ball.velocity.x*frameRate*100;
-    ball.position.y += ball.velocity.y*frameRate*100;
+    ball.velocity.x += ax*Utils.frameRate;
+    ball.velocity.y += ay*Utils.frameRate;
+    ball.position.x += ball.velocity.x*Utils.frameRate*100;
+    ball.position.y += ball.velocity.y*Utils.frameRate*100;
 
     ctx.translate(ball.position.x, ball.position.y);
     ctx.beginPath();

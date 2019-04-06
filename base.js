@@ -8,10 +8,9 @@
  * Initial base class for common game functions
  */
 
+import Utils from "./utils.js";
 
 
-let frameRate = 1/200; // Seconds
-let frameDelay = frameRate * 1000; // ms
 let dataLoop ={};
 let gameLoop = {};
 
@@ -134,7 +133,7 @@ export default  class Base {
             let inst = this;
             gameLoop = setInterval( function (){
                 inst.loop();
-            }, frameDelay);
+            }, Utils.frameDelay);
 
 
             dataLoop = setInterval( function (){
@@ -152,7 +151,6 @@ export default  class Base {
 
     /**
      * Finish current round and check for rounds left
-     * TODO : add this to base class
      */
     finishGame(){
 
