@@ -18,6 +18,7 @@ let ball = {};
 let targets = [];
 let pressed = Array(3).fill(false);
 let keys = ['i','o','p'];
+let imageURLS = ['https://i.ibb.co/GPRndqc/mouse.png','https://i.ibb.co/3pRr7VW/mouse-green.png','https://i.ibb.co/sy0NrjX/mouse-red.png'];
 
 export default class feedMice extends Base{
 
@@ -73,6 +74,9 @@ export default class feedMice extends Base{
         this.ctx.fill();
         this.ctx.closePath();
 
+        // Add mouse to window
+
+        super.drawImage(target)
 
     }
 
@@ -117,7 +121,8 @@ export default class feedMice extends Base{
                 radius : 4,
                 color:  "#8f909c",
                 roofcolor: "#ff2d23",
-                windowbackground: "#020102"
+                windowbackground: "#020102",
+                imageURL: imageURLS[index]
 
 
             })
@@ -183,7 +188,7 @@ export default class feedMice extends Base{
         if(didHitWindow){
             super.ballTrajectory(ball);
         }
-
+p
 
     }
 
