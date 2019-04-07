@@ -177,7 +177,7 @@ export default class feedMice extends Base{
 
     loop() {
         super.loop();
-        let didHitWindow = this.collisionDetection(0) || this.collisionDetection(1) || this.collisionDetection(2);
+        let didHitWindow  = Array(3).fill(false).map((_,index) => this.collisionDetection(index)).some(item => item != false);
         super.wallCollision(ball);
         if(!didHitWindow) {
             super.ballTrajectory(ball);
