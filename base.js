@@ -42,7 +42,10 @@ export default  class Base {
         this.currentScore=0;
     }
 
-
+    /**
+     * Triggered when participant pressed some key on keyboard
+     * @param e event
+     */
     keyDownHandler(e) {
 
         if(e.key === "Up" || e.key === "ArrowUp") {
@@ -54,6 +57,10 @@ export default  class Base {
 
     }
 
+    /**
+     * Triggered when participant released some key on keyboard
+     * @param e event
+     */
     keyUpHandler(e) {
 
         if(e.key === "Up" || e.key ==="ArrowUp") {
@@ -229,6 +236,19 @@ export default  class Base {
         } else if (upPressed && paddle.position.y > 0) {
             paddle.position.y -= paddle.velocity;
         }
+    }
+
+    /**
+     * Walls and target collisions detection
+     */
+    wallCollision(ball){
+
+        if(ball.position.y > this.canvas.height - ball.radius || ball.position.x > this.canvas.width - ball.radius || ball.position.x < ball.radius){
+
+
+            this.finishGame();
+        }
+
     }
 
 

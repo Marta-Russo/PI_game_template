@@ -90,15 +90,7 @@ export default class catchCheese extends Base{
     collisionDetection(){
 
 
-        /**
-         * Walls and target collisions detection
-         */
-
-        if(ball.position.y > this.canvas.height - ball.radius || ball.position.x > this.canvas.width - ball.radius || ball.position.x < ball.radius){
-
-
-            super.finishGame();
-        }
+        super.wallCollision(ball);
 
         if(ball.position.y > basket.position.y && ball.position.y + ball.radius < basket.position.y + basket.dimensions.height ){
 

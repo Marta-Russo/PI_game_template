@@ -6,7 +6,7 @@
 
 import ExpFrameBaseComponent from '../../components/exp-frame-base/component';
 import layout from './template';
-import Game from './game';
+import FeedCroc from './feedCroc';
 import catchMouse from './catchMouse';
 
 /**

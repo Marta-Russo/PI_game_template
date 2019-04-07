@@ -119,16 +119,9 @@ export default class FeedCroc extends Base{
       }
     }
 
-    /**
-     * Walls and target collisions detection
-     */
-
-    if(ball.position.y > this.canvas.height - ball.radius || ball.position.x > this.canvas.width - ball.radius || ball.position.x < ball.radius){
 
 
-      super.finishGame();
-    }
-
+    super.wallCollision(ball);
 
 
     /**
