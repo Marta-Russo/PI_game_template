@@ -16,7 +16,7 @@ let paddleHeight = 0;
 let target = {};
 let ball = {};
 let targets = [];
-let pressed = Array(3).fill(false);
+let pressed = {};
 let keys = ['i','o','p'];
 let imageURLS = ['https://i.ibb.co/GPRndqc/mouse.png','https://i.ibb.co/3pRr7VW/mouse-green.png','https://i.ibb.co/sy0NrjX/mouse-red.png'];
 
@@ -88,7 +88,7 @@ export default class feedMice extends Base{
 
     initGame() {
         super.initGame();
-
+        pressed = Array(3).fill(false);
         target = {
 
             dimensions: {width : paddleWidth, height: paddleWidth},
@@ -163,16 +163,13 @@ export default class feedMice extends Base{
 
     keyDownHandler(e) {
 
-       keys.forEach((val,index) => ( pressed[index] = true ));
+
+        pressed =  pressed.map((val,index) => keys[index] === e.key?true:false);
 
 
     }
 
-    keyUpHandler(e) {
 
-        keys.forEach((val,index) => ( pressed[index] = false ));
-
-    }
 
 
     loop() {
@@ -188,7 +185,7 @@ export default class feedMice extends Base{
         if(didHitWindow){
             super.ballTrajectory(ball);
         }
-p
+
 
     }
 
