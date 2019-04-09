@@ -40,6 +40,9 @@ export default  class Base {
 
     init(){
         this.currentScore=0;
+        this.currentRounds = 0 ;
+        clearInterval(dataLoop);
+        clearInterval(gameLoop);
     }
 
     /**
