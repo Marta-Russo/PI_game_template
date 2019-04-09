@@ -15,6 +15,7 @@ let dataLoop ={};
 let gameLoop = {};
 let upPressed = false;
 let downPressed = false;
+let mouseY = 0;
 
 
 export default  class Base {
@@ -34,6 +35,8 @@ export default  class Base {
         this.currentScore = 0;
         document.addEventListener("keydown", this.keyDownHandler, false);
         document.addEventListener("keyup", this.keyUpHandler, false);
+        document.addEventListener("mousemove", this.onMouseMove);
+
 
     }
 
@@ -223,21 +226,11 @@ export default  class Base {
      * @param paddle object
      */
     paddleMove(paddle) {
-        /**
-         * Set basket movement
-         */
-        if (downPressed && paddle.position.y < this.canvas.height - paddle.dimensions.height) {
 
-            paddle.position.y += paddle.velocity;
+        if (paddle.position.y < this.canvas.height - paddle.dimensions.height) {
 
-        }
-        if (downPressed && paddle.position.y < this.canvas.height - paddle.dimensions.height) {
+            paddle.position.y = mouseY;
 
-            paddle.position.y += paddle.velocity;
-
-
-        } else if (upPressed && paddle.position.y > 0) {
-            paddle.position.y -= paddle.velocity;
         }
     }
 
@@ -255,5 +248,9 @@ export default  class Base {
     }
 
 
+    onMouseMove(e) {
 
+        mouseY = e.clientY;
+
+    }
 }
