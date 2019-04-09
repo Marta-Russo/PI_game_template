@@ -33,6 +33,7 @@ export default  class Base {
         this.ctx = this.canvas.getContext('2d');
         this.currentRounds=0;
         this.currentScore = 0;
+        mouseY =  (this.canvas.height)/2 + (this.canvas.width/9)*1.5;
         document.addEventListener("keydown", this.keyDownHandler, false);
         document.addEventListener("keyup", this.keyUpHandler, false);
         document.addEventListener("mousemove", this.onMouseMove);
@@ -115,18 +116,6 @@ export default  class Base {
 
 
 
-
-    translateKeyPressed(e,bool) {
-
-        if (e.key === "Up" || e.key === "ArrowUp") {
-            bool = true;
-        } else if (e.key === "Down" || e.key === "ArrowDown") {
-            bool = true;
-        }
-
-        return bool;
-
-    }
    
     drawImage(object){
         let image = new Image();
@@ -227,11 +216,9 @@ export default  class Base {
      */
     paddleMove(paddle) {
 
-        if (paddle.position.y < this.canvas.height - paddle.dimensions.height) {
 
             paddle.position.y = mouseY;
 
-        }
     }
 
     /**
