@@ -10,8 +10,6 @@ let cheeseClock = {};
 let basket = {};
 let paddleWidth = 0;
 let paddleHeight = 0;
-let upPressed = false;
-let downPressed = false;
 
 export  default  class catchMouse extends Base{
 
@@ -76,6 +74,8 @@ export  default  class catchMouse extends Base{
             imageURL: 'https://i.ibb.co/QrJ5Y8Y/Screen-Shot-2019-04-05-at-5-10-17-PM.png'
         };
 
+
+        super.mouseY = basket.position.y;
 
   }
 

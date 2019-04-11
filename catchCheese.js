@@ -82,6 +82,8 @@ export default class catchCheese extends Base{
 
         );
 
+        super.mouseY = basket.position.y;
+
     }
 
     dataCollection() {
