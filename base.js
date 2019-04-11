@@ -15,8 +15,8 @@ let dataLoop ={};
 let gameLoop = {};
 let upPressed = false;
 let downPressed = false;
+let roundDelay = 20;
 let mouseY = 0;
-
 
 export default  class Base {
 
@@ -33,13 +33,13 @@ export default  class Base {
         this.ctx = this.canvas.getContext('2d');
         this.currentRounds=0;
         this.currentScore = 0;
-        mouseY =  (this.canvas.height)/2 + (this.canvas.width/9)*1.5;
+        this.canvas.style.cursor = 'none';
         document.addEventListener("keydown", this.keyDownHandler, false);
         document.addEventListener("keyup", this.keyUpHandler, false);
         document.addEventListener("mousemove", this.onMouseMove);
 
-
     }
+
 
 
     init(){
@@ -116,6 +116,18 @@ export default  class Base {
 
 
 
+
+    set mouseY(val){
+
+        mouseY = val;
+    }
+
+
+    get mouseY(){
+
+        return mouseY;
+    }
+
    
     drawImage(object){
         let image = new Image();
@@ -167,14 +179,17 @@ export default  class Base {
         clearInterval(dataLoop);
         clearInterval(gameLoop);
 
-        if(this.currentRounds < this.context.game_rounds){
+        this.waitSeconds(roundDelay);
+
+        if (this.currentRounds < this.context.game_rounds) {
 
             this.initGame();
 
         }
 
-
     }
+
+
 
 
     /**
@@ -210,6 +225,17 @@ export default  class Base {
     }
 
 
+
+    waitSeconds(iMilliSeconds) {
+        var counter= 0
+            , start = new Date().getTime()
+            , end = 0;
+        while (counter < iMilliSeconds) {
+            end = new Date().getTime();
+            counter = end - start;
+        }
+    }
+
     /**
      * Set paddle coordinates up to velocity
      * @param paddle object
@@ -217,7 +243,7 @@ export default  class Base {
     paddleMove(paddle) {
 
 
-            paddle.position.y = mouseY;
+            paddle.position.y = this.mouseY;
 
     }
 
@@ -238,6 +264,8 @@ export default  class Base {
     onMouseMove(e) {
 
         mouseY = e.clientY;
-
     }
+
+
+
 }
