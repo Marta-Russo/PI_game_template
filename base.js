@@ -15,8 +15,10 @@ let dataLoop ={};
 let gameLoop = {};
 let upPressed = false;
 let downPressed = false;
-let roundDelay = 20;
+let roundDelay = 2000;
+let radius = 0;
 let mouseY = 0;
+
 
 export default  class Base {
 
@@ -114,7 +116,36 @@ export default  class Base {
         this.drawScore();
     }
 
+    drawCircle() {
 
+       while(radius < 4) {
+
+           radius += 0.2;
+           this.waitSeconds(100);
+       }
+
+       radius = 0;
+       return true;
+    }
+
+
+
+    createBallBox(paddleWidth) {
+
+        this.ctx.beginPath();
+        this.ctx.fillStyle= "#1931dd";
+        this.ctx.lineWidth = "8";
+        this.ctx.strokeStyle = "#1931dd";
+
+        this.ctx.moveTo(paddleWidth*5,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*1.5);
+        this.ctx.lineTo(paddleWidth*5, this.canvas.height/2.5 + this.canvas.height/2 );
+        this.ctx.lineTo(paddleWidth*5+paddleWidth, this.canvas.height/2.5 + this.canvas.height/2);
+        this.ctx.lineTo(paddleWidth*5+paddleWidth, this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*0.8);
+        this.ctx.moveTo(paddleWidth*5  ,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*1.5 + 4);
+        this.ctx.lineTo(paddleWidth*5 + paddleWidth/3,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*1.5 + 4);
+        this.ctx.closePath();
+        this.ctx.stroke();
+    }
 
 
     set mouseY(val){
@@ -169,7 +200,6 @@ export default  class Base {
     }
 
 
-
     /**
      * Finish current round and check for rounds left
      */
@@ -179,10 +209,9 @@ export default  class Base {
         clearInterval(dataLoop);
         clearInterval(gameLoop);
 
-        this.waitSeconds(roundDelay);
+
 
         if (this.currentRounds < this.context.game_rounds) {
-
             this.initGame();
 
         }
@@ -227,12 +256,14 @@ export default  class Base {
 
 
     waitSeconds(iMilliSeconds) {
-        var counter= 0
+        let counter= 0
             , start = new Date().getTime()
             , end = 0;
+
         while (counter < iMilliSeconds) {
             end = new Date().getTime();
             counter = end - start;
+
         }
     }
 
@@ -252,7 +283,7 @@ export default  class Base {
      */
     wallCollision(ball){
 
-        if(ball.position.y > this.canvas.height - ball.radius || ball.position.x > this.canvas.width - ball.radius || ball.position.x < ball.radius){
+        if(ball.position.y > this.canvas.height + ball.radius || ball.position.x > this.canvas.width + ball.radius || ball.position.x < ball.radius){
 
 
             this.finishGame();
