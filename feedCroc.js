@@ -30,7 +30,8 @@ export default class FeedCroc extends Base{
   constructor(context,document){
 
     super(context,document);
-    paddleWidth = this.canvas.width/9;
+    paddleWidth = this.canvas.width/20;
+    paddleHeight = this.canvas.width/15;
 
 
   }
@@ -55,32 +56,20 @@ export default class FeedCroc extends Base{
     this.ctx.closePath();
   }
 
+
+
+
+
+
+
   createPaddleBox() {
     this.ctx.beginPath();
-    this.ctx.rect(this.canvas.width/2-paddle.dimensions.width,this.canvas.height-paddle.dimensions.width*1.3,paddle.dimensions.width,paddle.dimensions.width);
+    this.ctx.rect(paddleWidth*10,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*1.5,paddle.dimensions.width,paddle.dimensions.width);
     this.ctx.fillStyle= "#020102";
+    this.ctx.lineWidth = "8";
+    this.ctx.strokeStyle = "#1931dd";
     this.ctx.stroke();
-    this.ctx.lineWidth = "4";
-    this.ctx.strokeStyle = "#1931dd";
-    this.ctx.fill();
-    this.ctx.closePath();
   }
-
-
-
-
-
-  createBallBox() {
-
-    this.ctx.beginPath();
-    this.ctx.fillStyle= "#020102";
-    this.ctx.lineWidth = "4";
-    this.ctx.strokeStyle = "#1931dd";
-    this.ctx.strokeRect(10,this.canvas.height-paddle.dimensions.width*1.56,paddle.dimensions.width/2,paddle.dimensions.width*1.2);
-    this.ctx.fill();
-    this.ctx.closePath();
-  }
-
 
   /**
    * Main game loop
@@ -90,7 +79,7 @@ export default class FeedCroc extends Base{
     super.loop();
 
 
-    this.createBallBox();
+    super.createBallBox(paddleWidth);
     this.drawPaddle();
     this.createPaddleBox();
     this.drawImage(target);
@@ -172,8 +161,8 @@ export default class FeedCroc extends Base{
     super.initGame();
     paddle = {
 
-      dimensions: {width: paddleWidth, height: paddleHeight},
-      position: {x: this.canvas.width/2 - paddleWidth, y : (this.canvas.height)/2 + paddleWidth*1.5 },
+      dimensions: {width: paddleWidth*1.5, height: paddleHeight/5},
+      position: {x: paddleWidth*10, y : (this.canvas.height)/2 + paddleWidth*1.5 },
       paddleRestitution: -1 - this.context.paddle_restitution/10,
       paddleLastMovedMillis: 100,
       velocity:this.context.paddle_speed
@@ -182,8 +171,8 @@ export default class FeedCroc extends Base{
 
     ball = {
 
-      position : {x: paddle.dimensions.width/2, y:this.canvas.height-paddle.dimensions.width*1.56 - paddle.dimensions.width*1.2},
-      velocity : {x: this.context.x_velocity/10, y:-1*this.context.y_velocity/10},
+      position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
+      velocity : {x: 4.6, y:-6.5},
       mass: this.context.ball_mass/10,
       radius: 10,
       restitution: -1 - this.context.restitution/10,
@@ -194,8 +183,8 @@ export default class FeedCroc extends Base{
 
     target = {
 
-      dimensions: {width: this.canvas.width/3.5, height: this.canvas.width/3.5},
-      position : {x: this.canvas.width - this.canvas.width/3.5 -20, y:10 },
+      dimensions: {width: this.canvas.width/6, height: this.canvas.width/6},
+      position : {x: this.canvas.width - this.canvas.width/3.5 , y:10 },
       imageURL : 'https://i.ibb.co/yFYTmBJ/croc.png'
 
     };

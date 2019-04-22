@@ -16,8 +16,8 @@ export  default  class catchMouse extends Base{
     constructor(context,document){
 
         super(context,document);
-        paddleWidth = this.canvas.width/9;
-        paddleHeight = this.canvas.width/9;
+        paddleWidth = this.canvas.width/20;
+        paddleHeight = this.canvas.width/15;
         
     }
 
@@ -36,12 +36,10 @@ export  default  class catchMouse extends Base{
 
   createPaddleBox() {
         this.ctx.beginPath();
-        this.ctx.rect(this.canvas.width/2 - paddleWidth,(this.canvas.height-paddleHeight)/2+basket.dimensions.height/3,basket.dimensions.width,basket.dimensions.width);
-        this.ctx.fillStyle= "#020102";
-        this.ctx.stroke();
-        this.ctx.lineWidth = "4";
+        this.ctx.rect(this.canvas.width/2 - paddleWidth,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*2,paddleWidth*2,paddleWidth*2);
+        this.ctx.lineWidth = "8";
         this.ctx.strokeStyle = "#1931dd";
-        this.ctx.fill();
+        this.ctx.stroke();
         this.ctx.closePath();
   }
 
@@ -51,24 +49,24 @@ export  default  class catchMouse extends Base{
 
         super.initGame();
         basket = {
-            dimensions: {width: paddleWidth,height: paddleHeight},
+            dimensions: {width: paddleWidth*2,height: paddleWidth*2},
             position: {x: this.canvas.width/2 - paddleWidth,y: (this.canvas.height-paddleHeight)/2 },
             velocity: this.context.paddle_speed,
-            imageURL: 'https://i.ibb.co/3vtD1T1/Screen-Shot-2019-04-05-at-5-10-26-PM.png'
+            imageURL: 'https://i.ibb.co/4RBWcsf/netball-clipart-icon-213577-7948745.png'
         };
         
         mice = {
-            dimensions: {width: paddleWidth/1.2,height: paddleWidth/1.2},
-            position : {x: this.canvas.width/2 - paddleWidth, y:(this.canvas.height-paddleHeight)/2 - 60*1.5},
-            radius: 10,
-            delay:1600,
+            dimensions: {width: paddleWidth,height: paddleWidth},
+            position : {x: this.canvas.width/2 - paddleWidth, y:(this.canvas.height-paddleHeight)/2 },
+            radius: 15,
+            delay:2000,
             lastTime: new Date().getTime(),
             imageURL: 'https://i.ibb.co/xhChFFL/Screen-Shot-2019-04-05-at-5-10-09-PM.png'
         }; 
 
         cheeseClock = {
             dimensions: {width: paddleWidth/1.5,height: paddleWidth/1.5},
-            position: {x: this.canvas.width/2 + paddleWidth/2,y: (this.canvas.height-paddleHeight)/2 - 100 },
+            position: {x: this.canvas.width/2 + paddleWidth,y: mice.position.y},
             angle:0,
             velocity: 1.2,
             imageURL: 'https://i.ibb.co/QrJ5Y8Y/Screen-Shot-2019-04-05-at-5-10-17-PM.png'

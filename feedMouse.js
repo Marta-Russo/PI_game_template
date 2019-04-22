@@ -21,32 +21,20 @@ export default class feedMouse extends Base{
     constructor(context,document){
 
         super(context,document);
-        paddleWidth = this.canvas.width/13;
-        paddleHeight = paddleWidth/3;
+        paddleWidth = this.canvas.width/20;
+        paddleHeight = this.canvas.width/15;
 
 
 
-    }
-
-
-    createBallBox() {
-
-        this.ctx.beginPath();
-        this.ctx.fillStyle= "#020102";
-        this.ctx.lineWidth = "4";
-        this.ctx.strokeStyle = "#1931dd";
-        this.ctx.strokeRect(paddleWidth*3,(this.canvas.height-paddleWidth*2),paddleWidth/2,paddleWidth);
-        this.ctx.fill();
-        this.ctx.closePath();
     }
 
 
 
     createHouse(){
 
-        let houseX = this.canvas.width - paddleWidth*2 - this.canvas.width/3.2;
-        let houseY = this.canvas.height/3;
-        let houseWidth = this.canvas.width/3.2;
+        let houseX = this.canvas.width/2 + paddleWidth;
+        let houseY = this.canvas.height/2.5;
+        let houseWidth = this.canvas.width/3.5;
         let houseHeight = this.canvas.height/2;
         let roofSpace = 20;
 
@@ -108,7 +96,7 @@ export default class feedMouse extends Base{
         target = {
 
           dimensions: {width : paddleWidth, height: paddleWidth},
-          position: {x: (this.canvas.width - paddleWidth*2 - this.canvas.width/3.2) + this.canvas.width/6.4 - paddleWidth/2 , y:this.canvas.height/3 +  this.canvas.height/6},
+          position: {x: (this.canvas.width - paddleWidth*3 - this.canvas.width/3.2) + this.canvas.width/6.4 - paddleWidth/2 , y:this.canvas.height/3 +  this.canvas.height/4},
           radius : 4,
           color:  "#8f909c",
           roofcolor: "#ff2d23",
@@ -118,10 +106,10 @@ export default class feedMouse extends Base{
 
 
         ball = {
-            position : {x: paddleWidth*3, y:(this.canvas.height-paddleWidth*2)},
-            velocity : {x: this.context.x_velocity/10, y:-1*this.context.y_velocity/10},
+            position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
+            velocity : {x: 5.8, y:-7.6},
             mass: this.context.ball_mass/10,
-            radius: 6,
+            radius: 10,
             restitution: -1 - this.context.restitution/10,
             color:"#dadd0f"
 
@@ -132,10 +120,6 @@ export default class feedMouse extends Base{
     dataCollection() {
 
 
-
-
-
-
     }
 
 
@@ -144,7 +128,7 @@ export default class feedMouse extends Base{
         // Window collision detection
         if(ball.position.x > target.position.x && ball.position.x - ball.radius < target.position.x + target.dimensions.width){
 
-            if(ball.position.y > target.position.y && ball.position.y - ball.radius < target.position.y + target.dimensions.height ){
+            if(ball.position.y > target.position.y && ball.position.y + ball.radius < target.position.y + target.dimensions.height ){
 
 
                 if(keyPressed){
@@ -191,7 +175,7 @@ export default class feedMouse extends Base{
         if(!didHitWindow) {
             super.ballTrajectory(ball);
         }
-        this.createBallBox();
+        super.createBallBox(paddleWidth);
         this.createHouse();
         this.createWindow();
         if(didHitWindow){

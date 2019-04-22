@@ -16,28 +16,17 @@ let basket = {};
 let ball = {};
 let obstructionVals = 2;
 let obstructions = [];
-
+let interrupt = false;
 
 export default class catchCheese extends Base{
 
 
     constructor(context,document) {
         super(context,document);
-        paddleWidth = this.canvas.width/9;
-        paddleHeight = this.canvas.width/9;
+        paddleWidth = this.canvas.width/20;
+        paddleHeight = this.canvas.width/15;
         obstructionVals = this.context.obstructionNumber;
 
-    }
-
-    createBallBox() {
-
-        this.ctx.beginPath();
-        this.ctx.fillStyle= "#020102";
-        this.ctx.lineWidth = "4";
-        this.ctx.strokeStyle = "#1931dd";
-        this.ctx.strokeRect(10,(this.canvas.height/2+paddleHeight*1.5),basket.dimensions.width/2,basket.dimensions.width*1.2);
-        this.ctx.fill();
-        this.ctx.closePath();
     }
 
 
@@ -54,17 +43,21 @@ export default class catchCheese extends Base{
 
     initGame() {
         super.initGame();
+
+
+
+
         basket = {
-            dimensions: {width: paddleWidth,height: paddleHeight},
+            dimensions: {width: paddleWidth,height: paddleWidth},
             position: {x: this.canvas.width/2 + paddleWidth*2,y: (this.canvas.height/2+paddleHeight) },
             velocity: this.context.paddle_speed,
-            imageURL: 'https://i.ibb.co/3vtD1T1/Screen-Shot-2019-04-05-at-5-10-26-PM.png'
+            imageURL: 'https://i.ibb.co/4RBWcsf/netball-clipart-icon-213577-7948745.png'
         };
 
         ball = {
 
-            position : {x: 100, y:this.canvas.height-basket.dimensions.width*1.56 - basket.dimensions.width*1.2},
-            velocity : {x: this.context.x_velocity/10, y:-1*this.context.y_velocity/10},
+            position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
+            velocity : {x: 5.8, y:-6.6},
             mass: this.context.ball_mass/10,
             radius: 10,
             restitution: -1 - this.context.restitution/10,
@@ -75,8 +68,8 @@ export default class catchCheese extends Base{
 
         obstructions =  Array(obstructionVals).fill({}).map((value,index) =>
 
-            ({  dimensions: {width:paddleWidth*1.5, height: this.canvas.height / 1.5 },
-            position: {x: this.canvas.width/2 + (paddleWidth - 30) -index*paddleWidth/1.5,y: (this.canvas.height-paddleHeight)/2 - paddleHeight },
+            ({  dimensions: {width:paddleWidth*3, height: this.canvas.height / 1.5 },
+            position: {x: this.canvas.width/2 -(index+1)*paddleWidth/1.5,y: this.canvas.height/2.5  - paddleWidth*1.5 },
             imageURL: 'https://i.ibb.co/tMS8VhL/Fir-Tree-PNG-Transparent-Image.png'
              })
 
@@ -108,19 +101,27 @@ export default class catchCheese extends Base{
 
     }
 
+    /**
+     * TODO: randomize appearing objects number and trajectory a bit
+     */
     loop() {
         super.loop();
 
+        if(interrupt == false){
+            interrupt =  super.drawCircle();
+        }
 
-        this.collisionDetection();
+        if(interrupt) {
+            this.collisionDetection();
 
-        this.createBallBox()
-        super.drawImage(basket)
-        super.ballTrajectory(ball);
-        obstructions.forEach( obstruction=> super.drawImage(obstruction) );
-        super.paddleMove(basket);
+            super.createBallBox(paddleWidth);
+            super.ballTrajectory(ball);
+            super.drawImage(basket);
 
+            obstructions.forEach(obstruction => super.drawImage(obstruction));
+            super.paddleMove(basket);
 
+        }
 
     }
 
