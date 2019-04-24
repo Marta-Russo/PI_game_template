@@ -16,6 +16,17 @@ let paddle = {};
 let ball = {};
 let target = {};
 
+let trajectories = [
+
+  {velocity : {x: 3.9, y:-6.8}},
+  {velocity : {x: 3.7, y:-7.2}},
+  {velocity : {x: 3.5, y:-7.7}},
+  {velocity : {x: 3.6, y:-7.6}}
+
+
+];
+
+
 /**
  * FeedCroc implementation for crocodile game
  */
@@ -42,7 +53,6 @@ export default class FeedCroc extends Base{
   init(){
     super.init();
     this.initGame();
-    super.mouseY = paddle.position.y;
   }
 
 
@@ -57,19 +67,16 @@ export default class FeedCroc extends Base{
   }
 
 
-
-
-
-
-
   createPaddleBox() {
     this.ctx.beginPath();
-    this.ctx.rect(paddleWidth*10,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*1.5,paddle.dimensions.width,paddle.dimensions.width);
+    this.ctx.rect(paddleWidth*10 ,this.canvas.height/2.5 + this.canvas.height/2  - paddle.dimensions.height*5 ,paddle.dimensions.width,paddle.dimensions.height*5);
     this.ctx.fillStyle= "#020102";
     this.ctx.lineWidth = "8";
     this.ctx.strokeStyle = "#1931dd";
     this.ctx.stroke();
   }
+
+
 
   /**
    * Main game loop
@@ -78,78 +85,61 @@ export default class FeedCroc extends Base{
 
     super.loop();
 
-
     super.createBallBox(paddleWidth);
-    this.drawPaddle();
     this.createPaddleBox();
-    this.drawImage(target);
-    this.drawScore();
-    /**
-     * Handle paddle collision here
-     * Adjust velocity to the ball by restitution factor
-     */
-    if(ball.position.y >= (paddle.position.y - paddle.dimensions.height) && ball.position.y < (paddle.position.y + paddle.dimensions.height)){
-      if ((ball.position.x > paddle.position.x && ball.position.x  < paddle.position.x + paddle.dimensions.width)) {
+    this.drawPaddle();
+    this.drawImage(target,target.imageURL);
+    super.paddleMove(paddle);
+    this.paddleBallCollision();
 
-        ball.velocity.y *= ball.restitution;
-        ball.velocity.x *= -ball.restitution;
-        ball.position.y = paddle.position.y - ball.radius;
 
-        /**
-         *  Check if paddle moved recently and apply restitution coefficient
-         *  Tolerate 10 millis
-         */
 
-        if(new Date().getTime() -  paddle.paddleLastMovedMillis < 10 ){
+    let hitTheTarget = this.collisionDetection();
+    let hitTheWall = super.wallCollision(ball);
 
-          ball.velocity.y *= paddle.paddleRestitution;
-          ball.velocity.x *= -paddle.paddleRestitution;
+
+    if(hitTheTarget || hitTheWall || super.gameOver ){
+        // Remove ball and show in the starting point,
+        //User should set the paddle to initial position , call stop after that
+        super.moveBallToStart(ball);
+        super.paddleAtZero(paddle,hitTheTarget);
+        if(hitTheTarget){
+
+            this.drawImage(target,target.imageTargetReachedURL);
         }
 
-      }
+    }else{
+
+        super.ballTrajectory(ball);
     }
 
-
-
-    super.wallCollision(ball);
-
-
-    /**
-     * Missed target
-     */
-    if(ball.position.x > target.position.x+ 40 && (ball.position.y < (target.position.y + target.dimensions.height)/1.6)){
-
-      super.finishGame();
-
-    }
-
-
-
-    /**
-     * Target is reached here
-     */
-    if((ball.position.y < target.position.y + target.dimensions.height) &&  (ball.position.y > (target.position.y + target.dimensions.height)/1.6) && ball.position.x > target.position.x + 40 ){
-
-
-      super.increaseScore();
-      super.finishGame();
-
-    }
-
-
-
-
-
-    /**
-     * Handle paddle direction on key pressed
-     */
-
-    super.paddleMove(paddle);
-    super.ballTrajectory(ball);
 
   }
 
+  /**
+   * Handle paddle collision here
+   * Adjust velocity to the ball by restitution factor
+   */
+  paddleBallCollision() {
+    if (ball.position.y >= (paddle.position.y - paddle.dimensions.height) && ball.position.y < (paddle.position.y + paddle.dimensions.height)) {
+      if ((ball.position.x  > paddle.position.x - paddle.dimensions.width && ball.position.x < paddle.position.x + paddle.dimensions.width)) {
 
+        ball.velocity.y *= ball.restitution*1.12;
+        ball.velocity.x *= -ball.restitution;
+        ball.position.y = paddle.position.y - ball.radius;
+
+
+      }
+    }
+  }
+
+  collisionDetection() {
+    if ((ball.position.y < target.position.y + target.dimensions.height) && (ball.position.y > target.position.y + target.dimensions.height/1.4) && ball.position.x > target.position.x + 40 && ball.position.x <  target.position.x + 80) {
+      return true;
+    }
+
+    return false;
+  }
 
 
   /**
@@ -169,13 +159,16 @@ export default class FeedCroc extends Base{
 
     };
 
+
+    let trajectory = trajectories[Math.floor(Math.random()*trajectories.length)];
+
     ball = {
 
       position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
-      velocity : {x: 4.6, y:-6.5},
+      velocity : {x:trajectory.velocity.x, y:trajectory.velocity.y},
       mass: this.context.ball_mass/10,
       radius: 10,
-      restitution: -1 - this.context.restitution/10,
+      restitution: -1.1,
       color:"#dadd0f"
 
     };
@@ -183,9 +176,10 @@ export default class FeedCroc extends Base{
 
     target = {
 
-      dimensions: {width: this.canvas.width/6, height: this.canvas.width/6},
+      dimensions: {width: this.canvas.width/5, height: this.canvas.width/5},
       position : {x: this.canvas.width - this.canvas.width/3.5 , y:10 },
-      imageURL : 'https://i.ibb.co/yFYTmBJ/croc.png'
+      imageURL : 'https://i.ibb.co/ct95ChC/crocodile-copy.png',
+      imageTargetReachedURL : 'https://i.ibb.co/8dcP9cN/croc-done.png'
 
     };
 
@@ -206,7 +200,6 @@ export default class FeedCroc extends Base{
       ball_position_y: ball.position.y,
       paddle_position_x: paddle.position.x,
       paddle_position_y: paddle.position.y,
-      timestamp : new Date().getTime()
 
     };
 

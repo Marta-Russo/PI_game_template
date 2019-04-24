@@ -16,7 +16,10 @@ let basket = {};
 let ball = {};
 let obstructionVals = 2;
 let obstructions = [];
-let interrupt = false;
+let gameOver = false;
+
+
+
 
 export default class catchCheese extends Base{
 
@@ -38,10 +41,20 @@ export default class catchCheese extends Base{
     }
 
 
-
+    createPaddleBox() {
+        this.ctx.beginPath();
+        this.ctx.rect(this.canvas.width/2 + paddleWidth*3,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth,basket.dimensions.width,basket.dimensions.width);
+        this.ctx.fillStyle= "#020102";
+        this.ctx.lineWidth = "8";
+        this.ctx.strokeStyle = "#1931dd";
+        this.ctx.stroke();
+    }
 
 
     initGame() {
+
+
+        super.gameOver = false;
         super.initGame();
 
 
@@ -49,7 +62,7 @@ export default class catchCheese extends Base{
 
         basket = {
             dimensions: {width: paddleWidth,height: paddleWidth},
-            position: {x: this.canvas.width/2 + paddleWidth*2,y: (this.canvas.height/2+paddleHeight) },
+            position: {x: this.canvas.width/2 + paddleWidth*3,y: (this.canvas.height/2+paddleHeight*2) },
             velocity: this.context.paddle_speed,
             imageURL: 'https://i.ibb.co/4RBWcsf/netball-clipart-icon-213577-7948745.png'
         };
@@ -75,7 +88,9 @@ export default class catchCheese extends Base{
 
         );
 
-        super.mouseY = basket.position.y;
+
+
+
 
     }
 
@@ -87,19 +102,24 @@ export default class catchCheese extends Base{
     collisionDetection(){
 
 
-        super.wallCollision(ball);
 
-        if(ball.position.y > basket.position.y && ball.position.y + ball.radius < basket.position.y + basket.dimensions.height ){
+        if(ball.position.y > basket.position.y && ball.position.y - ball.radius < basket.position.y + basket.dimensions.height ){
 
-            if(ball.position.x > basket.position.x && ball.position.x- ball.radius <ball.position.x + basket.dimensions.width){
-                super.increaseScore();
-                super.finishGame();
+            if(ball.position.x > basket.position.x && ball.position.x + ball.radius <ball.position.x + basket.dimensions.width){
+
+                return true;
             }
 
         }
 
+        return  false;
 
     }
+
+
+
+
+
 
     /**
      * TODO: randomize appearing objects number and trajectory a bit
@@ -107,21 +127,29 @@ export default class catchCheese extends Base{
     loop() {
         super.loop();
 
-        if(interrupt == false){
-            interrupt =  super.drawCircle();
-        }
+        super.createBallBox(paddleWidth);
 
-        if(interrupt) {
-            this.collisionDetection();
+        let hitTheTarget = this.collisionDetection();
+        let hitTheWall = super.wallCollision(ball);
 
-            super.createBallBox(paddleWidth);
+
+        if(hitTheTarget || hitTheWall || super.gameOver ){
+
+                // Remove ball and show in the starting point,
+                //User should set the paddle to initial position , call stop after that
+                super.moveBallToStart(ball);
+                super.paddleAtZero(basket,hitTheTarget);
+
+        }else{
+
             super.ballTrajectory(ball);
-            super.drawImage(basket);
-
-            obstructions.forEach(obstruction => super.drawImage(obstruction));
-            super.paddleMove(basket);
-
         }
+
+        this.createPaddleBox();
+        super.paddleMove(basket);
+        super.drawImage(basket);
+        obstructions.forEach(obstruction => super.drawImage(obstruction));
+
 
     }
 
