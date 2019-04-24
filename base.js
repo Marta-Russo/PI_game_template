@@ -15,9 +15,10 @@ let dataLoop ={};
 let gameLoop = {};
 let upPressed = false;
 let downPressed = false;
-let roundDelay = 2000;
-let radius = 0;
 let mouseY = 0;
+let gameOver = false;
+let paddleWidth = 0;
+let paddleHeight = 0;
 
 
 export default  class Base {
@@ -36,6 +37,9 @@ export default  class Base {
         this.currentRounds=0;
         this.currentScore = 0;
         this.canvas.style.cursor = 'none';
+        paddleWidth = this.canvas.width/20;
+        paddleHeight = this.canvas.width/15;
+
         document.addEventListener("keydown", this.keyDownHandler, false);
         document.addEventListener("keyup", this.keyUpHandler, false);
         document.addEventListener("mousemove", this.onMouseMove);
@@ -92,6 +96,8 @@ export default  class Base {
 
 
 
+
+
     increaseScore(){
         this.currentScore++;
     }
@@ -116,24 +122,11 @@ export default  class Base {
         this.drawScore();
     }
 
-    drawCircle() {
-
-       while(radius < 4) {
-
-           radius += 0.2;
-           this.waitSeconds(100);
-       }
-
-       radius = 0;
-       return true;
-    }
-
 
 
     createBallBox(paddleWidth) {
 
         this.ctx.beginPath();
-        this.ctx.fillStyle= "#1931dd";
         this.ctx.lineWidth = "8";
         this.ctx.strokeStyle = "#1931dd";
 
@@ -143,8 +136,9 @@ export default  class Base {
         this.ctx.lineTo(paddleWidth*5+paddleWidth, this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*0.8);
         this.ctx.moveTo(paddleWidth*5  ,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*1.5 + 4);
         this.ctx.lineTo(paddleWidth*5 + paddleWidth/3,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*1.5 + 4);
-        this.ctx.closePath();
         this.ctx.stroke();
+        this.ctx.closePath();
+
     }
 
 
@@ -159,12 +153,31 @@ export default  class Base {
         return mouseY;
     }
 
+
+    set gameOver(val){
+
+        gameOver = val;
+    }
+
+    get gameOver(){
+
+        return gameOver;
+    }
+
    
     drawImage(object){
         let image = new Image();
         image.src = object.imageURL;
         this.ctx.drawImage(image,object.position.x,object.position.y,object.dimensions.width,object.dimensions.height);
 
+    }
+
+    drawImage(object,URL){
+        this.ctx.fillStyle = "#020102";
+        this.ctx.fillRect(object.position.x,object.position.y,object.dimensions.width,object.dimensions.height);
+        let image = new Image();
+        image.src = URL;
+        this.ctx.drawImage(image,object.position.x,object.position.y,object.dimensions.width,object.dimensions.height);
     }
 
     /**
@@ -176,6 +189,7 @@ export default  class Base {
        // this.context.get('export_arr').addObject(exportData);
        // this.context.export_arr.push(exportData);
     }
+
 
 
 
@@ -203,14 +217,14 @@ export default  class Base {
     /**
      * Finish current round and check for rounds left
      */
-    finishGame(){
+    finishGame(score){
+
 
         this.currentRounds++;
         clearInterval(dataLoop);
         clearInterval(gameLoop);
-
-
-
+        if(score) { this.increaseScore()}
+        this.gameOver = false;
         if (this.currentRounds < this.context.game_rounds) {
             this.initGame();
 
@@ -244,6 +258,7 @@ export default  class Base {
         ball.position.x += ball.velocity.x * Utils.frameRate * 100;
         ball.position.y += ball.velocity.y * Utils.frameRate * 100;
 
+
         this.ctx.translate(ball.position.x, ball.position.y);
         this.ctx.beginPath();
         this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
@@ -251,6 +266,33 @@ export default  class Base {
         this.ctx.fill();
         this.ctx.closePath();
         this.ctx.restore();
+
+
+    }
+
+    moveBallToStart(ball){
+
+        this.ctx.translate(paddleWidth*5 + 20, this.canvas.height-paddleWidth*2);
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
+        this.ctx.fillStyle = ball.color;
+        this.ctx.fill();
+        this.ctx.closePath();
+        this.ctx.restore();
+
+        this.gameOver = true;
+
+    }
+
+
+    paddleAtZero(paddle,score){
+
+        if(paddle.position.y >= this.canvas.height/2.5 + this.canvas.height/2 - 1.5*paddleWidth){
+
+            this.finishGame(score);
+        }
+
+
     }
 
 
@@ -286,8 +328,11 @@ export default  class Base {
         if(ball.position.y > this.canvas.height + ball.radius || ball.position.x > this.canvas.width + ball.radius || ball.position.x < ball.radius){
 
 
-            this.finishGame();
+            return true;
+
         }
+
+        return false;
 
     }
 
