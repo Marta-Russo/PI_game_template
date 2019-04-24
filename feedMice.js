@@ -51,6 +51,13 @@ export default class feedMice extends Base{
     }
 
 
+    drawImage(object){
+        let image = new Image();
+        image.src = object.imageURL;
+        this.ctx.drawImage(image,object.position.x,object.position.y,object.dimensions.width,object.dimensions.height);
+
+    }
+
 
 
     createHouse(){
@@ -87,7 +94,7 @@ export default class feedMice extends Base{
 
         // Add mouse to window
 
-        super.drawImage(target)
+        this.drawImage(target)
 
     }
 
@@ -179,6 +186,11 @@ export default class feedMice extends Base{
         return 0;
     }
 
+
+    /**
+     * Set appropriate index value in pressed array, according to index of the key pressed
+     * @param e {object} event
+     */
     keyDownHandler(e) {
 
 
@@ -193,27 +205,27 @@ export default class feedMice extends Base{
     loop() {
         super.loop();
 
-        if(interrupt == false){
+
+        super.createBallBox(paddleWidth);
+
+        let collisionArray = Array(3).fill(0).map((_, index) => this.collisionDetection(index));
+        let didHitWindow = collisionArray.some(item => item >0);
+        let didHitCorrectWindow = collisionArray.some(item => item === 2);
+
+
+        if(super.gameOver){
             super.waitSeconds(2000);
-            interrupt = true;
+            super.finishGame(false);
 
-        }
+        }else{
 
-        if(interrupt) {
-
-            let collisionArray = Array(3).fill(0).map((_, index) => this.collisionDetection(index));
-            let didHitWindow = collisionArray.some(item => item >0);
-            let didHitCorrectWindow = collisionArray.some(item => item === 2);
-            super.wallCollision(ball);
             if (!didHitWindow) {
                 super.ballTrajectory(ball);
             }
-            super.createBallBox(paddleWidth);
             this.createHouse();
             targets.forEach(target => this.createWindow(target));
-
             if (didHitWindow) {
-                super.ballTrajectory(ball);
+
                 let index = pressed.findIndex(item => item !=false)
                 let target = targets[index];
                 if(target){
@@ -221,16 +233,13 @@ export default class feedMice extends Base{
                     this.createWindow(target);
                 }
 
-
-                if(didHitCorrectWindow) {
-
-                    super.increaseScore();
-
-                }
-
+                super.ballTrajectory(ball);
+                super.moveBallToStart(ball,didHitCorrectWindow);
                 super.waitSeconds(600);
-                super.finishGame();
+
             }
+
+
         }
 
     }
