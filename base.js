@@ -165,12 +165,6 @@ export default  class Base {
     }
 
    
-    drawImage(object){
-        let image = new Image();
-        image.src = object.imageURL;
-        this.ctx.drawImage(image,object.position.x,object.position.y,object.dimensions.width,object.dimensions.height);
-
-    }
 
     drawImage(object,URL){
         this.ctx.fillStyle = "#020102";
@@ -272,9 +266,9 @@ export default  class Base {
 
     moveBallToStart(ball){
 
-        this.ctx.translate(paddleWidth*5 + 20, this.canvas.height-paddleWidth*2);
+
         this.ctx.beginPath();
-        this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
+        this.ctx.arc(paddleWidth*5 + 20, this.canvas.height-paddleWidth*2, ball.radius, 0, Math.PI * 2, true);
         this.ctx.fillStyle = ball.color;
         this.ctx.fill();
         this.ctx.closePath();
