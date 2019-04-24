@@ -15,6 +15,7 @@ let paddleHeight = 0;
 let target = {};
 let ball = {};
 let keyPressed = false;
+let interrupt = false;
 
 export default class feedMouse extends Base{
 
@@ -115,6 +116,7 @@ export default class feedMouse extends Base{
 
         };
 
+        interrupt = false;
     }
 
     dataCollection() {
@@ -126,17 +128,14 @@ export default class feedMouse extends Base{
     collisionDetection(){
 
         // Window collision detection
-        if(ball.position.x > target.position.x && ball.position.x - ball.radius < target.position.x + target.dimensions.width){
+        if(ball.position.x > target.position.x && ball.position.x + ball.radius < target.position.x + target.dimensions.width/2){
 
-            if(ball.position.y > target.position.y && ball.position.y + ball.radius < target.position.y + target.dimensions.height ){
+            if(ball.position.y  - ball.radius > target.position.y  && ball.position.y + ball.radius < target.position.y + target.dimensions.height/2 ){
 
 
-                if(keyPressed){
+                ball.position.x = target.position.x + target.dimensions.width/2 - ball.radius/2;
+                ball.position.y = target.position.y + target.dimensions.height/2 - ball.radius/2;
 
-                    super.increaseScore();
-                    super.finishGame();
-
-                }
 
                 return true;
 
@@ -170,16 +169,34 @@ export default class feedMouse extends Base{
 
     loop() {
         super.loop();
+
         let didHitWindow = this.collisionDetection();
-        super.wallCollision(ball);
-        if(!didHitWindow) {
-            super.ballTrajectory(ball);
-        }
-        super.createBallBox(paddleWidth);
-        this.createHouse();
-        this.createWindow();
-        if(didHitWindow){
-            super.ballTrajectory(ball);
+
+
+        if(super.gameOver){
+            super.waitSeconds(2000);
+            super.finishGame(false);
+
+        }else{
+
+            super.wallCollision(ball);
+            if (!didHitWindow) {
+                super.ballTrajectory(ball);
+            }
+            super.createBallBox(paddleWidth);
+            this.createHouse();
+            this.createWindow();
+            if (didHitWindow) {
+
+                if (keyPressed) {
+                    target.windowbackground = "#dde5d7";
+                    this.createWindow(target);
+
+                }
+                super.ballTrajectory(ball);
+                super.moveBallToStart(ball,keyPressed);
+
+            }
         }
 
     }
