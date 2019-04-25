@@ -16,8 +16,18 @@ let basket = {};
 let ball = {};
 let obstructionVals = 2;
 let obstructions = [];
-let gameOver = false;
+let audio = {};
+let goodJob = {};
+let initSoundPlaying = true;
+let ballCatchFail = {};
+let targetStars = {};
+let trajectories = [
 
+    {velocity : {x: 5.8, y:-6.6}},
+    {velocity : {x: 4.8, y:-7.6}},
+    {velocity : {x: 5.0, y:-7.0}},
+    {velocity : {x: 5.2, y:-6.8}}
+];
 
 
 
@@ -37,7 +47,27 @@ export default class catchCheese extends Base{
 
     init() {
         super.init();
-        this.initGame();
+
+
+        basket = {
+            dimensions: {width: paddleWidth,height: paddleWidth},
+            position: {x: this.canvas.width/2 + paddleWidth*3,y: (this.canvas.height/2+paddleHeight*2) },
+            velocity: this.context.paddle_speed,
+            imageURL: 'Resource/images/netball.png'
+        };
+
+
+
+        goodJob  = new Audio("Resource/sounds/goodcatch.mp3");
+        goodJob.load();
+        ballCatchFail = new Audio("Resource/sounds/BallCatchFail.mp3");
+        ballCatchFail.load();
+        audio  = new Audio("Resource/sounds/rattling_sound.mp3");
+        audio.load();
+        audio.addEventListener('onloadeddata', this.initGame(),false);
+
+
+
     }
 
 
@@ -59,14 +89,6 @@ export default class catchCheese extends Base{
 
 
 
-
-        basket = {
-            dimensions: {width: paddleWidth,height: paddleWidth},
-            position: {x: this.canvas.width/2 + paddleWidth*3,y: (this.canvas.height/2+paddleHeight*2) },
-            velocity: this.context.paddle_speed,
-            imageURL: 'https://i.ibb.co/4RBWcsf/netball-clipart-icon-213577-7948745.png'
-        };
-
         ball = {
 
             position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
@@ -79,16 +101,29 @@ export default class catchCheese extends Base{
         };
 
 
-        obstructions =  Array(obstructionVals).fill({}).map((value,index) =>
 
-            ({  dimensions: {width:paddleWidth*3, height: this.canvas.height / 1.5 },
-            position: {x: this.canvas.width/2 -(index+1)*paddleWidth/1.5,y: this.canvas.height/2.5  - paddleWidth*1.5 },
-            imageURL: 'https://i.ibb.co/tMS8VhL/Fir-Tree-PNG-Transparent-Image.png'
-             })
+
+
+
+        obstructions =  Array(Math.floor(Math.random()*3)).fill({}).map((value,index) =>
+
+            ({  dimensions: {width:paddleWidth*3.5, height: this.canvas.height / 1.5 },
+                position: {x: this.canvas.width/2 -(index+1)*paddleWidth,y: this.canvas.height/2.5  - paddleWidth*1.5 },
+                imageURL: 'https://i.ibb.co/tMS8VhL/Fir-Tree-PNG-Transparent-Image.png'
+            })
 
         );
 
 
+        initSoundPlaying = true;
+        ballCatchFail.src = "Resource/sounds/BallCatchFail.mp3";
+        goodJob.src = "Resource/sounds/goodcatch.mp3";
+        audio.src = "Resource/sounds/rattling_sound.mp3";
+        audio.play();
+        audio.addEventListener("ended", function () {
+
+            initSoundPlaying = false;
+        });
 
 
 
@@ -117,7 +152,17 @@ export default class catchCheese extends Base{
     }
 
 
+    starsLocationUpdate(){
 
+        targetStars = {
+
+            position : {x: basket.position.x + paddleWidth , y: basket.position.y - paddleHeight/2},
+            dimensions : {width: paddleWidth/1.5, height: paddleWidth/1.5},
+            imageURL : 'Resource/images/Stars.png'
+
+        };
+
+    }
 
 
 
@@ -135,26 +180,61 @@ export default class catchCheese extends Base{
 
         if(hitTheTarget || hitTheWall || super.gameOver ){
 
+                if(hitTheTarget) {
+
+                    if(!super.gameOver && goodJob.readyState === 4) {
+
+                        goodJob.play();
+                    }
+
+                }else{
+                    if(!super.gameOver) {
+
+                        ballCatchFail.play();
+                    }
+
+                }
                 // Remove ball and show in the starting point,
                 //User should set the paddle to initial position , call stop after that
-                super.moveBallToStart(ball);
+                super.moveBallToStart(ball,true);
                 super.paddleAtZero(basket,hitTheTarget);
+                if(hitTheTarget) {
+                    this.starsLocationUpdate();
+                    this.drawImage(targetStars);
+                }
 
         }else{
 
-            super.ballTrajectory(ball);
+            if(initSoundPlaying) {
+
+                super.moveBallToStart(ball,false);
+
+            }else{
+
+                super.ballTrajectory(ball);
+
+            }
         }
 
         this.createPaddleBox();
         super.paddleMove(basket);
-        super.drawImage(basket);
-        obstructions.forEach(obstruction => super.drawImage(obstruction));
+        this.drawImage(basket);
+
+
+
+
+        obstructions.forEach(obstruction => this.drawImage(obstruction));
 
 
     }
 
 
 
+    drawImage(object){
+        let image = new Image();
+        image.src = object.imageURL;
+        this.ctx.drawImage(image,object.position.x,object.position.y,object.dimensions.width,object.dimensions.height);
+    }
 
 
 
