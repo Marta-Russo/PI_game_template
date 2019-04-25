@@ -11,7 +11,10 @@ let basket = {};
 let paddleWidth = 0;
 let paddleHeight = 0;
 
-
+let initSoundPlaying = false;
+let audio = {};
+let ballCatchFail = {};
+let goodJob = {};
 
 export  default  class catchMouse extends Base{
 
@@ -29,6 +32,17 @@ export  default  class catchMouse extends Base{
    */
   init(){
       super.init();
+
+      audio  = new Audio("Resource/sounds/rattling_sound.mp3");
+      audio.load();
+      audio.addEventListener('onloadeddata', this.initGame(),false);
+
+      goodJob  = new Audio("Resource/sounds/goodcatch.mp3");
+      goodJob.load();
+
+      ballCatchFail = new Audio("Resource/sounds/BallCatchFail.mp3");
+      ballCatchFail.load();
+
       this.initGame();
   }
 
@@ -53,12 +67,12 @@ export  default  class catchMouse extends Base{
 
   initGame(){
 
-        super.initGame();
+
         basket = {
             dimensions: {width: paddleWidth*1.5     ,height: paddleWidth*1.5},
             position: {x: 15 + this.canvas.width/2 - paddleWidth,y: this.canvas.height/2.5 + this.canvas.height/2 - 1.5*paddleWidth },
             velocity: this.context.paddle_speed,
-            imageURL: 'https://i.ibb.co/4RBWcsf/netball-clipart-icon-213577-7948745.png'
+            imageURL: 'Resource/images/netball.png'
         };
         
         mice = {
@@ -67,7 +81,7 @@ export  default  class catchMouse extends Base{
             radius: 20,
             delay:2000,
             lastTime: new Date().getTime(),
-            imageURL: 'https://i.ibb.co/xhChFFL/Screen-Shot-2019-04-05-at-5-10-09-PM.png'
+            imageURL: 'Resource/images/mice.png'
         }; 
 
         cheeseClock = {
@@ -75,11 +89,23 @@ export  default  class catchMouse extends Base{
             position: {x: this.canvas.width/2 + paddleWidth,y: mice.position.y},
             angle:0,
             velocity: 1.4,
-            imageURL: 'https://i.ibb.co/X7gVgQC/Slide1.jpg'
+            imageURL: 'Resource/images/Slide1.jpg'
         };
 
 
 
+      initSoundPlaying = true;
+      goodJob.src = "Resource/sounds/goodcatch.mp3";
+      ballCatchFail.src = "Resource/sounds/BallCatchFail.mp3";
+      audio.src = "Resource/sounds/rattling_sound.mp3";
+      audio.play();
+      audio.addEventListener("ended", function () {
+
+          initSoundPlaying = false;
+      });
+
+
+      super.initGame();
   }
 
   dataCollection(){
@@ -110,7 +136,9 @@ export  default  class catchMouse extends Base{
 
         //Collision detection basket with mice
         if(mice.position.y > basket.position.y - mice.dimensions.height/3  && mice.position.y < basket.position.y + basket.dimensions.height ){
+            goodJob.play();
             super.gameOver = true ;
+
         }else{
 
             // fill the cheeseClock
@@ -120,10 +148,10 @@ export  default  class catchMouse extends Base{
 
         // Ran out of time
         if(cheeseClock.angle >= 2){
-
+            ballCatchFail.play();
             super.gameOver = true;
             cheeseClock.angle = 0.1;
-            cheeseClock.imageURL = "https://i.ibb.co/mCdrgTT/cheese-missed.jpg";
+            cheeseClock.imageURL = "Resource/images/cheese-missed.jpg";
         }
 
 
@@ -156,9 +184,7 @@ export  default  class catchMouse extends Base{
     loop(){
         super.loop();
         this.createPaddleBox();
-
-        this.drawImage(cheeseClock)
-
+        this.drawImage(cheeseClock);
 
         if(super.gameOver){
 
@@ -167,12 +193,11 @@ export  default  class catchMouse extends Base{
         }else{
 
             // Start the clock and check if we ran out of time
-            if(new Date().getTime() -  mice.lastTime > mice.delay ){
+            if(!initSoundPlaying &&  new Date().getTime() -  mice.lastTime > mice.delay ){
 
                 this.startClock();
 
             }
-
         }
         this.showCheese();
         this.drawImage(basket)
