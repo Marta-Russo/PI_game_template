@@ -23,10 +23,10 @@ let ballCatchFail = {};
 let targetStars = {};
 let trajectories = [
 
-    {velocity : {x: 5.8, y:-6.6}},
-    {velocity : {x: 4.8, y:-7.6}},
-    {velocity : {x: 5.0, y:-7.0}},
-    {velocity : {x: 5.2, y:-6.8}}
+    {velocity : {x: 5.8, y:-7.4}},
+    {velocity : {x: 4.8, y:-8.2}},
+    {velocity : {x: 5.0, y:-7.8}},
+    {velocity : {x: 5.2, y:-7.6}}
 ];
 
 
@@ -87,22 +87,18 @@ export default class catchCheese extends Base{
         super.gameOver = false;
         super.initGame();
 
-
+        let trajectory = trajectories[Math.floor(Math.random()*trajectories.length)];
 
         ball = {
 
             position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
-            velocity : {x: 5.8, y:-6.6},
+            velocity : {x:trajectory.velocity.x, y:trajectory.velocity.y},
             mass: this.context.ball_mass/10,
             radius: 10,
             restitution: -1 - this.context.restitution/10,
             color:"#dadd0f"
 
         };
-
-
-
-
 
 
         obstructions =  Array(Math.floor(Math.random()*3)).fill({}).map((value,index) =>
