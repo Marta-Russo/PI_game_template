@@ -139,10 +139,6 @@ export default class FeedCroc extends Base{
     this.paddleBallCollision();
 
 
-
-
-
-
     let hitTheTarget = this.collisionDetection();
     let hitTheWall = super.wallCollision(ball);
 
@@ -154,14 +150,14 @@ export default class FeedCroc extends Base{
 
         if(hitTheTarget){
           if(!super.gameOver && goodJob.readyState === 4) {
-            goodJob.src = "Resource/sounds/croc_slurp.mp3";
+
             goodJob.play();
           }
           this.drawImage(target,target.imageTargetReachedURL);
 
         }else{
           if(!super.gameOver) {
-             ballCatchFail.src = "Resource/sounds/BallCatchFail.mp3";
+
              ballCatchFail.play();
           }
         }
@@ -195,16 +191,17 @@ export default class FeedCroc extends Base{
   paddleBallCollision() {
     if (ball.position.y >= (paddle.position.y - paddle.dimensions.height) && ball.position.y < (paddle.position.y + paddle.dimensions.height)) {
       if ((ball.position.x  > paddle.position.x - paddle.dimensions.width && ball.position.x < paddle.position.x + paddle.dimensions.width)) {
+        if(new Date().getTime() -  paddle.paddleLastMovedMillis > 150 ) {
+          if (bounceSound.readyState === 4) {
 
-        if(bounceSound.readyState === 4){
-            bounceSound.src = 'Resource/sounds/BallBouncing.mp3';
             bounceSound.play();
+          }
+
+          ball.velocity.y *= ball.restitution * 1.12;
+          ball.velocity.x *= -ball.restitution;
+          ball.position.y = paddle.position.y - ball.radius;
+          paddle.paddleLastMovedMillis = new Date().getTime();
         }
-
-        ball.velocity.y *= ball.restitution*1.12;
-        ball.velocity.x *= -ball.restitution;
-        ball.position.y = paddle.position.y - ball.radius;
-
       }
     }
   }
@@ -237,7 +234,7 @@ export default class FeedCroc extends Base{
       velocity : {x:trajectory.velocity.x, y:trajectory.velocity.y},
       mass: this.context.ball_mass/10,
       radius: 10,
-      restitution: -1.1,
+      restitution: -1.5,
       color:"#dadd0f"
 
     };
@@ -245,7 +242,9 @@ export default class FeedCroc extends Base{
 
 
     initSoundPlaying = true;
-
+    goodJob.src = "Resource/sounds/croc_slurp.mp3";
+    ballCatchFail.src = "Resource/sounds/BallCatchFail.mp3";
+    bounceSound.src = 'Resource/sounds/BallBouncing.mp3';
     audio.src = "Resource/sounds/rattling_sound.mp3";
     audio.play();
     audio.addEventListener("ended", function () {
