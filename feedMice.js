@@ -20,8 +20,11 @@ let pressed = {};
 let roofcolor= "#ff2d23";
 let housecolor = "#8f909c";
 let keys = ['o','k','m'];
-let interrupt = false;
 let imageURLS = ['https://i.ibb.co/GPRndqc/mouse.png','https://i.ibb.co/3pRr7VW/mouse-green.png','https://i.ibb.co/sy0NrjX/mouse-red.png'];
+let audio = {};
+let ballCatchFail = {};
+let goodJob = {};
+let initSoundPlaying = false;
 
 export default class feedMice extends Base{
 
@@ -40,7 +43,7 @@ export default class feedMice extends Base{
 
         this.trajectories= [
 
-            {velocity:{x:6.8  ,y:6.0 }},
+            {velocity:{x:5.8  ,y:7.0 }},
             {velocity:{x:6.5  ,y:6.8 }},
             {velocity:{x:7.5  ,y:4.8 }}
 
@@ -101,7 +104,18 @@ export default class feedMice extends Base{
 
     init() {
         super.init();
-        this.initGame();
+
+        goodJob  = new Audio("Resource/sounds/good_3mouse.mp3");
+        goodJob.load();
+
+        ballCatchFail = new Audio("Resource/sounds/bad_3mouse.mp3");
+        ballCatchFail.load();
+
+        audio  = new Audio("Resource/sounds/rattling_sound.mp3");
+        audio.load();
+        audio.addEventListener('onloadeddata', this.initGame(),false);
+
+
     }
 
     initGame() {
@@ -148,7 +162,21 @@ export default class feedMice extends Base{
 
         );
 
-        interrupt = false;
+
+
+        initSoundPlaying = true;
+        goodJob.src = "Resource/sounds/good_3mouse.mp3";
+        ballCatchFail.src = "Resource/sounds/bad_3mouse.mp3";
+        audio.src = "Resource/sounds/rattling_sound.mp3";
+        audio.play();
+        audio.addEventListener("ended", function () {
+
+            initSoundPlaying = false;
+        });
+
+
+        super.initGame();
+
 
     }
 
@@ -214,13 +242,18 @@ export default class feedMice extends Base{
 
 
         if(super.gameOver){
-            super.waitSeconds(2000);
+            super.waitSeconds(1500);
             super.finishGame(false);
 
         }else{
 
             if (!didHitWindow) {
-                super.ballTrajectory(ball);
+                if(!initSoundPlaying) {
+                    super.ballTrajectory(ball);
+                }else{
+
+                    super.moveBallToStart(ball,false);
+                }
             }
             this.createHouse();
             targets.forEach(target => this.createWindow(target));
@@ -231,10 +264,20 @@ export default class feedMice extends Base{
                 if(target){
                     target.windowbackground = "#dde5d7";
                     this.createWindow(target);
+
                 }
 
+                if(didHitCorrectWindow) {
+                    goodJob.play();
+
+                }else{
+                    ballCatchFail.play();
+
+                }
+
+
                 super.ballTrajectory(ball);
-                super.moveBallToStart(ball,didHitCorrectWindow);
+                super.moveBallToStart(ball,true);
                 super.waitSeconds(600);
 
             }
