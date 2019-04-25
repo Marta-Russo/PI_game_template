@@ -11,6 +11,8 @@
 import Utils from "./utils.js";
 
 
+
+
 let dataLoop ={};
 let gameLoop = {};
 let upPressed = false;
@@ -19,6 +21,13 @@ let mouseY = 0;
 let gameOver = false;
 let paddleWidth = 0;
 let paddleHeight = 0;
+
+let sounds = {
+
+    rattle : "https://srv-file1.gofile.io/download/Bg34nR/96854b4849d7d40d6eff74a8d1d762de/rattling-sound.wav"
+
+};
+
 
 
 export default  class Base {
@@ -48,11 +57,23 @@ export default  class Base {
 
 
 
+    preloadRes(){
+
+
+
+    }
+
+
     init(){
         this.currentScore=0;
         this.currentRounds = 0 ;
-        clearInterval(dataLoop);
-        clearInterval(gameLoop);
+
+
+
+
+            clearInterval(dataLoop);
+            clearInterval(gameLoop);
+
     }
 
     /**
@@ -186,6 +207,55 @@ export default  class Base {
 
 
 
+    ImageLoader(sources, callback)
+    {
+        let images = {};
+        let loadedImages = 0;
+        let numImages = 0;
+
+        // get num of sources
+        for (let src in sources) {
+            numImages++;
+        }
+
+        for (let src in sources) {
+            images[src] = new Image();
+            images[src].onload = function() {
+
+                if (++loadedImages >= numImages) {
+                    callback(images);
+                }
+            };
+            images[src].src = sources[src];
+        }
+    }
+
+
+    SoundLoader(sources, callback)
+    {
+        let images = {};
+        let loadedImages = 0;
+        let numImages = 0;
+
+        // get num of sources
+        for (let src in sources) {
+            numImages++;
+        }
+
+        for (let src in sources) {
+            images[src] = new Audio();
+            images[src].oncanplaythrough = function() {
+
+                if (++loadedImages >= numImages) {
+                    callback(images);
+                }
+            };
+            images[src].src = sources[src];
+        }
+    }
+
+
+
 
     initGame(){
 
@@ -264,7 +334,7 @@ export default  class Base {
 
     }
 
-    moveBallToStart(ball){
+    moveBallToStart(ball,gameOver){
 
 
         this.ctx.beginPath();
@@ -273,9 +343,9 @@ export default  class Base {
         this.ctx.fill();
         this.ctx.closePath();
         this.ctx.restore();
-
-        this.gameOver = true;
-
+        if(gameOver) {
+            this.gameOver = true;
+        }
     }
 
 

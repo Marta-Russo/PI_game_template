@@ -15,6 +15,12 @@ let paddleHeight = 10;
 let paddle = {};
 let ball = {};
 let target = {};
+let audio = {};
+let bounceSound  = {};
+let ballCatchFail = {};
+let goodJob = {};
+
+let initSoundPlaying = true;
 
 let trajectories = [
 
@@ -25,6 +31,7 @@ let trajectories = [
 
 
 ];
+
 
 
 /**
@@ -52,7 +59,46 @@ export default class FeedCroc extends Base{
    */
   init(){
     super.init();
-    this.initGame();
+
+
+    paddle = {
+
+      dimensions: {width: paddleWidth*1.5, height: paddleHeight/5},
+      position: {x: paddleWidth*10, y : this.canvas.height/2.5 + this.canvas.height/2  - paddleHeight },
+      paddleRestitution: -1 - this.context.paddle_restitution/10,
+      paddleLastMovedMillis: 100,
+      velocity:this.context.paddle_speed
+
+    };
+
+    target = {
+
+      dimensions: {width: this.canvas.width/5, height: this.canvas.width/5},
+      position : {x: this.canvas.width - this.canvas.width/3.5 , y:10 },
+      imageURL : 'https://i.ibb.co/ct95ChC/crocodile-copy.png',
+      imageTargetReachedURL : 'https://i.ibb.co/8dcP9cN/croc-done.png',
+      soundURL : 'https://vocaroo.com/i/s0QnBg8CWq2y'
+
+    };
+
+
+    bounceSound  = new Audio("Resource/sounds/BallBouncing.mp3");
+    bounceSound.load();
+
+    goodJob  = new Audio("Resource/sounds/croc_slurp.mp3");
+    goodJob.load();
+
+    ballCatchFail = new Audio("Resource/sounds/BallCatchFail.mp3");
+    ballCatchFail.load();
+
+    audio  = new Audio("Resource/sounds/rattling_sound.mp3");
+    audio.load();
+    audio.addEventListener('onloadeddata', this.initGame(),false);
+
+
+
+
+
   }
 
 
@@ -60,7 +106,7 @@ export default class FeedCroc extends Base{
 
   drawPaddle () {
     this.ctx.beginPath();
-    this.ctx.rect(paddle.position.x, paddle.position.y, paddle.dimensions.width, paddle.dimensions.height);
+    this.ctx.rect(paddle.position.x + 5, paddle.position.y, paddle.dimensions.width-10, paddle.dimensions.height);
     this.ctx.fillStyle = "#ffffff";
     this.ctx.fill();
     this.ctx.closePath();
@@ -94,6 +140,9 @@ export default class FeedCroc extends Base{
 
 
 
+
+
+
     let hitTheTarget = this.collisionDetection();
     let hitTheWall = super.wallCollision(ball);
 
@@ -101,16 +150,39 @@ export default class FeedCroc extends Base{
     if(hitTheTarget || hitTheWall || super.gameOver ){
         // Remove ball and show in the starting point,
         //User should set the paddle to initial position , call stop after that
-        super.moveBallToStart(ball);
-        super.paddleAtZero(paddle,hitTheTarget);
-        if(hitTheTarget){
 
-            this.drawImage(target,target.imageTargetReachedURL);
+
+        if(hitTheTarget){
+          if(!super.gameOver && goodJob.readyState === 4) {
+            goodJob.src = "Resource/sounds/croc_slurp.mp3";
+            goodJob.play();
+          }
+          this.drawImage(target,target.imageTargetReachedURL);
+
+        }else{
+          if(!super.gameOver) {
+             ballCatchFail.src = "Resource/sounds/BallCatchFail.mp3";
+             ballCatchFail.play();
+          }
         }
+
+        super.moveBallToStart(ball,true);
+        super.paddleAtZero(paddle,hitTheTarget);
+
+
+
 
     }else{
 
+      if(initSoundPlaying) {
+
+        super.moveBallToStart(ball,false);
+
+      }else{
+
         super.ballTrajectory(ball);
+
+      }
     }
 
 
@@ -124,17 +196,25 @@ export default class FeedCroc extends Base{
     if (ball.position.y >= (paddle.position.y - paddle.dimensions.height) && ball.position.y < (paddle.position.y + paddle.dimensions.height)) {
       if ((ball.position.x  > paddle.position.x - paddle.dimensions.width && ball.position.x < paddle.position.x + paddle.dimensions.width)) {
 
+        if(bounceSound.readyState === 4){
+            bounceSound.src = 'Resource/sounds/BallBouncing.mp3';
+            bounceSound.play();
+        }
+
         ball.velocity.y *= ball.restitution*1.12;
         ball.velocity.x *= -ball.restitution;
         ball.position.y = paddle.position.y - ball.radius;
-
 
       }
     }
   }
 
+
+
+
   collisionDetection() {
-    if ((ball.position.y < target.position.y + target.dimensions.height) && (ball.position.y > target.position.y + target.dimensions.height/1.4) && ball.position.x > target.position.x + 40 && ball.position.x <  target.position.x + 80) {
+
+    if ((ball.position.y < target.position.y + target.dimensions.height) && (ball.position.y > target.position.y + target.dimensions.height/1.6) && ball.position.x > target.position.x + 40 && ball.position.x <  target.position.x + 80) {
       return true;
     }
 
@@ -147,17 +227,6 @@ export default class FeedCroc extends Base{
    *
    */
   initGame(){
-
-    super.initGame();
-    paddle = {
-
-      dimensions: {width: paddleWidth*1.5, height: paddleHeight/5},
-      position: {x: paddleWidth*10, y : (this.canvas.height)/2 + paddleWidth*1.5 },
-      paddleRestitution: -1 - this.context.paddle_restitution/10,
-      paddleLastMovedMillis: 100,
-      velocity:this.context.paddle_speed
-
-    };
 
 
     let trajectory = trajectories[Math.floor(Math.random()*trajectories.length)];
@@ -174,17 +243,18 @@ export default class FeedCroc extends Base{
     };
 
 
-    target = {
 
-      dimensions: {width: this.canvas.width/5, height: this.canvas.width/5},
-      position : {x: this.canvas.width - this.canvas.width/3.5 , y:10 },
-      imageURL : 'https://i.ibb.co/ct95ChC/crocodile-copy.png',
-      imageTargetReachedURL : 'https://i.ibb.co/8dcP9cN/croc-done.png'
+    initSoundPlaying = true;
 
-    };
+    audio.src = "Resource/sounds/rattling_sound.mp3";
+    audio.play();
+    audio.addEventListener("ended", function () {
+
+         initSoundPlaying = false;
+    });
 
 
-
+    super.initGame();
 
   }
 
