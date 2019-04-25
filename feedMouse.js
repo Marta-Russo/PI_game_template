@@ -15,7 +15,11 @@ let paddleHeight = 0;
 let target = {};
 let ball = {};
 let keyPressed = false;
-let interrupt = false;
+
+let initSoundPlaying = false;
+let audio = {};
+let ballCatchFail = {};
+let goodJob = {};
 
 export default class feedMouse extends Base{
 
@@ -88,11 +92,22 @@ export default class feedMouse extends Base{
 
     init() {
         super.init();
-        this.initGame();
+
+        goodJob  = new Audio("Resource/sounds/doorbell.mp3");
+        goodJob.load();
+
+        ballCatchFail = new Audio("Resource/sounds/bad_3mouse.mp3");
+        ballCatchFail.load();
+
+        audio  = new Audio("Resource/sounds/rattling_sound.mp3");
+        audio.load();
+        audio.addEventListener('onloadeddata', this.initGame(),false);
+
+
     }
 
     initGame() {
-        super.initGame();
+
 
         target = {
 
@@ -116,7 +131,20 @@ export default class feedMouse extends Base{
 
         };
 
-        interrupt = false;
+
+        initSoundPlaying = true;
+        goodJob.src = "Resource/sounds/doorbell.mp3";
+        ballCatchFail.src = "Resource/sounds/bad_3mouse.mp3";
+        audio.src = "Resource/sounds/rattling_sound.mp3";
+        audio.play();
+        audio.addEventListener("ended", function () {
+
+            initSoundPlaying = false;
+        });
+
+        super.initGame();
+
+
     }
 
     dataCollection() {
@@ -181,7 +209,12 @@ export default class feedMouse extends Base{
 
             super.wallCollision(ball);
             if (!didHitWindow) {
-                super.ballTrajectory(ball);
+                if(!initSoundPlaying) {
+                    super.ballTrajectory(ball);
+                }else{
+
+                    super.moveBallToStart(ball,false);
+                }
             }
             super.createBallBox(paddleWidth);
             this.createHouse();
@@ -191,10 +224,14 @@ export default class feedMouse extends Base{
                 if (keyPressed) {
                     target.windowbackground = "#dde5d7";
                     this.createWindow(target);
+                    goodJob.play();
+
+                }else{
+                    ballCatchFail.play();
 
                 }
                 super.ballTrajectory(ball);
-                super.moveBallToStart(ball,keyPressed);
+                super.moveBallToStart(ball,true);
 
             }
         }
