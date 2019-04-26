@@ -239,7 +239,7 @@ export default  class Base {
         clearInterval(gameLoop);
         if(score) { this.increaseScore()}
         this.gameOver = false;
-        if (this.currentRounds < super.Utils.gameRounds) {
+        if (this.currentRounds < Utils.gameRounds) {
             this.initGame();
 
         }
