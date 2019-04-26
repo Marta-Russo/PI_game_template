@@ -12,8 +12,15 @@
 
 export default class Utils{
 
-    static get  frameRate(){  return  1/100; } // Seconds
+    static get  frameRate() {  return  1/100; } // Seconds
     static get  frameDelay() { return  this.frameRate * 1000; } // ms
+    static get  paddleSpeed() {return 4;}
+    static get  ballMass() {return 0.1;}
+    static get  restitution() {return -1.2;}
+    static get  gameRounds() {return 30;}
+    static get  gravityFactor() {return 1;}
+
+
 
     //Sound Resources
     static get  bucketImageResource(){return "https://s3.us-east-2.amazonaws.com/piproject/Resources/images/";}
@@ -40,6 +47,9 @@ export default class Utils{
     static get  blueMouseImage(){return this.bucketImageResource+"mouse-blue.png"}
     static get  redMouseImage(){return this.bucketImageResource+"mouse-red.png"}
     static get  greenMouseImage(){return this.bucketImageResource+"mouse-green.png"}
+
+
+
 
 
 }

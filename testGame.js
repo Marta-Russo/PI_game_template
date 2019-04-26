@@ -4,29 +4,31 @@
  * Copyright (c) 2019 . All rights reserved.
  */
 
-import Game from './game.js';
-import catchMouse from './catchMouse.js';
 
+import catchMouse from './catchMouse.js';
+import catchChese from './catchCheese.js'
+import feedMouse from './feedMouse.js';
+import feedMice from "./feedMice.js";
+import FeedCroc from './feedCroc.js';
 
 export default  class testGame{
 
     constructor(document) {
-        this.game_rounds = 10;
-        this.paddle_speed = 4;
-        this.ball_mass = 1;
-        this.gravity_factor = 1;
-        this.restitution = 2;
-        this.x_velocity = 27;
-        this.y_velocity = 38;
-        this.paddle_restitution = 2;
+
         this.export_arr = [];
         this.document = document;
     }
 
+
+
+
     init() {
 
-      // new Game(this, this.document).init();
-        new catchMouse(this,this.document).init();
+      //  new FeedCroc(this, this.document).init();
+    // new catchMouse(this,this.document).init();
+      //  new catchChese(this,this.document).init();
+      //  new feedMouse(this,this.document).init();
+        new feedMice(this,this.document).init();
     }
 
 }

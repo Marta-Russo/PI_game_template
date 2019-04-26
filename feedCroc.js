@@ -65,9 +65,8 @@ export default class FeedCroc extends Base{
 
       dimensions: {width: paddleWidth*1.5, height: paddleHeight/5},
       position: {x: paddleWidth*10, y : this.canvas.height/2.5 + this.canvas.height/2  - paddleHeight },
-      paddleRestitution: -1 - this.context.paddle_restitution/10,
       paddleLastMovedMillis: 100,
-      velocity:this.context.paddle_speed
+      velocity:super.Utils.paddleSpeed
 
     };
 
@@ -225,7 +224,7 @@ export default class FeedCroc extends Base{
 
       position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
       velocity : {x:trajectory.velocity.x, y:trajectory.velocity.y},
-      mass: this.context.ball_mass/10,
+      mass: super.Utils.ballMass,
       radius: 10,
       restitution: -1.5,
       color:"#dadd0f"

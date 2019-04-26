@@ -138,9 +138,9 @@ export default class feedMice extends Base{
         ball = {
             position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
             velocity : {x: trajectory.velocity.x, y:-trajectory.velocity.y},
-            mass: this.context.ball_mass/10,
+            mass: super.Utils.ballMass,
             radius: paddleWidth/6.5,
-            restitution: -1 - this.context.restitution/10,
+            restitution: super.Utils.restitution,
             color:"#dadd0f"
 
         };

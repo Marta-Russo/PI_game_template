@@ -8,6 +8,9 @@ import ExpFrameBaseComponent from '../../components/exp-frame-base/component';
 import layout from './template';
 import FeedCroc from './feedCroc';
 import catchMouse from './catchMouse';
+import feedMouse from "./feedMouse";
+import feedMice from "./feedMice";
+import catchCheese from "./catchCheese";
 
 /**
  * @module exp-player
@@ -117,55 +120,6 @@ export default ExpFrameBaseComponent.extend({
                     },
 
 
-                    paddle_speed: {
-                      type: 'number',
-                      default: 4
-
-                    },
-                    ball_mass: {
-                      type: 'number',
-                      default: 1
-
-                    },
-                    gravity_factor: {
-                      type: 'number',
-                      default: 1
-
-                    },
-
-                    restitution: {
-                      type: 'number',
-                      default: 2
-
-                    },
-
-                    x_velocity: {
-                      type: 'number',
-                      default: 27
-
-                    },
-
-                    y_velocity: {
-                      type: 'number',
-                      default: 38
-
-                    },
-
-                    game_rounds: {
-
-                      type: 'number',
-                      default: 2
-
-                    },
-
-                    paddle_restitution: {
-                      type: 'number',
-                      default: 2
-
-                    },
-
-
-
                 consentLabel: {
 
                     type: 'string',
@@ -234,14 +188,41 @@ export default ExpFrameBaseComponent.extend({
     },
     actions: {
 
-      play() {
-          this.set('export_arr', Ember.A());
-          new catchMouse(this,document).init();
+        play() {
+            this.set('export_arr', Ember.A());
 
-      },
+            if(this.title === 'Feed the croc') {
+
+                new FeedCroc(this, document).init();
+            }
+
+            if(this.title === 'Feed the mouse in the house') {
+
+                new feedMouse(this,document).init();
+            }
+
+            if(this.title === 'Feed mice in the house') {
+
+                new feedMice(this, document).init();
+            }
+
+
+            if(this.title === 'Catch the cheese') {
+
+                new catchCheese(this, document).init();
+            }
+
+            if(this.title === 'Catch the mouse') {
+
+                new catchMouse(this, document).init();
+            }
+
+
+
+        },
       export(){
 
-          this.jsonToCSVConvertor(this.export_arr,"Data",true);
+       //   this.jsonToCSVConvertor(this.export_arr,"Data",true);
 
       }
         // Define any actions that you need to be able to trigger from within the template here

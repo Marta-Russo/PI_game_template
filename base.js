@@ -53,11 +53,6 @@ export default  class Base {
 
 
 
-    preloadRes(){
-
-
-
-    }
 
 
     init(){
@@ -244,7 +239,7 @@ export default  class Base {
         clearInterval(gameLoop);
         if(score) { this.increaseScore()}
         this.gameOver = false;
-        if (this.currentRounds < this.context.game_rounds) {
+        if (this.currentRounds < super.Utils.gameRounds) {
             this.initGame();
 
         }
@@ -259,7 +254,7 @@ export default  class Base {
      * @param ball
      */
     ballTrajectory(ball) {
-        let gravity = this.context.gravity_factor * 9.81;  // m / s^2
+        let gravity = Utils.gravityFactor * 9.81;  // m / s^2
         let rho = 1.22; // kg/ m^3
         let Cd = 0.47;  // Dimensionless
         let A = Math.PI * ball.radius * ball.radius / (10000); // m^2

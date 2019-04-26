@@ -14,7 +14,6 @@ let paddleWidth = 0;
 let paddleHeight = 0;
 let basket = {};
 let ball = {};
-let obstructionVals = 2;
 let obstructions = [];
 let audio = {};
 let goodJob = {};
@@ -38,7 +37,7 @@ export default class catchCheese extends Base{
         super(context,document);
         paddleWidth = this.canvas.width/20;
         paddleHeight = this.canvas.width/15;
-        obstructionVals = this.context.obstructionNumber;
+
 
     }
 
@@ -52,7 +51,7 @@ export default class catchCheese extends Base{
         basket = {
             dimensions: {width: paddleWidth,height: paddleWidth},
             position: {x: this.canvas.width/2 + paddleWidth*3,y: (this.canvas.height/2+paddleHeight*2) },
-            velocity: this.context.paddle_speed,
+            velocity: super.Utils.paddleSpeed,
             imageURL: super.Utils.basketImage
         };
 
@@ -93,9 +92,9 @@ export default class catchCheese extends Base{
 
             position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
             velocity : {x:trajectory.velocity.x, y:trajectory.velocity.y},
-            mass: this.context.ball_mass/10,
+            mass: super.Utils.ballMass,
             radius: 10,
-            restitution: -1 - this.context.restitution/10,
+            restitution: super.Utils.restitution,
             color:"#dadd0f"
 
         };

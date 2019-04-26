@@ -71,7 +71,7 @@ export  default  class catchMouse extends Base{
         basket = {
             dimensions: {width: paddleWidth*1.5     ,height: paddleWidth*1.5},
             position: {x: 15 + this.canvas.width/2 - paddleWidth,y: this.canvas.height/2.5 + this.canvas.height/2 - 1.5*paddleWidth },
-            velocity: this.context.paddle_speed,
+            velocity: super.Utils.paddleSpeed,
             imageURL: super.Utils.basketImage
         };
         

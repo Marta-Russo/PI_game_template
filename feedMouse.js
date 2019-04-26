@@ -124,9 +124,9 @@ export default class feedMouse extends Base{
         ball = {
             position : {x: paddleWidth*5 + 20, y:(this.canvas.height-paddleWidth*2)},
             velocity : {x: 5.8, y:-7.6},
-            mass: this.context.ball_mass/10,
+            mass: super.Utils.ballMass,
             radius: 10,
-            restitution: -1 - this.context.restitution/10,
+            restitution: super.Utils.restitution,
             color:"#dadd0f"
 
         };
