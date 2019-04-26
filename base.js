@@ -22,11 +22,7 @@ let gameOver = false;
 let paddleWidth = 0;
 let paddleHeight = 0;
 
-let sounds = {
 
-    rattle : "https://srv-file1.gofile.io/download/Bg34nR/96854b4849d7d40d6eff74a8d1d762de/rattling-sound.wav"
-
-};
 
 
 
@@ -185,6 +181,12 @@ export default  class Base {
         return gameOver;
     }
 
+
+    get Utils(){
+
+        return Utils;
+    }
+
    
 
     drawImage(object,URL){
@@ -206,53 +208,6 @@ export default  class Base {
     }
 
 
-
-    ImageLoader(sources, callback)
-    {
-        let images = {};
-        let loadedImages = 0;
-        let numImages = 0;
-
-        // get num of sources
-        for (let src in sources) {
-            numImages++;
-        }
-
-        for (let src in sources) {
-            images[src] = new Image();
-            images[src].onload = function() {
-
-                if (++loadedImages >= numImages) {
-                    callback(images);
-                }
-            };
-            images[src].src = sources[src];
-        }
-    }
-
-
-    SoundLoader(sources, callback)
-    {
-        let images = {};
-        let loadedImages = 0;
-        let numImages = 0;
-
-        // get num of sources
-        for (let src in sources) {
-            numImages++;
-        }
-
-        for (let src in sources) {
-            images[src] = new Audio();
-            images[src].oncanplaythrough = function() {
-
-                if (++loadedImages >= numImages) {
-                    callback(images);
-                }
-            };
-            images[src].src = sources[src];
-        }
-    }
 
 
 

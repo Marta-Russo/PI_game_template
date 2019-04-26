@@ -33,14 +33,14 @@ export  default  class catchMouse extends Base{
   init(){
       super.init();
 
-      audio  = new Audio("Resource/sounds/rattling_sound.mp3");
+      audio  = new Audio(super.Utils.rattleSound);
       audio.load();
       audio.addEventListener('onloadeddata', this.initGame(),false);
 
-      goodJob  = new Audio("Resource/sounds/goodcatch.mp3");
+      goodJob  = new Audio(super.Utils.goodCatchSound);
       goodJob.load();
 
-      ballCatchFail = new Audio("Resource/sounds/BallCatchFail.mp3");
+      ballCatchFail = new Audio(super.Utils.ballcatchFailSound);
       ballCatchFail.load();
 
       this.initGame();
@@ -72,7 +72,7 @@ export  default  class catchMouse extends Base{
             dimensions: {width: paddleWidth*1.5     ,height: paddleWidth*1.5},
             position: {x: 15 + this.canvas.width/2 - paddleWidth,y: this.canvas.height/2.5 + this.canvas.height/2 - 1.5*paddleWidth },
             velocity: this.context.paddle_speed,
-            imageURL: 'Resource/images/netball.png'
+            imageURL: super.Utils.basketImage
         };
         
         mice = {
@@ -81,7 +81,7 @@ export  default  class catchMouse extends Base{
             radius: 20,
             delay:2000,
             lastTime: new Date().getTime(),
-            imageURL: 'Resource/images/mice.png'
+            imageURL: super.Utils.miceImage
         }; 
 
         cheeseClock = {
@@ -89,15 +89,15 @@ export  default  class catchMouse extends Base{
             position: {x: this.canvas.width/2 + paddleWidth,y: mice.position.y},
             angle:0,
             velocity: 1.4,
-            imageURL: 'Resource/images/Slide1.jpg'
+            imageURL: super.Utils.cheeseImage
         };
 
 
 
       initSoundPlaying = true;
-      goodJob.src = "Resource/sounds/goodcatch.mp3";
-      ballCatchFail.src = "Resource/sounds/BallCatchFail.mp3";
-      audio.src = "Resource/sounds/rattling_sound.mp3";
+      goodJob.src = super.Utils.goodCatchSound;
+      ballCatchFail.src = super.Utils.ballcatchFailSound;
+      audio.src = super.Utils.rattleSound;
       audio.play();
       audio.addEventListener("ended", function () {
 
@@ -151,7 +151,7 @@ export  default  class catchMouse extends Base{
             ballCatchFail.play();
             super.gameOver = true;
             cheeseClock.angle = 0.1;
-            cheeseClock.imageURL = "Resource/images/cheese-missed.jpg";
+            cheeseClock.imageURL = super.Utils.cheeseMissedImage;
         }
 
 

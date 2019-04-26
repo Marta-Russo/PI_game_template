@@ -17,7 +17,7 @@ let ball = {};
 let keyPressed = false;
 
 let initSoundPlaying = false;
-let audio = {};
+let startSound = {};
 let ballCatchFail = {};
 let goodJob = {};
 
@@ -93,15 +93,15 @@ export default class feedMouse extends Base{
     init() {
         super.init();
 
-        goodJob  = new Audio("Resource/sounds/doorbell.mp3");
+        goodJob  = new Audio(super.Utils.doorbellSound);
         goodJob.load();
 
-        ballCatchFail = new Audio("Resource/sounds/bad_3mouse.mp3");
+        ballCatchFail = new Audio(super.Utils.ballcatchFailSound);
         ballCatchFail.load();
 
-        audio  = new Audio("Resource/sounds/rattling_sound.mp3");
-        audio.load();
-        audio.addEventListener('onloadeddata', this.initGame(),false);
+        startSound  = new Audio(super.Utils.rattleSound);
+        startSound.load();
+        startSound.addEventListener('onloadeddata', this.initGame(),false);
 
 
     }
@@ -133,11 +133,12 @@ export default class feedMouse extends Base{
 
 
         initSoundPlaying = true;
-        goodJob.src = "Resource/sounds/doorbell.mp3";
-        ballCatchFail.src = "Resource/sounds/bad_3mouse.mp3";
-        audio.src = "Resource/sounds/rattling_sound.mp3";
-        audio.play();
-        audio.addEventListener("ended", function () {
+        goodJob.src = super.Utils.doorbellSound;
+        ballCatchFail.src = super.Utils.ballcatchFailSound;
+        startSound.src = super.Utils.rattleSound;
+
+        startSound.play();
+        startSound.addEventListener("ended", function () {
 
             initSoundPlaying = false;
         });

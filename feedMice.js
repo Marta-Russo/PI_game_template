@@ -20,7 +20,7 @@ let pressed = {};
 let roofcolor= "#ff2d23";
 let housecolor = "#8f909c";
 let keys = ['o','k','m'];
-let imageURLS = ['https://i.ibb.co/GPRndqc/mouse.png','https://i.ibb.co/3pRr7VW/mouse-green.png','https://i.ibb.co/sy0NrjX/mouse-red.png'];
+let imageURLS = [];
 let audio = {};
 let ballCatchFail = {};
 let goodJob = {};
@@ -32,7 +32,7 @@ export default class feedMice extends Base{
         super(context,document);
         paddleWidth = this.canvas.width/20;
         paddleHeight = this.canvas.width/15;
-
+        imageURLS = [super.Utils.blueMouseImage,super.Utils.greenMouseImage,super.Utils.redMouseImage];
         /**
          * middle : velocity:{x:6.8  ,y:5.3 }
          * high : velocity:{x:6.8  ,y:7.0 }
@@ -105,13 +105,13 @@ export default class feedMice extends Base{
     init() {
         super.init();
 
-        goodJob  = new Audio("Resource/sounds/good_3mouse.mp3");
+        goodJob  = new Audio(super.Utils.good3MouseSound);
         goodJob.load();
 
-        ballCatchFail = new Audio("Resource/sounds/bad_3mouse.mp3");
+        ballCatchFail = new Audio(super.Utils.bad3MouseSound);
         ballCatchFail.load();
 
-        audio  = new Audio("Resource/sounds/rattling_sound.mp3");
+        audio  = new Audio(super.Utils.rattleSound);
         audio.load();
         audio.addEventListener('onloadeddata', this.initGame(),false);
 
@@ -165,9 +165,9 @@ export default class feedMice extends Base{
 
 
         initSoundPlaying = true;
-        goodJob.src = "Resource/sounds/good_3mouse.mp3";
-        ballCatchFail.src = "Resource/sounds/bad_3mouse.mp3";
-        audio.src = "Resource/sounds/rattling_sound.mp3";
+        goodJob.src = super.Utils.good3MouseSound;
+        ballCatchFail.src = super.Utils.bad3MouseSound;
+        audio.src = super.Utils.rattleSound;
         audio.play();
         audio.addEventListener("ended", function () {
 

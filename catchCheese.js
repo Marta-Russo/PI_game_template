@@ -53,16 +53,16 @@ export default class catchCheese extends Base{
             dimensions: {width: paddleWidth,height: paddleWidth},
             position: {x: this.canvas.width/2 + paddleWidth*3,y: (this.canvas.height/2+paddleHeight*2) },
             velocity: this.context.paddle_speed,
-            imageURL: 'Resource/images/netball.png'
+            imageURL: super.Utils.basketImage
         };
 
 
 
-        goodJob  = new Audio("Resource/sounds/goodcatch.mp3");
+        goodJob  = new Audio(super.Utils.goodCatchSound);
         goodJob.load();
-        ballCatchFail = new Audio("Resource/sounds/BallCatchFail.mp3");
+        ballCatchFail = new Audio(super.Utils.ballcatchFailSound);
         ballCatchFail.load();
-        audio  = new Audio("Resource/sounds/rattling_sound.mp3");
+        audio  = new Audio(super.Utils.rattleSound);
         audio.load();
         audio.addEventListener('onloadeddata', this.initGame(),false);
 
@@ -105,16 +105,16 @@ export default class catchCheese extends Base{
 
             ({  dimensions: {width:paddleWidth*3.5, height: this.canvas.height / 1.5 },
                 position: {x: this.canvas.width/2 -(index+1)*paddleWidth,y: this.canvas.height/2.5  - paddleWidth*1.5 },
-                imageURL: 'https://i.ibb.co/tMS8VhL/Fir-Tree-PNG-Transparent-Image.png'
+                imageURL: super.Utils.treeImage
             })
 
         );
 
 
         initSoundPlaying = true;
-        ballCatchFail.src = "Resource/sounds/BallCatchFail.mp3";
-        goodJob.src = "Resource/sounds/goodcatch.mp3";
-        audio.src = "Resource/sounds/rattling_sound.mp3";
+        ballCatchFail.src = super.Utils.ballcatchFailSound;
+        goodJob.src = super.Utils.goodCatchSound;
+        audio.src = super.Utils.rattleSound;
         audio.play();
         audio.addEventListener("ended", function () {
 
@@ -154,7 +154,7 @@ export default class catchCheese extends Base{
 
             position : {x: basket.position.x + paddleWidth , y: basket.position.y - paddleHeight/2},
             dimensions : {width: paddleWidth/1.5, height: paddleWidth/1.5},
-            imageURL : 'Resource/images/Stars.png'
+            imageURL : super.Utils.basketStarsImage
 
         };
 

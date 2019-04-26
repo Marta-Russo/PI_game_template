@@ -75,29 +75,24 @@ export default class FeedCroc extends Base{
 
       dimensions: {width: this.canvas.width/5, height: this.canvas.width/5},
       position : {x: this.canvas.width - this.canvas.width/3.5 , y:10 },
-      imageURL : 'https://i.ibb.co/ct95ChC/crocodile-copy.png',
-      imageTargetReachedURL : 'https://i.ibb.co/8dcP9cN/croc-done.png',
-      soundURL : 'https://vocaroo.com/i/s0QnBg8CWq2y'
+      imageURL : super.Utils.crocStartImage,
+      imageTargetReachedURL : super.Utils.crocdoneImage
 
     };
 
 
-    bounceSound  = new Audio("Resource/sounds/BallBouncing.mp3");
+    bounceSound  = new Audio(super.Utils.bouncingSound);
     bounceSound.load();
 
-    goodJob  = new Audio("Resource/sounds/croc_slurp.mp3");
+    goodJob  = new Audio(super.Utils.crocSlurpSound);
     goodJob.load();
 
-    ballCatchFail = new Audio("Resource/sounds/BallCatchFail.mp3");
+    ballCatchFail = new Audio(super.Utils.ballcatchFailSound);
     ballCatchFail.load();
 
-    audio  = new Audio("Resource/sounds/rattling_sound.mp3");
+    audio  = new Audio(super.Utils.rattleSound);
     audio.load();
     audio.addEventListener('onloadeddata', this.initGame(),false);
-
-
-
-
 
   }
 
@@ -191,11 +186,9 @@ export default class FeedCroc extends Base{
   paddleBallCollision() {
     if (ball.position.y >= (paddle.position.y - paddle.dimensions.height) && ball.position.y < (paddle.position.y + paddle.dimensions.height)) {
       if ((ball.position.x  > paddle.position.x - paddle.dimensions.width && ball.position.x < paddle.position.x + paddle.dimensions.width)) {
-        if(new Date().getTime() -  paddle.paddleLastMovedMillis > 150 ) {
-          if (bounceSound.readyState === 4) {
-
+         if(new Date().getTime() -  paddle.paddleLastMovedMillis > 150 ) {
             bounceSound.play();
-          }
+         }
 
           ball.velocity.y *= ball.restitution * 1.12;
           ball.velocity.x *= -ball.restitution;
@@ -203,17 +196,17 @@ export default class FeedCroc extends Base{
           paddle.paddleLastMovedMillis = new Date().getTime();
         }
       }
-    }
   }
 
 
 
 
-  collisionDetection() {
 
-    if ((ball.position.y < target.position.y + target.dimensions.height) && (ball.position.y > target.position.y + target.dimensions.height/1.6) && ball.position.x > target.position.x + 40 && ball.position.x <  target.position.x + 80) {
-      return true;
-    }
+  collisionDetection(){
+
+      if ((ball.position.y < target.position.y + target.dimensions.height) && (ball.position.y > target.position.y + target.dimensions.height/1.6) && ball.position.x > target.position.x + 40 && ball.position.x <  target.position.x + 80) {
+              return true;
+      }
 
     return false;
   }
@@ -242,10 +235,10 @@ export default class FeedCroc extends Base{
 
 
     initSoundPlaying = true;
-    goodJob.src = "Resource/sounds/croc_slurp.mp3";
-    ballCatchFail.src = "Resource/sounds/BallCatchFail.mp3";
-    bounceSound.src = 'Resource/sounds/BallBouncing.mp3';
-    audio.src = "Resource/sounds/rattling_sound.mp3";
+    goodJob.src = super.Utils.crocSlurpSound;
+    ballCatchFail.src = super.Utils.ballcatchFailSound;
+    bounceSound.src = super.Utils.bouncingSound;
+    audio.src = super.Utils.rattleSound;
     audio.play();
     audio.addEventListener("ended", function () {
 
