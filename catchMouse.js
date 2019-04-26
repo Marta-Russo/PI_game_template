@@ -1,4 +1,4 @@
-import Base from "./base.js";
+import Base from "./base";
 
 /**
  * Catch the mouse game implementaion 

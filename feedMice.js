@@ -9,7 +9,7 @@
 /**
  * Main implementation for feed the mice game
  */
-import Base from "./base.js";
+import Base from "./base";
 
 let paddleWidth = 0;
 let paddleHeight = 0;

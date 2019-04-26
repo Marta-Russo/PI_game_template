@@ -8,7 +8,7 @@
  * Initial base class for common game functions
  */
 
-import Utils from "./utils.js";
+import Utils from "./utils";
 
 
 
@@ -237,9 +237,9 @@ export default  class Base {
         this.currentRounds++;
         clearInterval(dataLoop);
         clearInterval(gameLoop);
-        if(score) { this.increaseScore()}
+        if(score) { this.increaseScore();}
         this.gameOver = false;
-        if (this.currentRounds < super.Utils.gameRounds) {
+        if (this.currentRounds < Utils.gameRounds) {
             this.initGame();
 
         }

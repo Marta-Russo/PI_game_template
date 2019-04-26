@@ -3,8 +3,7 @@
  * Last modified 3/31/19 8:07 PM.
  * Copyright (c) 2019 . All rights reserved.
  */
-import Utils from "./utils.js";
-import Base from './base.js';
+import Base from './base';
 /**
  * Main class for catch the crocodile game
  * This is only initial code. A lot will be redone here.
