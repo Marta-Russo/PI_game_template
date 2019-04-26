@@ -11,6 +11,7 @@ import catchMouse from './catchMouse';
 import feedMouse from "./feedMouse";
 import feedMice from "./feedMice";
 import catchCheese from "./catchCheese";
+import FullScreen from "../../mixins/full-screen";
 
 /**
  * @module exp-player
@@ -39,9 +40,11 @@ import catchCheese from "./catchCheese";
 
 
 
-export default ExpFrameBaseComponent.extend({
+export default ExpFrameBaseComponent.extend(FullScreen,{
 
     type: 'exp-test',
+    displayFullscreen: false,
+    fullScreenElementId: 'experiment-player',
     layout: layout,
     meta: {
         name: 'ExpTest',
