@@ -8,7 +8,7 @@
 /**
  * Implementation for feed the mouse in the house game
  */
-import Base from "./base.js";
+import Base from "./base";
 
 let paddleWidth = 0;
 let paddleHeight = 0;

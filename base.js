@@ -8,7 +8,7 @@
  * Initial base class for common game functions
  */
 
-import Utils from "./utils.js";
+import Utils from "./utils";
 
 let dataLoop ={};
 let gameLoop = {};
