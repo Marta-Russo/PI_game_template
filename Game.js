@@ -6,14 +6,14 @@
  */
 
 
-import FeedCroc from "./feedCroc";
-import catchMouse from "./catchMouse";
-import feedMouse from "./feedMouse";
-import feedMice from "./feedMice";
-import catchCheese from "./catchCheese";
+import FeedCroc from "./feedCroc.js";
+import CatchMouse from "./catchMouse.js";
+import FeedMouse from "./feedMouse.js";
+import FeedMice from "./feedMice.js";
+import CatchCheese from "./catchCheese.js";
 
 /**
- * TODO : might need a config json file for each game and potentially randomization
+ *
  * Game orchestrator to set initial parameters and
  * execute requested game
  */
@@ -34,23 +34,32 @@ export default class Game{
 
                 new FeedCroc(context,document).init();
 
-            break;
-
-                new catchMouse(context,document).init();
+                break;
 
             case 1:
 
-                new feedMouse(context,document).init();
+                new CatchCheese(context,document).init();
 
-            break;
-
-                new feedMice(context,document).init();
+                break;
 
             case 2:
 
-                new catchCheese(context,document).init();
+                new CatchMouse(context,document).init();
 
-            break;
+
+                break;
+
+            case 3:
+
+                new FeedMice(context,document).init();
+
+                break;
+
+            case 4:
+
+                new FeedMouse(context,document).init();
+
+                break;
 
 
         }

@@ -1,7 +1,7 @@
 import Base from "./base.js";
 
 /**
- * Catch the mouse game implementaion 
+ * Catch the mouse game implementaion
  */
 
 
@@ -16,56 +16,56 @@ let audio = {};
 let ballCatchFail = {};
 let goodJob = {};
 
-export  default  class catchMouse extends Base{
+export  default  class CatchMouse extends Base{
 
     constructor(context,document){
 
         super(context,document);
         paddleWidth = this.canvas.width/20;
         paddleHeight = this.canvas.width/15;
-        
+
     }
 
 
-  /**
-   * initialize on start button
-   */
-  init(){
-      super.init();
+    /**
+     * initialize on start button
+     */
+    init(){
+        super.init();
 
-      audio  = new Audio(super.Utils.rattleSound);
-      audio.load();
-      audio.addEventListener('onloadeddata', this.initGame(),false);
+        audio  = new Audio(super.Utils.rattleSound);
+        audio.load();
+        audio.addEventListener('onloadeddata', this.initGame(),false);
 
-      goodJob  = new Audio(super.Utils.goodCatchSound);
-      goodJob.load();
+        goodJob  = new Audio(super.Utils.goodCatchSound);
+        goodJob.load();
 
-      ballCatchFail = new Audio(super.Utils.ballcatchFailSound);
-      ballCatchFail.load();
+        ballCatchFail = new Audio(super.Utils.ballcatchFailSound);
+        ballCatchFail.load();
 
-      this.initGame();
-  }
+        this.initGame();
+    }
 
 
-  drawImage(object){
+    drawImage(object){
         let image = new Image();
         image.src = object.imageURL;
         this.ctx.drawImage(image,object.position.x,object.position.y,object.dimensions.width,object.dimensions.height);
-  }
+    }
 
 
-  createPaddleBox() {
+    createPaddleBox() {
         this.ctx.beginPath();
         this.ctx.rect(this.canvas.width/2 - paddleWidth,this.canvas.height/2.5 + this.canvas.height/2 - 1.5*paddleWidth,paddleWidth*2,paddleWidth*2);
         this.ctx.lineWidth = "8";
-        this.ctx.strokeStyle = "#1931dd";
+        this.ctx.strokeStyle = super.Utils.blueColor;
         this.ctx.stroke();
         this.ctx.closePath();
-  }
+    }
 
 
 
-  initGame(){
+    initGame(){
 
 
         basket = {
@@ -74,7 +74,7 @@ export  default  class catchMouse extends Base{
             velocity: super.Utils.paddleSpeed,
             imageURL: super.Utils.basketImage
         };
-        
+
         mice = {
             dimensions: {width: paddleWidth,height: paddleWidth},
             position : {x: this.canvas.width/2 - paddleWidth/2, y:(this.canvas.height-paddleHeight)/2 - paddleHeight },
@@ -82,7 +82,7 @@ export  default  class catchMouse extends Base{
             delay:2000,
             lastTime: new Date().getTime(),
             imageURL: super.Utils.miceImage
-        }; 
+        };
 
         cheeseClock = {
             dimensions: {width: paddleWidth,height: paddleWidth},
@@ -94,21 +94,21 @@ export  default  class catchMouse extends Base{
 
 
 
-      initSoundPlaying = true;
-      goodJob.src = super.Utils.goodCatchSound;
-      ballCatchFail.src = super.Utils.ballcatchFailSound;
-      audio.src = super.Utils.rattleSound;
-      audio.play();
-      audio.addEventListener("ended", function () {
+        initSoundPlaying = true;
+        goodJob.src = super.Utils.goodCatchSound;
+        ballCatchFail.src = super.Utils.ballcatchFailSound;
+        audio.src = super.Utils.rattleSound;
+        audio.play();
+        audio.addEventListener("ended", function () {
 
-          initSoundPlaying = false;
-      });
+            initSoundPlaying = false;
+        });
 
 
-      super.initGame();
-  }
+        super.initGame();
+    }
 
-  dataCollection(){
+    dataCollection(){
 
 
         let  exportData = {
@@ -124,7 +124,7 @@ export  default  class catchMouse extends Base{
 
         super.storeData(exportData);
 
-  }
+    }
 
 
     /**
@@ -171,7 +171,7 @@ export  default  class catchMouse extends Base{
         let angle = Math.PI * (1.65 - cheeseClock.angle);
         this.ctx.beginPath();
         this.ctx.moveTo(cheeseClock.position.x + cheeseClock.dimensions.width / 2, cheeseClock.position.y + cheeseClock.dimensions.height / 2);
-        this.ctx.fillStyle = "#020102";
+        this.ctx.fillStyle = super.Utils.blackColor;
         this.ctx.arc(cheeseClock.position.x + cheeseClock.dimensions.width / 2, cheeseClock.position.y + cheeseClock.dimensions.height / 2, cheeseClock.dimensions.height / 2, angle, Math.PI * 1.65);
         this.ctx.lineTo(cheeseClock.position.x + cheeseClock.dimensions.width / 2, cheeseClock.position.y + cheeseClock.dimensions.height / 2);
         this.ctx.fill();

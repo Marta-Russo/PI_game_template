@@ -5,9 +5,6 @@
  * All rights reserved
  */
 
-/**
- * Main implementation for catch cheese with obstruction game
- */
 import Base from "./base.js";
 
 let paddleWidth = 0;
@@ -29,8 +26,13 @@ let trajectories = [
 ];
 
 
-
-export default class catchCheese extends Base{
+/**
+ * Main implementation of catch the cheese game.
+ * The user will operate with paddle to catch the ball started
+ * from ball box. The trajectory is randomized with various values in trajectories array
+ * Number of obstructions currently randomized from 0 to 3 trees shown
+ */
+export default class CatchCheese extends Base{
 
 
     constructor(context,document) {
@@ -73,9 +75,9 @@ export default class catchCheese extends Base{
     createPaddleBox() {
         this.ctx.beginPath();
         this.ctx.rect(this.canvas.width/2 + paddleWidth*3,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth,basket.dimensions.width,basket.dimensions.width);
-        this.ctx.fillStyle= "#020102";
+        this.ctx.fillStyle= super.Utils.blackColor;
         this.ctx.lineWidth = "8";
-        this.ctx.strokeStyle = "#1931dd";
+        this.ctx.strokeStyle = super.Utils.blueColor;
         this.ctx.stroke();
     }
 
@@ -175,28 +177,28 @@ export default class catchCheese extends Base{
 
         if(hitTheTarget || hitTheWall || super.gameOver ){
 
-                if(hitTheTarget) {
+            if(hitTheTarget) {
 
-                    if(!super.gameOver && goodJob.readyState === 4) {
+                if(!super.gameOver && goodJob.readyState === 4) {
 
-                        goodJob.play();
-                    }
-
-                }else{
-                    if(!super.gameOver) {
-
-                        ballCatchFail.play();
-                    }
-
+                    goodJob.play();
                 }
-                // Remove ball and show in the starting point,
-                //User should set the paddle to initial position , call stop after that
-                super.moveBallToStart(ball,true);
-                super.paddleAtZero(basket,hitTheTarget);
-                if(hitTheTarget) {
-                    this.starsLocationUpdate();
-                    this.drawImage(targetStars);
+
+            }else{
+                if(!super.gameOver) {
+
+                    ballCatchFail.play();
                 }
+
+            }
+            // Remove ball and show in the starting point,
+            //User should set the paddle to initial position , call stop after that
+            super.moveBallToStart(ball,true);
+            super.paddleAtZero(basket,hitTheTarget);
+            if(hitTheTarget) {
+                this.starsLocationUpdate();
+                this.drawImage(targetStars);
+            }
 
         }else{
 

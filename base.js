@@ -10,9 +10,6 @@
 
 import Utils from "./utils.js";
 
-
-
-
 let dataLoop ={};
 let gameLoop = {};
 let upPressed = false;
@@ -22,18 +19,14 @@ let gameOver = false;
 let paddleWidth = 0;
 let paddleHeight = 0;
 
-
-
-
-
 export default  class Base {
 
 
-/**
-   * Constructor to get parameters from caller
-   * @param context from component
-   * @param document object from component
-   */
+    /**
+     * Constructor to get parameters from caller
+     * @param context from component
+     * @param document object from component
+     */
     constructor(context, document) {
         this.context = context;
         this.document = document;
@@ -44,7 +37,7 @@ export default  class Base {
         this.canvas.style.cursor = 'none';
         paddleWidth = this.canvas.width/20;
         paddleHeight = this.canvas.width/15;
-
+        // Event listener for mouse and keyboard here
         document.addEventListener("keydown", this.keyDownHandler, false);
         document.addEventListener("keyup", this.keyUpHandler, false);
         document.addEventListener("mousemove", this.onMouseMove);
@@ -52,18 +45,14 @@ export default  class Base {
     }
 
 
-
-
-
+    /**
+     * Initialize or start the game loop here
+     */
     init(){
         this.currentScore=0;
         this.currentRounds = 0 ;
-
-
-
-
-            clearInterval(dataLoop);
-            clearInterval(gameLoop);
+        clearInterval(dataLoop);
+        clearInterval(gameLoop);
 
     }
 
@@ -107,17 +96,17 @@ export default  class Base {
     }
 
 
-
-
-
     increaseScore(){
         this.currentScore++;
     }
 
 
+    /**
+     * Draw the game score
+     */
     drawScore() {
         this.ctx.font = "16px Arial";
-        this.ctx.fillStyle = "#09b4dd";
+        this.ctx.fillStyle = Utils.scoreColor;
         this. ctx.fillText("Score: "+this.currentScore, 8, 20);
     }
 
@@ -127,7 +116,7 @@ export default  class Base {
      */
     loop(){
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.ctx.fillStyle = "#020102";
+        this.ctx.fillStyle = Utils.blackColor;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.save();
 
@@ -135,12 +124,15 @@ export default  class Base {
     }
 
 
-
+    /**
+     * Create initial ball box object to start from
+     * @param {int} paddleWidth
+     */
     createBallBox(paddleWidth) {
 
         this.ctx.beginPath();
         this.ctx.lineWidth = "8";
-        this.ctx.strokeStyle = "#1931dd";
+        this.ctx.strokeStyle = Utils.blueColor;
 
         this.ctx.moveTo(paddleWidth*5,this.canvas.height/2.5 + this.canvas.height/2 - paddleWidth*1.5);
         this.ctx.lineTo(paddleWidth*5, this.canvas.height/2.5 + this.canvas.height/2 );
@@ -176,16 +168,20 @@ export default  class Base {
         return gameOver;
     }
 
-
+    /**
+     * Get Utilities game constants
+     * @returns {Utils}
+     * @constructor
+     */
     get Utils(){
 
         return Utils;
     }
 
-   
+
 
     drawImage(object,URL){
-        this.ctx.fillStyle = "#020102";
+        this.ctx.fillStyle = Utils.blackColor;
         this.ctx.fillRect(object.position.x,object.position.y,object.dimensions.width,object.dimensions.height);
         let image = new Image();
         image.src = URL;
@@ -194,19 +190,19 @@ export default  class Base {
 
     /**
      * Store data in proposed array
-     * @param exportData array
+     * Disabled for now
+     * @param {array} exportData
      */
     storeData(exportData){
 
-       // this.context.get('export_arr').addObject(exportData);
-       // this.context.export_arr.push(exportData);
+        // this.context.get('export_arr').addObject(exportData);
+        // this.context.export_arr.push(exportData);
     }
 
 
-
-
-
-
+    /**
+     * Initialize current round of the game
+     */
     initGame(){
 
         this.loopTimer = function () {
@@ -230,6 +226,7 @@ export default  class Base {
 
     /**
      * Finish current round and check for rounds left
+     * @param {boolean} should increase score
      */
     finishGame(score){
 
@@ -237,7 +234,7 @@ export default  class Base {
         this.currentRounds++;
         clearInterval(dataLoop);
         clearInterval(gameLoop);
-        if(score) { this.increaseScore()}
+        if(score) { this.increaseScore();}
         this.gameOver = false;
         if (this.currentRounds < Utils.gameRounds) {
             this.initGame();
@@ -284,6 +281,11 @@ export default  class Base {
 
     }
 
+    /**
+     * Set position of the ball to initial coordinates to symbolize the start of the game
+     * @param {object} ball object parameters
+     * @param {boolean} gameOver set game to be over
+     */
     moveBallToStart(ball,gameOver){
 
 
@@ -298,7 +300,12 @@ export default  class Base {
         }
     }
 
-
+    /**
+     * Check if user returned paddle to initial coordinates and call finish of the game to restart
+     * current round
+     * @param {object} paddle
+     * @param {boolean} score should increase score
+     */
     paddleAtZero(paddle,score){
 
         if(paddle.position.y >= this.canvas.height/2.5 + this.canvas.height/2 - 1.5*paddleWidth){
@@ -310,7 +317,10 @@ export default  class Base {
     }
 
 
-
+    /**
+     * Minimal implementation of interruption between rounds
+     * @param {int} iMilliSeconds
+     */
     waitSeconds(iMilliSeconds) {
         let counter= 0
             , start = new Date().getTime()
@@ -325,17 +335,20 @@ export default  class Base {
 
     /**
      * Set paddle coordinates up to velocity
-     * @param paddle object
+     * @param {object} paddle
      */
     paddleMove(paddle) {
 
 
-            paddle.position.y = this.mouseY;
+        paddle.position.y = this.mouseY;
 
     }
 
+
     /**
      * Walls and target collisions detection
+     * @param {object} ball
+     * @returns {boolean} if hit any edge of the screen
      */
     wallCollision(ball){
 

@@ -3,11 +3,9 @@
  * Last modified 3/31/19 8:07 PM.
  * Copyright (c) 2019 . All rights reserved.
  */
-import Utils from "./utils.js";
 import Base from './base.js';
 /**
  * Main class for catch the crocodile game
- * This is only initial code. A lot will be redone here.
  */
 
 let paddleWidth = 0;
@@ -101,7 +99,7 @@ export default class FeedCroc extends Base{
   drawPaddle () {
     this.ctx.beginPath();
     this.ctx.rect(paddle.position.x + 5, paddle.position.y, paddle.dimensions.width-10, paddle.dimensions.height);
-    this.ctx.fillStyle = "#ffffff";
+    this.ctx.fillStyle = super.Utils.whiteColor;
     this.ctx.fill();
     this.ctx.closePath();
   }
@@ -110,9 +108,9 @@ export default class FeedCroc extends Base{
   createPaddleBox() {
     this.ctx.beginPath();
     this.ctx.rect(paddleWidth*10 ,this.canvas.height/2.5 + this.canvas.height/2  - paddle.dimensions.height*5 ,paddle.dimensions.width,paddle.dimensions.height*5);
-    this.ctx.fillStyle= "#020102";
+    this.ctx.fillStyle= super.Utils.blackColor;
     this.ctx.lineWidth = "8";
-    this.ctx.strokeStyle = "#1931dd";
+    this.ctx.strokeStyle = super.Utils.blueColor;
     this.ctx.stroke();
   }
 
@@ -138,26 +136,26 @@ export default class FeedCroc extends Base{
 
 
     if(hitTheTarget || hitTheWall || super.gameOver ){
-        // Remove ball and show in the starting point,
-        //User should set the paddle to initial position , call stop after that
+      // Remove ball and show in the starting point,
+      //User should set the paddle to initial position , call stop after that
 
 
-        if(hitTheTarget){
-          if(!super.gameOver && goodJob.readyState === 4) {
+      if(hitTheTarget){
+        if(!super.gameOver && goodJob.readyState === 4) {
 
-            goodJob.play();
-          }
-          this.drawImage(target,target.imageTargetReachedURL);
-
-        }else{
-          if(!super.gameOver) {
-
-             ballCatchFail.play();
-          }
+          goodJob.play();
         }
+        this.drawImage(target,target.imageTargetReachedURL);
 
-        super.moveBallToStart(ball,true);
-        super.paddleAtZero(paddle,hitTheTarget);
+      }else{
+        if(!super.gameOver) {
+
+          ballCatchFail.play();
+        }
+      }
+
+      super.moveBallToStart(ball,true);
+      super.paddleAtZero(paddle,hitTheTarget);
 
 
 
@@ -185,16 +183,16 @@ export default class FeedCroc extends Base{
   paddleBallCollision() {
     if (ball.position.y >= (paddle.position.y - paddle.dimensions.height) && ball.position.y < (paddle.position.y + paddle.dimensions.height)) {
       if ((ball.position.x  > paddle.position.x - paddle.dimensions.width && ball.position.x < paddle.position.x + paddle.dimensions.width)) {
-         if(new Date().getTime() -  paddle.paddleLastMovedMillis > 150 ) {
-            bounceSound.play();
-         }
-
-          ball.velocity.y *= ball.restitution * 1.12;
-          ball.velocity.x *= -ball.restitution;
-          ball.position.y = paddle.position.y - ball.radius;
-          paddle.paddleLastMovedMillis = new Date().getTime();
+        if(new Date().getTime() -  paddle.paddleLastMovedMillis > 150 ) {
+          bounceSound.play();
         }
+
+        ball.velocity.y *= ball.restitution * 1.12;
+        ball.velocity.x *= -ball.restitution;
+        ball.position.y = paddle.position.y - ball.radius;
+        paddle.paddleLastMovedMillis = new Date().getTime();
       }
+    }
   }
 
 
@@ -203,9 +201,9 @@ export default class FeedCroc extends Base{
 
   collisionDetection(){
 
-      if ((ball.position.y < target.position.y + target.dimensions.height) && (ball.position.y > target.position.y + target.dimensions.height/1.6) && ball.position.x > target.position.x + 40 && ball.position.x <  target.position.x + 80) {
-              return true;
-      }
+    if ((ball.position.y < target.position.y + target.dimensions.height) && (ball.position.y > target.position.y + target.dimensions.height/1.6) && ball.position.x > target.position.x + 40 && ball.position.x <  target.position.x + 80) {
+      return true;
+    }
 
     return false;
   }
@@ -241,7 +239,7 @@ export default class FeedCroc extends Base{
     audio.play();
     audio.addEventListener("ended", function () {
 
-         initSoundPlaying = false;
+      initSoundPlaying = false;
     });
 
 
@@ -264,7 +262,7 @@ export default class FeedCroc extends Base{
 
     };
 
-   // this.context.get('export_arr').addObject(exportData);
+    // this.context.get('export_arr').addObject(exportData);
     super.storeData(exportData);
 
   }
