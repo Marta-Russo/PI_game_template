@@ -22,7 +22,7 @@ export default  class testGame{
 
     init() {
 
-        new Game(this,this.document,0);
+        new Game(this,this.document,4);
     }
 
 }

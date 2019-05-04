@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+
+<body >
+
+<canvas  id="gamesCanvas" height="700"></canvas>
+
+
+<script id="code" type="module">
+    import testGame from "./testGame.js";
+/**/
+
+    function init(){
+      new testGame(document).init();
+    }
+
+    let  btn = document.createElement("BUTTON");
+    btn.innerHTML = "Start";
+    document.body.appendChild(btn);
+    btn.onclick = function() {
+        init();
+    }
+
+</script>

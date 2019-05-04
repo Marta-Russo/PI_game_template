@@ -1,70 +1,79 @@
 /*
- * Developed by Gleb Iakovlev on 4/18/19 11:24 PM.
- * Last modified 4/18/19 11:24 PM.
+ * Developed by Gleb Iakovlev on 5/3/19 9:08 PM.
+ * Last modified 4/29/19 4:36 PM.
  * Copyright (c) Cognoteq Software Solutions 2019.
  * All rights reserved
  */
 
-
-import FeedCroc from "./feedCroc.js";
-import CatchMouse from "./catchMouse.js";
-import FeedMouse from "./feedMouse.js";
-import FeedMice from "./feedMice.js";
-import CatchCheese from "./catchCheese.js";
-
 /**
  *
+ * @submodule games
+ *
+ */
+import FeedCroc from './feedCroc.js';
+import CatchMouse from './catchMouse.js';
+import FeedMouse from './feedMouse.js';
+import FeedMice from './feedMice.js';
+import CatchCheese from './catchCheese.js';
+
+/**
  * Game orchestrator to set initial parameters and
  * execute requested game
+ * Might have randomization of the games here
+ * @class Game
  */
-export default class Game{
-
-
+export default class Game {
     /**
-     *
+     * @method constructor
+     * @constructor Game
      * @param context
      * @param document
      * @param gameNumber current game id
      */
-    constructor(context,document,gameNumber){
+    constructor(context, document, gameNumber) {
+
+        let game = {};
 
         switch (gameNumber) {
 
-            case 0:
+        case 0:
 
-                new FeedCroc(context,document).init();
+            game =   new FeedCroc(context, document);
 
-                break;
+        break;
 
-            case 1:
+        case 1:
 
-                new CatchCheese(context,document).init();
+            game = new CatchCheese(context, document);
 
-                break;
+        break;
 
-            case 2:
+        case 2:
 
-                new CatchMouse(context,document).init();
+            game = new CatchMouse(context, document);
 
+        break;
 
-                break;
+        case 3:
 
-            case 3:
+            game =   new FeedMice(context, document);
 
-                new FeedMice(context,document).init();
+        break;
 
-                break;
+        case 4:
 
-            case 4:
+            game =  new FeedMouse(context, document);
 
-                new FeedMouse(context,document).init();
+        break;
 
-                break;
-
-
-        }
+        default:
+            game =  new FeedCroc(context, document);
+        break;
 
     }
 
+        game.init();
+
+    }
 
 }

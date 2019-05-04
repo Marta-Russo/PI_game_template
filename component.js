@@ -3,12 +3,15 @@
  * Last modified 3/31/19 7:58 PM.
  * Copyright (c) 2019 . All rights reserved.
  */
-
 import ExpFrameBaseComponent from '../../components/exp-frame-base/component';
 import layout from './template';
-import FullScreen from "../../mixins/full-screen";
-import VideoRecord from "../../mixins/video-record";
-import Game from "./Game";
+import FullScreen from '../../mixins/full-screen';
+import VideoRecord from '../../mixins/video-record';
+import Game from './Game';
+/**
+ * @module exp-lookit-games
+ * @submodule frames
+ */
 
 /**
  * Frame to implement various games interventions.
@@ -18,11 +21,11 @@ import Game from "./Game";
  * the appropriate game object array) and proceed to the next game/step.
  *
  * Current implementation has 5 game types :
- * 0: Feed the crocodile
- * 1: Catch the cheese
- * 2. Catch the mouse
- * 3: Feed the mice
- * 4: Feed the mouse in the house
+ * - 0: Feed the crocodile
+ * - 1: Catch the cheese
+ * - 2: Catch the mouse
+ * - 3: Feed the mice
+ * - 4: Feed the mouse in the house
  *
  *
  ```
@@ -30,71 +33,71 @@ import Game from "./Game";
         "game": {
             "kind": "exp-lookit-games",
             "gameType": 0,
-            "hideControls": false,
-            "nextButtonText": "move on",
-            "showPreviousButton": false
+            "gameDescription": "Feed the Crocodile Game",
+            "instructions" : "Use mouse to move paddle up and down",
+            "showInstructions": true
         }
     }
  ```
- * @class ExpFrameBaseComponent
+ * @class ExpFrameGamesComponent
  * @extends FullScreen
  * @extends VideoRecord
  */
 
-export default ExpFrameBaseComponent.extend(FullScreen,VideoRecord,{
+export default ExpFrameBaseComponent.extend(FullScreen, VideoRecord, {
 
-    type: 'exp-test',
-    displayFullscreen: true,
-    fullScreenElementId: 'experiment-player',
+    type: 'exp-lookit-games',
+    displayFullscreen: false,
+    currentGame: null,
     layout: layout,
     meta: {
-        name: 'ExpTest',
-        description: 'This frame allows the participant to play a game intended for  studies.',
+        name: 'ExpLookitGames',
+        description: 'This frame allows the participant to play a game intended for studies.',
         parameters: {
             type: 'object',
             properties: {
 
 
                 /**
-                 * Show title of  current game
+                 * Set current game type
                  *
-                 * @property {String}
-                 * @default 'Game name'
+                 * @property {integer} type
+                 * @default 0
                  */
                 gameType: {
-                    type: 'int',
+                    type: 'integer',
                     default: 0,
-                    description: 'Game type  to display {0,1}'
+                    description: 'Game type  to display '
                 },
 
                 /**
-                 * Whether to hide next/previous buttons for game
-                 *
-                 * @property {Boolean} hideControls
-                 * @default false
-                 */
-                hideControls: {
-                    type: 'boolean',
-                    default: false
-                },
-
-                /**
-                 * Text to display on the 'next frame' button
+                 * Text to display for game instructions
                  *
                  * @property {String} nextButtonText
                  * @default 'Next'
                  */
-                nextButtonText: {
+                instructions: {
                     type: 'string',
-                    default: 'Next'
+                    default: ''
+                },
+
+                /**
+                 * Text to display for game description
+                 *
+                 * @property {String} nextButtonText
+                 * @default 'Next'
+                 */
+                gameDescription: {
+                    type: 'string',
+                    default: ''
                 },
                 /**
-                 * Whether to show a 'previous' button
+                 * Whether to show the instructions for the Game
                  *
-                 * @property {Boolean} showPreviousButton
+                 * @property {Boolean} showInstructions
                  * @default true
                  */
-                showPreviousButton: {
+                showInstructions: {
                     type: 'boolean',
                     default: true
                 }
@@ -102,7 +105,7 @@ export default ExpFrameBaseComponent.extend(FullScreen,VideoRecord,{
         },
         data: {
             /**
-             * Parameters captured game data and send to the server
+             * Parameters captured game data and sent to the server
              * This might be changed in near future for some game type
              * @method serializeContent
              * @param {Array} export_arr Game data array with objects positions locations
@@ -114,41 +117,40 @@ export default ExpFrameBaseComponent.extend(FullScreen,VideoRecord,{
             type: 'object',
             properties: {
                 // define data to be sent to the server here
-                export_arr:{
-                    type:'array',
-                    default:[],
-                    items:{
+                export_arr: {
+                    type: 'array',
+                    default: [],
+                    items: {
                         type: 'object',
                         properties: {
 
                             ball_object: {
                                 type: 'object',
                                 properties: {
-                                    x:{
+                                    x: {
                                         type: 'string'
                                     },
-                                    y:{
+                                    y: {
 
                                         type: 'string'
                                     }
                                 }
 
                             },
-                            paddle_object:{
+                            paddle_object: {
                                 type: 'object',
-                                properties:{
-                                    x:{
+                                properties: {
+                                    x: {
                                         type: 'string'
                                     },
-                                    y:{
+                                    y: {
 
                                         type: 'string'
                                     }
                                 }
 
-
                             },
-                            timestamp:{
+                            timestamp: {
                                 type: 'string'
 
                             }
@@ -157,8 +159,6 @@ export default ExpFrameBaseComponent.extend(FullScreen,VideoRecord,{
 
                     }
 
-
-
                 }
             }
         }
@@ -166,8 +166,10 @@ export default ExpFrameBaseComponent.extend(FullScreen,VideoRecord,{
     actions: {
         // Define any actions that you need to be able to trigger from within the template here
 
-
-
+        play() {
+            this.set('showInstructions', false);
+            new Game(this, document, this.gameType);
+        }
 
     },
 
@@ -180,8 +182,9 @@ export default ExpFrameBaseComponent.extend(FullScreen,VideoRecord,{
     // hooks you can use and when they're all called). You can delete this if not doing
     // anything additional.
     didInsertElement() {
+
         this._super(...arguments);
-        new Game(this.gameType,this,document);
+
     },
 
     // Anything that should happen before destroying your frame, e.g. removing a keypress
@@ -189,7 +192,5 @@ export default ExpFrameBaseComponent.extend(FullScreen,VideoRecord,{
     willDestroyElement() {
         this._super(...arguments);
     }
-
-
 
 });
