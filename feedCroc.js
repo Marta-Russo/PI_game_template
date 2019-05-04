@@ -23,10 +23,10 @@ let goodJob = {};
 let initSoundPlaying = true;
 let trajectories = [
 
-  {velocity: {x: 3.9, y: -6.8}},
-  {velocity: {x: 3.7, y: -7.2}},
-  {velocity: {x: 3.5, y: -7.7}},
-  {velocity: {x: 3.6, y: -7.6}}
+  {velocity: {x: 3.2, y: -6.8}},
+  {velocity: {x: 3.1, y: -7.2}},
+  {velocity: {x: 3.0, y: -7.7}},
+  {velocity: {x: 2.8, y: -7.6}}
 
 ];
 
@@ -197,12 +197,12 @@ export default class FeedCroc extends Base {
             if ((ball.position.x > paddle.position.x - paddle.dimensions.width && ball.position.x < paddle.position.x + paddle.dimensions.width)) {
                 if (new Date().getTime() - paddle.paddleLastMovedMillis > 150) {
                     bounceSound.play();
-                }
 
-                ball.velocity.y *= ball.restitution * 1.12;
-                ball.velocity.x *= -ball.restitution;
-                ball.position.y = paddle.position.y - ball.radius;
-                paddle.paddleLastMovedMillis = new Date().getTime();
+                    ball.velocity.y *= ball.restitution;
+                    ball.velocity.x *= -ball.restitution;
+                    ball.position.y = paddle.position.y - ball.radius;
+                    paddle.paddleLastMovedMillis = new Date().getTime();
+                }
             }
         }
     }
