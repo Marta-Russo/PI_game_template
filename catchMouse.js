@@ -56,7 +56,7 @@ export default class CatchMouse extends Base {
     init() {
         super.init();
 
-        audio = new Audio(super.Utils.rattleSound);
+        audio = new Audio(super.Utils.drumRollSound);
         audio.load();
         audio.addEventListener('onloadeddata', this.initGame(), false);
 
@@ -118,14 +118,14 @@ export default class CatchMouse extends Base {
         mice = {
             dimensions: {width: paddleWidth, height: paddleWidth},
             position: {x: this.canvas.width / 2 - paddleWidth / 2, y: (this.canvas.height - paddleHeight) / 2 - paddleHeight},
-            radius: 20,
+            radius: 40,
             delay: 2000,
             lastTime: new Date().getTime(),
             imageURL: super.Utils.miceImage
         };
 
         cheeseClock = {
-            dimensions: {width: paddleWidth, height: paddleWidth},
+            dimensions: {width: paddleWidth*2, height: paddleWidth*2},
             position: {x: this.canvas.width / 2 + paddleWidth, y: mice.position.y},
             angle: 0,
             velocity: 1.4,
