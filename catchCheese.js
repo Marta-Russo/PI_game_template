@@ -11,8 +11,7 @@ import Base from './base.js';
  * @submodule games
  *
  */
-let paddleWidth = 0;
-let paddleHeight = 0;
+
 let basket = {};
 let ball = {};
 let obstructions = [];
@@ -41,8 +40,7 @@ export default class CatchCheese extends Base {
      */
     constructor(context, document) {
         super(context, document);
-        paddleWidth = this.canvas.width / 20;
-        paddleHeight = this.canvas.width / 15;
+
 
     }
 
@@ -56,8 +54,8 @@ export default class CatchCheese extends Base {
         super.init();
 
         basket = {
-            dimensions: {width: paddleWidth, height: paddleWidth},
-            position: {x: this.canvas.width / 2 + paddleWidth * 3, y: (this.canvas.height / 2 + paddleHeight * 2)},
+            dimensions: {width: super.paddleWidth*1.3, height: super.paddleWidth*1.3},
+            position: {x: this.canvas.width / 2 + super.paddleWidth * 3, y: (this.canvas.height / 2 + super.paddleHeight * 2)},
             velocity: super.Utils.paddleSpeed,
             imageURL: super.Utils.basketImage
         };
@@ -72,18 +70,6 @@ export default class CatchCheese extends Base {
 
     }
 
-    /**
-     * The box symbolizes initial paddle location
-     * @method createPaddleBox
-     */
-    createPaddleBox() {
-        this.ctx.beginPath();
-        this.ctx.rect(this.canvas.width / 2 + paddleWidth * 3, this.canvas.height / 2.5 + this.canvas.height / 2 - paddleWidth, basket.dimensions.width, basket.dimensions.width);
-        this.ctx.fillStyle = super.Utils.blackColor;
-        this.ctx.lineWidth = '8';
-        this.ctx.strokeStyle = super.Utils.blueColor;
-        this.ctx.stroke();
-    }
 
     /**
      * Initialize each game round with initial object parameters
@@ -108,7 +94,7 @@ export default class CatchCheese extends Base {
         trajectory.velocity  = super.velocityToScale(trajectory.velocity);
         ball = {
 
-            position: {x: paddleWidth * 5 + 20, y: (this.canvas.height - paddleWidth * 2)},
+            position: {x: super.paddleWidth * 5 + 20, y: (this.canvas.height - super.paddleWidth * 2)},
             velocity: trajectory.velocity,
             mass: super.Utils.ballMass,
             radius: 10,
@@ -120,10 +106,10 @@ export default class CatchCheese extends Base {
         obstructions = Array(Math.floor(Math.random() * 3)).fill({}).map((value, index) =>
 
           ({
-            dimensions: {width: paddleWidth * 3.5, height: this.canvas.height / 1.5},
+            dimensions: {width: super.paddleWidth * 3.5, height: this.canvas.height / 1.5},
             position: {
-                x: this.canvas.width / 2 - (index + 1) * paddleWidth,
-                y: this.canvas.height / 2.5 - paddleWidth * 1.5
+                x: this.canvas.width / 2 - (index + 1) * super.paddleWidth,
+                y: this.canvas.height / 2.5 - super.paddleWidth * 1.5
             },
             imageURL: super.Utils.treeImage
         })
@@ -175,8 +161,8 @@ export default class CatchCheese extends Base {
 
         targetStars = {
 
-            position: {x: basket.position.x + paddleWidth, y: basket.position.y - paddleHeight / 2},
-            dimensions: {width: paddleWidth / 1.5, height: paddleWidth / 1.5},
+            position: {x: basket.position.x + super.paddleWidth, y: basket.position.y - super.paddleHeight / 2},
+            dimensions: {width: super.paddleWidth / 1.5, height: super.paddleWidth / 1.5},
             imageURL: super.Utils.basketStarsImage
 
         };
@@ -195,7 +181,7 @@ export default class CatchCheese extends Base {
     loop() {
         super.loop();
 
-        super.createBallBox(paddleWidth);
+        super.createBallBox();
 
         let hitTheTarget = this.collisionDetection();
         let hitTheWall = super.wallCollision(ball);
@@ -238,7 +224,7 @@ export default class CatchCheese extends Base {
             }
         }
 
-        this.createPaddleBox();
+        super.createPaddleBox(this.canvas.width / 2 + super.paddleWidth * 3, this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleWidth);
         super.paddleMove(basket);
         this.drawImage(basket);
 

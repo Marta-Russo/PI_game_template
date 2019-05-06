@@ -11,8 +11,6 @@ import Base from './base.js';
  *
  */
 
-let paddleWidth = 0;
-let paddleHeight = 10;
 let paddle = {};
 let ball = {};
 let target = {};
@@ -52,8 +50,6 @@ export default class FeedCroc extends Base {
     constructor(context, document) {
 
         super(context, document);
-        paddleWidth = this.canvas.width / 20;
-        paddleHeight = this.canvas.width / 15;
 
     }
 
@@ -67,8 +63,7 @@ export default class FeedCroc extends Base {
 
         paddle = {
 
-            dimensions: {width: paddleWidth * 1.5, height: paddleHeight / 5},
-            position: {x: paddleWidth * 10, y: this.canvas.height / 2.5 + this.canvas.height / 2 - paddleHeight},
+            position: {x: super.paddleWidth * 10-5, y: this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleHeight},
             paddleLastMovedMillis: 100,
             velocity: super.Utils.paddleSpeed
 
@@ -99,31 +94,6 @@ export default class FeedCroc extends Base {
     }
 
 
-    /**
-     * Draw paddle according to the location parameters
-     * @method drawPaddle
-     *
-     */
-    drawPaddle() {
-        this.ctx.beginPath();
-        this.ctx.rect(paddle.position.x + 5, paddle.position.y, paddle.dimensions.width - 10, paddle.dimensions.height);
-        this.ctx.fillStyle = super.Utils.whiteColor;
-        this.ctx.fill();
-        this.ctx.closePath();
-    }
-
-    /**
-     * The box symbolizes initial paddle location
-     * @method createPaddleBox
-     */
-    createPaddleBox() {
-        this.ctx.beginPath();
-        this.ctx.rect(paddleWidth * 10, this.canvas.height / 2.5 + this.canvas.height / 2 - paddle.dimensions.height * 5, paddle.dimensions.width, paddle.dimensions.height * 5);
-        this.ctx.fillStyle = super.Utils.blackColor;
-        this.ctx.lineWidth = '8';
-        this.ctx.strokeStyle = super.Utils.blueColor;
-        this.ctx.stroke();
-    }
 
 
     /**
@@ -140,9 +110,9 @@ export default class FeedCroc extends Base {
 
         super.loop();
 
-        super.createBallBox(paddleWidth);
-        this.createPaddleBox();
-        this.drawPaddle();
+        super.createBallBox();
+        super.createPaddleBox(super.paddleWidth * 10, this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleWidth*1.3);
+        super.drawPaddle(paddle.position.x + 5, paddle.position.y);
         this.drawImage(target, target.imageURL);
         super.paddleMove(paddle);
         this.paddleBallCollision();
@@ -193,8 +163,8 @@ export default class FeedCroc extends Base {
      * @method paddleBallCollision
      */
     paddleBallCollision() {
-        if (ball.position.y >= (paddle.position.y - paddle.dimensions.height) && ball.position.y < (paddle.position.y + paddle.dimensions.height)) {
-            if ((ball.position.x > paddle.position.x - paddle.dimensions.width && ball.position.x < paddle.position.x + paddle.dimensions.width)) {
+        if (ball.position.y >= (paddle.position.y - super.paddleHeight) && ball.position.y < (paddle.position.y + super.paddleHeight)) {
+            if ((ball.position.x > paddle.position.x - super.paddleWidth && ball.position.x < paddle.position.x + super.paddleWidth)) {
                 if (new Date().getTime() - paddle.paddleLastMovedMillis > 150) {
                     bounceSound.play();
 
@@ -237,7 +207,7 @@ export default class FeedCroc extends Base {
 
         ball = {
 
-            position: {x: paddleWidth * 5 + 20, y: (this.canvas.height - paddleWidth * 2)},
+            position: {x: super.paddleWidth * 5 + 20, y: (this.canvas.height - super.paddleWidth * 2)},
             velocity: {x: trajectory.velocity.x, y: trajectory.velocity.y},
             mass: super.Utils.ballMass,
             radius: 10,

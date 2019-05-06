@@ -17,6 +17,7 @@ let gameLoop = {};
 let mouseY = 0;
 let gameOver = false;
 let paddleWidth = 0;
+let paddleHeight = 0;
 
 /**
  * Base class for common game functions
@@ -43,6 +44,7 @@ export default class Base {
         this.currentScore = 0;
         this.canvas.style.cursor = 'none';
         paddleWidth = this.canvas.width / 20;
+        paddleHeight = this.canvas.width / 15;
         // Event listener for mouse and keyboard here
         document.addEventListener('keydown', this.keyDownHandler, false);
         document.addEventListener('keyup', this.keyUpHandler, false);
@@ -60,6 +62,53 @@ export default class Base {
         clearInterval(dataLoop);
         clearInterval(gameLoop);
 
+    }
+
+    /**
+     * Get standard paddle width
+     * @method paddleWidth
+     * @return {number}
+     */
+    get paddleWidth(){
+
+        return paddleWidth;
+    }
+
+    /**
+     * Get standard paddle height
+     * @method paddleHeight
+     * @return {number}
+     */
+    get paddleHeight(){
+
+        return paddleHeight;
+    }
+
+    /**
+     * Draw paddle according to the location parameters
+     * @method drawPaddle
+     *
+     */
+    drawPaddle(x,y) {
+        this.ctx.beginPath();
+        this.ctx.rect(x, y, paddleWidth*1.3, paddleWidth/4);
+        this.ctx.fillStyle = Utils.whiteColor;
+        this.ctx.fill();
+        this.ctx.closePath();
+    }
+
+
+    /**
+     * The box symbolizes initial paddle location
+     * @method createPaddleBox
+     */
+    createPaddleBox(x,y) {
+        this.ctx.beginPath();
+        this.ctx.rect(x,y, paddleWidth*1.3 ,paddleWidth*1.3);
+        this.ctx.fillStyle = Utils.blackColor;
+        this.ctx.lineWidth = '8';
+        this.ctx.strokeStyle = Utils.blueColor;
+        this.ctx.stroke();
     }
 
     /**
@@ -139,7 +188,7 @@ export default class Base {
      * @method createBallBox
      * @param {int} paddleWidth
      */
-    createBallBox(paddleWidth) {
+    createBallBox() {
 
         this.ctx.beginPath();
         this.ctx.lineWidth = '8';

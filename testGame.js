@@ -3,12 +3,6 @@
  * Last modified 4/2/19 2:45 PM.
  * Copyright (c) 2019 . All rights reserved.
  */
-
-
-
-
-
-
 import Game from "./Game.js";
 
 export default  class testGame{
@@ -22,7 +16,7 @@ export default  class testGame{
 
     init() {
 
-        new Game(this,this.document,4);
+        new Game(this,this.document,2);
     }
 
 }
