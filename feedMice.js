@@ -21,6 +21,7 @@ let audio = {};
 let ballCatchFail = {};
 let goodJob = {};
 let initSoundPlaying = false;
+let currentTargetIndex = 0;
 
 /**
  * Main implementation of feed  the mice in the house game.
@@ -141,7 +142,9 @@ export default class FeedMice extends Base {
             {velocity: {x: 6.2, y: -11.8 }}
 
         ];
-        let trajectory = trajectories[Math.floor(Math.random() * 3)];
+
+        currentTargetIndex = Math.floor(Math.random() * 3);
+        let trajectory = trajectories[currentTargetIndex];
         trajectory.velocity  = super.velocityToScale(trajectory.velocity);
 
         ball = {
@@ -150,7 +153,8 @@ export default class FeedMice extends Base {
             mass: super.Utils.ballMass,
             radius: 10,
             restitution: super.Utils.restitution,
-            color: super.Utils.yellowColor
+            color: super.Utils.yellowColor,
+            timeReached:new Date().getTime()
 
         };
 
@@ -186,8 +190,31 @@ export default class FeedMice extends Base {
 
     }
 
+
     /**
-     * Check collision of appropriate key and window
+     * Show the ball location in window.
+     * Center the ball location.
+     * @method showBallLocation
+     * @param target
+     */
+    showBallLocation(index){
+
+        //Put the ball in the center of target once it hits window constraints
+        let target = targets[index];
+        ball.position.x = target.position.x + target.dimensions.width / 2 - ball.radius / 2;
+        ball.position.y = target.position.y + target.dimensions.height / 2 - ball.radius / 2;
+        this.ctx.beginPath();
+        this.ctx.arc(ball.position.x, ball.position.y, ball.radius, 0, Math.PI * 2, true);
+        this.ctx.fillStyle = ball.color;
+        this.ctx.fill();
+        this.ctx.closePath();
+
+
+
+    }
+
+    /**
+     * Check collision of appropriate key and windowkkok
      * When ball hits the window set coordinates of the ball to the center of the reached window
      * @method  collisionDetection
      * @param index
@@ -200,21 +227,7 @@ export default class FeedMice extends Base {
         let target = targets[index];
         if (ball.position.x > target.position.x && ball.position.x - ball.radius < target.position.x + target.dimensions.width ) {
 
-            if (ball.position.y > target.position.y && ball.position.y - ball.radius < target.position.y + target.dimensions.height ) {
-
-                //Put the ball in the center of target once it hits window constraints
-                ball.position.x = target.position.x + target.dimensions.width / 2 - ball.radius / 2;
-                ball.position.y = target.position.y + target.dimensions.height / 2 - ball.radius / 2;
-
-                if (pressed[index]) {
-
-                    return 2;
-
-                }
-
-                return 1;
-
-            }
+            return 1;
 
         }
 
@@ -251,7 +264,6 @@ export default class FeedMice extends Base {
 
         let collisionArray = Array(3).fill(0).map((_, index) => this.collisionDetection(index));
         let didHitWindow = collisionArray.some(item => item > 0);
-        let didHitCorrectWindow = collisionArray.some(item => item === 2);
         if (super.gameOver) {
             super.waitSeconds(1500);
             super.finishGame(false);
@@ -271,31 +283,45 @@ export default class FeedMice extends Base {
             this.createHouse();
             targets.forEach(target => this.createWindow(target));
 
-            if (didHitWindow) {
+
+            // Wait 5 seconds to get the response
+            if (new Date().getTime() - ball.timeReached > 6000) {
 
                 let index = pressed.findIndex(item => item != false);
-                let target = targets[index];
-                if (target) {
-                    target.windowbackground = super.Utils.whiteColor;
-                    this.createWindow(target);
+                let pressed_target = targets[index];
+                if (pressed_target) {
+                    pressed_target.windowbackground = super.Utils.whiteColor;
+                    this.createWindow(pressed_target);
 
                 }
 
-                if (didHitCorrectWindow) {
+
+                this.createHouse();
+                targets.forEach(target => this.createWindow(target));
+                this.showBallLocation(currentTargetIndex);
+                super.waitSeconds(600);
+                super.moveBallToStart(ball, true);
+
+                // Check if current index of the pressed item corresponds to the actual target index
+                if (index === currentTargetIndex) {
+
                     goodJob.play();
 
                 } else {
-                    ballCatchFail.play();
 
+                    ballCatchFail.play();
                 }
 
-                super.ballTrajectory(ball,0.6,0.3);
-                super.moveBallToStart(ball, true);
-                super.waitSeconds(600);
 
             }
 
+
+
+
+
         }
+
+
 
     }
 
