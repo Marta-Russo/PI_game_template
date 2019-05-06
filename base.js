@@ -353,10 +353,14 @@ export default class Base {
 
     /**
      * Create ball movement up to some trajectory
+     * Set time coefficients scaleX,scaleY  as time parameters to control
+     * speed in time
      * @method ballTrajectory
      * @param {object} ball
+     * @param {number} scaleX
+     * @param {number} scaleY
      */
-    ballTrajectory(ball) {
+    ballTrajectory(ball,scaleX=1,scaleY=1) {
         let gravity = Utils.gravityFactor * 9.81;  // m / s^2
         let rho = 1.22; // kg/ m^3
         let Cd = 0.47;  // Dimensionless
@@ -372,8 +376,8 @@ export default class Base {
 
         ball.velocity.x += ax * Utils.frameRate;
         ball.velocity.y += ay * Utils.frameRate;
-        ball.position.x += ball.velocity.x * Utils.frameRate * 100;
-        ball.position.y += ball.velocity.y * Utils.frameRate * 100;
+        ball.position.x += ball.velocity.x * Utils.frameRate * 100 * scaleX;
+        ball.position.y += ball.velocity.y * Utils.frameRate * 100 * scaleY ;
 
         this.ctx.translate(ball.position.x, ball.position.y);
         this.ctx.beginPath();

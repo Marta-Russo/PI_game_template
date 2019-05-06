@@ -11,7 +11,7 @@ import Base from './base.js';
  * @submodule games
  *
  */
-let paddleWidth = 0;
+
 let ball = {};
 let targets = [];
 let pressed = {};
@@ -41,7 +41,6 @@ export default class FeedMice extends Base {
      */
     constructor(context, document) {
         super(context, document);
-        paddleWidth = this.canvas.width / 20;
         imageURLS = [super.Utils.blueMouseImage, super.Utils.greenMouseImage, super.Utils.redMouseImage];
 
     }
@@ -64,7 +63,7 @@ export default class FeedMice extends Base {
      */
     createHouse() {
 
-        let houseX = this.canvas.width / 2 - paddleWidth;
+        let houseX = this.canvas.width / 2 - super.paddleWidth;
         let houseY = this.canvas.height / 2.5;
         let houseWidth = this.canvas.width / 3.5;
         let houseHeight = this.canvas.height / 2;
@@ -137,19 +136,19 @@ export default class FeedMice extends Base {
 
         const  trajectories = [
 
-          {velocity: {x: 5.8, y: -7.0 }},
-          {velocity: {x: 5.8, y: -6.5 }},
-          {velocity: {x: 5.8, y: -5.8 }}
+            {velocity: {x: 6.3, y: -16.2 }},
+            {velocity: {x: 6.2, y: -13.5 }},
+            {velocity: {x: 6.2, y: -11.8 }}
 
         ];
         let trajectory = trajectories[Math.floor(Math.random() * 3)];
         trajectory.velocity  = super.velocityToScale(trajectory.velocity);
 
         ball = {
-            position: {x: paddleWidth * 5 + 20, y: (this.canvas.height - paddleWidth * 2)},
+            position: {x: super.paddleWidth * 5 + 20, y: (this.canvas.height - super.paddleWidth * 2)},
             velocity: trajectory.velocity,
             mass: super.Utils.ballMass,
-            radius: paddleWidth / 6.5,
+            radius: 10,
             restitution: super.Utils.restitution,
             color: super.Utils.yellowColor
 
@@ -159,10 +158,10 @@ export default class FeedMice extends Base {
 
           ({
 
-            dimensions: {width: paddleWidth / 1.5, height: paddleWidth / 1.5},
+            dimensions: {width: super.paddleWidth /1.1 , height: super.paddleWidth /1.1},
             position: {
-                x: (this.canvas.width / 2 - paddleWidth * 0.3) + this.canvas.width / 5.0,
-                y: this.canvas.height / 2.6 + this.canvas.height / 4 + index * paddleWidth * 0.8
+                x: (this.canvas.width / 2 - super.paddleWidth * 0.5) + this.canvas.width / 5.0,
+                y: this.canvas.height / 2.6 + this.canvas.height / 5.5 + index * super.paddleWidth * 1.1
             },
             radius: 4,
             color: super.Utils.grayColor,
@@ -248,7 +247,7 @@ export default class FeedMice extends Base {
     loop() {
         super.loop();
 
-        super.createBallBox(paddleWidth);
+        super.createBallBox();
 
         let collisionArray = Array(3).fill(0).map((_, index) => this.collisionDetection(index));
         let didHitWindow = collisionArray.some(item => item > 0);
@@ -264,7 +263,8 @@ export default class FeedMice extends Base {
                     super.moveBallToStart(ball, false);
                 } else {
 
-                    super.ballTrajectory(ball);
+                    super.ballTrajectory(ball,0.6,0.3);
+
                 }
             }
 
@@ -289,7 +289,7 @@ export default class FeedMice extends Base {
 
                 }
 
-                super.ballTrajectory(ball);
+                super.ballTrajectory(ball,0.6,0.3);
                 super.moveBallToStart(ball, true);
                 super.waitSeconds(600);
 
