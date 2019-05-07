@@ -22,7 +22,7 @@ let ballCatchFail = {};
 let goodJob = {};
 let initSoundPlaying = false;
 let currentTargetIndex = 0;
-const TIME_ALLOWED = 3000;
+const TIME_ALLOWED = 5000;
 
 /**
  * Main implementation of feed  the mice in the house game.
@@ -138,9 +138,9 @@ export default class FeedMice extends Base {
 
         const  trajectories = [
 
-            {velocity: {x: 6.3, y: -16.2 }},
-            {velocity: {x: 6.2, y: -13.5 }},
-            {velocity: {x: 6.2, y: -11.8 }}
+            {velocity: {x: 6.3, y: -9.6 }},
+            {velocity: {x: 6.2, y: -7.3 }},
+            {velocity: {x: 6.2, y: -5.8 }}
 
         ];
 
@@ -183,7 +183,6 @@ export default class FeedMice extends Base {
         audio.src = super.Utils.rattleSound;
         audio.play();
         audio.addEventListener('ended', function () {
-            ball.timeReached = new Date().getTime();
             initSoundPlaying = false;
         });
 
