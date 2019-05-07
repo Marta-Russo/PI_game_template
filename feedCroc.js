@@ -156,9 +156,9 @@ export default class FeedCroc extends Base {
      * @method paddleBallCollision
      */
     paddleBallCollision() {
-        if (ball.position.y >= (paddle.position.y - super.paddleHeight) && ball.position.y < (paddle.position.y + super.paddleHeight)) {
-            if ((ball.position.x > paddle.position.x - super.paddleWidth && ball.position.x < paddle.position.x + super.paddleWidth)) {
-                if (new Date().getTime() - paddle.paddleLastMovedMillis > 20) {
+        if (ball.position.y >= (paddle.position.y - super.paddleHeight/4) && ball.position.y < (paddle.position.y + super.paddleHeight/4)) {
+            if ((ball.position.x > paddle.position.x - super.paddleWidth*1.3 && ball.position.x < paddle.position.x + super.paddleWidth*1.3)) {
+                if (new Date().getTime() - paddle.paddleLastMovedMillis > 130) {
                     bounceSound.play();
 
                     ball.velocity.y *= ball.restitution;
@@ -211,7 +211,7 @@ export default class FeedCroc extends Base {
             velocity: {x: trajectory.velocity.x, y: trajectory.velocity.y},
             mass: super.Utils.ballMass,
             radius: 10,
-            restitution: -4.8,
+            restitution: -1.5,
             color: '#dadd0f'
 
         };
