@@ -96,7 +96,7 @@ export default class CatchMouse extends Base {
                 x: 15 + this.canvas.width / 2 - super.paddleWidth*1.5+15,
                 y: this.canvas.height / 2.5 + this.canvas.height / 2 - 1.5 * super.paddleWidth
             },
-            paddleLastMovedMillis: 100,
+            paddleLastMovedMillis: 0,
             velocity: super.Utils.paddleSpeed,
             imageURL: super.Utils.basketImage
         };

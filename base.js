@@ -428,9 +428,9 @@ export default class Base {
     paddleAtZero(paddle, score) {
 
         if (paddle.position.y >= paddleBox.y ) {
+            console.log(new Date().getTime() - paddle.paddleLastMovedMillis);
             if(paddle.paddleLastMovedMillis === 0){
-
-                paddle.restTime = new Date().getTime();
+                paddle.paddleLastMovedMillis = new Date().getTime();
 
             }else if(new Date().getTime() - paddle.paddleLastMovedMillis  >= PADDLE_REST_TIME_MS){
 
