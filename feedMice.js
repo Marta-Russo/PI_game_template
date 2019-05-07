@@ -22,13 +22,14 @@ let ballCatchFail = {};
 let goodJob = {};
 let initSoundPlaying = false;
 let currentTargetIndex = 0;
+const TIME_ALLOWED = 3000;
 
 /**
  * Main implementation of feed  the mice in the house game.
  * The user will operate with keyboard keys to predict which ball trajectory will hit which window
  * in the house.
  * The trajectory is randomized with various values in trajectories array
- * Initialize the mice image for each muse as an array
+ * Initialize the mice image for each mouse as an array
  * @class FeedMice
  * @extends Base
  */
@@ -182,7 +183,7 @@ export default class FeedMice extends Base {
         audio.src = super.Utils.rattleSound;
         audio.play();
         audio.addEventListener('ended', function () {
-
+            ball.timeReached = new Date().getTime();
             initSoundPlaying = false;
         });
 
@@ -284,8 +285,8 @@ export default class FeedMice extends Base {
             targets.forEach(target => this.createWindow(target));
 
 
-            // Wait 5 seconds to get the response
-            if (new Date().getTime() - ball.timeReached > 6000) {
+            // Wait TIME_ALLOWED seconds to get the response
+            if (new Date().getTime() - ball.timeReached > TIME_ALLOWED) {
 
                 let index = pressed.findIndex(item => item != false);
                 let pressed_target = targets[index];
