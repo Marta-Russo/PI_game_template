@@ -121,7 +121,7 @@ export default class CatchMouse extends Base {
         initSoundPlaying = true;
         goodJob.src = super.Utils.goodCatchSound;
         ballCatchFail.src = super.Utils.ballcatchFailSound;
-        audio.src = super.Utils.rattleSound;
+        audio.src = super.Utils.drumRollSound;
         audio.play();
         audio.addEventListener('ended', function () {
 
