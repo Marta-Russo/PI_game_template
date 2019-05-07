@@ -57,6 +57,7 @@ export default class CatchCheese extends Base {
             dimensions: {width: super.paddleWidth*1.3, height: super.paddleWidth*1.3},
             position: {x: this.canvas.width / 2 + super.paddleWidth * 3, y: (this.canvas.height / 2 + super.paddleHeight * 2)},
             velocity: super.Utils.paddleSpeed,
+            paddleLastMovedMillis: 100,
             imageURL: super.Utils.basketImage
         };
 

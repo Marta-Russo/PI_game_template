@@ -19,14 +19,7 @@ let bounceSound = {};
 let ballCatchFail = {};
 let goodJob = {};
 let initSoundPlaying = true;
-let trajectories = [
 
-  {velocity: {x: 3.2, y: -6.8}},
-  {velocity: {x: 3.1, y: -7.2}},
-  {velocity: {x: 3.0, y: -7.7}},
-  {velocity: {x: 2.8, y: -7.6}}
-
-];
 
 
 /**
@@ -165,7 +158,7 @@ export default class FeedCroc extends Base {
     paddleBallCollision() {
         if (ball.position.y >= (paddle.position.y - super.paddleHeight) && ball.position.y < (paddle.position.y + super.paddleHeight)) {
             if ((ball.position.x > paddle.position.x - super.paddleWidth && ball.position.x < paddle.position.x + super.paddleWidth)) {
-                if (new Date().getTime() - paddle.paddleLastMovedMillis > 150) {
+                if (new Date().getTime() - paddle.paddleLastMovedMillis > 20) {
                     bounceSound.play();
 
                     ball.velocity.y *= ball.restitution;
@@ -202,7 +195,14 @@ export default class FeedCroc extends Base {
      * @method initGame
      */
     initGame() {
+        let trajectories = [
 
+            {velocity: {x: 3.2, y: -6.8}},
+            {velocity: {x: 3.1, y: -7.2}},
+            {velocity: {x: 3.0, y: -7.7}},
+            {velocity: {x: 2.8, y: -7.6}}
+
+        ];
         let trajectory = trajectories[Math.floor(Math.random() * trajectories.length)];
 
         ball = {
@@ -211,7 +211,7 @@ export default class FeedCroc extends Base {
             velocity: {x: trajectory.velocity.x, y: trajectory.velocity.y},
             mass: super.Utils.ballMass,
             radius: 10,
-            restitution: -1.5,
+            restitution: -4.8,
             color: '#dadd0f'
 
         };
