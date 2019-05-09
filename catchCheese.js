@@ -20,9 +20,7 @@ let goodJob = {};
 let initSoundPlaying = true;
 let ballCatchFail = {};
 let targetStars = {};
-const numberOfObstructions = 3;
-//Object for obstructions regularization. Check current index of obstructions array and set the iteration
-let currentTrial = {currentIndex:0,iteration:0 };
+
 
 
 /**
@@ -42,7 +40,6 @@ export default class CatchCheese extends Base {
      */
     constructor(context, document) {
         super(context, document);
-
 
     }
 
@@ -76,11 +73,9 @@ export default class CatchCheese extends Base {
 
         super.gameOver = false;
         super.initGame();
-        let obstructionsNum = this.getCurrentIndex();
-
 
         basket = {
-            dimensions: {width: super.paddleWidth*1.3, height: super.paddleWidth*1.3},
+            dimensions: {width: super.paddleWidth * 1.3, height: super.paddleWidth * 1.3},
             position: {x: this.canvas.width / 2 + super.paddleWidth * 3, y: (this.canvas.height / 2 + super.paddleHeight * 2)},
             velocity: super.Utils.paddleSpeed,
             paddleLastMovedMillis: 0,
@@ -89,13 +84,14 @@ export default class CatchCheese extends Base {
 
         let trajectories = [
 
-          {velocity: {x: 5.8, y: -7.4}},
-          {velocity: {x: 4.8, y: -8.2}},
-          {velocity: {x: 5.0, y: -7.8}},
-          {velocity: {x: 5.2, y: -7.6}}
+            {velocity: {x: 5.8, y: -7.4}},
+            {velocity: {x: 4.8, y: -8.2}},
+            {velocity: {x: 5.0, y: -7.8}},
+            {velocity: {x: 5.2, y: -7.6}}
         ];
 
-        let trajectory = trajectories[obstructionsNum];
+        let obstructionsNum = Math.floor(Math.random() * trajectories.length);
+        let trajectory = trajectories[Math.floor(Math.random() * trajectories.length)];
         trajectory.velocity  = super.velocityToScale(trajectory.velocity);
         ball = {
 
@@ -110,14 +106,14 @@ export default class CatchCheese extends Base {
 
         obstructions = Array(obstructionsNum).fill({}).map((value, index) =>
 
-          ({
-            dimensions: {width: super.paddleWidth * 3.5, height: this.canvas.height / 1.5},
-            position: {
-                x: this.canvas.width / 2 - (index + 1) * super.paddleWidth,
-                y: this.canvas.height / 2.5 - super.paddleWidth * 1.5
-            },
-            imageURL: super.Utils.treeImage
-        })
+            ({
+                dimensions: {width: super.paddleWidth * 3.5, height: this.canvas.height / 1.5},
+                position: {
+                    x: this.canvas.width / 2 - (index + 1) * super.paddleWidth,
+                    y: this.canvas.height / 2.5 - super.paddleWidth * 1.5
+                },
+                imageURL: super.Utils.treeImage
+            })
         );
 
         initSoundPlaying = true;
@@ -132,15 +128,7 @@ export default class CatchCheese extends Base {
 
     }
 
-    getCurrentIndex() {
-        currentTrial.iteration += 1;
-        if (currentTrial.iteration >= super.Utils.gameRounds / numberOfObstructions) {
-            currentTrial.iteration = 0;
-            currentTrial.currentIndex += 1;
-        }
 
-        return currentTrial.currentIndex;
-    }
 
     dataCollection() {
 
@@ -239,7 +227,7 @@ export default class CatchCheese extends Base {
             }
         }
 
-        super.createPaddleBox(this.canvas.width / 2 + super.paddleWidth * 3, this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleWidth);
+        super.createPaddleBox(this.canvas.width / 2 + super.paddleWidth * 3, this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleWidth * 1.3);
         super.paddleMove(basket);
         this.drawImage(basket);
 
