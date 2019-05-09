@@ -23,6 +23,7 @@ let targetStars = {};
 
 
 
+
 /**
  * Main implementation of catch the cheese game.
  * The user will operate with paddle to catch the ball started
@@ -82,6 +83,8 @@ export default class CatchCheese extends Base {
             imageURL: super.Utils.basketImage
         };
 
+
+
         let trajectories = [
 
             {velocity: {x: 5.8, y: -7.4}},
@@ -129,6 +132,20 @@ export default class CatchCheese extends Base {
     }
 
 
+    drawRedDot(){
+
+        let redDot ={
+            position:{x:basket.position.x+basket.dimensions.width/2 - ball.radius,y:basket.position.y},
+            radius: 4,
+            color:super.Utils.redColor
+
+        }
+        this.ctx.beginPath();
+        this.ctx.fillStyle = redDot.color;
+        this.ctx.fillRect(redDot.position.x, redDot.position.y, ball.radius*2, ball.radius);
+        this.ctx.fill();
+        this.ctx.closePath();
+    }
 
     dataCollection() {
 
@@ -185,7 +202,6 @@ export default class CatchCheese extends Base {
         super.loop();
 
         super.createBallBox();
-
         let hitTheTarget = this.collisionDetection();
         let hitTheWall = super.wallCollision(ball);
 
@@ -232,6 +248,7 @@ export default class CatchCheese extends Base {
         this.drawImage(basket);
 
         obstructions.forEach(obstruction => this.drawImage(obstruction));
+        this.drawRedDot();
     }
 
 
