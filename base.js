@@ -427,7 +427,7 @@ export default class Base {
      */
     paddleAtZero(paddle, score) {
 
-        if (paddle.position.y >= paddleBox.y ) {
+        if (paddle.position.y >= paddleBox.y &&  paddle.position.y < paddleBox.y + paddleWidth*1.3 ) {
             console.log(new Date().getTime() - paddle.paddleLastMovedMillis);
             if(paddle.paddleLastMovedMillis === 0){
                 paddle.paddleLastMovedMillis = new Date().getTime();
@@ -469,11 +469,7 @@ export default class Base {
      */
     paddleMove(paddle) {
 
-
-
-
         paddle.position.y = this.mouseY;
-
 
     }
 
@@ -498,12 +494,8 @@ export default class Base {
 
     onMouseMove(e) {
 
-        if(e.clientY >  paddleBox.y ||e.clientY === 0  ) {
-            mouseY = paddleBox.y;
+        mouseY = e.clientY;
 
-        }else{
-            mouseY = e.clientY;
-        }
     }
 
 }
