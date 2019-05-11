@@ -20,6 +20,7 @@ let goodJob = {};
 let initSoundPlaying = true;
 let ballCatchFail = {};
 let targetStars = {};
+let redDot = {};
 
 
 
@@ -78,6 +79,7 @@ export default class CatchCheese extends Base {
         basket = {
             dimensions: {width: super.paddleWidth * 1.3, height: super.paddleWidth * 1.3},
             position: {x: this.canvas.width / 2 + super.paddleWidth * 3, y: (this.canvas.height / 2 + super.paddleHeight * 2)},
+            prevposition:{x: this.canvas.width / 2 + super.paddleWidth * 3, y: (this.canvas.height / 2 + super.paddleHeight * 2)},
             velocity: super.Utils.paddleSpeed,
             paddleLastMovedMillis: 0,
             imageURL: super.Utils.basketImage
@@ -134,7 +136,7 @@ export default class CatchCheese extends Base {
 
     drawRedDot(){
 
-        let redDot ={
+        redDot ={
             position:{x:basket.position.x+basket.dimensions.width/2 - ball.radius,y:basket.position.y},
             radius: 4,
             color:super.Utils.redColor
@@ -154,17 +156,35 @@ export default class CatchCheese extends Base {
 
 
     /**
+     * Check if paddle is moving up or down
+     * @method paddleMovingUp
+     * @return {boolean}
+     */
+    paddleIsMovingUp(){
+
+        if(basket.position.y < basket.prevposition.y){
+            return  true;
+        }
+
+        return false;
+    }
+
+    /**
      * Check if ball reaches the target
      * @method collisionDetection
      * @return {boolean}
      */
     collisionDetection() {
 
-        if (ball.position.y > basket.position.y && ball.position.y - ball.radius < basket.position.y + basket.dimensions.height) {
+        let midPAddlePoint = basket.position.x+basket.dimensions.width/2;
 
-            if (ball.position.x > basket.position.x && ball.position.x - ball.radius < ball.position.x + basket.dimensions.width) {
+        if ( ball.position.y > basket.position.y && ball.position.y - ball.radius < basket.position.y + basket.dimensions.height) {
 
-                return true;
+            if ( ball.position.x > midPAddlePoint - ball.radius && ball.position.x - ball.radius < midPAddlePoint + ball.radius ) {
+
+                if(this.paddleIsMovingUp()) {
+                    return true;
+                }
             }
 
         }
@@ -244,11 +264,13 @@ export default class CatchCheese extends Base {
         }
 
         super.createPaddleBox(this.canvas.width / 2 + super.paddleWidth * 3, this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleWidth * 1.3);
+        basket.prevposition.y = basket.position.y;
         super.paddleMove(basket);
         this.drawImage(basket);
+        this.drawRedDot();
 
         obstructions.forEach(obstruction => this.drawImage(obstruction));
-        this.drawRedDot();
+
     }
 
 
