@@ -89,10 +89,10 @@ export default class CatchCheese extends Base {
 
         let trajectories = [
 
-            {velocity: {x: 5.8, y: -7.4}},
-            {velocity: {x: 4.8, y: -8.2}},
-            {velocity: {x: 5.0, y: -7.8}},
-            {velocity: {x: 5.2, y: -7.6}}
+            {velocity: {x: 4.2, y: -7.7}},
+            {velocity: {x: 4.7, y: -7.0}},
+            {velocity: {x: 4.5, y: -7.6}},
+            {velocity: {x: 4.5, y: -7.4}}
         ];
 
         let obstructionsNum = Math.floor(Math.random() * trajectories.length);
