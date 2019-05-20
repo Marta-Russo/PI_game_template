@@ -20,9 +20,9 @@ let ballCatchFail = {};
 let goodJob = {};
 const scale = [
 
-    {scale_x:2.8,scale_y:1.7},
-    {scale_x:3.5,scale_y:2.3},
-    {scale_x:2.8,scale_y:1.8}
+    {scale_x:1.32,scale_y:1.1},
+    {scale_x:1.56,scale_y:1.3},
+    {scale_x:1.44,scale_y:1.2}
 ];
 let current_index = 0;
 
@@ -171,10 +171,11 @@ export default class FeedMouse extends Base {
         let Angle = (100*(Math.PI)/180);
         const  trajectories = [
           {velocity: {x: 4.4* (60*(Math.PI)/180), y: -6.2*Math.sin(Angle)}},
-          {velocity: {x: 4.2* (60*(Math.PI)/180), y: -7.0*Math.sin(Angle)}},
-          {velocity: {x: 4.0* (60*(Math.PI)/180), y: -6.5*Math.sin(Angle)}}
+          {velocity: {x: 4.4* (60*(Math.PI)/180), y: -6.2*Math.sin(Angle)}},
+          {velocity: {x: 4.4* (60*(Math.PI)/180), y: -6.2*Math.sin(Angle)}}
         ];
         current_index = Math.floor(Math.random() * 3);
+       // current_index = 1;
         let trajectory = trajectories[current_index];
         trajectory.velocity  = super.velocityToScale(trajectory.velocity);
         target = {
@@ -238,10 +239,7 @@ export default class FeedMouse extends Base {
         // Window collision detection
         if (ball.position.x > target.position.x && ball.position.x - ball.radius < target.position.x + target.dimensions.width) {
 
-         //   if (ball.position.y - ball.radius > target.position.y && ball.position.y - ball.radius < target.position.y + target.dimensions.height) {
                 return true;
-
-           // }
 
         }
 
@@ -315,11 +313,12 @@ export default class FeedMouse extends Base {
 
             if (keyPressed.value || new Date().getTime() -keyPressed.when < 150 ) {
 
-                this.showBallLocation(didHitWindow);
+
                 if(didHitWindow){
 
-                    target.windowbackground = super.Utils.whiteColor;
-                    this.createWindow(target);
+                    target.color = super.Utils.whiteColor;
+                    this.createHouse();
+                    this.createWindow()
                     super.increaseScore();
                     goodJob.play();
 
@@ -329,6 +328,7 @@ export default class FeedMouse extends Base {
 
                 }
 
+                this.showBallLocation(didHitWindow);
 
 
                 super.moveBallToStart(ball, true);
