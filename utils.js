@@ -11,9 +11,9 @@
  */
 export default class Utils{
 
-    static get  frameRate() {  return 1 / 100; } // Seconds
+    static get  frameRate() {  return 1 / 60; } // Seconds
     static get  frameDelay() { return this.frameRate * 1000; } // ms
-    static get  paddleSpeed() {return 4;}
+    static get  paddleSpeed() {return 2;}
     static get  ballMass() {return 0.1;}
     static get  restitution() {return -1.2;}
     static get  gameRounds() {return 10;}
