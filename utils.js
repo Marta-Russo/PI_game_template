@@ -33,7 +33,7 @@ export default class Utils{
     static get  drumRollSound() {return this.bucketSoundResources + 'drumroll.mp3';}
 
     //Image Resources
-    static get  treeImage() {return this.bucketImageResource + 'tree.png';}
+    static get  treeImage() {return this.bucketImageResource + 'tree_original.png';}
     static get  crocdoneImage() {return this.bucketImageResource + 'croc_done.png';}
     static get  crocStartImage() {return this.bucketImageResource + 'crocodile_start.png';}
     static get  cheeseMissedImage() {return this.bucketImageResource + 'cheese_missed.jpg';}

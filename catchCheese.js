@@ -78,14 +78,13 @@ export default class CatchCheese extends Base {
         super.initGame();
         iterator = 0;
         basket = {
-            dimensions: {width: super.paddleWidth * 1.3, height: super.paddleWidth * 1.3},
-            position: {x: this.canvas.width / 2 + super.paddleWidth * 3, y: (this.canvas.height / 2 + super.paddleHeight * 2)},
             prevposition:{x: this.canvas.width / 2 + super.paddleWidth * 3, y: (this.canvas.height / 2 + super.paddleHeight * 2)},
             velocity: super.Utils.paddleSpeed,
             paddleLastMovedMillis: 0,
             imageURL: super.Utils.basketImage
         };
 
+        basket = super.basketObject(basket);
 
 
         let trajectories = [
@@ -96,7 +95,8 @@ export default class CatchCheese extends Base {
             {velocity: {x: 4.5, y: -7.4}}
         ];
 
-        let obstructionsNum = Math.floor(Math.random() * trajectories.length);
+        //let obstructionsNum = Math.floor(Math.random() * trajectories.length);
+        let obstructionsNum = 1;
         let trajectory = trajectories[Math.floor(Math.random() * trajectories.length)];
         trajectory.velocity  = super.velocityToScale(trajectory.velocity);
         ball = {
@@ -112,15 +112,9 @@ export default class CatchCheese extends Base {
 
         obstructions = Array(obstructionsNum).fill({}).map((value, index) =>
 
-            ({
-                dimensions: {width: super.paddleWidth * 3.5, height: this.canvas.height / 1.5},
-                position: {
-                    x: this.canvas.width / 2 - (index + 1) * super.paddleWidth,
-                    y: this.canvas.height / 2.5 - super.paddleWidth * 1.5
-                },
-                imageURL: super.Utils.treeImage
-            })
+            ( super.treeObject(index+1))
         );
+
 
         initSoundPlaying = true;
         ballCatchFail.src = super.Utils.ballcatchFailSound;
@@ -137,15 +131,10 @@ export default class CatchCheese extends Base {
 
     drawRedDot(){
 
-        redDot ={
-            position:{x:basket.position.x+basket.dimensions.width/2 - ball.radius,y:basket.position.y},
-            radius: 4,
-            color:super.Utils.redColor
-
-        }
+        let redDot = super.basketCenter(basket);
         this.ctx.beginPath();
         this.ctx.fillStyle = redDot.color;
-        this.ctx.fillRect(redDot.position.x, redDot.position.y, ball.radius*2, ball.radius);
+        this.ctx.fillRect(redDot.position.x, redDot.position.y, redDot.width, redDot.height);
         this.ctx.fill();
         this.ctx.closePath();
     }
@@ -260,9 +249,9 @@ export default class CatchCheese extends Base {
             } else {
 
                // super.ballTrajectory(ball);
-                let ballvx = 1.3137 ;
-                let initV = 1.25;
-                let gravity = 3.125;
+                let ballvx = 1.4013 ;
+                let initV = 0.9333;
+                let gravity = 2.4889;
                 super.trajectory(ball,ballvx,initV,gravity,iterator++);
 
             }

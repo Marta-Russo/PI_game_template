@@ -22,7 +22,10 @@ let paddleBox = {x:0,y:0};
 let currentRounds = 0;
 let initBallY = 0.0;
 let  initX = 0.52;
+let SCALE = 420; // Arbitrary scale for all games for canvas
 
+// let INITIAL_SCREEN_WIDTH = this.canvas.width/1024; // X  screen from matlab
+// let INITIAL_SCREEN_HEIGHT = this.canvas.height/768; // Y screen from matlab
 const PADDLE_REST_TIME_MS = 500;
 
 /**
@@ -42,9 +45,9 @@ export default class Base {
         this.context = context;
         this.document = document;
         this.canvas = this.document.getElementById('gamesCanvas');
-        let height  =  580;
+        let height  =  768;
         this.canvas.height = height;
-        this.canvas.width = height * 2;
+        this.canvas.width = 1024;
         this.ctx = this.canvas.getContext('2d');
         this.currentScore = 0;
         this.canvas.style.cursor = 'none';
@@ -111,12 +114,38 @@ export default class Base {
     createPaddleBox(x,y) {
         this.ctx.beginPath();
         paddleBox = {x:x,y:y};
-        this.ctx.rect(x,y, paddleWidth*1.3 ,paddleWidth*1.3);
+
+
+
+        let leftBorder = (1.8560-0.6525)*SCALE ;
+        let topBorder = (1.3671-0.05+0.05)*SCALE;
+        let rightBorder = (2.1110-0.6525)*SCALE;
+        let downBorder =  (1.3671+0.15+0.05)*SCALE ;
+
+
+        this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
         this.ctx.fillStyle = Utils.blackColor;
         this.ctx.lineWidth = '8';
         this.ctx.strokeStyle = Utils.blueColor;
         this.ctx.stroke();
+
+
+
     }
+
+
+    treeObject(treeIndex = 1){
+
+        let leftBorder = 400-50-55*treeIndex+0.25*420;
+        let topBorder = 384;
+        let rightBorder = 400+0.25*420;
+        let downBorder =  768-96-24 ;
+
+        return {position: {x: leftBorder, y:downBorder}, dimensions: {width:rightBorder-leftBorder,height:topBorder - downBorder},imageURL: Utils.treeImage};
+
+    }
+
+
 
     /**
      * Stop all the game functions
@@ -224,14 +253,16 @@ export default class Base {
         this.ctx.lineWidth = '8';
         this.ctx.strokeStyle = Utils.blueColor;
 
-        this.ctx.moveTo(paddleWidth * 5, this.canvas.height / 2.5 + this.canvas.height / 2 - paddleWidth * 1.5);
-        this.ctx.lineTo(paddleWidth * 5, this.canvas.height / 2.5 + this.canvas.height / 2);
-        this.ctx.lineTo(paddleWidth * 5 + paddleWidth, this.canvas.height / 2.5 + this.canvas.height / 2);
-        this.ctx.lineTo(paddleWidth * 5 + paddleWidth, this.canvas.height / 2.5 + this.canvas.height / 2 - paddleWidth * 0.8);
-        this.ctx.moveTo(paddleWidth * 5, this.canvas.height / 2.5 + this.canvas.height / 2 - paddleWidth * 1.5 + 4);
-        this.ctx.lineTo(paddleWidth * 5 + paddleWidth / 3, this.canvas.height / 2.5 + this.canvas.height / 2 - paddleWidth * 1.5 + 4);
+        let leftBorder = 0.45*SCALE ;
+        let topBorder = (1.3471-0.05)*SCALE;
+        let rightBorder = (0.59)*SCALE;
+        let downBorder =  (1.3671+0.15+0.05)*SCALE ;
+
+        this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
+        this.ctx.fillStyle = Utils.blackColor;
+        this.ctx.lineWidth = '8';
+        this.ctx.strokeStyle = Utils.blueColor;
         this.ctx.stroke();
-        this.ctx.closePath();
 
     }
 
@@ -292,6 +323,8 @@ export default class Base {
 
         return Utils;
     }
+
+
 
     /**
      * @method drawImage Show current image
@@ -439,18 +472,69 @@ export default class Base {
     }
 
 
-    trajectory(ball,ballvx,initV,Gravity,iterator){
-        iterator = iterator/100;
-        ball.position.x = 10+initV*(iterator)+0.5*-Gravity*Math.pow(iterator,2);
-        ball.position.y  = initX + ballvx*(iterator);
+    basketCenter(basket){
+        let radiusRim = 0.1;
+        let leftBorder =  (1.3310-radiusRim/5)*SCALE;
+        let topBorder =  (1.3671-basket.position.y)*SCALE;
+        let rightBorder = (1.3310+radiusRim/5)*SCALE;
+        let downBorder =  (1.3671-basket.position.y+radiusRim/5)*SCALE;
 
-        this.ctx.translate(ball.position.x, ball.position.y);
+        return {  position : {x:leftBorder,y: downBorder }, dimensions: {width: rightBorder - leftBorder, height: topBorder-downBorder },color:Utils.redColor}
+
+
+    }
+
+    basketObject(basket){
+
+        let radiusRim = 0.1;
+        let leftBorder = (1.3310-radiusRim)*SCALE ;
+        let topBorder = 1.3671*SCALE;
+        let rightBorder = (1.3310+radiusRim)*SCALE;
+        let downBorder =  (1.3671+0.17)*SCALE ;
+
+        basket.position = {x: leftBorder,y:downBorder};
+        basket.dimensions = {width: rightBorder - leftBorder, height: topBorder - downBorder};
+
+        return basket;
+
+    }
+
+
+    /**
+     * @method trajectory
+     * Projectile motion trajectory per maximum distance
+     * @param ball
+     * @param ballvx
+     * @param initV
+     * @param Gravity
+     * @param iterator
+     */
+    trajectory(ball,ballvx,initV,Gravity,iterator){
         this.ctx.beginPath();
-        this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
-        this.ctx.fillStyle = ball.color;
-        this.ctx.fill();
-        this.ctx.closePath();
-        this.ctx.restore();
+        iterator = iterator;
+        let positionX = 10+initV*(iterator)+0.5*-Gravity*Math.pow(iterator,2);
+        let positionY  = initX + ballvx*(iterator);
+
+        let leftBorder =  (positionX-.0175)* SCALE;
+        let topBorder = (1.3571-positionY-.0175)*SCALE;
+        let rightBorder = (positionX+.0175)*SCALE;
+        let downBorder =  (1.3571-positionY+.0175)*SCALE ;
+
+        this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
+        this.ctx.fillStyle = Utils.yellowColor;
+        this.ctx.lineWidth = '8';
+        this.ctx.strokeStyle = Utils.yellowColor;
+        this.ctx.stroke();
+
+
+        //
+        // this.ctx.translate(leftBorder, downBorder);
+        // this.ctx.beginPath();
+        // this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
+        // this.ctx.fillStyle = ball.color;
+        // this.ctx.fill();
+        // this.ctx.closePath();
+        // this.ctx.restore();
 
     }
 
