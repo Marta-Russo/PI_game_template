@@ -21,6 +21,7 @@ let initSoundPlaying = true;
 let ballCatchFail = {};
 let targetStars = {};
 let redDot = {};
+let iterator = 0;
 
 
 
@@ -75,7 +76,7 @@ export default class CatchCheese extends Base {
 
         super.gameOver = false;
         super.initGame();
-
+        iterator = 0;
         basket = {
             dimensions: {width: super.paddleWidth * 1.3, height: super.paddleWidth * 1.3},
             position: {x: this.canvas.width / 2 + super.paddleWidth * 3, y: (this.canvas.height / 2 + super.paddleHeight * 2)},
@@ -258,7 +259,11 @@ export default class CatchCheese extends Base {
 
             } else {
 
-                super.ballTrajectory(ball);
+               // super.ballTrajectory(ball);
+                let ballvx = 1.3137 ;
+                let initV = 1.25;
+                let gravity = 3.125;
+                super.trajectory(ball,ballvx,initV,gravity,iterator++);
 
             }
         }

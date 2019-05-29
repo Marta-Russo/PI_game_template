@@ -19,6 +19,10 @@ let gameOver = false;
 let paddleWidth = 0;
 let paddleHeight = 0;
 let paddleBox = {x:0,y:0};
+let currentRounds = 0;
+let initBallY = 0.0;
+let  initX = 0.52;
+
 const PADDLE_REST_TIME_MS = 500;
 
 /**
@@ -42,7 +46,6 @@ export default class Base {
         this.canvas.height = height;
         this.canvas.width = height * 2;
         this.ctx = this.canvas.getContext('2d');
-        this.currentRounds = 0;
         this.currentScore = 0;
         this.canvas.style.cursor = 'none';
         paddleWidth = this.canvas.width / 20;
@@ -155,6 +158,17 @@ export default class Base {
      */
     dataCollection() {
 
+
+        this.loopTimer = function () {
+            let inst = this;
+            dataLoop = setTimeout(function () {
+                inst.dataCollection();
+            }, 10);
+
+        };
+
+        this.loopTimer();
+
     }
 
     increaseScore() {
@@ -170,6 +184,10 @@ export default class Base {
         this.ctx.font = '16px Arial';
         this.ctx.fillStyle = Utils.scoreColor;
         this.ctx.fillText('Score: ' + this.currentScore, 8, 20);
+
+        this.ctx.font = '16px Arial';
+        this.ctx.fillStyle = Utils.scoreColor;
+        this.ctx.fillText('Round: ' + this.currentRounds, 100, 20);
     }
 
 
@@ -184,6 +202,14 @@ export default class Base {
         this.ctx.save();
 
         this.drawScore();
+        this.loopTimer = function () {
+            let inst = this;
+            gameLoop = setTimeout(function () {
+                inst.loop();
+            }, Utils.frameDelay);
+        };
+
+        this.loopTimer();
     }
 
 
@@ -236,6 +262,16 @@ export default class Base {
         gameOver = val;
     }
 
+    get currentRounds(){
+
+        return currentRounds;
+    }
+
+    set currentRounds(val){
+
+        currentRounds = val;
+    }
+
 
     /**
      * @method gameOver Get method if game is over
@@ -278,7 +314,8 @@ export default class Base {
     storeData(exportData) {
 
         // this.context.get('export_arr').addObject(exportData);
-        // this.context.export_arr.push(exportData);
+         this.context.export_arr.push(exportData);
+      //  console.log(exportData);
     }
 
 
@@ -290,17 +327,20 @@ export default class Base {
 
         this.loopTimer = function () {
             let inst = this;
-            gameLoop = setInterval(function () {
+            gameLoop = setTimeout(function () {
                 inst.loop();
             }, Utils.frameDelay);
 
-            dataLoop = setInterval(function () {
+            dataLoop = setTimeout(function () {
                 inst.dataCollection();
             }, 10);
 
         };
 
         this.loopTimer();
+
+
+
 
     }
 
@@ -313,6 +353,7 @@ export default class Base {
     finishGame(score) {
 
         this.currentRounds++;
+        console.log('finishGame');
         this.clearInterval();
         if (score) {
             this.increaseScore();
@@ -322,7 +363,8 @@ export default class Base {
             this.initGame();
 
         }else {
-            this.context.set('showInstructions', true);
+          //  this.context.set('showInstructions', true);
+
             this.context.next();
         }
 
@@ -397,6 +439,20 @@ export default class Base {
     }
 
 
+    trajectory(ball,ballvx,initV,Gravity,iterator){
+        iterator = iterator/100;
+        ball.position.x = 10+initV*(iterator)+0.5*-Gravity*Math.pow(iterator,2);
+        ball.position.y  = initX + ballvx*(iterator);
+
+        this.ctx.translate(ball.position.x, ball.position.y);
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
+        this.ctx.fillStyle = ball.color;
+        this.ctx.fill();
+        this.ctx.closePath();
+        this.ctx.restore();
+
+    }
 
 
 
@@ -501,5 +557,8 @@ export default class Base {
         mouseY = e.clientY;
 
     }
+
+
+
 
 }

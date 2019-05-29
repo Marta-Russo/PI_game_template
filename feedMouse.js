@@ -153,6 +153,9 @@ export default class FeedMouse extends Base {
         ballCatchFail.load();
 
         startSound = new Audio(super.Utils.rattleSound);
+        startSound.src = super.Utils.rattleSound;
+        goodJob.src = super.Utils.doorbellSound;
+        ballCatchFail.src = super.Utils.ballcatchFailSound;
         startSound.load();
         startSound.addEventListener('onloadeddata', this.initGame(), false);
 
@@ -206,13 +209,8 @@ export default class FeedMouse extends Base {
         };
 
         initSoundPlaying = true;
-        goodJob.src = super.Utils.doorbellSound;
-        ballCatchFail.src = super.Utils.ballcatchFailSound;
-        startSound.src = super.Utils.rattleSound;
-
         startSound.play();
         startSound.addEventListener('ended', function () {
-            ball.timeReached = new Date().getTime();
             initSoundPlaying = false;
         });
 
@@ -224,6 +222,22 @@ export default class FeedMouse extends Base {
      * @method dataCollection
      */
     dataCollection() {
+        super.dataCollection();
+
+        let exportData = {
+
+            game_type: 'feedMouse',
+            ball_position_x: ball.position.x,
+            ball_position_y: ball.position.y,
+            button_pressed: keyPressed.value,
+            trial: super.currentRounds,
+            timestamp: new Date().getTime()
+
+        };
+
+
+        super.storeData(exportData);
+
 
     }
 
@@ -292,12 +306,12 @@ export default class FeedMouse extends Base {
         let didHitWindow = this.collisionDetection();
 
         if (super.gameOver) {
+            console.log('game over');
             super.waitSeconds(2000);
             super.finishGame(false);
 
         } else {
 
-            super.wallCollision(ball);
             if (!didHitWindow) {
                 if (initSoundPlaying) {
                     super.moveBallToStart(ball, false);
@@ -311,8 +325,7 @@ export default class FeedMouse extends Base {
             this.createWindow();
 
 
-            if (keyPressed.value || new Date().getTime() -keyPressed.when < 150 ) {
-
+            if (keyPressed.value == true ) {
 
                 if(didHitWindow){
 
@@ -322,23 +335,21 @@ export default class FeedMouse extends Base {
                     super.increaseScore();
                     goodJob.play();
 
+
                 }else{
 
                     ballCatchFail.play();
 
                 }
-
                 this.showBallLocation(didHitWindow);
-
-
                 super.moveBallToStart(ball, true);
+                keyPressed = {};
                 didHitWindow = false;
+
             }
 
-
+            //If no key pressed end up here
             if(didHitWindow){
-
-                console.log(new Date().getTime() - ball.timeReached);
                 this.showBallLocation(didHitWindow);
                 ballCatchFail.play();
                 super.moveBallToStart(ball, true);

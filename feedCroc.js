@@ -82,6 +82,10 @@ export default class FeedCroc extends Base {
         ballCatchFail.load();
 
         audio = new Audio(super.Utils.rattleSound);
+        goodJob.src = super.Utils.crocSlurpSound;
+        ballCatchFail.src = super.Utils.ballcatchFailSound;
+        bounceSound.src = super.Utils.bouncingSound;
+        audio.src = super.Utils.rattleSound;
         audio.load();
         audio.addEventListener('onloadeddata', this.initGame(), false);
 
@@ -151,6 +155,12 @@ export default class FeedCroc extends Base {
 
     }
 
+
+    paddleSpeed(){
+
+       return 2+ Math.abs(paddle.position.y - paddle.prevposition.y)/6
+    }
+
     /**
      *
      * Handle paddle collision here
@@ -158,11 +168,12 @@ export default class FeedCroc extends Base {
      * @method paddleBallCollision
      */
     paddleBallCollision() {
-        if (ball.position.y > paddle.position.y  - ball.radius && ball.position.y < paddle.position.y + ball.radius  ) {
-            if ((ball.position.x > paddle.position.x && ball.position.x < paddle.position.x + super.paddleWidth*1.3 )) {
-                if (new Date().getTime() - paddle.paddleLastMovedMillis > 120) {
+
+        if ((ball.position.x > paddle.position.x - ball.radius && ball.position.x <= paddle.position.x + super.paddleWidth*1.3 + ball.radius)) {
+            if (paddle.position.y <= paddle.prevposition.y &&  ball.position.y > paddle.position.y  - ball.radius*2 && ball.position.y <= paddle.position.y + ball.radius*3  ) {
+                if (new Date().getTime() - paddle.paddleLastMovedMillis > 200) {
                     bounceSound.play();
-                    ball.velocity.y =  -4.8;
+                    ball.velocity.y =  -this.paddleSpeed();
                     paddle.paddleLastMovedMillis = new Date().getTime();
                     ball.position.x += ball.velocity.x * super.Utils.frameRate * 100;
                     ball.position.y += ball.velocity.y * super.Utils.frameRate * 100  ;
@@ -225,10 +236,6 @@ export default class FeedCroc extends Base {
         };
 
         initSoundPlaying = true;
-        goodJob.src = super.Utils.crocSlurpSound;
-        ballCatchFail.src = super.Utils.ballcatchFailSound;
-        bounceSound.src = super.Utils.bouncingSound;
-        audio.src = super.Utils.rattleSound;
         audio.play();
         audio.addEventListener('ended', function () {
 
@@ -245,7 +252,7 @@ export default class FeedCroc extends Base {
      * @method dataCollection
      */
     dataCollection() {
-
+        super.dataCollection();
         let exportData = {
 
             ball_position_x: ball.position.x,

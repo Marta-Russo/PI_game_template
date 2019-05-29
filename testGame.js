@@ -16,7 +16,7 @@ export default  class testGame{
 
     init() {
 
-        new Game(this,this.document,3);
+        new Game(this,this.document,1);
     }
 
 }
