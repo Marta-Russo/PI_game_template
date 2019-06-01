@@ -98,13 +98,14 @@ export default class Base {
      * @method drawPaddle
      *
      */
-    drawPaddle(x,y) {
+    drawPaddle(paddle) {
         this.ctx.beginPath();
-        this.ctx.rect(x, y, paddleWidth*1.3, paddleWidth/4);
+        this.ctx.rect(paddle.position.x, paddle.position.y, paddle.dimensions.width, paddle.dimensions.height);
         this.ctx.fillStyle = Utils.whiteColor;
         this.ctx.fill();
         this.ctx.closePath();
     }
+
 
 
     /**
@@ -114,14 +115,10 @@ export default class Base {
     createPaddleBox(x,y) {
         this.ctx.beginPath();
         paddleBox = {x:x,y:y};
-
-
-
         let leftBorder = (1.8560-0.6525)*SCALE ;
         let topBorder = (1.3671-0.05+0.05)*SCALE;
         let rightBorder = (2.1110-0.6525)*SCALE;
         let downBorder =  (1.3671+0.15+0.05)*SCALE ;
-
 
         this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
         this.ctx.fillStyle = Utils.blackColor;
@@ -133,7 +130,11 @@ export default class Base {
 
     }
 
-
+    /**
+     * @method Tree object with coordinates
+     * @param treeIndex
+     * @returns {{imageURL: *, position: {x: number, y: number}, dimensions: {width: number, height: number}}}
+     */
     treeObject(treeIndex = 1){
 
         let leftBorder = 400-50-55*treeIndex+0.25*420;
@@ -471,7 +472,12 @@ export default class Base {
 
     }
 
-
+    /**
+     * @method basketCenter
+     * Center of the basket target
+     * @param basket
+     * @returns {{color: string, position: {x: number, y: number}, dimensions: {width: number, height: number}}}
+     */
     basketCenter(basket){
         let radiusRim = 0.1;
         let leftBorder =  (1.3310-radiusRim/5)*SCALE;
@@ -480,10 +486,15 @@ export default class Base {
         let downBorder =  (1.3671-basket.position.y+radiusRim/5)*SCALE;
 
         return {  position : {x:leftBorder,y: downBorder }, dimensions: {width: rightBorder - leftBorder, height: topBorder-downBorder },color:Utils.redColor}
-
-
     }
 
+
+    /**
+     * @method basketObject
+     * Basket object per Matlab coordinates
+     * @param basket
+     * @returns {*}
+     */
     basketObject(basket){
 
         let radiusRim = 0.1;
@@ -501,6 +512,38 @@ export default class Base {
 
 
     /**
+     * @method basketObject
+     * Basket object per Matlab coordinates
+     * @param basket
+     * @returns {*}
+     */
+    paddleObject(paddle){
+
+        let leftBorder = (1.3310-0.075)*SCALE ;
+        let topBorder = (1.3671-0-paddle.position.y)*SCALE;
+        let rightBorder = (1.3310+0.075)*SCALE;
+        let downBorder =  (1.3671+0.02-paddle.position.y)*SCALE ;
+
+        paddle.position = {x: leftBorder,y:downBorder};
+        paddle.dimensions = {width: rightBorder - leftBorder, height: topBorder - downBorder};
+
+        return paddle;
+
+    }
+
+
+    /**
+     * @method getElapsedTime
+     * Get elapsed time as iterator in seconds
+     * @param intialTime
+     * @returns {number}
+     */
+    getElapsedTime(intialTime){
+
+        return (new Date().getTime()- intialTime)/1000 ;
+    }
+
+    /**
      * @method trajectory
      * Projectile motion trajectory per maximum distance
      * @param ball
@@ -509,36 +552,58 @@ export default class Base {
      * @param Gravity
      * @param iterator
      */
-    trajectory(ball,ballvx,initV,Gravity,iterator){
+    trajectory(ball,ballvx,initV,Gravity,initialTime){
+
+        let  iterator =  this.getElapsedTime(initialTime);
         this.ctx.beginPath();
-        iterator = iterator;
-        let positionX = 10+initV*(iterator)+0.5*-Gravity*Math.pow(iterator,2);
-        let positionY  = initX + ballvx*(iterator);
+
+        let positionY = 0+initV*(iterator)+0.5*-Gravity*Math.pow(iterator,2);
+        let positionX  = initX + ballvx*(iterator);
+
 
         let leftBorder =  (positionX-.0175)* SCALE;
         let topBorder = (1.3571-positionY-.0175)*SCALE;
         let rightBorder = (positionX+.0175)*SCALE;
         let downBorder =  (1.3571-positionY+.0175)*SCALE ;
 
-        this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
-        this.ctx.fillStyle = Utils.yellowColor;
-        this.ctx.lineWidth = '8';
-        this.ctx.strokeStyle = Utils.yellowColor;
-        this.ctx.stroke();
+        ball.position.x = leftBorder;
+        ball.position.y = downBorder;
+
+    }
+
+    bounceTrajectory(ball,paddle,ballvx,initV,Gravity,initialTime){
+
+        let  Xiterator =  this.getElapsedTime(initialTime);
+        let  Yiterator =  this.getElapsedTime(ball.impactTime);
 
 
-        //
-        // this.ctx.translate(leftBorder, downBorder);
-        // this.ctx.beginPath();
-        // this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
-        // this.ctx.fillStyle = ball.color;
-        // this.ctx.fill();
-        // this.ctx.closePath();
-        // this.ctx.restore();
+        this.ctx.beginPath();
+        let positionY = ball.impactPosition/3+paddle.releaseVelocity*(Yiterator)+0.5*-Gravity*Math.pow(Yiterator,2);
+        let positionX  = initX + ballvx*(Xiterator);
+
+
+        let leftBorder =  (positionX-.0175)* SCALE;
+        let topBorder = (1.3571-positionY-.0175)*SCALE;
+        let rightBorder = (positionX+.0175)*SCALE;
+        let downBorder =  (1.3571-positionY+.0175)*SCALE ;
+
+        ball.position.x = leftBorder;
+        ball.position.y = downBorder;
 
     }
 
 
+    drawBall(ball){
+
+        this.ctx.translate( ball.position.x,  ball.position.y);
+        this.ctx.beginPath();
+        this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
+        this.ctx.fillStyle = ball.color;
+        this.ctx.fill();
+        this.ctx.closePath();
+        this.ctx.restore();
+
+    }
 
 
     /**
@@ -612,6 +677,7 @@ export default class Base {
      * @param {object} paddle
      */
     paddleMove(paddle) {
+
 
         paddle.position.y = this.mouseY;
 

@@ -48,7 +48,7 @@ export default class FeedMice extends Base {
     }
 
     /**
-     * Draw image object according to object locations
+     * Draw image object according to object positions
      * @method drawImage
      * @param object
      */

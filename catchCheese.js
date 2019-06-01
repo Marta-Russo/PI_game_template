@@ -23,6 +23,7 @@ let targetStars = {};
 let redDot = {};
 let iterator = 0;
 
+let initialTime = 0;
 
 
 
@@ -124,6 +125,8 @@ export default class CatchCheese extends Base {
         audio.addEventListener('ended', function () {
 
             initSoundPlaying = false;
+            initialTime = new Date().getTime();
+
         });
 
     }
@@ -252,7 +255,7 @@ export default class CatchCheese extends Base {
                 let ballvx = 1.4013 ;
                 let initV = 0.9333;
                 let gravity = 2.4889;
-                super.trajectory(ball,ballvx,initV,gravity,iterator++);
+                super.trajectory(ball,ballvx,initV,gravity,initialTime);
 
             }
         }
@@ -270,7 +273,7 @@ export default class CatchCheese extends Base {
 
     /**
      * @method
-     * Draw image object according to object locations
+     * Draw image object according to object positions
      * @param object
      */
     drawImage(object) {
