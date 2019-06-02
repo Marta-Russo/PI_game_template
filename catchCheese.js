@@ -26,7 +26,7 @@ let initialTime = 0;
 let hArray = [];
 let Tf = 0.8;
 let Height = 0.8;
-
+let uniformArr = [];
 
 let radiusRim = 0.1;
 
@@ -59,6 +59,7 @@ export default class CatchCheese extends Base {
     init() {
         super.init();
         hArray = super.generateHeights();
+        uniformArr  = super.uniformArr([1,2,3]);
         goodJob = new Audio(super.Utils.goodCatchSound);
         goodJob.load();
         ballCatchFail = new Audio(super.Utils.ballcatchFailSound);
@@ -69,7 +70,6 @@ export default class CatchCheese extends Base {
         goodJob.src = super.Utils.goodCatchSound;
         audio.src = super.Utils.rattleSound;
         audio.addEventListener('onloadeddata', this.initGame(), false);
-
     }
 
 
@@ -97,8 +97,8 @@ export default class CatchCheese extends Base {
         basket = super.basketObject(basket);
 
 
-        //let obstructionsNum = Math.floor(Math.random() * trajectories.length);
-        let obstructionsNum = 1;
+        let obstructionsNum = uniformArr[super.currentRounds];
+
         ball = super.ballObject();
 
         obstructions = Array(obstructionsNum).fill({}).map((value, index) =>

@@ -108,10 +108,10 @@ export default class Base {
         this.ctx.closePath();
     }
 
-    //TODO: Control uniform distribution for height
+
     generateHeights(){
 
-        return Array.from({length: Utils.gameRounds}, () => Math.floor(Math.random() * (3-1))+1).map((value,index)=>value*4-3);
+        return this.uniformArr([1,5]);
     }
 
 
@@ -152,6 +152,44 @@ export default class Base {
 
     }
 
+
+    uniformArr(indexes){
+        let arr = [];
+        indexes.forEach((v)=>
+
+        {
+             arr = arr.concat(Array(Utils.gameRounds/indexes.length).fill(v));
+
+        });
+
+        return  this.shuffle(arr);
+
+    }
+
+    /**
+     * Fisher-Yates shuffle for uniform distribution
+     * @param array
+     * @return {array}
+     */
+    shuffle(array) {
+        let currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
     /**
      * Tree object with coordinates
      * @method treeObject
@@ -164,8 +202,31 @@ export default class Base {
         let topBorder = 384;
         let rightBorder = 400+0.25*Utils.SCALE;
         let downBorder =  768-96-24 ;
+        let imgURL = Utils.treeImage;
+        switch (treeIndex) {
 
-        return {position: {x: leftBorder, y:downBorder}, dimensions: {width:rightBorder-leftBorder,height:topBorder - downBorder},imageURL: Utils.treeImage};
+            case 1:
+
+                imgURL = Utils.treeImage;
+
+                break
+
+            case 2:
+
+                imgURL = Utils.tree2Image;
+
+                break;
+
+            case 3:
+
+                imgURL = Utils.tree3Image;
+                break;
+
+
+        }
+
+
+        return {position: {x: leftBorder, y:downBorder}, dimensions: {width:rightBorder-leftBorder,height:topBorder - downBorder},imageURL: imgURL};
 
     }
 
