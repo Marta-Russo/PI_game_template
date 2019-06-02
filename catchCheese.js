@@ -24,8 +24,14 @@ let redDot = {};
 let iterator = 0;
 
 let initialTime = 0;
+let hArray = [];
+let Tf = 0.8;
+let Height = 0.8;
 
-
+let targetLocH = 1.3301;
+let targetLocV = 1.3671;
+let hitRange = 0.025;
+let radiusRim = 0.1;
 
 /**
  * Main implementation of catch the cheese game.
@@ -55,12 +61,16 @@ export default class CatchCheese extends Base {
      */
     init() {
         super.init();
+        hArray = super.generateHeights();
         goodJob = new Audio(super.Utils.goodCatchSound);
         goodJob.load();
         ballCatchFail = new Audio(super.Utils.ballcatchFailSound);
         ballCatchFail.load();
         audio = new Audio(super.Utils.rattleSound);
         audio.load();
+        ballCatchFail.src = super.Utils.ballcatchFailSound;
+        goodJob.src = super.Utils.goodCatchSound;
+        audio.src = super.Utils.rattleSound;
         audio.addEventListener('onloadeddata', this.initGame(), false);
 
     }
@@ -88,28 +98,9 @@ export default class CatchCheese extends Base {
         basket = super.basketObject(basket);
 
 
-        let trajectories = [
-
-            {velocity: {x: 4.2, y: -7.7}},
-            {velocity: {x: 4.7, y: -7.0}},
-            {velocity: {x: 4.5, y: -7.6}},
-            {velocity: {x: 4.5, y: -7.4}}
-        ];
-
         //let obstructionsNum = Math.floor(Math.random() * trajectories.length);
         let obstructionsNum = 1;
-        let trajectory = trajectories[Math.floor(Math.random() * trajectories.length)];
-        trajectory.velocity  = super.velocityToScale(trajectory.velocity);
-        ball = {
-
-            position: {x: super.paddleWidth * 5 + 20, y: (this.canvas.height - super.paddleWidth * 2)},
-            velocity: trajectory.velocity,
-            mass: super.Utils.ballMass,
-            radius: 10,
-            restitution: super.Utils.restitution,
-            color: '#dadd0f'
-
-        };
+        ball = super.ballObject();
 
         obstructions = Array(obstructionsNum).fill({}).map((value, index) =>
 
@@ -118,9 +109,6 @@ export default class CatchCheese extends Base {
 
 
         initSoundPlaying = true;
-        ballCatchFail.src = super.Utils.ballcatchFailSound;
-        goodJob.src = super.Utils.goodCatchSound;
-        audio.src = super.Utils.rattleSound;
         audio.play();
         audio.addEventListener('ended', function () {
 
@@ -137,7 +125,7 @@ export default class CatchCheese extends Base {
         let redDot = super.basketCenter(basket);
         this.ctx.beginPath();
         this.ctx.fillStyle = redDot.color;
-        this.ctx.fillRect(redDot.position.x, redDot.position.y, redDot.width, redDot.height);
+        this.ctx.fillRect(redDot.position.x, redDot.position.y, redDot.dimensions.width, redDot.dimensions.height);
         this.ctx.fill();
         this.ctx.closePath();
     }
@@ -169,17 +157,26 @@ export default class CatchCheese extends Base {
      */
     collisionDetection() {
 
-        let midPAddlePoint = basket.position.x+basket.dimensions.width/2;
+        let midPAddlePoint = basket.position.x + basket.dimensions.width / 2;
 
-        if ( ball.position.y > basket.position.y && ball.position.y - ball.radius < basket.position.y + basket.dimensions.height) {
+        // if ( ball.position.y > basket.position.y && ball.position.y - ball.radius < basket.position.y + basket.dimensions.height) {
+        //
+        //     if ( ball.position.x > midPAddlePoint - ball.radius && ball.position.x - ball.radius < midPAddlePoint + ball.radius ) {
+        //
+        //         if(this.paddleIsMovingUp()) {
+        //             return true;
+        //         }
+        //
+        //
+        //     }
+        //
+        // }
 
-            if ( ball.position.x > midPAddlePoint - ball.radius && ball.position.x - ball.radius < midPAddlePoint + ball.radius ) {
+        if (ball.positions.length > 2 && ball.positions[ball.positions.length - 1].y >= basket.prevposition.y && ball.position.y < basket.position.y){
+            if (ball.position.x > (1.3301 - radiusRim) * super.Utils.SCALE && ball.position.x < (1.3301 + radiusRim) * super.Utils.SCALE) {
 
-                if(this.paddleIsMovingUp()) {
-                    return true;
-                }
+                return true;
             }
-
         }
 
         return false;
@@ -215,6 +212,7 @@ export default class CatchCheese extends Base {
         super.loop();
 
         super.createBallBox();
+        super.generateTrajectoryParams(hArray,Height,Tf);
         let hitTheTarget = this.collisionDetection();
         let hitTheWall = super.wallCollision(ball);
 
@@ -251,13 +249,11 @@ export default class CatchCheese extends Base {
 
             } else {
 
-               // super.ballTrajectory(ball);
-                let ballvx = 1.4013 ;
-                let initV = 0.9333;
-                let gravity = 2.4889;
-                super.trajectory(ball,ballvx,initV,gravity,initialTime);
-
+                super.trajectory(ball,initialTime);
+                super.drawBall(ball);
             }
+
+
         }
 
         super.createPaddleBox(this.canvas.width / 2 + super.paddleWidth * 3, this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleWidth * 1.3);
