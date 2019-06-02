@@ -86,7 +86,6 @@ export default class CatchCheese extends Base {
         super.initGame();
         iterator = 0;
         basket = {
-            prevposition:{x: 0, y: 0},
             positions:[],
             times:[],
             velocity: super.Utils.paddleSpeed,
@@ -239,12 +238,12 @@ export default class CatchCheese extends Base {
 
 
         }
-
+        obstructions.forEach(obstruction => this.drawImage(obstruction));
         super.createPaddleBox(this.canvas.width / 2 + super.paddleWidth * 3, this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleWidth * 1.3);
         super.paddleMove(basket,initialTime);
         this.drawImage(basket);
         this.drawRedDot();
-        obstructions.forEach(obstruction => this.drawImage(obstruction));
+
 
     }
 
