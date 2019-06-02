@@ -22,7 +22,9 @@ let paddleBox = {x:0,y:0};
 let currentRounds = 0;
 let initBallY = 0.0;
 let  initX = 0.52;
-let SCALE = 420; // Arbitrary scale for all games for canvas
+let initV = 0;
+let gravity = 0;
+let ballvx = 0;
 
 // let INITIAL_SCREEN_WIDTH = this.canvas.width/1024; // X  screen from matlab
 // let INITIAL_SCREEN_HEIGHT = this.canvas.height/768; // Y screen from matlab
@@ -106,7 +108,28 @@ export default class Base {
         this.ctx.closePath();
     }
 
+    //TODO: Control uniform distribution for height
+    generateHeights(){
 
+        return Array.from({length: Utils.gameRounds}, () => Math.floor(Math.random() * (3-1))+1).map((value,index)=>value*4-3);
+    }
+
+
+    /**
+     * Generate main trajectory parameters per trial
+     * @method generateTrajectoryParams
+     * @param hArr array of equally distributed height
+     * @param height height correction coefficient
+     * @param Tf Flight time coefficient
+     */
+    generateTrajectoryParams(hArr,height,Tf){
+
+        let currentHeight = hArr[currentRounds]*0.05+height;
+        gravity = 2*currentHeight/Math.pow(Tf,2);
+        ballvx = (1.0310+0.02)/Tf;
+        initV = 0.5*gravity*Tf;
+
+    }
 
     /**
      * The box symbolizes initial paddle location
@@ -115,10 +138,10 @@ export default class Base {
     createPaddleBox(x,y) {
         this.ctx.beginPath();
         paddleBox = {x:x,y:y};
-        let leftBorder = (1.8560-0.6525)*SCALE ;
-        let topBorder = (1.3671-0.05+0.05)*SCALE;
-        let rightBorder = (2.1110-0.6525)*SCALE;
-        let downBorder =  (1.3671+0.15+0.05)*SCALE ;
+        let leftBorder = (1.8560-0.6525)*Utils.SCALE ;
+        let topBorder = (1.3671-0.05+0.05)*Utils.SCALE;
+        let rightBorder = (2.1110-0.6525)*Utils.SCALE;
+        let downBorder =  (1.3671+0.15+0.05)*Utils.SCALE ;
 
         this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
         this.ctx.fillStyle = Utils.blackColor;
@@ -127,19 +150,19 @@ export default class Base {
         this.ctx.stroke();
 
 
-
     }
 
     /**
-     * @method Tree object with coordinates
+     * Tree object with coordinates
+     * @method treeObject
      * @param treeIndex
      * @returns {{imageURL: *, position: {x: number, y: number}, dimensions: {width: number, height: number}}}
      */
     treeObject(treeIndex = 1){
 
-        let leftBorder = 400-50-55*treeIndex+0.25*420;
+        let leftBorder = 400-50-55*treeIndex+0.25*Utils.SCALE;
         let topBorder = 384;
-        let rightBorder = 400+0.25*420;
+        let rightBorder = 400+0.25*Utils.SCALE;
         let downBorder =  768-96-24 ;
 
         return {position: {x: leftBorder, y:downBorder}, dimensions: {width:rightBorder-leftBorder,height:topBorder - downBorder},imageURL: Utils.treeImage};
@@ -193,7 +216,7 @@ export default class Base {
             let inst = this;
             dataLoop = setTimeout(function () {
                 inst.dataCollection();
-            }, 10);
+            }, 50);
 
         };
 
@@ -226,6 +249,7 @@ export default class Base {
      * @method loop
      */
     loop() {
+
         this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         this.ctx.fillStyle = Utils.blackColor;
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -254,17 +278,32 @@ export default class Base {
         this.ctx.lineWidth = '8';
         this.ctx.strokeStyle = Utils.blueColor;
 
-        let leftBorder = 0.45*SCALE ;
-        let topBorder = (1.3471-0.05)*SCALE;
-        let rightBorder = (0.59)*SCALE;
-        let downBorder =  (1.3671+0.15+0.05)*SCALE ;
+        let leftBorder = 0.45*Utils.SCALE ;
+        let topBorder = (1.3471-0.05)*Utils.SCALE;
+        let rightBorder = (0.59)*Utils.SCALE;
+        let downBorder =  (1.3671+0.15+0.05)*Utils.SCALE ;
 
         this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
         this.ctx.fillStyle = Utils.blackColor;
         this.ctx.lineWidth = '8';
         this.ctx.strokeStyle = Utils.blueColor;
         this.ctx.stroke();
+        this.ctx.closePath();
 
+
+        let InnerleftBorder = (0.52)*Utils.SCALE ;
+        let InnertopBorder = (1.2971)*Utils.SCALE;
+        let InnerrightBorder = (0.59)*Utils.SCALE;
+        let InnerdownBorder =  (1.5171-0.12)*Utils.SCALE ;
+
+        this.ctx.beginPath();
+        this.ctx.rect(InnerleftBorder,  InnerdownBorder, InnerrightBorder - InnerleftBorder, InnertopBorder - InnerdownBorder);
+        this.ctx.fillStyle = Utils.blackColor;
+        this.ctx.strokeStyle = Utils.blackColor;
+        this.ctx.lineWidth = '8';
+        this.ctx.stroke();
+        this.ctx.fill();
+        this.ctx.closePath();
     }
 
     /**
@@ -306,7 +345,8 @@ export default class Base {
 
 
     /**
-     * @method gameOver Get method if game is over
+     * Get method if game is over
+     * @method gameOver
      * @return {boolean} game is over
      */
     get gameOver() {
@@ -315,7 +355,8 @@ export default class Base {
     }
 
     /**
-     * @method Utils Get shared Utils objects
+     * Get shared Utils objects
+     * @method Utils
      * Get Utilities game constants
      * @return {Utils}
      * @constructor
@@ -326,9 +367,21 @@ export default class Base {
     }
 
 
+    /**
+     * Get trajectory parameters per each trial
+     * @method TrajectoryVars
+     * @returns {{initX: number, ballvx: number, gravity: number, initV: number}}
+     * @constructor
+     */
+    get TrajectoryVars(){
+
+        return {initX:initX,gravity:gravity,ballvx:ballvx,initV:initV};
+    }
+
 
     /**
-     * @method drawImage Show current image
+     * Show current image
+     * @method drawImage
      * @param {object} Current object with x,y position, width , height and URL of the image to show
      * @param {String} URL
      */
@@ -338,6 +391,28 @@ export default class Base {
         let image = new Image();
         image.src = URL;
         this.ctx.drawImage(image, object.position.x, object.position.y, object.dimensions.width, object.dimensions.height);
+    }
+
+
+    /**
+     * Show current image
+     * @method drawImage
+     * @param {object} Current object with x,y position, width , height and URL of the image to show
+     * @param {String} URL
+     */
+    drawImageAngle(object, URL,angle) {
+        this.ctx.save();
+        this.ctx.fillStyle = Utils.blackColor;
+        this.ctx.fillRect(object.position.x-object.dimensions.width, object.position.y, object.dimensions.width*4, object.dimensions.height*4);
+        //find center of rotation
+        let x = (object.position.x +object.dimensions.width/2 );
+        let y = (object.position.y +object.dimensions.height);
+        this.ctx.translate(x, y);
+        this.ctx.rotate(angle*Math.PI/180);
+        let image = new Image();
+        image.src = URL;
+        this.ctx.drawImage(image,-(object.dimensions.height/2), -(object.dimensions.width/2),object.dimensions.height, object.dimensions.width);
+        this.ctx.restore();
     }
 
     /**
@@ -367,7 +442,7 @@ export default class Base {
 
             dataLoop = setTimeout(function () {
                 inst.dataCollection();
-            }, 10);
+            }, 50);
 
         };
 
@@ -480,12 +555,12 @@ export default class Base {
      */
     basketCenter(basket){
         let radiusRim = 0.1;
-        let leftBorder =  (1.3310-radiusRim/5)*SCALE;
-        let topBorder =  (1.3671-basket.position.y)*SCALE;
-        let rightBorder = (1.3310+radiusRim/5)*SCALE;
-        let downBorder =  (1.3671-basket.position.y+radiusRim/5)*SCALE;
+        let leftBorder =  (1.3310-radiusRim/5)*Utils.SCALE;
+        let topBorder =  basket.position.y ;
+        let rightBorder = (1.3310+radiusRim/5)*Utils.SCALE;
 
-        return {  position : {x:leftBorder,y: downBorder }, dimensions: {width: rightBorder - leftBorder, height: topBorder-downBorder },color:Utils.redColor}
+
+        return {  position : {x:leftBorder,y: topBorder }, dimensions: {width: rightBorder - leftBorder, height:  (radiusRim/5)*Utils.SCALE },color:Utils.redColor}
     }
 
 
@@ -498,31 +573,48 @@ export default class Base {
     basketObject(basket){
 
         let radiusRim = 0.1;
-        let leftBorder = (1.3310-radiusRim)*SCALE ;
-        let topBorder = 1.3671*SCALE;
-        let rightBorder = (1.3310+radiusRim)*SCALE;
-        let downBorder =  (1.3671+0.17)*SCALE ;
+        let leftBorder = (1.3310-radiusRim)*Utils.SCALE ;
+        let topBorder = 1.3671*Utils.SCALE;
+        let rightBorder = (1.3310+radiusRim)*Utils.SCALE;
+        let downBorder =  (1.3671+0.17)*Utils.SCALE ;
 
         basket.position = {x: leftBorder,y:downBorder};
-        basket.dimensions = {width: rightBorder - leftBorder, height: topBorder - downBorder};
+        basket.dimensions = {width: rightBorder - leftBorder, height:downBorder -  topBorder };
 
         return basket;
 
     }
 
 
+
+    /**
+     * @method paddleHistory
+     * Store paddle position and time history for velocity calculation
+     */
+    paddleHistory(paddle,initialTime){
+        // Keep only 9 previous values to calculate velocity
+        if(paddle.positions.length > 50){
+            paddle.positions = [];
+            paddle.times = [];
+
+        }
+        paddle.times.push(this.getElapsedTime(initialTime));
+        paddle.positions.push(paddle.position.y/this.canvas.height);
+
+    }
+
     /**
      * @method basketObject
      * Basket object per Matlab coordinates
      * @param basket
-     * @returns {*}
+     * @returns {paddle}
      */
     paddleObject(paddle){
 
-        let leftBorder = (1.3310-0.075)*SCALE ;
-        let topBorder = (1.3671-0-paddle.position.y)*SCALE;
-        let rightBorder = (1.3310+0.075)*SCALE;
-        let downBorder =  (1.3671+0.02-paddle.position.y)*SCALE ;
+        let leftBorder = (1.3310-0.075)*Utils.SCALE ;
+        let topBorder = (1.3671-0-paddle.position.y)*Utils.SCALE;
+        let rightBorder = (1.3310+0.075)*Utils.SCALE;
+        let downBorder =  (1.3671+0.02-paddle.position.y)*Utils.SCALE ;
 
         paddle.position = {x: leftBorder,y:downBorder};
         paddle.dimensions = {width: rightBorder - leftBorder, height: topBorder - downBorder};
@@ -531,6 +623,26 @@ export default class Base {
 
     }
 
+
+
+    ballObject(){
+
+      let  ball = {
+
+            position: {x: (initX)*Utils.SCALE, y:( 1.3571-0.0175)*Utils.SCALE},
+            velocity: 0,
+            mass: Utils.ballMass,
+            radius: (0.04)*Utils.SCALE/2,
+            state: 'fall',
+            impactTime: 0,
+            impactPosition:0,
+            positions:[{x:0,y:0}],
+            color: Utils.yellowColor
+
+        };
+
+        return ball;
+    }
 
     /**
      * @method getElapsedTime
@@ -552,47 +664,67 @@ export default class Base {
      * @param Gravity
      * @param iterator
      */
-    trajectory(ball,ballvx,initV,Gravity,initialTime){
+    trajectory(ball,initialTime){
 
         let  iterator =  this.getElapsedTime(initialTime);
         this.ctx.beginPath();
 
-        let positionY = 0+initV*(iterator)+0.5*-Gravity*Math.pow(iterator,2);
+        let positionY = 0+initV*(iterator)+0.5*-gravity*Math.pow(iterator,2);
         let positionX  = initX + ballvx*(iterator);
 
 
-        let leftBorder =  (positionX-.0175)* SCALE;
-        let topBorder = (1.3571-positionY-.0175)*SCALE;
-        let rightBorder = (positionX+.0175)*SCALE;
-        let downBorder =  (1.3571-positionY+.0175)*SCALE ;
-
+        let leftBorder =  (positionX-.0175)* Utils.SCALE;
+        let topBorder = (1.3571-positionY-.0175)*Utils.SCALE;
+        let rightBorder = (positionX+.0175)*Utils.SCALE;
+        let downBorder =  (1.3571-positionY+.0175)*Utils.SCALE ;
+        if(ball.positions.length > 30){
+            ball.positions = [];
+        }
+        ball.positions.push(ball.position);
         ball.position.x = leftBorder;
         ball.position.y = downBorder;
 
     }
 
-    bounceTrajectory(ball,paddle,ballvx,initV,Gravity,initialTime){
 
+    /**
+     * @method bounceTrajectory
+     * Trajectory after bounce
+     * @param ball
+     * @param paddle
+     * @param initialTime
+     */
+    bounceTrajectory(ball,paddle,initialTime){
         let  Xiterator =  this.getElapsedTime(initialTime);
         let  Yiterator =  this.getElapsedTime(ball.impactTime);
 
 
         this.ctx.beginPath();
-        let positionY = ball.impactPosition/3+paddle.releaseVelocity*(Yiterator)+0.5*-Gravity*Math.pow(Yiterator,2);
+        let positionY = ball.impactPosition+paddle.releaseVelocity*(Yiterator)+0.5*-gravity*Math.pow(Yiterator,2);
         let positionX  = initX + ballvx*(Xiterator);
 
 
-        let leftBorder =  (positionX-.0175)* SCALE;
-        let topBorder = (1.3571-positionY-.0175)*SCALE;
-        let rightBorder = (positionX+.0175)*SCALE;
-        let downBorder =  (1.3571-positionY+.0175)*SCALE ;
+        let leftBorder =  (positionX-.0175)* Utils.SCALE;
+        let topBorder = (1.3571-positionY-.0175)*Utils.SCALE;
+        let rightBorder = (positionX+.0175)*Utils.SCALE;
+        let downBorder =  (1.3571-positionY+.0175)*Utils.SCALE ;
 
+        if(ball.positions.length > 30){
+            ball.positions = [];
+        }
+        ball.positions.push(ball.position);
         ball.position.x = leftBorder;
         ball.position.y = downBorder;
+
 
     }
 
 
+    /**
+     * @method drawBall
+     * Draw ball per x,y ball location
+     * @param ball
+     */
     drawBall(ball){
 
         this.ctx.translate( ball.position.x,  ball.position.y);
@@ -614,12 +746,9 @@ export default class Base {
      */
     moveBallToStart(ball, gameOver) {
 
-        this.ctx.beginPath();
-        this.ctx.arc(paddleWidth * 5 + 20, this.canvas.height - paddleWidth * 2, ball.radius, 0, Math.PI * 2, true);
-        this.ctx.fillStyle = ball.color;
-        this.ctx.fill();
-        this.ctx.closePath();
-        this.ctx.restore();
+        ball = this.ballObject();
+        this.drawBall(ball);
+
         if (gameOver) {
             this.gameOver = true;
         }
@@ -635,10 +764,14 @@ export default class Base {
      */
     paddleAtZero(paddle, score) {
 
-        if (paddle.position.y >= paddleBox.y &&  paddle.position.y < paddleBox.y + paddleWidth*1.3 ) {
-            console.log(new Date().getTime() - paddle.paddleLastMovedMillis);
+
+        let topBorder = (1.3671-0.05+0.05)*Utils.SCALE;
+        let downBorder =  (1.3671+0.15+0.05)*Utils.SCALE ;
+
+        if (paddle.position.y >= topBorder ) {
             // Check if paddle is not moving inside the box
-            if(paddle.paddleLastMovedMillis === 0 || paddle.position.y !== paddle.prevposition.y){
+            let paddleTimeArrSize = paddle.positions.length;
+            if(paddle.paddleLastMovedMillis === 0 || (paddle.position.y !== paddle.positions[paddleTimeArrSize-1]*this.canvas.height)){
                 paddle.paddleLastMovedMillis = new Date().getTime();
 
             }else if(new Date().getTime() - paddle.paddleLastMovedMillis  >= PADDLE_REST_TIME_MS){
@@ -676,10 +809,13 @@ export default class Base {
      * @method paddleMove
      * @param {object} paddle
      */
-    paddleMove(paddle) {
+    paddleMove(paddle,initialTime) {
 
 
         paddle.position.y = this.mouseY;
+
+        this.paddleHistory(paddle,initialTime);
+
 
     }
 

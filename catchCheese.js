@@ -20,7 +20,6 @@ let goodJob = {};
 let initSoundPlaying = true;
 let ballCatchFail = {};
 let targetStars = {};
-let redDot = {};
 let iterator = 0;
 
 let initialTime = 0;
@@ -28,9 +27,7 @@ let hArray = [];
 let Tf = 0.8;
 let Height = 0.8;
 
-let targetLocH = 1.3301;
-let targetLocV = 1.3671;
-let hitRange = 0.025;
+
 let radiusRim = 0.1;
 
 /**
@@ -89,7 +86,9 @@ export default class CatchCheese extends Base {
         super.initGame();
         iterator = 0;
         basket = {
-            prevposition:{x: this.canvas.width / 2 + super.paddleWidth * 3, y: (this.canvas.height / 2 + super.paddleHeight * 2)},
+            prevposition:{x: 0, y: 0},
+            positions:[],
+            times:[],
             velocity: super.Utils.paddleSpeed,
             paddleLastMovedMillis: 0,
             imageURL: super.Utils.basketImage
@@ -136,19 +135,7 @@ export default class CatchCheese extends Base {
     }
 
 
-    /**
-     * Check if paddle is moving up or down
-     * @method paddleMovingUp
-     * @return {boolean}
-     */
-    paddleIsMovingUp(){
 
-        if(basket.position.y < basket.prevposition.y){
-            return  true;
-        }
-
-        return false;
-    }
 
     /**
      * Check if ball reaches the target
@@ -157,24 +144,19 @@ export default class CatchCheese extends Base {
      */
     collisionDetection() {
 
-        let midPAddlePoint = basket.position.x + basket.dimensions.width / 2;
 
-        // if ( ball.position.y > basket.position.y && ball.position.y - ball.radius < basket.position.y + basket.dimensions.height) {
-        //
-        //     if ( ball.position.x > midPAddlePoint - ball.radius && ball.position.x - ball.radius < midPAddlePoint + ball.radius ) {
-        //
-        //         if(this.paddleIsMovingUp()) {
-        //             return true;
-        //         }
-        //
-        //
-        //     }
-        //
-        // }
+        // if (ball.positions.length > 2 && basket.positions.length >2 && ball.positions[ball.positions.length - 1].y > basket.position.y  && ball.position.y >= basket.position.y ){
+        //     if (ball.position.x >= basket.position.x && ball.position.x <=  basket.position.x+  basket.dimensions.width ) {
+        if (ball.positions.length > 2 && basket.positions.length >2 && ball.positions[ball.positions.length - 1].y > basket.position.y && ball.position.y > basket.position.y && ball.position.y - ball.radius < basket.position.y + basket.dimensions.height) {
 
-        if (ball.positions.length > 2 && ball.positions[ball.positions.length - 1].y >= basket.prevposition.y && ball.position.y < basket.position.y){
-            if (ball.position.x > (1.3301 - radiusRim) * super.Utils.SCALE && ball.position.x < (1.3301 + radiusRim) * super.Utils.SCALE) {
+            if (ball.position.x >= basket.position.x && ball.position.x <=  basket.position.x+  basket.dimensions.width ) {
 
+                ball.state = 'good';
+
+                if (ball.position.x > (1.3301 - radiusRim / 5) * super.Utils.SCALE && ball.position.x < (1.3301 + radiusRim / 5) * super.Utils.SCALE) {
+
+                        ball.state = 'very good';
+                }
                 return true;
             }
         }
@@ -210,7 +192,6 @@ export default class CatchCheese extends Base {
      */
     loop() {
         super.loop();
-
         super.createBallBox();
         super.generateTrajectoryParams(hArray,Height,Tf);
         let hitTheTarget = this.collisionDetection();
@@ -225,6 +206,12 @@ export default class CatchCheese extends Base {
                     goodJob.play();
                 }
 
+                if (hitTheTarget && ball.state === 'very good') {
+                    this.starsLocationUpdate();
+                    this.drawImage(targetStars);
+                }
+
+
             } else {
                 if (!super.gameOver) {
 
@@ -236,10 +223,7 @@ export default class CatchCheese extends Base {
             //User should set the paddle to initial position , call stop after that
             super.moveBallToStart(ball, true);
             super.paddleAtZero(basket, hitTheTarget);
-            if (hitTheTarget) {
-                this.starsLocationUpdate();
-                this.drawImage(targetStars);
-            }
+
 
         } else {
 
@@ -257,11 +241,9 @@ export default class CatchCheese extends Base {
         }
 
         super.createPaddleBox(this.canvas.width / 2 + super.paddleWidth * 3, this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleWidth * 1.3);
-        basket.prevposition.y = basket.position.y;
-        super.paddleMove(basket);
+        super.paddleMove(basket,initialTime);
         this.drawImage(basket);
         this.drawRedDot();
-
         obstructions.forEach(obstruction => this.drawImage(obstruction));
 
     }
