@@ -258,39 +258,6 @@ export default class FeedMice extends Base {
 
 
 
-    createBallBox() {
-
-        this.ctx.beginPath();
-        this.ctx.lineWidth = '8';
-        this.ctx.strokeStyle = super.Utils.blueColor;
-
-        let leftBorder = (initX-0.07)*super.Utils.SCALE ;
-        let topBorder = (1.3471-0.05)*super.Utils.SCALE;
-        let rightBorder = (initX+0.07)*super.Utils.SCALE;
-        let downBorder =  (1.3671+0.15)*super.Utils.SCALE ;
-
-        this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
-        this.ctx.fillStyle = super.Utils.blackColor;
-        this.ctx.lineWidth = '8';
-        this.ctx.strokeStyle = super.Utils.blueColor;
-        this.ctx.stroke();
-        this.ctx.closePath();
-
-
-        let InnerleftBorder = (initX+0.05)*super.Utils.SCALE ;
-        let InnertopBorder = (1.2971)*super.Utils.SCALE;
-        let InnerrightBorder = (initX+0.07)*super.Utils.SCALE;
-        let InnerdownBorder =  (1.5171-0.12)*super.Utils.SCALE ;
-
-        this.ctx.beginPath();
-        this.ctx.rect(InnerleftBorder,  InnerdownBorder, InnerrightBorder - InnerleftBorder, InnertopBorder - InnerdownBorder);
-        this.ctx.fillStyle = super.Utils.blackColor;
-        this.ctx.strokeStyle = super.Utils.blackColor;
-        this.ctx.lineWidth = '8';
-        this.ctx.stroke();
-        this.ctx.fill();
-        this.ctx.closePath();
-    }
 
 
     /**
@@ -307,7 +274,7 @@ export default class FeedMice extends Base {
     loop() {
         super.loop();
         super.generateTrajectoryParamsDiscreteSpatial(initVmatrix);
-        this.createBallBox();
+        super.discreteLauncer();
 
 
         let index = pressed.findIndex(item => item != false);
@@ -325,8 +292,8 @@ export default class FeedMice extends Base {
 
                 if (initSoundPlaying) {
                     super.moveBallToStart(ball, false);
+
                 } else {
-                    //Ball  is not flying past the house walls
 
                         super.trajectory(ball, initialTime);
                         super.drawBall(ball);
@@ -334,7 +301,9 @@ export default class FeedMice extends Base {
                 }
 
             }
+
             this.createHouse();
+
             targets.forEach(target => this.createWindow(target));
 
 
