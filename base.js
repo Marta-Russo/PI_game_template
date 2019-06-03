@@ -26,6 +26,7 @@ let initV = 0;
 let gravity = 0;
 let ballvx = 0;
 
+
 // let INITIAL_SCREEN_WIDTH = this.canvas.width/1024; // X  screen from matlab
 // let INITIAL_SCREEN_HEIGHT = this.canvas.height/768; // Y screen from matlab
 const PADDLE_REST_TIME_MS = 500;
@@ -131,6 +132,26 @@ export default class Base {
 
     }
 
+    generateTrajectoryParamsDiscrete(TfArr){
+        let Tf = TfArr[currentRounds];
+        let height = 0.8;
+        initX =0.7510;
+        gravity = 2*height/Math.pow(Tf,2);
+        ballvx = (1.0310+0.02)/Tf;
+        initV = 0.5*gravity*Tf;
+    }
+
+
+    generateTrajectoryParamsDiscreteSpatial(initVmatrix){
+        let Tf = 0.9;
+        gravity = 1.8;
+        ballvx = (1.0310+0.02)/Tf;
+        initV = 0.15*initVmatrix[currentRounds]+0.45;
+        initX = 0.7510;
+        initBallY = -0.02;
+    }
+
+
     /**
      * The box symbolizes initial paddle location
      * @method createPaddleBox
@@ -199,9 +220,9 @@ export default class Base {
     treeObject(treeIndex = 1){
 
         let leftBorder = 400-50-55*treeIndex+0.25*Utils.SCALE;
-        let topBorder = 384;
+        let topBorder = (0.914 +0.05) * Utils.SCALE;
         let rightBorder = 400+0.25*Utils.SCALE;
-        let downBorder =  768-96-24 ;
+        let downBorder =  (1.542+0.05) * Utils.SCALE ;
         let imgURL = Utils.treeImage;
         switch (treeIndex) {
 
@@ -226,7 +247,7 @@ export default class Base {
         }
 
 
-        return {position: {x: leftBorder, y:downBorder}, dimensions: {width:rightBorder-leftBorder,height:topBorder - downBorder},imageURL: imgURL};
+        return {position: {x: leftBorder, y:topBorder}, dimensions: {width:rightBorder-leftBorder,height:downBorder-topBorder },imageURL: imgURL};
 
     }
 
@@ -355,6 +376,42 @@ export default class Base {
         let InnerleftBorder = (0.52)*Utils.SCALE ;
         let InnertopBorder = (1.2971)*Utils.SCALE;
         let InnerrightBorder = (0.59)*Utils.SCALE;
+        let InnerdownBorder =  (1.5171-0.12)*Utils.SCALE ;
+
+        this.ctx.beginPath();
+        this.ctx.rect(InnerleftBorder,  InnerdownBorder, InnerrightBorder - InnerleftBorder, InnertopBorder - InnerdownBorder);
+        this.ctx.fillStyle = Utils.blackColor;
+        this.ctx.strokeStyle = Utils.blackColor;
+        this.ctx.lineWidth = '8';
+        this.ctx.stroke();
+        this.ctx.fill();
+        this.ctx.closePath();
+    }
+
+
+    //TODO: merge this with launcher implementation for paddle games
+    discreteLauncer() {
+
+        this.ctx.beginPath();
+        this.ctx.lineWidth = '8';
+        this.ctx.strokeStyle = Utils.blueColor;
+
+        let leftBorder = (initX-0.05)*Utils.SCALE ;
+        let topBorder = (1.3671-0.05)*Utils.SCALE;
+        let rightBorder = (initX+0.07)*Utils.SCALE;
+        let downBorder =  (1.3871+0.15)*Utils.SCALE ;
+
+        this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
+        this.ctx.fillStyle = Utils.blackColor;
+        this.ctx.lineWidth = '8';
+        this.ctx.strokeStyle = Utils.blueColor;
+        this.ctx.stroke();
+        this.ctx.closePath();
+
+
+        let InnerleftBorder = (initX)*Utils.SCALE ;
+        let InnertopBorder = (1.2971)*Utils.SCALE;
+        let InnerrightBorder = (initX+0.07)*Utils.SCALE;
         let InnerdownBorder =  (1.5171-0.12)*Utils.SCALE ;
 
         this.ctx.beginPath();
@@ -550,63 +607,7 @@ export default class Base {
         }
     }
 
-    /**
-       * Set velocity of moving object to scaling factor of the screen
-       * @method velocityToScale
-       * @param object
-       * @return {{x: number, y: number}}
-       */
-    velocityToScale(object) {
-        let trajectory  = {x: 0, y: 0 };
-        let height  =  this.canvas.offsetHeight;
-        let width  =  this.canvas.offsetWidth;
-        let heightSF =  height / 600;
-        let widthSF =  width / 1200;
-        trajectory.x =  object.x * widthSF;
-        trajectory.y =  object.y * heightSF;
-        return trajectory;
-    }
 
-    /**
-     * Create ball movement up to some trajectory
-     * Set time coefficients scaleX,scaleY  as time parameters to control
-     * speed in time
-     * @method ballTrajectory
-     * @param {object} ball
-     * @param {number} scaleX
-     * @param {number} scaleY
-     */
-    ballTrajectory(ball,scaleX=1,scaleY=1) {
-        let gravity =  9.81;  // m / s^2
-        //density of the environment
-        let rho = 1; // kg/ m^3
-        let Cd = 1;  // Dimensionless/
-        // frontal area or frontal projection of the object (ball)
-        let A = Math.PI * ball.radius * ball.radius / (10000); // m^2
-        //Aerodynamics drag
-        let Fx = -0.5 * Cd  * A  * rho * ball.velocity.x * ball.velocity.x * ball.velocity.x / Math.abs(ball.velocity.x);
-        let Fy = -0.5 * Cd  *A  * rho * ball.velocity.y * ball.velocity.y * ball.velocity.y / Math.abs(ball.velocity.y);
-
-        Fx = (isNaN(Fx) ? 0 : Fx);
-        Fy = (isNaN(Fy) ? 0 : Fy);
-
-        let ax = Fx ;
-        let ay = gravity + (Fy );
-
-        ball.velocity.x += ax * Utils.frameRate*scaleX;
-        ball.velocity.y += ay * Utils.frameRate*scaleY;
-        ball.position.x += ball.velocity.x * Utils.frameRate * 100 * scaleX;
-        ball.position.y += ball.velocity.y * Utils.frameRate * 100 * scaleY ;
-
-        this.ctx.translate(ball.position.x, ball.position.y);
-        this.ctx.beginPath();
-        this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
-        this.ctx.fillStyle = ball.color;
-        this.ctx.fill();
-        this.ctx.closePath();
-        this.ctx.restore();
-
-    }
 
     /**
      * @method basketCenter
@@ -730,7 +731,7 @@ export default class Base {
         let  iterator =  this.getElapsedTime(initialTime);
         this.ctx.beginPath();
 
-        let positionY = 0+initV*(iterator)+0.5*-gravity*Math.pow(iterator,2);
+        let positionY = initBallY+initV*(iterator)+0.5*-gravity*Math.pow(iterator,2);
         let positionX  = initX + ballvx*(iterator);
 
 
@@ -788,8 +789,9 @@ export default class Base {
      */
     drawBall(ball){
 
-        this.ctx.translate( ball.position.x,  ball.position.y);
+
         this.ctx.beginPath();
+        this.ctx.translate( ball.position.x,  ball.position.y);
         this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
         this.ctx.fillStyle = ball.color;
         this.ctx.fill();
