@@ -21,7 +21,6 @@ let goodJob = {};
 let greatJob = {};
 let initialTime = 0;
 
-let current_index = 0;
 
 let TfArr = [];
 let wallsize = 0.25;

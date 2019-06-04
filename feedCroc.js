@@ -18,12 +18,13 @@ let audio = {};
 let bounceSound = {};
 let ballCatchFail = {};
 let goodJob = {};
+let crocEatingSound = {};
 let initSoundPlaying = true;
 let initialTime = 0;
 let alpha = 0.7;
 let hArray = [];
-let targetLocH = 1.65;
-let targetLocV = 0.68;
+let targetLocH = 1.66;
+let targetLocV = 0.77;
 
 let Tf = 0.75;
 let Height = 0.65;
@@ -64,7 +65,6 @@ export default class FeedCroc extends Base {
 
             position: {x: 0, y: 0},
             dimensions: {width: 0 , height:0},
-            prevposition:{x: 0, y: 0},
             paddleLastMovedMillis: 100,
             velocity: super.Utils.paddleSpeed,
             releaseVelocity:1,
@@ -76,10 +76,10 @@ export default class FeedCroc extends Base {
 
 
 
-        let leftBorder = (targetLocH-0.08)*super.Utils.SCALE ;
-        let topBorder = (1.3671-(targetLocV+0.21)-0.19)*super.Utils.SCALE;
-        let rightBorder = (targetLocH+0.6-0.08)*super.Utils.SCALE;
-        let downBorder =  (1.3671-(targetLocV-0.21)-0.19)*super.Utils.SCALE ;
+        let leftBorder = (1.57)*super.Utils.SCALE ;
+        let topBorder = (0.567)*super.Utils.SCALE;
+        let rightBorder = (2.17)*super.Utils.SCALE;
+        let downBorder =  (0.987)*super.Utils.SCALE ;
 
         target = {
 
@@ -100,8 +100,13 @@ export default class FeedCroc extends Base {
         ballCatchFail = new Audio(super.Utils.ballcatchFailSound);
         ballCatchFail.load();
 
+        crocEatingSound = new Audio(super.Utils.crocEatSound);
+        crocEatingSound.load();
+
+
         audio = new Audio(super.Utils.rattleSound);
         audio.load();
+        crocEatingSound.src =  super.Utils.crocEatSound;
         goodJob.src = super.Utils.crocSlurpSound;
         ballCatchFail.src = super.Utils.ballcatchFailSound;
         bounceSound.src = super.Utils.bouncingSound;
@@ -110,21 +115,7 @@ export default class FeedCroc extends Base {
 
     }
 
-    /**
-     * @method paddleHistory
-     * Store paddle position and time history for velocity calculation
-     */
-    paddleHistory(){
-        // Keep only 9 previous values to calculate velocity
-        if(paddle.positions.length > 50){
-            paddle.positions = [];
-            paddle.times = [];
 
-        }
-        paddle.times.push(super.getElapsedTime(initialTime));
-        paddle.positions.push(paddle.position.y/this.canvas.width);
-
-    }
 
 
     /**
@@ -140,14 +131,14 @@ export default class FeedCroc extends Base {
     loop() {
 
         super.loop();
+
+
         super.generateTrajectoryParams(hArray,Height,Tf);
         super.createBallBox();
-        super.createPaddleBox(super.paddleWidth * 10, this.canvas.height / 2.5 + this.canvas.height / 2 - super.paddleWidth*1.3);
-        this.paddleHistory();
-        paddle.prevposition.y = paddle.position.y;
-        super.drawPaddle(paddle);
-        super.paddleMove(paddle);
+        super.createPaddleBox(0, 0);
         this.drawImageAngle(target, target.imageURL,45);
+        super.paddleMove(paddle,initialTime);
+        super.drawPaddle(paddle);
         this.paddleBallCollision();
         let hitTheTarget = this.collisionDetection();
         let hitTheWall = super.wallCollision(ball);
@@ -157,14 +148,13 @@ export default class FeedCroc extends Base {
             //User should set the paddle to initial position , call stop after that
 
             if (hitTheTarget) {
-                if (!super.gameOver && goodJob.readyState === 4) {
-                    goodJob.play();
-                }
 
                     if (ball.state === 'very good') {
+                        goodJob.play();
                         this.drawImageAngle(target, target.imageTargetReachedURL, 45);
 
                     } else {
+                        crocEatingSound.play();
                         this.drawImageAngle(target, super.Utils.crocclosednotongImage, 45);
                     }
 
@@ -200,7 +190,11 @@ export default class FeedCroc extends Base {
             }
         }
 
-
+        // this.ctx.beginPath();
+        // this.ctx.arc(targetLocH*super.Utils.SCALE, targetLocV*super.Utils.SCALE, 6, 0, Math.PI * 2, false);
+        // this.ctx.fillStyle = super.Utils.redColor;
+        // this.ctx.fill();
+        // this.ctx.closePath();
 
     }
 
@@ -266,12 +260,14 @@ export default class FeedCroc extends Base {
                     bounceSound.play();
                     paddle.paddleLastMovedMillis = new Date().getTime();
                     ball.impactTime = new Date().getTime();
-                    ball.impactPosition = paddle.position.y / this.canvas.width;
-                    let paddleVelocity = Math.abs(this.getPaddleVelocity(paddle.times, paddle.positions));
+                    ball.impactPosition = (this.canvas.height - paddle.position.y) / this.canvas.height;
+                    let paddleVelocity = this.getPaddleVelocity(paddle.times, paddle.positions);
                     let iterator = super.getElapsedTime(initialTime);
                     ball.velocity =super.TrajectoryVars.initV - super.TrajectoryVars.gravity * iterator;
-                    paddle.releaseVelocity =-alpha * (ball.velocity - paddleVelocity) + paddleVelocity;
-
+                    paddle.releaseVelocity = -alpha * (ball.velocity - paddleVelocity) + paddleVelocity;
+                    if(isNaN(paddle.releaseVelocity) ) {
+                        paddle.releaseVelocity = 1.56;
+                    }
                     ball.state = 'bounce';
 
             }
@@ -288,12 +284,13 @@ export default class FeedCroc extends Base {
     collisionDetection() {
 
 
-        let YL = (targetLocV-0.1)*super.Utils.SCALE;
+        let YL = (targetLocV-0.25)*super.Utils.SCALE;
         let YH = (targetLocV+0.1)*super.Utils.SCALE;
+        let XH = targetLocH *super.Utils.SCALE;
         let INTERCEPT = (targetLocH + targetLocV)*super.Utils.SCALE;
 
 
-                    if (ball.position.y > YL && ball.position.y < YH ) {
+                    if (ball.position.y > YL && ball.position.y < YH  && ball.position.x > XH ) {
                         let currenImpactCoord = Math.abs(ball.position.y - targetLocV*super.Utils.SCALE);
 
                         if (currenImpactCoord < 0.0825*super.Utils.SCALE){

@@ -18,13 +18,16 @@ let mouseY = 0;
 let gameOver = false;
 let paddleWidth = 0;
 let paddleHeight = 0;
-let paddleBox = {x:0,y:0};
 let currentRounds = 0;
 let initBallY = 0.0;
 let  initX = 0.52;
 let initV = 0;
 let gravity = 0;
 let ballvx = 0;
+let paddleBox = {
+    position:{x:0,y:0},
+    dimensions:{width:0,height:0}
+}
 
 
 // let INITIAL_SCREEN_WIDTH = this.canvas.width/1024; // X  screen from matlab
@@ -158,13 +161,15 @@ export default class Base {
      */
     createPaddleBox(x,y) {
         this.ctx.beginPath();
-        paddleBox = {x:x,y:y};
         let leftBorder = (1.8560-0.6525)*Utils.SCALE ;
         let topBorder = (1.3671-0.05+0.05)*Utils.SCALE;
         let rightBorder = (2.1110-0.6525)*Utils.SCALE;
         let downBorder =  (1.3671+0.15+0.05)*Utils.SCALE ;
-
-        this.ctx.rect(leftBorder,  downBorder, rightBorder - leftBorder, topBorder - downBorder);
+        paddleBox.position.x  = leftBorder;
+        paddleBox.position.y = topBorder;
+        paddleBox.dimensions.width = rightBorder - leftBorder;
+        paddleBox.dimensions.height = downBorder-topBorder;
+        this.ctx.rect(paddleBox.position.x,  paddleBox.position.y, paddleBox.dimensions.width, paddleBox.dimensions.height );
         this.ctx.fillStyle = Utils.blackColor;
         this.ctx.lineWidth = '8';
         this.ctx.strokeStyle = Utils.blueColor;
@@ -640,7 +645,7 @@ export default class Base {
         let rightBorder = (1.3310+radiusRim)*Utils.SCALE;
         let downBorder =  (1.3671+0.17)*Utils.SCALE ;
 
-        basket.position = {x: leftBorder,y:downBorder};
+        basket.position = {x: leftBorder,y:topBorder};
         basket.dimensions = {width: rightBorder - leftBorder, height:downBorder -  topBorder };
 
         return basket;
@@ -654,14 +659,10 @@ export default class Base {
      * Store paddle position and time history for velocity calculation
      */
     paddleHistory(paddle,initialTime){
-        // Keep only 9 previous values to calculate velocity
-        if(paddle.positions.length > 50){
-            paddle.positions = [];
-            paddle.times = [];
 
-        }
+
         paddle.times.push(this.getElapsedTime(initialTime));
-        paddle.positions.push(paddle.position.y/this.canvas.height);
+        paddle.positions.push((this.canvas.height - paddle.position.y)/this.canvas.height);
 
     }
 
@@ -739,9 +740,7 @@ export default class Base {
         let topBorder = (1.3571-positionY-.0175)*Utils.SCALE;
         let rightBorder = (positionX+.0175)*Utils.SCALE;
         let downBorder =  (1.3571-positionY+.0175)*Utils.SCALE ;
-        if(ball.positions.length > 30){
-            ball.positions = [];
-        }
+
         ball.positions.push(ball.position);
         ball.position.x = leftBorder;
         ball.position.y = downBorder;
@@ -771,9 +770,6 @@ export default class Base {
         let rightBorder = (positionX+.0175)*Utils.SCALE;
         let downBorder =  (1.3571-positionY+.0175)*Utils.SCALE ;
 
-        if(ball.positions.length > 30){
-            ball.positions = [];
-        }
         ball.positions.push(ball.position);
         ball.position.x = leftBorder;
         ball.position.y = downBorder;
@@ -834,7 +830,7 @@ export default class Base {
         if (paddle.position.y >= topBorder ) {
             // Check if paddle is not moving inside the box
             let paddleTimeArrSize = paddle.positions.length;
-            if(paddle.paddleLastMovedMillis === 0 || (paddle.position.y !== paddle.positions[paddleTimeArrSize-1]*this.canvas.height)){
+            if(paddle.paddleLastMovedMillis === 0 || (paddle.position.y !== (this.canvas.height - paddle.positions[paddleTimeArrSize-1]*this.canvas.height))){
                 paddle.paddleLastMovedMillis = new Date().getTime();
 
             }else if(new Date().getTime() - paddle.paddleLastMovedMillis  >= PADDLE_REST_TIME_MS){
@@ -876,6 +872,11 @@ export default class Base {
 
 
         paddle.position.y = this.mouseY;
+        if(paddle.position.y > paddleBox.position.y){
+
+            paddle.position.y = paddleBox.position.y;
+        }
+
 
         this.paddleHistory(paddle,initialTime);
 
