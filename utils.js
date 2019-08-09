@@ -16,7 +16,7 @@ export default class Utils{
     static get  paddleSpeed() {return 1;}
     static get  ballMass() {return 0.1;}
     static get  restitution() {return -1.2;}
-    static get  gameRounds() {return 20;}
+    static get  gameRounds() {return 18;}
     static get  gravityFactor() {return 1;}
     static get  SCALE(){return 420;}
 
@@ -61,6 +61,14 @@ export default class Utils{
     static get  fuse(){return this.bucketSoundResources + 'fuse.mp3';}
 
 
+    // Slime game Sounds
+
+    static get  monsterLaunch(){return this.bucketSoundResources + 'Monster_launch.mp3';}
+    static get  monsterSplash(){return this.bucketSoundResources + 'Monster_splash.mp3';}
+    static get  monsterGrowl(){return this.bucketSoundResources + 'monsterGrowl.mp3';}
+
+
+
 
 
     //Image Resources
@@ -92,7 +100,11 @@ export default class Utils{
     static get largebricksImage() {return this.bucketImageResource + 'LargeBricksPile.png';}
 
 
-    // Firewworks Images
+    //Space Junk Sounds
+
+
+
+    // Fireworks Images
 
 
     static get skyline() {return this.bucketImageResource + 'skyline_clipped.png';}
@@ -102,10 +114,32 @@ export default class Utils{
     static get Explosion_big() {return this.bucketImageResource + 'Explosion_big.png';}
     static get Explosion_small() {return this.bucketImageResource + 'Explosion_small.png';}
     static get Fireball() {return this.bucketImageResource + 'Fireball.png';}
+    static get boxOfFireworks() {return this.bucketImageResource + 'Box_of_fireworks.png';}
 
 
 
+
+    //Space Junk Images
     static get robotImage() {return this.bucketImageResource + 'Robot.png';}
+    static get obstruction1() {return this.bucketImageResource + 'Obstruction1.png';}
+    static get obstruction2() {return this.bucketImageResource + 'Obstruction2.png';}
+    static get obstruction3() {return this.bucketImageResource + 'Obstruction3.png';}
+    static get gear() {return this.bucketImageResource + 'Gear.png';}
+    static get ironBasket() {return this.bucketImageResource + 'Basket_metal.png';}
+
+
+
+
+    //Slime Quest Images
+
+    static get shuttleNarrow() {return this.bucketImageResource + 'Shuttle7_narrow.png';}
+    static get shuttleWide() {return this.bucketImageResource + 'Shuttle7_wide.png';}
+    static get shuttle() {return this.bucketImageResource + 'Shuttle7.png';}
+    static get slimeBall() {return this.bucketImageResource + 'SlimeBall_orange.png';}
+    static get splat() {return this.bucketImageResource + 'Splat_orange2.png';}
+    static get slimeMonster() {return this.bucketImageResource + 'Monster2_orange.png';}
+
+
 
 
 

@@ -149,7 +149,7 @@ export default class Base {
     generateTrajectoryParamsDiscrete(TfArr) {
         let Tf = TfArr[currentRounds];
         let height = 0.8;
-        initX = 0.7510;
+        initX = 0.2510;
         gravity = 2 * height / Math.pow(Tf, 2);
         ballvx = (1.0310 + 0.02) / Tf;
         initV = 0.5 * gravity * Tf;
@@ -247,24 +247,24 @@ export default class Base {
         let topBorder = (0.914 + 0.05) * Utils.SCALE;
         let rightBorder = 400 + 0.25 * Utils.SCALE;
         let downBorder = (1.542 + 0.05) * Utils.SCALE;
-        let imgURL = Utils.treeImage;
+        let imgURL = Utils.obstruction1;
         switch (treeIndex) {
 
             case 1:
 
-                imgURL = Utils.treeImage;
+                imgURL = Utils.obstruction1;
 
                 break;
 
             case 2:
 
-                imgURL = Utils.tree2Image;
+                imgURL = Utils.obstruction2;
 
                 break;
 
             case 3:
 
-                imgURL = Utils.tree3Image;
+                imgURL = Utils.obstruction3;
                 break;
 
 
@@ -402,7 +402,7 @@ export default class Base {
 
 
     //TODO: merge this with launcher implementation for paddle games
-    discreteLauncer() {
+    discreteLauncer(imageURL) {
 
         this.ctx.beginPath();
         this.ctx.lineWidth = '8';
@@ -413,27 +413,32 @@ export default class Base {
         let rightBorder = (initX + 0.07) * Utils.SCALE;
         let downBorder = (1.3871 + 0.15) * Utils.SCALE;
 
-        this.ctx.rect(leftBorder, downBorder, rightBorder - leftBorder, topBorder - downBorder);
-        this.ctx.fillStyle = Utils.blackColor;
-        this.ctx.lineWidth = '8';
-        this.ctx.strokeStyle = Utils.blueColor;
-        this.ctx.stroke();
-        this.ctx.closePath();
+        let image = new Image();
+        image.src = imageURL;
+        this.ctx.drawImage(image, leftBorder, downBorder, rightBorder - leftBorder, downBorder - topBorder);
 
 
-        let InnerleftBorder = (initX) * Utils.SCALE;
-        let InnertopBorder = (1.2971) * Utils.SCALE;
-        let InnerrightBorder = (initX + 0.07) * Utils.SCALE;
-        let InnerdownBorder = (1.5171 - 0.12) * Utils.SCALE;
-
-        this.ctx.beginPath();
-        this.ctx.rect(InnerleftBorder, InnerdownBorder, InnerrightBorder - InnerleftBorder, InnertopBorder - InnerdownBorder);
-        this.ctx.fillStyle = Utils.blackColor;
-        this.ctx.strokeStyle = Utils.blackColor;
-        this.ctx.lineWidth = '8';
-        this.ctx.stroke();
-        this.ctx.fill();
-        this.ctx.closePath();
+        // this.ctx.rect(leftBorder, downBorder, rightBorder - leftBorder, topBorder - downBorder);
+        // this.ctx.fillStyle = Utils.blackColor;
+        // this.ctx.lineWidth = '8';
+        // this.ctx.strokeStyle = Utils.blueColor;
+        // this.ctx.stroke();
+        // this.ctx.closePath();
+        //
+        //
+        // let InnerleftBorder = (initX) * Utils.SCALE;
+        // let InnertopBorder = (1.2971) * Utils.SCALE;
+        // let InnerrightBorder = (initX + 0.07) * Utils.SCALE;
+        // let InnerdownBorder = (1.5171 - 0.12) * Utils.SCALE;
+        //
+        // this.ctx.beginPath();
+        // this.ctx.rect(InnerleftBorder, InnerdownBorder, InnerrightBorder - InnerleftBorder, InnertopBorder - InnerdownBorder);
+        // this.ctx.fillStyle = Utils.blackColor;
+        // this.ctx.strokeStyle = Utils.blackColor;
+        // this.ctx.lineWidth = '8';
+        // this.ctx.stroke();
+        // this.ctx.fill();
+        // this.ctx.closePath();
     }
 
     /**
@@ -644,15 +649,12 @@ export default class Base {
      */
     basketObject(basket) {
 
-        let position = (this.canvas.height - mouseY)/this.canvas.height ;
         let radiusRim = 0.1;
         let leftBorder = (1.3310 - radiusRim) * Utils.SCALE;
-        let topBorder = (1.3671 - position) * Utils.SCALE;
-        let rightBorder = (1.3310 + radiusRim) * Utils.SCALE;
-        let downBorder = (1.3671 + 0.17 - position) * Utils.SCALE;
+
 
         basket.position = {x: leftBorder, y: mouseY};
-        basket.dimensions = {width: rightBorder - leftBorder, height: downBorder - topBorder};
+        basket.dimensions = {width: 0.207*Utils.SCALE, height: 0.189 * Utils.SCALE  };
 
 
         return basket;
