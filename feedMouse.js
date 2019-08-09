@@ -251,7 +251,7 @@ export default class FeedMouse extends Base {
      */
     keyDownHandler(e) {
 
-        if (e.key === 'l' || e.key === 'L') {
+        if (e.key === ' ' || e.key === 'Spacebar') {
 
             keyPressed = {value:true,when:new Date().getTime()};
         }
@@ -264,7 +264,7 @@ export default class FeedMouse extends Base {
      */
     keyUpHandler(e) {
 
-        if (e.key === 'l' || e.key === 'L') {
+        if (e.key === ' ' || e.key === 'Spacebar') {
 
           //  keyPressed = {value:false,when:new Date().getTime()};
         }
