@@ -16,7 +16,7 @@ import Base from './base.js';
 let ball = {};
 let targets = [];
 let pressed = {};
-let keys = ['o', 'k', 'm']; //Might need to set as super parameter
+let keys = ['y', 'g', 'v']; //Might need to set as super parameter
 let imageURLS = [];
 let audio = {};
 let ballCatchFail = {};
@@ -24,10 +24,9 @@ let goodJob = {};
 let initSoundPlaying = false;
 let currentTargetIndex = 0;
 let initialTime = 0;
-let initX = 0.7510;
 let initVmatrix = [];
 let walls = [];
-
+let jitterT = 0;
 
 /**
  * Main implementation of feed  the mice in the house game.
@@ -48,44 +47,42 @@ export default class FeedMice extends Base {
      */
     constructor(context, document) {
         super(context, document);
-        imageURLS = [super.Utils.blueMouseImage, super.Utils.greenMouseImage, super.Utils.redMouseImage];
+        imageURLS = [super.Utils.openWindowYellow, super.Utils.openWindowViolet, super.Utils.openWindowGreen];
 
     }
 
-    /**
-     * Draw image object according to object positions
-     * @method drawImage
-     * @param object
-     */
-    drawImage(object) {
-        let image = new Image();
-        image.src = object.imageURL;
-        this.ctx.drawImage(image, object.position.x, object.position.y, object.dimensions.width, object.dimensions.height);
-    }
-
-
-
-    createRect(x,y,width,height,color){
-
-        this.ctx.beginPath();
-        this.ctx.fillStyle = color;
-        this.ctx.rect(x, y, width, height);
-        this.ctx.fill();
-        this.ctx.closePath();
-    }
 
 
     targetCoord(index){
         index = index+1;
-        let top = 1.01 + index/10+index*2/100;
-        let leftBorder = (1.5310)*super.Utils.SCALE ;
-        let topBorder =  top*super.Utils.SCALE;
-        let rightBorder = (1.1+0.5310)*super.Utils.SCALE;
 
+        let top = 1.12;
+        let leftBorder = (1.5450)*super.Utils.SCALE ;
+
+
+        switch(index){
+
+            case 2:
+
+                top = 1.25;
+                leftBorder = (1.555)*super.Utils.SCALE;
+
+                break;
+
+            case 3:
+
+                top = 1.39;
+                leftBorder = (1.555)*super.Utils.SCALE;
+
+                break;
+
+        }
+
+        let topBorder =  top*super.Utils.SCALE;
 
         let target = {
 
-            dimensions: {width: rightBorder-leftBorder , height: 0.10*super.Utils.SCALE},
+            dimensions: {width: 86/2 , height:63/2},
             position: {
                 x: leftBorder,
                 y: topBorder
@@ -106,7 +103,7 @@ export default class FeedMice extends Base {
 
     wallSize(){
 
-        return 0.5/3*walls[super.currentRounds];
+        return 0.5/3*2;
     }
 
     /**
@@ -117,27 +114,54 @@ export default class FeedMice extends Base {
 
 
         //Draw House
-        let leftBorder = (0.8+0.5310-this.wallSize())*super.Utils.SCALE ;
-        let topBorder = (0.8)*super.Utils.SCALE;
-        let rightBorder = (0.8+0.32+0.5310)*super.Utils.SCALE;
-        let downBorder =  (1.3671+0.15)*super.Utils.SCALE ;
+        let leftBorder = 0.798*super.Utils.SCALE ;
+        let topBorder = (0.78)*super.Utils.SCALE;
 
-        this.createRect(leftBorder, topBorder, rightBorder-leftBorder, downBorder-topBorder,super.Utils.grayColor);
+        let houseObj  = {
 
-
-
-        //Draw roof
-        this.ctx.beginPath();
-        this.ctx.fillStyle = super.Utils.redColor;
-        this.ctx.moveTo(((1.3310-this.wallSize()-0.1+1.7510)/2)*super.Utils.SCALE, 0.5*super.Utils.SCALE);
-        this.ctx.lineTo((1.3310-this.wallSize()-0.1)*super.Utils.SCALE, 0.8*super.Utils.SCALE);
-        this.ctx.lineTo(1.7510*super.Utils.SCALE, 0.8*super.Utils.SCALE);
-        this.ctx.fill();
-        this.ctx.closePath();
+            dimensions:  {width: 1.19 *super.Utils.SCALE , height: 1.135 * super.Utils.SCALE},
+            position: {x: leftBorder, y: topBorder}
+        }
 
 
+
+        this.getShuttle(houseObj);
 
     }
+
+
+    /**
+     *
+     * Get shuttle image from sources
+     * @method getShuttle
+     */
+    getShuttle(houseObj){
+
+        let index = walls[super.currentRounds]
+        let shuttle = super.Utils.shuttleNarrow;
+        houseObj.position.x =  0.81*super.Utils.SCALE ;
+
+        switch (index) {
+
+            case 2:
+
+                houseObj.position.x =  0.798*super.Utils.SCALE ;
+                shuttle =  super.Utils.shuttle;
+
+                break
+            case 3:
+
+                houseObj.position.x =  0.77*super.Utils.SCALE ;
+                shuttle =  super.Utils.shuttleWide;
+
+                break;
+
+        }
+
+        super.drawImageObject(houseObj,shuttle)
+
+    }
+
 
     /**
      * Create the window in the house
@@ -145,15 +169,8 @@ export default class FeedMice extends Base {
      * @param target
      */
     createWindow(target) {
-        this.ctx.beginPath();
-        this.ctx.fillStyle = target.windowbackground;
-        this.ctx.rect(target.position.x, target.position.y, target.dimensions.width, target.dimensions.height);
-        this.ctx.fill();
-        this.ctx.closePath();
 
-        // Add mouse to window
-
-        this.drawImage(target);
+        super.drawImageObject(target,target.imageURL)
 
     }
 
@@ -165,18 +182,18 @@ export default class FeedMice extends Base {
     init() {
         super.init();
         initVmatrix = super.uniformArr([1,2,3]);
-        walls = super.uniformArr([1,2]);
+        walls = super.uniformArr([1,2,3]);
         goodJob = new Audio(super.Utils.good3MouseSound);
         goodJob.load();
 
         ballCatchFail = new Audio(super.Utils.bad3MouseSound);
         ballCatchFail.load();
 
-        audio = new Audio(super.Utils.rattleSound);
+        audio = new Audio(super.Utils.monsterLaunch);
         audio.load();
         goodJob.src = super.Utils.good3MouseSound;
         ballCatchFail.src = super.Utils.bad3MouseSound;
-        audio.src = super.Utils.rattleSound;
+        audio.src = super.Utils.monsterLaunch;
         audio.addEventListener('onloadeddata', this.initGame(), false);
     }
 
@@ -191,7 +208,7 @@ export default class FeedMice extends Base {
     initGame() {
         initialTime =0;
         pressed = Array(3).fill(false);
-
+        jitterT = super.trialStartTime()/10;
         ball = {
             position: {x: 0, y: 0},
             mass: super.Utils.ballMass,
@@ -211,7 +228,7 @@ export default class FeedMice extends Base {
 
         initSoundPlaying = true;
         audio.play();
-        audio.addEventListener('ended', function () {
+        audio.addEventListener('playing', function () {
             initSoundPlaying = false;
             initialTime = new Date().getTime();
         });
@@ -230,16 +247,15 @@ export default class FeedMice extends Base {
     showBallLocation(index){
 
         //Put the ball in the center of target once it hits window constraints
-        this.ctx.beginPath();
         let target = targets[index];
-        ball.position.x = target.position.x + target.dimensions.width / 2 - ball.radius / 2;
-        ball.position.y = target.position.y + target.dimensions.height / 2 - ball.radius / 2;
-        this.ctx.beginPath();
-        this.ctx.arc(ball.position.x, ball.position.y, ball.radius, 0, Math.PI * 2, true);
-        this.ctx.fillStyle = ball.color;
-        this.ctx.fill();
-        this.ctx.closePath();
 
+        let splat = {
+
+            dimensions:{width:162/4,height: 153/4},
+            position:{x:target.position.x- 10,y:target.position.y}
+        }
+
+        super.drawImageObject(splat,super.Utils.splat);
 
 
     }
@@ -253,10 +269,33 @@ export default class FeedMice extends Base {
      */
     keyDownHandler(e) {
 
-        pressed = pressed.map((val, index) => keys[index] === e.key ? true : false);
+        if(ball.state !== 'hit' && ball.state !== 'hit target') {
+            pressed = pressed.fill(false);
+            pressed = pressed.map((val, index) => keys[index] === e.key ? true : false);
+        }
+
     }
 
 
+
+    discreteLauncer(imageURL) {
+
+
+
+        let leftBorder = (0.7510 - 0.05) * super.Utils.SCALE;
+        let topBorder = (1.3671 ) * super.Utils.SCALE;
+        let rightBorder = (0.7510 + 0.07) * super.Utils.SCALE;
+        let downBorder = (1.3871 + 0.15) * super.Utils.SCALE;
+
+        let launcher = {
+
+            dimensions: {width:0.19 * super.Utils.SCALE , height : 0.273 * super.Utils.SCALE},
+            position:{x:leftBorder,y:topBorder}
+        }
+        super.drawImageObject(launcher,imageURL);
+
+
+    }
 
 
 
@@ -274,67 +313,64 @@ export default class FeedMice extends Base {
     loop() {
         super.loop();
         super.generateTrajectoryParamsDiscreteSpatial(initVmatrix);
-        super.discreteLauncer();
-
+        this.discreteLauncer(super.Utils.slimeMonster);
 
         let index = pressed.findIndex(item => item != false);
 
-        if (ball.state === 'hit target') {
 
-            super.waitSeconds(2500);
-            super.finishGame(false);
-
-        } else {
-
-
-            if (ball.state === 'fall') {
-
-
-                if (initSoundPlaying) {
-                    super.moveBallToStart(ball, false);
-
-                } else {
-
-                        super.trajectory(ball, initialTime);
-                        super.drawBall(ball);
-
-                }
-
-            }
-
+        if(ball.state === 'start'){
             this.createHouse();
+            super.moveBallToStart(ball, super.Utils.slimeBall,false);
+            if (initialTime > 0 && super.getElapsedTime(initialTime) > jitterT) {
+                audio.pause();
+                initialTime = new Date().getTime();
+                ball.state = 'fall';
 
-            targets.forEach(target => this.createWindow(target));
-
-
-            if(initialTime >0 &&  super.getElapsedTime(initialTime) >= 0.4 ){
-
-                ball.state = 'hit house'
             }
 
 
-
-            // Wait TIME_ALLOWED seconds to get the response
-            if (initialTime > 0 && (index >= 0 || super.getElapsedTime(initialTime) >= 5.2)) {
-
-                let pressed_target = targets[index];
-                if (pressed_target) {
-                    pressed_target.windowbackground = super.Utils.whiteColor;
-                    this.createWindow(pressed_target);
-
-                }
-
-                let indexArr = [2,1,0];
-                currentTargetIndex = indexArr[initVmatrix[super.currentRounds]-1];
-
-                //Show ball only on button press
-                if(index >=0) {
-                    this.showBallLocation(currentTargetIndex);
-                }
-                super.waitSeconds(600);
+        }
 
 
-                // Check if current index of the pressed item corresponds to the actual target index
+        if(ball.state === 'fall') {
+
+            super.trajectory(ball, initialTime);
+            super.drawBall(ball,super.Utils.slimeBall);
+            this.createHouse();
+            if(super.getElapsedTime(initialTime) >= 0.5 ){
+
+                ball.state = 'hit house';
+            }
+
+
+        }
+
+        if((ball.state === 'fall' || ball.state === 'hit house') &&  index >=0){
+
+            ball.state = 'hit';
+
+        }
+
+
+
+        if(ball.state === 'hit house'){
+            this.createHouse();
+            if( super.getElapsedTime(initialTime) >= 3.7){
+                initialTime = new Date().getTime();
+                ball.state = 'hit';
+            }
+
+        }
+
+
+
+        if(ball.state === 'hit') {
+            this.createHouse();
+            let target = targets[index];
+            this.createWindow(target);
+            this.showWindow(index);
+
+            // Check if current index of the pressed item corresponds to the actual target index
                 if (index === currentTargetIndex) {
 
                     goodJob.play();
@@ -344,12 +380,8 @@ export default class FeedMice extends Base {
                     ballCatchFail.play();
                 }
 
+
                 ball.state = 'hit target';
-
-            }
-
-
-
 
         }
 
@@ -357,12 +389,58 @@ export default class FeedMice extends Base {
 
 
 
+        if (ball.state === 'hit target') {
+            this.createHouse();
+            let target = targets[index];
+            this.createWindow(target);
+            this.showWindow(index);
+            if(super.getElapsedTime(initialTime) >= 2.5){
+                super.finishGame(false);
+            }
+
+
+        }
+
+
+
+
+    }
+
+    showWindow(index) {
+        let pressed_target = targets[index];
+
+        if (pressed_target) {
+            this.createWindow(pressed_target);
+
+        }
+
+        let indexArr = [2, 1, 0];
+        currentTargetIndex = indexArr[initVmatrix[super.currentRounds] - 1];
+
+        //Show ball only on button press
+        if (index >= 0) {
+            this.showBallLocation(currentTargetIndex);
+        }
     }
 
     /**
      * @method dataCollection Data collection
      */
     dataCollection() {
+        super.dataCollection();
+        let exportData = {
+            game_type: 'feedMice',
+            ball_position_x: ball.position.x,
+            ball_position_y: ball.position.y,
+            key_pressed_up: pressed[0],
+            key_pressed_mid: pressed[1],
+            key_pressed_down: pressed[2],
+            trial: super.currentRounds,
+            timestamp: new Date().getTime()
+
+        };
+
+        super.storeData(exportData);
 
     }
 

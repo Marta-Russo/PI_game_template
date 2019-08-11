@@ -418,27 +418,6 @@ export default class Base {
         this.ctx.drawImage(image, leftBorder, downBorder, rightBorder - leftBorder, downBorder - topBorder);
 
 
-        // this.ctx.rect(leftBorder, downBorder, rightBorder - leftBorder, topBorder - downBorder);
-        // this.ctx.fillStyle = Utils.blackColor;
-        // this.ctx.lineWidth = '8';
-        // this.ctx.strokeStyle = Utils.blueColor;
-        // this.ctx.stroke();
-        // this.ctx.closePath();
-        //
-        //
-        // let InnerleftBorder = (initX) * Utils.SCALE;
-        // let InnertopBorder = (1.2971) * Utils.SCALE;
-        // let InnerrightBorder = (initX + 0.07) * Utils.SCALE;
-        // let InnerdownBorder = (1.5171 - 0.12) * Utils.SCALE;
-        //
-        // this.ctx.beginPath();
-        // this.ctx.rect(InnerleftBorder, InnerdownBorder, InnerrightBorder - InnerleftBorder, InnertopBorder - InnerdownBorder);
-        // this.ctx.fillStyle = Utils.blackColor;
-        // this.ctx.strokeStyle = Utils.blackColor;
-        // this.ctx.lineWidth = '8';
-        // this.ctx.stroke();
-        // this.ctx.fill();
-        // this.ctx.closePath();
     }
 
     /**
@@ -829,14 +808,6 @@ export default class Base {
      */
     drawBall(ball,ballURL) {
 
-        // this.ctx.save();
-        // this.ctx.beginPath();
-        // this.ctx.translate(ball.position.x, ball.position.y);
-        // this.ctx.arc(0, 0, ball.radius, 0, Math.PI * 2, true);
-        // this.ctx.fillStyle = ball.color;
-        // this.ctx.fill();
-        // this.ctx.closePath();
-        // this.ctx.restore();
 
         let image = new Image();
         image.src = ballURL;
