@@ -128,7 +128,7 @@ export default class CatchMouse extends Base {
             moved:0,
             paddleLastMovedMillis: 0,
             velocity: super.Utils.paddleSpeed,
-            imageURL: super.Utils.basketImage
+            imageURL: super.Utils.rectangleCage
         };
 
 
@@ -150,7 +150,7 @@ export default class CatchMouse extends Base {
             state:'fall',
             showTime:0,
             lastTime: new Date().getTime(),
-            imageURL: super.Utils.miceImage
+            imageURL: super.Utils.rat
         };
 
 
@@ -167,7 +167,7 @@ export default class CatchMouse extends Base {
             angle: 0,
             state:10,
             velocity: 1.4,
-            imageURL: super.Utils.cheeseImage
+            imageURL: super.Utils.pizza
         };
         super.createPaddleBox();
         basket = super.basketObject(basket);
@@ -220,7 +220,7 @@ export default class CatchMouse extends Base {
         this.ctx.beginPath();
         this.ctx.moveTo(cheeseClock.position.x + cheeseClock.dimensions.width / 2, cheeseClock.position.y + cheeseClock.dimensions.height / 2);
         this.ctx.fillStyle = super.Utils.blackColor;
-        this.ctx.arc(cheeseClock.position.x + cheeseClock.dimensions.width / 2, cheeseClock.position.y + cheeseClock.dimensions.height / 2, cheeseClock.dimensions.height / 2, angle, Math.PI * 2,false);
+        this.ctx.arc(cheeseClock.position.x + cheeseClock.dimensions.width / 2, cheeseClock.position.y + cheeseClock.dimensions.height / 2, cheeseClock.dimensions.height , angle, Math.PI * 2,false);
         this.ctx.lineTo(cheeseClock.position.x + cheeseClock.dimensions.width / 2, cheeseClock.position.y + cheeseClock.dimensions.height / 2);
         this.ctx.fill();
         this.ctx.closePath();
