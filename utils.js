@@ -52,7 +52,7 @@ export default class Utils{
 
 
 
-    // Firewworks Sounds
+    // Fireworks Sounds
 
     static get  firework_big(){return this.bucketSoundResources + 'firework_big.mp3';}
     static get  firework_small(){return this.bucketSoundResources + 'firework_small.mp3';}
@@ -65,7 +65,7 @@ export default class Utils{
 
     static get  monsterLaunch(){return this.bucketSoundResources + 'Monster_launch.mp3';}
     static get  monsterSplash(){return this.bucketSoundResources + 'Monster_splash.mp3';}
-    static get  monsterGrowl(){return this.bucketSoundResources + 'monsterGrowl.mp3';}
+    static get  monsterGrowl(){return this.bucketSoundResources + 'monster_growl.mp3';}
 
 
 
@@ -138,9 +138,17 @@ export default class Utils{
     static get slimeBall() {return this.bucketImageResource + 'SlimeBall_orange.png';}
     static get splat() {return this.bucketImageResource + 'Splat_orange2.png';}
     static get slimeMonster() {return this.bucketImageResource + 'Monster2_orange.png';}
+    static get openWindowGreen() {return this.bucketImageResource + 'Open_window_Green.png';}
+    static get openWindowViolet() {return this.bucketImageResource + 'Open_window_Violet.png';}
+    static get openWindowYellow() {return this.bucketImageResource + 'Open_window_Yellow.png';}
 
 
 
+
+    //Catch mouse Images
+    static get rat() {return this.bucketImageResource + 'Rat.png';}
+    static get pizza() {return this.bucketImageResource + 'Pizza.png';}
+    static get rectangleCage() {return this.bucketImageResource + 'Rectangle_cage.png';}
 
 
 
