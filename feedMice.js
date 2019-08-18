@@ -47,7 +47,7 @@ export default class FeedMice extends Base {
      */
     constructor(context, document) {
         super(context, document);
-        imageURLS = [super.Utils.openWindowYellow, super.Utils.openWindowViolet, super.Utils.openWindowGreen];
+        imageURLS = [super.Utils.openWindowYellow, super.Utils.openWindowGreen, super.Utils.openWindowViolet];
 
     }
 
@@ -100,11 +100,6 @@ export default class FeedMice extends Base {
     }
 
 
-
-    wallSize(){
-
-        return 0.5/3*2;
-    }
 
     /**
      * Draw house with roof according to coordinates
@@ -189,11 +184,11 @@ export default class FeedMice extends Base {
         ballCatchFail = new Audio(super.Utils.bad3MouseSound);
         ballCatchFail.load();
 
-        audio = new Audio(super.Utils.monsterLaunch);
+        audio = new Audio(super.Utils.monsterGrowl);
         audio.load();
         goodJob.src = super.Utils.good3MouseSound;
         ballCatchFail.src = super.Utils.bad3MouseSound;
-        audio.src = super.Utils.monsterLaunch;
+        audio.src = super.Utils.monsterGrowl;
         audio.addEventListener('onloadeddata', this.initGame(), false);
     }
 
@@ -323,6 +318,9 @@ export default class FeedMice extends Base {
             super.moveBallToStart(ball, super.Utils.slimeBall,false);
             if (initialTime > 0 && super.getElapsedTime(initialTime) > jitterT) {
                 audio.pause();
+                let startSound = new Audio(super.Utils.monsterLaunch);
+                startSound.src = super.Utils.monsterLaunch;
+                startSound.play();
                 initialTime = new Date().getTime();
                 ball.state = 'fall';
 
