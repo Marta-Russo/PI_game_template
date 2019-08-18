@@ -29,6 +29,7 @@ let targetX = 1.3310;
 let winsize = 0.1;
 let targetsize = 0.005;
 let totalFlightTime = [0.98,1.05,1.15];
+let fireworkWhistle = {};
 let fireworks =  []
 
 /**
@@ -84,31 +85,33 @@ export default class FeedMouse extends Base {
      * @param target
      */
     createWindow() {
-        this.ctx.beginPath();
-        this.ctx.fillStyle = target.windowbackground;
-        this.ctx.rect(target.position.x, target.position.y, target.dimensions.width, target.dimensions.height);
-        this.ctx.fill();
-        this.ctx.closePath();
+        // this.ctx.beginPath();
+        // this.ctx.fillStyle = target.windowbackground;
+        // this.ctx.rect(target.position.x, target.position.y, target.dimensions.width, target.dimensions.height);
+        // this.ctx.fill();
+        // this.ctx.closePath();
+        //
+        // //Draw window cross
+        // this.ctx.beginPath();
+        // this.ctx.strokeStyle = target.color;
+        // this.ctx.moveTo(target.position.x + target.dimensions.width / 2, target.position.y);
+        // this.ctx.lineTo(target.position.x + target.dimensions.width / 2, target.position.y + target.dimensions.height);
+        // this.ctx.moveTo(target.position.x, target.position.y + target.dimensions.height / 2);
+        // this.ctx.lineTo(target.position.x + target.dimensions.width, target.position.y + target.dimensions.height / 2);
+        // this.ctx.lineWidth = '4';
+        // this.ctx.stroke();
+        // this.ctx.fill();
+        // this.ctx.closePath();
+        //
+        //
+        // //Draw red dot
+        // this.ctx.beginPath();
+        // this.ctx.arc(target.position.x + target.dimensions.width / 2, target.position.y + target.dimensions.height / 2, target.radius, 0, Math.PI * 2, false);
+        // this.ctx.fillStyle = target.roofcolor;
+        // this.ctx.fill();
+        // this.ctx.closePath();
 
-        //Draw window cross
-        this.ctx.beginPath();
-        this.ctx.strokeStyle = target.color;
-        this.ctx.moveTo(target.position.x + target.dimensions.width / 2, target.position.y);
-        this.ctx.lineTo(target.position.x + target.dimensions.width / 2, target.position.y + target.dimensions.height);
-        this.ctx.moveTo(target.position.x, target.position.y + target.dimensions.height / 2);
-        this.ctx.lineTo(target.position.x + target.dimensions.width, target.position.y + target.dimensions.height / 2);
-        this.ctx.lineWidth = '4';
-        this.ctx.stroke();
-        this.ctx.fill();
-        this.ctx.closePath();
-
-
-        //Draw red dot
-        this.ctx.beginPath();
-        this.ctx.arc(target.position.x + target.dimensions.width / 2, target.position.y + target.dimensions.height / 2, target.radius, 0, Math.PI * 2, false);
-        this.ctx.fillStyle = target.roofcolor;
-        this.ctx.fill();
-        this.ctx.closePath();
+        super.drawImageObject(target,super.Utils.star);
 
     }
 
@@ -208,6 +211,7 @@ export default class FeedMouse extends Base {
         ball = super.ballObject();
 
         initSoundPlaying = true;
+        startSound = new Audio(super.Utils.fuse);
         startSound.play();
         startSound.addEventListener('playing', function () {
             initSoundPlaying = false;
@@ -288,7 +292,7 @@ export default class FeedMouse extends Base {
         super.loop();
         super.generateTrajectoryParamsDiscrete(TfArr);
         this.createHouse();
-       // this.createWindow();
+        this.createWindow();
 
         if(ball.state === 'start'){
 
@@ -296,6 +300,8 @@ export default class FeedMouse extends Base {
             if (initialTime > 0 && super.getElapsedTime(initialTime) > jitterT) {
                 startSound.pause();
                 startSound.currentTime = 0;
+                fireworkWhistle = new Audio(super.Utils.firework_whistle);
+                fireworkWhistle.play();
                 ball.state = 'fall';
                 initialTime = new Date().getTime();
 
@@ -351,26 +357,28 @@ export default class FeedMouse extends Base {
             //Check for target (red dot) position , if we are within the window size
             if (keyPressed.value === true ) {
 
-                let position = Math.abs(ball.position.x - ( target.position.x ));
+                let position = Math.abs(ball.position.x - ( target.position.x - 10 ));
 
-                if(position <  0.05 * super.Utils.SCALE  ){
+                if(position <  0.03 * super.Utils.SCALE  ){
 
                     ball.hitstate = 'great';
+                    greatJob = new Audio(super.Utils.firework_big);
                     greatJob.play();
 
-                }else if(position < (target.dimensions.width/2)*super.Utils.SCALE){
+                }else if(position < (0.05)*super.Utils.SCALE){
 
                     ball.hitstate = 'good';
+                    goodJob = new Audio(super.Utils.firework_small);
                     goodJob.play();
 
                 }else{
-
+                    ballCatchFail = new Audio(super.Utils.firework_hidden);
                     ballCatchFail.play();
 
                 }
 
 
-               //    this.showBallLocation();
+                this.showBallLocation();
 
 
                 ball.state = 'hit';
