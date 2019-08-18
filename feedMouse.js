@@ -29,7 +29,7 @@ let targetX = 1.3310;
 let winsize = 0.1;
 let targetsize = 0.005;
 let totalFlightTime = [0.98,1.05,1.15];
-
+let fireworks =  []
 
 /**
  * @class FeedMouse
@@ -49,18 +49,12 @@ export default class FeedMouse extends Base {
 
         super(context, document);
 
+        fireworks = [super.Utils.Explosion_big_blue,super.Utils.Explosion_big_green,super.Utils.Explosion_big_red];
+
     }
 
 
 
-    createRect(x,y,width,height,color){
-
-        this.ctx.beginPath();
-        this.ctx.fillStyle = color;
-        this.ctx.rect(x, y, width, height);
-        this.ctx.fill();
-        this.ctx.closePath();
-    }
 
     /**
      * Draw house with roof according to coordinates
@@ -75,7 +69,7 @@ export default class FeedMouse extends Base {
 
         let houseObj ={
 
-            dimensions:  {width: 650, height:  382},
+            dimensions:  {width: 1.54*super.Utils.SCALE, height:  0.9 * super.Utils.SCALE},
             position : {x : leftBorder , y : topBorder}
 
         }
@@ -127,9 +121,12 @@ export default class FeedMouse extends Base {
      */
     showBallLocation(){
 
-        super.drawImageObject(ball, super.Utils.Fireball)
+        super.drawBall(ball, super.Utils.Fireball)
 
     }
+
+
+
 
 
     /**
@@ -187,7 +184,7 @@ export default class FeedMouse extends Base {
                 x: leftBorder,
                 y: topBorder
             },
-            radius: 2,
+            radius: 3,
             color: super.Utils.grayColor,
             roofcolor: super.Utils.redColor,
             houseColor: super.Utils.grayColor,
@@ -201,7 +198,7 @@ export default class FeedMouse extends Base {
             position: {x: 0, y: 0},
             velocity: 0,
             mass: super.Utils.ballMass,
-            radius: 3,
+            radius: 10,
             restitution: super.Utils.restitution,
             color: super.Utils.yellowColor,
             timeReached:0
@@ -266,10 +263,14 @@ export default class FeedMouse extends Base {
 
         if (e.key === ' ' || e.key === 'Spacebar') {
 
-          //  keyPressed = {value:false,when:new Date().getTime()};
+            //  keyPressed = {value:false,when:new Date().getTime()};
         }
 
     }
+
+
+
+
 
     /**
      *
@@ -287,13 +288,14 @@ export default class FeedMouse extends Base {
         super.loop();
         super.generateTrajectoryParamsDiscrete(TfArr);
         this.createHouse();
-        this.createWindow();
-        super.discreteLauncer(super.Utils.boxOfFireworks);
+       // this.createWindow();
+
         if(ball.state === 'start'){
 
             super.moveBallToStart(ball, super.Utils.Fireball,false);
             if (initialTime > 0 && super.getElapsedTime(initialTime) > jitterT) {
                 startSound.pause();
+                startSound.currentTime = 0;
                 ball.state = 'fall';
                 initialTime = new Date().getTime();
 
@@ -304,9 +306,27 @@ export default class FeedMouse extends Base {
 
 
         if (ball.state === 'hit') {
-            super.drawBall(ball, super.Utils.Fireball);
-            super.waitSeconds(2500);
-            super.finishGame(false);
+
+           // greatJob.currentTime = 0;
+            //goodJob.currentTime = 0;
+            //super.drawBall(ball, super.Utils.Fireball);
+            this.createWindow();
+
+            if(ball.hitstate === 'great'){
+                let exposion = this.setExplostionPosition(4,ball);
+                super.drawImageObject(exposion,super.Utils.Explosion_big);
+            }
+
+            if(ball.hitstate === 'good'){
+                let exposion = this.setExplostionPosition(2,ball);
+                super.drawImageObject(exposion,super.Utils.Explosion_small);
+            }
+
+
+
+            if(super.getElapsedTime(initialTime) > 3.5) {
+                super.finishGame(false);
+            }
 
         }
 
@@ -317,42 +337,31 @@ export default class FeedMouse extends Base {
                 super.trajectory(ball, initialTime);
             }
 
-            if(initialTime > 0 && super.ballIsOnFloor(ball)) {
+            if(initialTime > 0 && super.getElapsedTime(initialTime)> 1 && super.ballIsOnFloor(ball)) {
                 ballCatchFail.play();
                 ball.state = 'hit';
             }
 
 
             super.drawBall(ball,super.Utils.Fireball);
-           // this.createWindow();
+            this.createHouse();
+            this.createWindow();
 
 
-            if (keyPressed.value == true ) {
+            //Check for target (red dot) position , if we are within the window size
+            if (keyPressed.value === true ) {
 
-                if(ball.position.x < (targetX+0.42)*super.Utils.SCALE   ){
+                let position = Math.abs(ball.position.x - ( target.position.x ));
 
-                    let position = Math.abs(ball.position.x - targetX*super.Utils.SCALE);
-                    if(position < targetsize*super.Utils.SCALE){
+                if(position <  0.05 * super.Utils.SCALE  ){
 
-                        this.drawImageObject(target,super.Utils.Explosion_big_blue);
-                       // this.createWindow();
-                        greatJob.play();
+                    ball.hitstate = 'great';
+                    greatJob.play();
 
-                    }else if(position < (winsize/2)*super.Utils.SCALE){
-                        this.drawImageObject(target,super.Utils.Explosion_small);
-                        this.createHouse();
+                }else if(position < (target.dimensions.width/2)*super.Utils.SCALE){
 
-                        goodJob.play();
-
-                    }else{
-
-                        ballCatchFail.play();
-
-                    }
-
-
-                    this.showBallLocation();
-
+                    ball.hitstate = 'good';
+                    goodJob.play();
 
                 }else{
 
@@ -361,9 +370,10 @@ export default class FeedMouse extends Base {
                 }
 
 
+               //    this.showBallLocation();
+
 
                 ball.state = 'hit';
-
 
             }
 
@@ -371,8 +381,22 @@ export default class FeedMouse extends Base {
 
 
 
+
         }
+
+
+        super.discreteLauncer(super.Utils.boxOfFireworks);
+
 
     }
 
+    setExplostionPosition(multiplyer,ball) {
+        let explosion = {
+
+            dimensions: {width: target.dimensions.width * multiplyer, height: target.dimensions.height * multiplyer},
+            position: {x:ball.position.x-target.dimensions.width*multiplyer/2 + target.dimensions.width/2, y : ball.position.y - target.dimensions.height*multiplyer/2  + target.dimensions.height/2 - 10}
+
+        };
+        return explosion;
+    }
 }
