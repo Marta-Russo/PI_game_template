@@ -23,14 +23,15 @@ let initSoundPlaying = true;
 let initialTime = 0;
 let alpha = 0.7;
 let hArray = [];
-let targetLocH = 1.66;
-let targetLocV = 0.77;
+let targetLocH = 1.67;
+let targetLocV = 0.71;
 let jitterT = 0;
 let Tf = 0.75;
 let Height = 0.65;
 let wrongSound = {};
 let token = {};
 let bricks = {};
+let target2 = {};
 
 /**
  * @class FeedCroc
@@ -90,13 +91,6 @@ export default class FeedCroc extends Base {
 
         };
 
-        token = {
-
-            dimensions: {width: 0.2*super.Utils.SCALE, height: 0.2*super.Utils.SCALE},
-            position: {x: 1.85*super.Utils.SCALE, y: 0.3*super.Utils.SCALE},
-            imageURL: super.Utils.tokenImage
-
-        }
 
 
         bricks = {
@@ -108,7 +102,20 @@ export default class FeedCroc extends Base {
         }
 
 
+        let leftBorder2 = (1.57)*super.Utils.SCALE ;
+        let topBorder2 = (0.567)*super.Utils.SCALE;
+        let rightBorder2 = (2.17)*super.Utils.SCALE;
+        let downBorder2 =  (0.987)*super.Utils.SCALE ;
 
+
+        target2 = {
+
+            dimensions: {width: rightBorder2-leftBorder2, height: topBorder2-downBorder2},
+            position: {x: leftBorder2, y: downBorder2},
+            imageURL: super.Utils.crocStartImage,
+            imageTargetReachedURL: super.Utils.crocdoneImage
+
+        };
 
         bounceSound = new Audio(super.Utils.bouncingSound);
         bounceSound.load();
@@ -121,13 +128,13 @@ export default class FeedCroc extends Base {
 
         crocEatingSound = new Audio(super.Utils.brickHitsmall);
         crocEatingSound.load();
-        audio = new Audio(super.Utils.rattleSound);
+        audio = new Audio(super.Utils.drumRollSound);
         audio.load();
         crocEatingSound.src =  super.Utils.brickHitsmall;
         goodJob.src = super.Utils.brickHitlarge;
         ballCatchFail.src = super.Utils.ballcatchFailSound;
         bounceSound.src = super.Utils.bouncingSound;
-        audio.src = super.Utils.rattleSound;
+        audio.src = super.Utils.drumRollSound;
         audio.addEventListener('canplaythrough', this.initGame(), false);
         wrongSound = new Audio();
         wrongSound.src = super.Utils.wrongSound;
@@ -153,10 +160,10 @@ export default class FeedCroc extends Base {
         paddle = super.paddleObject(paddle);
         let paddleBoxColor = super.Utils.blueColor;
         super.createPaddleBox(paddleBoxColor);
+        this.drawImageAngle(target2,super.Utils.croctongImage,45);
         super.generateTrajectoryParams(hArray,Height,Tf);
         super.createBallBox(super.Utils.basketBalls);
         super.drawImageObject(paddle,this.Utils.paddleImage);
-        super.drawImageObject(token,token.imageURL);
         super.paddleMove(paddle,initialTime);
         this.paddleBallCollision();
         let hitTheTarget = this.collisionDetection();
@@ -170,6 +177,7 @@ export default class FeedCroc extends Base {
         if(ball.state === 'start'){
             super.moveBallToStart(ball, super.Utils.basketBall,false);
             this.drawImageObject(target, super.Utils.wallInitial);
+            super.drawImageObject(token,token.imageURL);
             if(initialTime > 0 && super.paddleIsMoved(paddle)){
                 initialTime = new Date().getTime();
                 paddleBoxColor = super.Utils.redColor;
@@ -177,7 +185,7 @@ export default class FeedCroc extends Base {
                 wrongSound.play();
             }
 
-            if (initialTime > 0 && super.getElapsedTime(initialTime) > jitterT) {
+            if (initialTime > 0   && super.getElapsedTime(initialTime) > jitterT) {
 
                 audio.pause();
                 audio.currentTime = 0;
@@ -190,25 +198,27 @@ export default class FeedCroc extends Base {
 
         if(ball.state === 'fall' ){
             this.drawImageObject(target, super.Utils.wallInitial);
+            super.drawImageObject(token,token.imageURL);
             if(initialTime > 0 && super.getElapsedTime(initialTime) < 0.95) {
                 super.trajectory(ball, initialTime);
             }
 
-            if(initialTime > 0 && super.ballIsOnFloor(ball)) {
+            if(initialTime > 0 &&  super.getElapsedTime(initialTime) > 2.5 && super.ballIsOnFloor(ball)) {
                 ball.state = 'hit';
             }
-            super.drawBall(ball,super.Utils.basketBall);
 
+            super.drawBall(ball,super.Utils.basketBall);
         }
 
         if(ball.state === 'bounce'){
             this.drawImageObject(target, super.Utils.wallInitial);
             super.bounceTrajectory(ball,paddle,initialTime);
             super.drawBall(ball,super.Utils.basketBall);
+            super.drawImageObject(token,token.imageURL);
         }
 
 
-        if((hitTheTarget || hitTheWall) && ball.state !== 'done' ){
+        if((hitTheTarget || hitTheWall) && ball.state !== 'done' && ball.state !== 'hit' ){
 
             ball.state = 'hit';
         }
@@ -217,13 +227,12 @@ export default class FeedCroc extends Base {
         if(ball.state === 'hit'){
             // Remove ball and show in the starting point,
             //User should set the paddle to initial position , call stop after that
-
+            super.drawImageObject(token,token.imageURL);
             if (ball.hitstate === 'very good') {
                 goodJob.play();
                 super.increaseScore();
                 super.drawImageObject(bricks,super.Utils.largebricksImage);
-                token.dimensions.width *= 2
-                token.dimensions.height *= 2
+
 
             } else if(ball.hitstate === 'good'){
                 crocEatingSound.play();
@@ -232,7 +241,7 @@ export default class FeedCroc extends Base {
                 super.drawImageObject(bricks,bricks.imageURL);
 
             }else{
-
+                super.drawImageObject(target, super.Utils.wallInitial);
                 ballCatchFail.play();
             }
 
@@ -251,12 +260,25 @@ export default class FeedCroc extends Base {
 
                 super.drawImageObject(bricks,super.Utils.largebricksImage);
 
+                let token2 = {
+
+                    dimensions:{width: token.dimensions.width *2 ,height: token.dimensions.height *2  },
+                    position: token.position
+                }
+
+
+                super.drawImageObject(token2,token.imageURL);
             }
 
-            if(ball.hitstate === 'good'){
+            else if(ball.hitstate === 'good'){
 
                 super.drawImageObject(target, super.Utils.wallMissed);
                 super.drawImageObject(bricks,bricks.imageURL);
+                super.drawImageObject(token,token.imageURL);
+            }else {
+
+                super.drawImageObject(target, super.Utils.wallInitial);
+                super.drawImageObject(token,token.imageURL);
             }
 
             if(super.ballIsOnFloor(ball)){
@@ -265,6 +287,8 @@ export default class FeedCroc extends Base {
             }
 
             super.paddleAtZero(paddle, hitTheTarget);
+
+            console.log('done state  :  '  + ball.hitstate );
 
         }
         super.paddleMove(paddle,initialTime);
@@ -313,8 +337,8 @@ export default class FeedCroc extends Base {
      */
     getPaddleVelocity(time,position){
 
-        let timeVector = this.vectorCalculation(time.slice(time.length-8,time.length));
-        let positionVector = this.vectorCalculation(position.slice(position.length-8,position.length));
+        let timeVector = this.vectorCalculation(time.slice(time.length-15,time.length));
+        let positionVector = this.vectorCalculation(position.slice(position.length-15,position.length));
 
         return  this.getArraysum(this.arrayProduct(timeVector,positionVector))/this.getArraysum(this.arrayProduct(timeVector,timeVector));
     }
@@ -329,6 +353,7 @@ export default class FeedCroc extends Base {
      */
     paddleBallCollision() {
 
+
         super.paddleMove(paddle,initialTime);
         //Detect the ball position on X axis , if the ball is between paddle edges
         if (ball.position.x >= (1.2810 - 0.025) * super.Utils.SCALE - 0.04*super.Utils.SCALE && ball.position.x <= (1.3810 + 0.025) * super.Utils.SCALE) {
@@ -339,13 +364,14 @@ export default class FeedCroc extends Base {
             if(paddleDelta < 0.1){
                 paddleDelta = 0.1;
             }
+
             if( Math.abs(ball.position.y - paddle.position.y) <= paddleDelta*super.Utils.SCALE  && ball.position.y - paddle.position.y>=0 ){
                 let paddleVelocity = this.getPaddleVelocity(paddle.times, paddle.positions);
                 super.trajectory(ball, initialTime);
                 bounceSound.play();
                 paddle.paddleLastMovedMillis = new Date().getTime();
                 ball.impactTime = new Date().getTime() ;
-                ball.impactPosition = (this.canvas.height - paddle.position.y) / this.canvas.height - paddleDelta ;
+                ball.impactPosition = (this.canvas.height - (paddle.position.y - paddle.dimensions.height - paddleDelta) ) / this.canvas.height ;
                 let iterator = super.getElapsedTime(initialTime);
                 ball.velocity = super.TrajectoryVars.initV - super.TrajectoryVars.gravity * iterator;
                 paddle.releaseVelocity = -alpha * (ball.velocity - paddleVelocity) + paddleVelocity;
@@ -373,16 +399,16 @@ export default class FeedCroc extends Base {
     collisionDetection() {
 
 
-        let YL = (targetLocV-0.45)*super.Utils.SCALE;
-        let YH = (targetLocV+0.12)*super.Utils.SCALE;
+        let YL = (targetLocV-0.43)*super.Utils.SCALE;
+        let YH = (targetLocV+0.72)*super.Utils.SCALE;
         let XH = targetLocH *super.Utils.SCALE;
 
         if (ball.position.y > YL && ball.position.y < YH  && ball.position.x > XH ) {
             let currenImpactCoord = Math.abs(ball.position.y - targetLocV*super.Utils.SCALE);
 
-            if (currenImpactCoord < 0.087*super.Utils.SCALE){
+            if (currenImpactCoord < 0.27*super.Utils.SCALE){
 
-                if(currenImpactCoord < 0.025*super.Utils.SCALE){
+                if(currenImpactCoord < 0.03*super.Utils.SCALE){
 
                     ball.hitstate = 'very good';
 
@@ -424,6 +450,14 @@ export default class FeedCroc extends Base {
         ball = super.ballObject();
         initialTime = 0;
         initSoundPlaying = true;
+
+        token = {
+
+            dimensions: {width: 0.2*super.Utils.SCALE, height: 0.2*super.Utils.SCALE},
+            position: {x: 1.85*super.Utils.SCALE, y: 0.3*super.Utils.SCALE},
+            imageURL: super.Utils.tokenImage
+
+        }
 
         if(super.currentRounds >0 || (super.currentRounds === 0 && !super.paddleIsMoved(paddle))) {
             audio.play();

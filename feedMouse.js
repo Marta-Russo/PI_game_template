@@ -319,13 +319,13 @@ export default class FeedMouse extends Base {
             this.createWindow();
 
             if(ball.hitstate === 'great'){
-                let exposion = this.setExplostionPosition(4,ball);
-                super.drawImageObject(exposion,super.Utils.Explosion_big);
+                let explosion = this.setExplostionPosition(4,ball);
+                super.drawImageObject(explosion,super.Utils.Explosion_big);
             }
 
             if(ball.hitstate === 'good'){
-                let exposion = this.setExplostionPosition(2,ball);
-                super.drawImageObject(exposion,super.Utils.Explosion_small);
+                let explosion = this.setExplostionPosition(2,ball);
+                super.drawImageObject(explosion,super.Utils.Explosion_small);
             }
 
 
@@ -360,7 +360,7 @@ export default class FeedMouse extends Base {
                 let position = Math.abs(ball.position.x - ( target.position.x - 10 ));
 
                 if(position <  0.03 * super.Utils.SCALE  ){
-
+                    super.increaseScore();
                     ball.hitstate = 'great';
                     greatJob = new Audio(super.Utils.firework_big);
                     greatJob.play();
