@@ -1,0 +1,2860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>ButtonPressWindow - ember-lookit-frameplayer</title>
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+<div id="doc">
+    <div id="bd" class="yui3-g">
+        <div class="yui3-u-1-5">
+            <div id="docs-sidebar" class="sidebar apidocs">
+              <h2 style="display:inline;">
+              <div>
+                <img style="float:right; vertical-align:middle;" src="../assets/css/logo.png" height="70">
+                <span>Lookit<br> component<br> docs</span>
+              </div>
+
+              </h2>
+
+
+              <div id="api-list">
+                  <div id="api-tabview">
+              
+                    <div id="api-tabview-panel">
+                        <h2 class="off-left">Collections</h2>
+                        <ul id="api-modules" class="apis modules">
+                            <li class="module-sidebar-components"><a href="../modules/components.html">components</a></li>
+                            <li class="module-sidebar-exp-player"><a href="../modules/exp-player.html">exp-player</a></li>
+                            <li class="module-sidebar-frames"><a href="../modules/frames.html">frames</a></li>
+                            <li class="module-sidebar-games"><a href="../modules/games.html">games</a></li>
+                            <li class="module-sidebar-mixins"><a href="../modules/mixins.html">mixins</a></li>
+                            <li class="module-sidebar-randomizers"><a href="../modules/randomizers.html">randomizers</a></li>
+                            <li class="module-sidebar-services"><a href="../modules/services.html">services</a></li>
+                        </ul>
+                        <h2 class="off-left">All elements</h2>
+                              <div id="api-tabview-filter">
+                      <input type="search" id="api-filter" placeholder="Type to filter">
+                    </div>
+                        <ul id="api-classes" class="apis classes">
+                            <li><a href="../classes/Base.html">Base</a></li>
+                            <li><a href="../classes/ButtonPressWindow.html">ButtonPressWindow</a></li>
+                            <li><a href="../classes/DiscreteBounce.html">DiscreteBounce</a></li>
+                            <li><a href="../classes/DiscreteButtonSpatial.html">DiscreteButtonSpatial</a></li>
+                            <li><a href="../classes/DiscreteCatch.html">DiscreteCatch</a></li>
+                            <li><a href="../classes/DiscreteCatchLift.html">DiscreteCatchLift</a></li>
+                            <li><a href="../classes/Exp-exit-survey.html">Exp-exit-survey</a></li>
+                            <li><a href="../classes/Exp-frame-base.html">Exp-frame-base</a></li>
+                            <li><a href="../classes/Exp-frame-select.html">Exp-frame-select</a></li>
+                            <li><a href="../classes/Exp-lookit-dialogue-page.html">Exp-lookit-dialogue-page</a></li>
+                            <li><a href="../classes/Exp-lookit-exit-survey.html">Exp-lookit-exit-survey</a></li>
+                            <li><a href="../classes/Exp-lookit-geometry-alternation.html">Exp-lookit-geometry-alternation</a></li>
+                            <li><a href="../classes/Exp-lookit-geometry-alternation-open.html">Exp-lookit-geometry-alternation-open</a></li>
+                            <li><a href="../classes/Exp-lookit-instructions.html">Exp-lookit-instructions</a></li>
+                            <li><a href="../classes/Exp-lookit-mood-questionnaire.html">Exp-lookit-mood-questionnaire</a></li>
+                            <li><a href="../classes/Exp-lookit-observation.html">Exp-lookit-observation</a></li>
+                            <li><a href="../classes/Exp-lookit-preferential-looking.html">Exp-lookit-preferential-looking</a></li>
+                            <li><a href="../classes/Exp-lookit-preview-explanation.html">Exp-lookit-preview-explanation</a></li>
+                            <li><a href="../classes/Exp-lookit-story-page.html">Exp-lookit-story-page</a></li>
+                            <li><a href="../classes/Exp-lookit-survey.html">Exp-lookit-survey</a></li>
+                            <li><a href="../classes/Exp-lookit-text.html">Exp-lookit-text</a></li>
+                            <li><a href="../classes/Exp-lookit-video.html">Exp-lookit-video</a></li>
+                            <li><a href="../classes/Exp-lookit-video-assent.html">Exp-lookit-video-assent</a></li>
+                            <li><a href="../classes/Exp-lookit-video-consent.html">Exp-lookit-video-consent</a></li>
+                            <li><a href="../classes/Exp-player.html">Exp-player</a></li>
+                            <li><a href="../classes/Exp-video-config.html">Exp-video-config</a></li>
+                            <li><a href="../classes/Exp-video-config-quality.html">Exp-video-config-quality</a></li>
+                            <li><a href="../classes/Exp-video-consent.html">Exp-video-consent</a></li>
+                            <li><a href="../classes/Exp-video-preview.html">Exp-video-preview</a></li>
+                            <li><a href="../classes/Expand-assets.html">Expand-assets</a></li>
+                            <li><a href="../classes/ExpFrameGamesComponent.html">ExpFrameGamesComponent</a></li>
+                            <li><a href="../classes/Full-screen.html">Full-screen</a></li>
+                            <li><a href="../classes/Game.html">Game</a></li>
+                            <li><a href="../classes/Media-reload.html">Media-reload</a></li>
+                            <li><a href="../classes/Permute.html">Permute</a></li>
+                            <li><a href="../classes/Random-parameter-set.html">Random-parameter-set</a></li>
+                            <li><a href="../classes/Select.html">Select</a></li>
+                            <li><a href="../classes/Session-record.html">Session-record</a></li>
+                            <li><a href="../classes/Utils
+              Shared Utility class for project static methods and constants.html">Utils
+              Shared Utility class for project static methods and constants</a></li>
+                            <li><a href="../classes/Video-record.html">Video-record</a></li>
+                            <li><a href="../classes/video-recorder.html">video-recorder</a></li>
+                        </ul>
+                    </div>
+              
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="yui3-u-4-5">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1>ButtonPressWindow Class</h1>
+<div class="box meta">
+
+        <div class="extends">
+            Extends <a href="../classes/Base.html" class="crosslink">Base</a>
+        </div>
+
+        <div class="foundat">
+            Defined in: <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l59"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:59</code></a>
+        </div>
+
+            Collection: <a href="../modules/games.html">games</a><br>
+
+</div>
+
+
+<div>
+
+    <img src="../assets/screenshots/ButtonPressWindow.png" class="class-screenshot">
+
+</div>
+
+<div class="box intro">
+    <p>Main implementation of feed  the mouse in the house game.
+The user will operate with keyboard keys to predict when ball trajectory will hit the window.
+The trajectory is randomized with various values in trajectories array</p>
+
+</div>
+
+
+<div id="classdocs" class="tabview">
+    <ul class="api-class-tabs">
+        <li class="api-class-tab index"><a href="#index">Index</a></li>
+
+            <li class="api-class-tab methods"><a href="#methods">Methods</a></li>
+    </ul>
+
+    <div>
+        <div id="index" class="api-class-tabpanel index">
+            <h2 class="off-left">Item Index</h2>
+
+                <div class="index-section methods">
+                    <h3>Methods</h3>
+
+                    <ul class="index-list methods extends">
+                            <li class="index-item method inherited">
+                                <a href="#method_ballIsOnFloor">ballIsOnFloor</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_ballObject">ballObject</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_basketObject">basketObject</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_calculateCanvas">calculateCanvas</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_clearInterval">clearInterval</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_constructor">constructor</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_Constructor">Constructor</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_createLauncher">createLauncher</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_createPaddleBox">createPaddleBox</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_createShuttle">createShuttle</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_createTargetWindow">createTargetWindow</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_dataCollection">dataCollection</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_drawBall">drawBall</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_drawImage">drawImage</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_drawImageObject">drawImageObject</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_drawScore">drawScore</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_fillAudioArray">fillAudioArray</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_fillImageArray">fillImageArray</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_finishGame">finishGame</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_generateTrajectoryParams">generateTrajectoryParams</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_generateTrajectoryParamsDiscrete">generateTrajectoryParamsDiscrete</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_generateTrajectoryParamsDiscreteSpatial">generateTrajectoryParamsDiscreteSpatial</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_getElapsedTime">getElapsedTime</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_increaseScore">increaseScore</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_init">init</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_initGame">initGame</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_keyDownHandler">keyDownHandler</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_keyUpHandler">keyUpHandler</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_loop">loop</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_moveBallToStart">moveBallToStart</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_onMouseMove">onMouseMove</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_paddleAtZero">paddleAtZero</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_paddleHistory">paddleHistory</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_paddleIsMoved">paddleIsMoved</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_paddleMove">paddleMove</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_paddleObject">paddleObject</a>
+
+                            </li>
+                            <li class="index-item method">
+                                <a href="#method_showBallLocation">showBallLocation</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_shuffle">shuffle</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_storeData">storeData</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_trajectory">trajectory</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_TrajectoryVars">TrajectoryVars</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_trialStartTime">trialStartTime</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_uniformArr">uniformArr</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_Utils">Utils</a>
+
+                            </li>
+                            <li class="index-item method inherited">
+                                <a href="#method_wallCollision">wallCollision</a>
+
+                            </li>
+                    </ul>
+                </div>
+
+
+
+        </div>
+
+            <div id="methods" class="api-class-tabpanel">
+                <h2 class="off-left">Methods</h2>
+
+<div id="method_ballIsOnFloor" class="method item inherited">
+    <h3 class="name"><code>ballIsOnFloor</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>ball</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_ballIsOnFloor">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l668"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:668</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Check if ball is on the floor and missed target</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">ball</code>
+                        <span class="type">Position: x: number, y: number</span>
+
+
+                    <div class="param-description">
+                        <p>, radius: number, dimensions: {width: number, height:
+number}}</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method_ballObject" class="method item inherited">
+    <h3 class="name"><code>ballObject</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_ballObject">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l579"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:579</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Create initial ball object with state parameters for all games
+Initial state is always 'start' for each game trial</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                    <p>ball  {{color: string, impactPosition: number, startTime: number, positions: {x: number, y:
+number}[],
+position: {x: number, y: number}, velocity: number, state: string, hitstate: string, radius: number, impactTime: number}}</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_basketObject" class="method item inherited">
+    <h3 class="name"><code>basketObject</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>basket</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_basketObject">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l518"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:518</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Basket object per Matlab coordinates</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">basket</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>paddle parameters</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                    <p>basket parameters</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_calculateCanvas" class="method item inherited">
+    <h3 class="name"><code>calculateCanvas</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_calculateCanvas">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l80"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:80</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Calculate canvas based on current Width Height
+of the screen and initial Aspect ratio.
+Currently using Matlab implementation Aspect ratio (4:3)</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_clearInterval" class="method item inherited">
+    <h3 class="name"><code>clearInterval</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_clearInterval">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l505"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:505</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Clear all current running game loops</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_constructor" class="method item">
+    <h3 class="name"><code>constructor</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>context</code>
+                </li>
+                <li class="arg">
+                        <code>document</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l67"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:67</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">context</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">document</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_Constructor" class="method item inherited">
+    <h3 class="name"><code>Constructor</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>context</code>
+                </li>
+                <li class="arg">
+                        <code>document</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_Constructor">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l45"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:45</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Constructor to get parameters from caller</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">context</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>from component</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">document</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>object from component</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_createLauncher" class="method item">
+    <h3 class="name"><code>createLauncher</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>image</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+            <p>Inherited from
+            <a href="../classes/Base.html#method_createLauncher">
+                Base
+            </a>
+            but overwritten in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l239"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:239</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Draw launcher image</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">image</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_createPaddleBox" class="method item inherited">
+    <h3 class="name"><code>createPaddleBox</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>color</code>
+                </li>
+                <li class="arg">
+                        <code>fill</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_createPaddleBox">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l183"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:183</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Create and draw box for initial paddle location.
+The box symbolizes initial paddle location in all games</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">color</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <p>Color of the Paddle box</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">fill</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+                    <div class="param-description">
+                        <p>Set solid color paddle box</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_createShuttle" class="method item">
+    <h3 class="name"><code>createShuttle</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l83"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:83</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Draw house with roof according to coordinates</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_createTargetWindow" class="method item">
+    <h3 class="name"><code>createTargetWindow</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l103"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:103</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Create target window</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_dataCollection" class="method item">
+    <h3 class="name"><code>dataCollection</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+            <p>Inherited from
+            <a href="../classes/Base.html#method_dataCollection">
+                Base
+            </a>
+            but overwritten in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l201"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:201</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        
+    </div>
+
+
+
+
+</div>
+<div id="method_drawBall" class="method item inherited">
+    <h3 class="name"><code>drawBall</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>ball</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_drawBall">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l680"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:680</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Draw ball per x,y ball location</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">ball</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>{position: {x: number, y: number}, radius: number, dimensions: {width: number, height:
+number}}</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_drawImage" class="method item inherited">
+    <h3 class="name"><code>drawImage</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>object</code>
+                </li>
+                <li class="arg">
+                        <code>image</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_drawImage">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l392"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:392</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Show current image</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">object</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>Current object with x,y position, width , height and URL of the image to show</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">image</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>Image object</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_drawImageObject" class="method item inherited">
+    <h3 class="name"><code>drawImageObject</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>{position:</code>
+                </li>
+                <li class="arg">
+                        <code>image</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_drawImageObject">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l763"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:763</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Draw image object according to object parameters</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">{position:</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>{x: number, y: number}, dimensions: {width: number, height: number}}</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">image</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_drawScore" class="method item inherited">
+    <h3 class="name"><code>drawScore</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_drawScore">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l645"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:645</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Draw the game score</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_fillAudioArray" class="method item inherited">
+    <h3 class="name"><code>fillAudioArray</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>array</code>
+                </li>
+                <li class="arg">
+                        <code>array</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_fillAudioArray">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l424"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:424</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Fill audio array with objects according to URL sources</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">array</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+                    <div class="param-description">
+                        <p>of URLs</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">array</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+                    <div class="param-description">
+                        <p>of created objects</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_fillImageArray" class="method item inherited">
+    <h3 class="name"><code>fillImageArray</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>array</code>
+                </li>
+                <li class="arg">
+                        <code>array</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_fillImageArray">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l405"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:405</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Fill image array with objects according to URL sources</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">array</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+                    <div class="param-description">
+                        <p>of URLs</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">array</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+                    <div class="param-description">
+                        <p>of created objects</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_finishGame" class="method item inherited">
+    <h3 class="name"><code>finishGame</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>score</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_finishGame">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l479"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:479</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Finish current round and check for rounds left</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">score</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+                    <div class="param-description">
+                        <p>should increase score</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_generateTrajectoryParams" class="method item inherited">
+    <h3 class="name"><code>generateTrajectoryParams</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>hArr</code>
+                </li>
+                <li class="arg">
+                        <code>height</code>
+                </li>
+                <li class="arg">
+                        <code>Tf</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_generateTrajectoryParams">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l137"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:137</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Generate main trajectory parameters per trial</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">hArr</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>array of equally distributed height</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">height</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>height correction coefficient</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">Tf</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>Flight time coefficient</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_generateTrajectoryParamsDiscrete" class="method item inherited">
+    <h3 class="name"><code>generateTrajectoryParamsDiscrete</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>TfArr</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_generateTrajectoryParamsDiscrete">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l153"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:153</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Generate Trajectory  parameters for discrete games (using Time Flight array)</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">TfArr</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>Time Flight array</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_generateTrajectoryParamsDiscreteSpatial" class="method item inherited">
+    <h3 class="name"><code>generateTrajectoryParamsDiscreteSpatial</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>initVmatrix</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_generateTrajectoryParamsDiscreteSpatial">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l168"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:168</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Generate Trajectory  parameters for spatial discrete games  (using init velocity matrix )</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">initVmatrix</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>init velocity matrix</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_getElapsedTime" class="method item inherited">
+    <h3 class="name"><code>getElapsedTime</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>intialTime</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_getElapsedTime">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l613"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:613</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Get elapsed time as iterator in seconds</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">intialTime</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <p>Unixtime formatted time</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
+                    <p>difference in seconds between current time and intialTime, decimal</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_increaseScore" class="method item inherited">
+    <h3 class="name"><code>increaseScore</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_increaseScore">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l305"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:305</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Current score accumulator</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_init" class="method item">
+    <h3 class="name"><code>init</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+            <p>Inherited from
+            <a href="../classes/Base.html#method_init">
+                Base
+            </a>
+            but overwritten in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l125"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:125</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Main point to start the game.
+Initialize static parameters and preload sounds here</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_initGame" class="method item">
+    <h3 class="name"><code>initGame</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+            <p>Inherited from
+            <a href="../classes/Base.html#method_initGame">
+                Base
+            </a>
+            but overwritten in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l150"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:150</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Initialize each game round with initial object parameters
+Wait for start sound and start the main game loop</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_keyDownHandler" class="method item">
+    <h3 class="name"><code>keyDownHandler</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>e</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+            <p>Inherited from
+            <a href="../classes/Base.html#method_keyDownHandler">
+                Base
+            </a>
+            but overwritten in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l225"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:225</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Get current keyboard event on press button</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_keyUpHandler" class="method item inherited">
+    <h3 class="name"><code>keyUpHandler</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>e</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_keyUpHandler">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l274"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:274</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Abstract method
+Triggered when participant released some key on keyboard</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>event</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_loop" class="method item">
+    <h3 class="name"><code>loop</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+            <p>Inherited from
+            <a href="../classes/Base.html#method_loop">
+                Base
+            </a>
+            but overwritten in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l260"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:260</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Main loop of the game
+Set initial position of the ball in a box and initiate starting sound.
+After that  start ball trajectory.
+If ball hits the target or missed the target(window) show the ball in the window
+Check if user hits the keyboard key when ball trajectory reached the window bounds.
+Increase the score if ball hits the target.
+Move the ball to initial position.
+Wait for some time until rattle sound played.</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_moveBallToStart" class="method item inherited">
+    <h3 class="name"><code>moveBallToStart</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>ball</code>
+                </li>
+                <li class="arg">
+                        <code>Image</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_moveBallToStart">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l693"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:693</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Set position of the ball to initial coordinates to symbolize the start of the game</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">ball</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>{position: {x: number, y: number}, radius: number, dimensions: {width: number, height: number}} object parameters set game to be over</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">Image</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>object</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_onMouseMove" class="method item inherited">
+    <h3 class="name"><code>onMouseMove</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>e</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_onMouseMove">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l824"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:824</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Increment current position cursor by movementY value (difference in y coordinate between the given event and the
+previous mousemove event )
+Check initial cursor position, if the positio is lower then low paddle box border, stop t<br>
+mouse pointer updates.</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">e</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Event" class="crosslink external" target="_blank">Event</a></span>
+
+
+                    <div class="param-description">
+                        <p>currrent mouse event</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_paddleAtZero" class="method item inherited">
+    <h3 class="name"><code>paddleAtZero</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>paddle</code>
+                </li>
+                <li class="arg">
+                        <code>score</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_paddleAtZero">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l706"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:706</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Check if user returned paddle to initial coordinates and call finish of the game to restart
+current round
+Check if paddle is stationary for PADDLE_REST_TIME_MS, if yes proceed to the next trial</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">paddle</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>{position: {x: number, y: number}, dimensions: {width: number, height: number}}</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">score</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+                    <div class="param-description">
+                        <p>should increase score</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_paddleHistory" class="method item inherited">
+    <h3 class="name"><code>paddleHistory</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>paddle</code>
+                </li>
+                <li class="arg">
+                        <code>trial</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_paddleHistory">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l542"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:542</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Store paddle position and time history for velocity calculation</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">paddle</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">trial</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <p>initial Time in Unixtime</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_paddleIsMoved" class="method item inherited">
+    <h3 class="name"><code>paddleIsMoved</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>paddle</code>
+                </li>
+                <li class="arg">
+                        <code>checkPaddleHeight</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_paddleIsMoved">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l737"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:737</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Check if paddle is moved ahead of time</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">paddle</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>parameters object {position: {x: number, y: number}, dimensions: {width: number, height: number}}</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">checkPaddleHeight</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+
+
+                    <div class="param-description">
+                        <p>if height needed for reference (bounce game)</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method_paddleMove" class="method item inherited">
+    <h3 class="name"><code>paddleMove</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>paddle</code>
+                </li>
+                <li class="arg">
+                        <code>initialTime,</code>
+                </li>
+                <li class="arg">
+                        <code>ball</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_paddleMove">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l776"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:776</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Set paddle coordinates up to velocity
+Check if paddle not going past the paddle box bottom border
+Move paddle inside paddle Box upon start of the game</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">paddle</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>{position: {x: number, y: number}, dimensions: {width: number, height: number}}</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">initialTime,</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                        <p>Initial time (Unixtime) for current game round</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">ball</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>{position: {x: number, y: number}, radius: number, dimensions: {width: number, height: number}}</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_paddleObject" class="method item inherited">
+    <h3 class="name"><code>paddleObject</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>paddle</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_paddleObject">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l559"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:559</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Paddle object per Matlab coordinates</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">paddle</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                    <p>paddle {position: {x: number, y: number}, dimensions: {width: number, height: number}}</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_showBallLocation" class="method item">
+    <h3 class="name"><code>showBallLocation</code></h3>
+
+        <span class="paren">()</span>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>
+                Defined in
+        <a href="../files/app_components_exp-lookit-games_buttonPressWindow.js.html#l113"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;buttonPressWindow.js:113</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Show the current  ball location .
+Center the ball location.</p>
+
+    </div>
+
+
+
+
+</div>
+<div id="method_shuffle" class="method item inherited">
+    <h3 class="name"><code>shuffle</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>initial</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_shuffle">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l230"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:230</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Fisher-Yates shuffle for uniform distribution</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">initial</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+                    <div class="param-description">
+                        <p>array</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+                    <p>shuffled array</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_storeData" class="method item inherited">
+    <h3 class="name"><code>storeData</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>export</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_storeData">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l444"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:444</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Store data and pass to  Lookit platform variable</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">export</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+                    <div class="param-description">
+                        <p>Data array of objects with all data passed to Lookit platform</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_trajectory" class="method item inherited">
+    <h3 class="name"><code>trajectory</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>ball</code>
+                </li>
+                <li class="arg">
+                        <code>initialTime</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_trajectory">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l624"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:624</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Projectile motion trajectory per maximum distance</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">ball</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                        <p>{position: {x: number, y: number}, radius: number, dimensions: {width: number, height:
+number}}</p>
+
+                    </div>
+
+                </li>
+                <li class="param">
+                        <code class="param-name">initialTime</code>
+                        <span class="type">Int</span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+
+
+</div>
+<div id="method_TrajectoryVars" class="method item inherited">
+    <h3 class="name"><code>TrajectoryVars</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_TrajectoryVars">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l380"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:380</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Get trajectory parameters per each trial</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>:
+                    <p>{{initX: number, ballvx: number, gravity: number, initV: number}}</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_trialStartTime" class="method item inherited">
+    <h3 class="name"><code>trialStartTime</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_trialStartTime">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l657"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:657</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Randomize trial start time</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number" class="crosslink external" target="_blank">Number</a></span>:
+                    <p>seconds</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_uniformArr" class="method item inherited">
+    <h3 class="name"><code>uniformArr</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>vals</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_uniformArr">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l213"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:213</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Create Uniform array of values</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">vals</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>
+
+
+                    <div class="param-description">
+                        <p>Array of values that  needed to be equally distributed</p>
+
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array" class="crosslink external" target="_blank">Array</a></span>:
+                    <p>array</p>
+
+            </div>
+        </div>
+
+
+</div>
+<div id="method_Utils" class="method item inherited">
+    <h3 class="name"><code>Utils</code></h3>
+
+        <span class="paren">()</span>
+
+        <span class="returns-inline">
+            <span class="type">Utils</span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_Utils">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l368"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:368</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Get shared Utils objects</p>
+
+    </div>
+
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type">Utils</span>:
+            </div>
+        </div>
+
+
+</div>
+<div id="method_wallCollision" class="method item inherited">
+    <h3 class="name"><code>wallCollision</code></h3>
+
+        <div class="args">
+            <span class="paren">(</span><ul class="args-list inline commas">
+                <li class="arg">
+                        <code>ball</code>
+                </li>
+            </ul><span class="paren">)</span>
+        </div>
+
+        <span class="returns-inline">
+            <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>
+        </span>
+
+
+
+
+
+
+
+    <div class="meta">
+                <p>Inherited from
+                <a href="../classes/Base.html#method_wallCollision">Base</a>:
+        <a href="../files/app_components_exp-lookit-games_base.js.html#l806"><code>app&#x2F;components&#x2F;exp-lookit-games&#x2F;base.js:806</code></a>
+        </p>
+
+
+
+    </div>
+
+    <div class="description">
+        <p>Walls and target collisions detection</p>
+
+    </div>
+
+        <div class="params">
+            <h4>Parameters:</h4>
+
+            <ul class="params-list">
+                <li class="param">
+                        <code class="param-name">ball</code>
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" class="crosslink external" target="_blank">Object</a></span>
+
+
+                    <div class="param-description">
+                         
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+        <div class="returns">
+            <h4>Returns:</h4>
+
+            <div class="returns-description">
+                        <span class="type"><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean" class="crosslink external" target="_blank">Boolean</a></span>:
+                    <p>if hit any edge of the screen</p>
+
+            </div>
+        </div>
+
+
+</div>
+            </div>
+
+
+
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

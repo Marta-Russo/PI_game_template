@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>app/components/exp-lookit-games/utils.js - ember-lookit-frameplayer</title>
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+<div id="doc">
+    <div id="bd" class="yui3-g">
+        <div class="yui3-u-1-5">
+            <div id="docs-sidebar" class="sidebar apidocs">
+              <h2 style="display:inline;">
+              <div>
+                <img style="float:right; vertical-align:middle;" src="../assets/css/logo.png" height="70">
+                <span>Lookit<br> component<br> docs</span>
+              </div>
+
+              </h2>
+
+
+              <div id="api-list">
+                  <div id="api-tabview">
+              
+                    <div id="api-tabview-panel">
+                        <h2 class="off-left">Collections</h2>
+                        <ul id="api-modules" class="apis modules">
+                            <li class="module-sidebar-components"><a href="../modules/components.html">components</a></li>
+                            <li class="module-sidebar-exp-player"><a href="../modules/exp-player.html">exp-player</a></li>
+                            <li class="module-sidebar-frames"><a href="../modules/frames.html">frames</a></li>
+                            <li class="module-sidebar-games"><a href="../modules/games.html">games</a></li>
+                            <li class="module-sidebar-mixins"><a href="../modules/mixins.html">mixins</a></li>
+                            <li class="module-sidebar-randomizers"><a href="../modules/randomizers.html">randomizers</a></li>
+                            <li class="module-sidebar-services"><a href="../modules/services.html">services</a></li>
+                        </ul>
+                        <h2 class="off-left">All elements</h2>
+                              <div id="api-tabview-filter">
+                      <input type="search" id="api-filter" placeholder="Type to filter">
+                    </div>
+                        <ul id="api-classes" class="apis classes">
+                            <li><a href="../classes/Base.html">Base</a></li>
+                            <li><a href="../classes/ButtonPressWindow.html">ButtonPressWindow</a></li>
+                            <li><a href="../classes/DiscreteBounce.html">DiscreteBounce</a></li>
+                            <li><a href="../classes/DiscreteButtonSpatial.html">DiscreteButtonSpatial</a></li>
+                            <li><a href="../classes/DiscreteCatch.html">DiscreteCatch</a></li>
+                            <li><a href="../classes/DiscreteCatchLift.html">DiscreteCatchLift</a></li>
+                            <li><a href="../classes/Exp-exit-survey.html">Exp-exit-survey</a></li>
+                            <li><a href="../classes/Exp-frame-base.html">Exp-frame-base</a></li>
+                            <li><a href="../classes/Exp-frame-select.html">Exp-frame-select</a></li>
+                            <li><a href="../classes/Exp-lookit-dialogue-page.html">Exp-lookit-dialogue-page</a></li>
+                            <li><a href="../classes/Exp-lookit-exit-survey.html">Exp-lookit-exit-survey</a></li>
+                            <li><a href="../classes/Exp-lookit-geometry-alternation.html">Exp-lookit-geometry-alternation</a></li>
+                            <li><a href="../classes/Exp-lookit-geometry-alternation-open.html">Exp-lookit-geometry-alternation-open</a></li>
+                            <li><a href="../classes/Exp-lookit-instructions.html">Exp-lookit-instructions</a></li>
+                            <li><a href="../classes/Exp-lookit-mood-questionnaire.html">Exp-lookit-mood-questionnaire</a></li>
+                            <li><a href="../classes/Exp-lookit-observation.html">Exp-lookit-observation</a></li>
+                            <li><a href="../classes/Exp-lookit-preferential-looking.html">Exp-lookit-preferential-looking</a></li>
+                            <li><a href="../classes/Exp-lookit-preview-explanation.html">Exp-lookit-preview-explanation</a></li>
+                            <li><a href="../classes/Exp-lookit-story-page.html">Exp-lookit-story-page</a></li>
+                            <li><a href="../classes/Exp-lookit-survey.html">Exp-lookit-survey</a></li>
+                            <li><a href="../classes/Exp-lookit-text.html">Exp-lookit-text</a></li>
+                            <li><a href="../classes/Exp-lookit-video.html">Exp-lookit-video</a></li>
+                            <li><a href="../classes/Exp-lookit-video-assent.html">Exp-lookit-video-assent</a></li>
+                            <li><a href="../classes/Exp-lookit-video-consent.html">Exp-lookit-video-consent</a></li>
+                            <li><a href="../classes/Exp-player.html">Exp-player</a></li>
+                            <li><a href="../classes/Exp-video-config.html">Exp-video-config</a></li>
+                            <li><a href="../classes/Exp-video-config-quality.html">Exp-video-config-quality</a></li>
+                            <li><a href="../classes/Exp-video-consent.html">Exp-video-consent</a></li>
+                            <li><a href="../classes/Exp-video-preview.html">Exp-video-preview</a></li>
+                            <li><a href="../classes/Expand-assets.html">Expand-assets</a></li>
+                            <li><a href="../classes/ExpFrameGamesComponent.html">ExpFrameGamesComponent</a></li>
+                            <li><a href="../classes/Full-screen.html">Full-screen</a></li>
+                            <li><a href="../classes/Game.html">Game</a></li>
+                            <li><a href="../classes/Media-reload.html">Media-reload</a></li>
+                            <li><a href="../classes/Permute.html">Permute</a></li>
+                            <li><a href="../classes/Random-parameter-set.html">Random-parameter-set</a></li>
+                            <li><a href="../classes/Select.html">Select</a></li>
+                            <li><a href="../classes/Session-record.html">Session-record</a></li>
+                            <li><a href="../classes/Utils
+              Shared Utility class for project static methods and constants.html">Utils
+              Shared Utility class for project static methods and constants</a></li>
+                            <li><a href="../classes/Video-record.html">Video-record</a></li>
+                            <li><a href="../classes/video-recorder.html">video-recorder</a></li>
+                        </ul>
+                    </div>
+              
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="yui3-u-4-5">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: app/components/exp-lookit-games/utils.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+ * Developed by Gleb Iakovlev on 4/6/19 11:11 AM.
+ * Last modified 4/6/19 11:11 AM.
+ * Copyright (c) Cognoteq Software Solutions 2019.
+ * All rights reserved
+ */
+
+/**
+ * @class Utils
+ * Shared Utility class for project static methods and constants
+ */
+
+let SCALE = 420;
+
+export default class Utils{
+
+  static get  frameRate() {  return 1 / 200; } // Seconds
+  static get  frameDelay() { return 10; } // ms
+  static get  paddleSpeed() {return 1;}
+  static get  ballMass() {return 0.1;}
+  static get  restitution() {return -1.2;}
+  static get  gameRounds() {return 24;}
+  static get  gravityFactor() {return 1;}
+  static get  SCALE(){return SCALE;}
+  static set  SCALE(val){ SCALE = val;}
+  static get  SCREEN_HEIGHT(){return 645;}
+
+
+
+  //Sound Resources
+  static get  bucketImageResource() {return &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/&#x27;;}
+  static get  bucketSoundResources() {return &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/sounds/&#x27;;}
+  static get  bouncingSound() {return this.bucketSoundResources + &#x27;BallBouncing.mp3&#x27;;}
+  static get  rattleSound() {return this.bucketSoundResources + &#x27;rattling_sound.mp3&#x27;;}
+  static get  doorbellSound() {return this.bucketSoundResources + &#x27;doorbell.mp3&#x27;;}
+  static get  ballcatchFailSound() {return this.bucketSoundResources + &#x27;BallCatchFail.mp3&#x27;;}
+  static get  bad3MouseSound() {return this.bucketSoundResources + &#x27;bad_3mouse.mp3&#x27;;}
+  static get  crocSlurpSound() {return this.bucketSoundResources + &#x27;croc_slurp.mp3&#x27;;}
+  static get  crocEatSound() {return this.bucketSoundResources + &#x27;crocodile_eating.mp3&#x27;;}
+  static get  good3MouseSound() {return this.bucketSoundResources + &#x27;good_3mouse.mp3&#x27;;}
+  static get  goodCatchSound() {return this.bucketSoundResources + &#x27;goodcatch.mp3&#x27;;}
+  static get  drumRollSound() {return this.bucketSoundResources + &#x27;drumroll.mp3&#x27;;}
+  static get  yaySound() {return this.bucketSoundResources + &#x27;ChildrenYayShort.mp3&#x27;;}
+  static get  swooshSound() {return this.bucketSoundResources + &#x27;Swoosh.mp3&#x27;;}
+  static get  cheese_ser1Sound() {return this.bucketSoundResources + &#x27;cheese_ser1.mp3&#x27;;}
+  static get  cheese_ser2Sound() {return this.bucketSoundResources + &#x27;cheese_ser2.mp3&#x27;;}
+  static get  cheese_ser3Sound() {return this.bucketSoundResources + &#x27;cheese_ser3.mp3&#x27;;}
+  static get  wrongSound() {return this.bucketSoundResources + &#x27;wrongSound.mp3&#x27;;}
+  static get  failcatchSound(){return this.bucketSoundResources + &#x27;failcatch.mp3&#x27;;}
+
+  // Brick smasher Sounds
+
+  static get  brickHitsmall(){return this.bucketSoundResources + &#x27;brickhit_small.mp3&#x27;;}
+  static get  brickHitlarge(){return this.bucketSoundResources + &#x27;brickhit_big.mp3&#x27;;}
+  static get  brickHitwall(){return this.bucketSoundResources + &#x27;brickhit_wall_impact.mp3&#x27;;}
+
+
+
+  // Fireworks Sounds
+
+  static get  firework_big(){return this.bucketSoundResources + &#x27;firework_big.mp3&#x27;;}
+  static get  firework_small(){return this.bucketSoundResources + &#x27;firework_small.mp3&#x27;;}
+  static get  firework_hidden(){return this.bucketSoundResources + &#x27;firework_hidden.mp3&#x27;;}
+  static get  firework_whistle(){return this.bucketSoundResources + &#x27;firework_whistle.mp3&#x27;;}
+  static get  fuse(){return this.bucketSoundResources + &#x27;fuse.mp3&#x27;;}
+
+
+  // Slime game Sounds
+
+  static get  monsterLaunch(){return this.bucketSoundResources + &#x27;Monster_launch.mp3&#x27;;}
+  static get  monsterSplash(){return this.bucketSoundResources + &#x27;Monster_splash.mp3&#x27;;}
+  static get  monsterGrowl(){return this.bucketSoundResources + &#x27;Monster_growl.mp3&#x27;;}
+
+
+
+
+
+  //Image Resources
+  static get  treeImage() {return this.bucketImageResource + &#x27;tree_original.png&#x27;;}
+  static get  tree2Image() {return this.bucketImageResource + &#x27;tree2.png&#x27;;}
+  static get  tree3Image() {return this.bucketImageResource + &#x27;tree3.png&#x27;;}
+  static get  crocdoneImage() {return this.bucketImageResource + &#x27;croc_done.png&#x27;;}
+  static get  croctongImage() {return this.bucketImageResource + &#x27;croc_tong.png&#x27;;}
+  static get  crocclosednotongImage() {return this.bucketImageResource + &#x27;croc_closed_notong.png&#x27;;}
+  static get  crocStartImage() {return this.bucketImageResource + &#x27;crocodile_start.png&#x27;;}
+  static get  cheeseMissedImage() {return this.bucketImageResource + &#x27;cheese_missed.jpg&#x27;;}
+  static get  miceImage() {return this.bucketImageResource + &#x27;mice.png&#x27;;}
+  static get  basketStarsImage() {return this.bucketImageResource + &#x27;Stars.png&#x27;;}
+  static get  cheeseImage() {return this.bucketImageResource + &#x27;Slide1.jpg&#x27;;}
+  static get  basketImage() {return this.bucketImageResource + &#x27;netball.png&#x27;;}
+  static get  blueMouseImage() {return this.bucketImageResource + &#x27;mouse-blue.png&#x27;;}
+  static get  redMouseImage() {return this.bucketImageResource + &#x27;mouse-red.png&#x27;;}
+  static get  greenMouseImage() {return this.bucketImageResource + &#x27;mouse-green.png&#x27;;}
+
+
+  // Brick smasher Images
+  static get paddleImage() {return this.bucketImageResource + &#x27;Paddle1.png&#x27;;}
+  static get wallInitial() {return this.bucketImageResource + &#x27;wall_hor.png&#x27;;}
+  static get wallMissed() {return this.bucketImageResource + &#x27;wall_hor_clip.png&#x27;;}
+  static get basketBalls() {return this.bucketImageResource + &#x27;BasketballsPile2.png&#x27;;}
+  static get basketBall() {return this.bucketImageResource + &#x27;basketball.png&#x27;;}
+  static get tokenImage() {return this.bucketImageResource + &#x27;coin.png&#x27;;}
+  static get smallbricksImage() {return this.bucketImageResource + &#x27;SmallBricksPile.png&#x27;;}
+  static get largebricksImage() {return this.bucketImageResource + &#x27;LargeBricksPile.png&#x27;;}
+
+
+  //Space Junk Sounds
+
+
+
+  // Fireworks Images
+
+
+  static get skyline() {return this.bucketImageResource + &#x27;skyline_clipped.png&#x27;;}
+  static get Explosion_big_blue() {return this.bucketImageResource + &#x27;Explosion_big_blue.png&#x27;;}
+  static get Explosion_big_green() {return this.bucketImageResource + &#x27;Explosion_big_green.png&#x27;;}
+  static get Explosion_big_red() {return this.bucketImageResource + &#x27;Explosion_big_red.png&#x27;;}
+  static get Explosion_big() {return this.bucketImageResource + &#x27;Explosion_big.png&#x27;;}
+  static get Explosion_small() {return this.bucketImageResource + &#x27;Explosion_small.png&#x27;;}
+  static get Fireball() {return this.bucketImageResource + &#x27;Fireball.png&#x27;;}
+  static get boxOfFireworks() {return this.bucketImageResource + &#x27;Box_of_fireworks.png&#x27;;}
+  static get star() {return this.bucketImageResource + &#x27;star.png&#x27;;}
+
+
+
+
+  //Space Junk Images
+  static get robotImage() {return this.bucketImageResource + &#x27;Robot.png&#x27;;}
+  static get obstruction1() {return this.bucketImageResource + &#x27;Obstruction1.png&#x27;;}
+  static get obstruction2() {return this.bucketImageResource + &#x27;Obstruction2.png&#x27;;}
+  static get obstruction3() {return this.bucketImageResource + &#x27;Obstruction3.png&#x27;;}
+  static get gear() {return this.bucketImageResource + &#x27;Gear.png&#x27;;}
+  static get ironBasket() {return this.bucketImageResource + &#x27;Basket_metal.png&#x27;;}
+
+
+
+
+  //Slime Quest Images
+
+  static get shuttleNarrow() {return this.bucketImageResource + &#x27;Shuttle7_narrow.png&#x27;;}
+  static get shuttleWide() {return this.bucketImageResource + &#x27;Shuttle7_wide.png&#x27;;}
+  static get shuttle() {return this.bucketImageResource + &#x27;Shuttle7.png&#x27;;}
+  static get slimeBall() {return this.bucketImageResource + &#x27;SlimeBall_orange.png&#x27;;}
+  static get splat() {return this.bucketImageResource + &#x27;Splat_orange2.png&#x27;;}
+  static get slimeMonster() {return this.bucketImageResource + &#x27;Monster2_orange.png&#x27;;}
+  static get openWindowGreen() {return this.bucketImageResource + &#x27;Open_window_Green.png&#x27;;}
+  static get openWindowViolet() {return this.bucketImageResource + &#x27;Open_window_Violet.png&#x27;;}
+  static get openWindowYellow() {return this.bucketImageResource + &#x27;Open_window_Yellow.png&#x27;;}
+
+
+
+
+  //Catch mouse Images
+  static get rat() {return this.bucketImageResource + &#x27;Rat.png&#x27;;}
+  static get pizza() {return this.bucketImageResource + &#x27;Pizza.png&#x27;;}
+  static get rectangleCage() {return this.bucketImageResource + &#x27;Rectangle_cage.png&#x27;;}
+
+
+
+  //Colors
+  static  get redColor() {return &#x27;#ff2d23&#x27;;}
+  static  get grayColor() {return &#x27;#808080&#x27;;}
+  static  get blackColor() {return &#x27;#020102&#x27;;}
+  static  get yellowColor() {return &#x27;#dadd0f&#x27;;}
+  static  get whiteColor() {return &#x27;#dde5d7&#x27;;}
+  static  get blueColor() {return &#x27;#1931dd&#x27;;}
+  static  get greenColor() {return &#x27;#3CB371&#x27;;}
+  static  get scoreColor() {return &#x27;#09b4dd&#x27;;}
+}
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>app/components/exp-lookit-games/component.js - ember-lookit-frameplayer</title>
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+<div id="doc">
+    <div id="bd" class="yui3-g">
+        <div class="yui3-u-1-5">
+            <div id="docs-sidebar" class="sidebar apidocs">
+              <h2 style="display:inline;">
+              <div>
+                <img style="float:right; vertical-align:middle;" src="../assets/css/logo.png" height="70">
+                <span>Lookit<br> component<br> docs</span>
+              </div>
+
+              </h2>
+
+
+              <div id="api-list">
+                  <div id="api-tabview">
+              
+                    <div id="api-tabview-panel">
+                        <h2 class="off-left">Collections</h2>
+                        <ul id="api-modules" class="apis modules">
+                            <li class="module-sidebar-components"><a href="../modules/components.html">components</a></li>
+                            <li class="module-sidebar-exp-player"><a href="../modules/exp-player.html">exp-player</a></li>
+                            <li class="module-sidebar-frames"><a href="../modules/frames.html">frames</a></li>
+                            <li class="module-sidebar-games"><a href="../modules/games.html">games</a></li>
+                            <li class="module-sidebar-mixins"><a href="../modules/mixins.html">mixins</a></li>
+                            <li class="module-sidebar-randomizers"><a href="../modules/randomizers.html">randomizers</a></li>
+                            <li class="module-sidebar-services"><a href="../modules/services.html">services</a></li>
+                        </ul>
+                        <h2 class="off-left">All elements</h2>
+                              <div id="api-tabview-filter">
+                      <input type="search" id="api-filter" placeholder="Type to filter">
+                    </div>
+                        <ul id="api-classes" class="apis classes">
+                            <li><a href="../classes/Base.html">Base</a></li>
+                            <li><a href="../classes/ButtonPressWindow.html">ButtonPressWindow</a></li>
+                            <li><a href="../classes/DiscreteBounce.html">DiscreteBounce</a></li>
+                            <li><a href="../classes/DiscreteButtonSpatial.html">DiscreteButtonSpatial</a></li>
+                            <li><a href="../classes/DiscreteCatch.html">DiscreteCatch</a></li>
+                            <li><a href="../classes/DiscreteCatchLift.html">DiscreteCatchLift</a></li>
+                            <li><a href="../classes/Exp-exit-survey.html">Exp-exit-survey</a></li>
+                            <li><a href="../classes/Exp-frame-base.html">Exp-frame-base</a></li>
+                            <li><a href="../classes/Exp-frame-select.html">Exp-frame-select</a></li>
+                            <li><a href="../classes/Exp-lookit-dialogue-page.html">Exp-lookit-dialogue-page</a></li>
+                            <li><a href="../classes/Exp-lookit-exit-survey.html">Exp-lookit-exit-survey</a></li>
+                            <li><a href="../classes/Exp-lookit-geometry-alternation.html">Exp-lookit-geometry-alternation</a></li>
+                            <li><a href="../classes/Exp-lookit-geometry-alternation-open.html">Exp-lookit-geometry-alternation-open</a></li>
+                            <li><a href="../classes/Exp-lookit-instructions.html">Exp-lookit-instructions</a></li>
+                            <li><a href="../classes/Exp-lookit-mood-questionnaire.html">Exp-lookit-mood-questionnaire</a></li>
+                            <li><a href="../classes/Exp-lookit-observation.html">Exp-lookit-observation</a></li>
+                            <li><a href="../classes/Exp-lookit-preferential-looking.html">Exp-lookit-preferential-looking</a></li>
+                            <li><a href="../classes/Exp-lookit-preview-explanation.html">Exp-lookit-preview-explanation</a></li>
+                            <li><a href="../classes/Exp-lookit-story-page.html">Exp-lookit-story-page</a></li>
+                            <li><a href="../classes/Exp-lookit-survey.html">Exp-lookit-survey</a></li>
+                            <li><a href="../classes/Exp-lookit-text.html">Exp-lookit-text</a></li>
+                            <li><a href="../classes/Exp-lookit-video.html">Exp-lookit-video</a></li>
+                            <li><a href="../classes/Exp-lookit-video-assent.html">Exp-lookit-video-assent</a></li>
+                            <li><a href="../classes/Exp-lookit-video-consent.html">Exp-lookit-video-consent</a></li>
+                            <li><a href="../classes/Exp-player.html">Exp-player</a></li>
+                            <li><a href="../classes/Exp-video-config.html">Exp-video-config</a></li>
+                            <li><a href="../classes/Exp-video-config-quality.html">Exp-video-config-quality</a></li>
+                            <li><a href="../classes/Exp-video-consent.html">Exp-video-consent</a></li>
+                            <li><a href="../classes/Exp-video-preview.html">Exp-video-preview</a></li>
+                            <li><a href="../classes/Expand-assets.html">Expand-assets</a></li>
+                            <li><a href="../classes/ExpFrameGamesComponent.html">ExpFrameGamesComponent</a></li>
+                            <li><a href="../classes/Full-screen.html">Full-screen</a></li>
+                            <li><a href="../classes/Game.html">Game</a></li>
+                            <li><a href="../classes/Media-reload.html">Media-reload</a></li>
+                            <li><a href="../classes/Permute.html">Permute</a></li>
+                            <li><a href="../classes/Random-parameter-set.html">Random-parameter-set</a></li>
+                            <li><a href="../classes/Select.html">Select</a></li>
+                            <li><a href="../classes/Session-record.html">Session-record</a></li>
+                            <li><a href="../classes/Utils
+              Shared Utility class for project static methods and constants.html">Utils
+              Shared Utility class for project static methods and constants</a></li>
+                            <li><a href="../classes/Video-record.html">Video-record</a></li>
+                            <li><a href="../classes/video-recorder.html">video-recorder</a></li>
+                        </ul>
+                    </div>
+              
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="yui3-u-4-5">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: app/components/exp-lookit-games/component.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+ * Developed by Gleb Iakovlev on 3/31/19 8:15 PM.
+ * Last modified 3/31/19 7:58 PM.
+ * Copyright (c) 2019 . All rights reserved.
+ */
+import ExpFrameBaseComponent from &#x27;../../components/exp-frame-base/component&#x27;;
+import layout from &#x27;./template&#x27;;
+import FullScreen from &#x27;../../mixins/full-screen&#x27;;
+import VideoRecord from &#x27;../../mixins/video-record&#x27;;
+import Ember from &#x27;ember&#x27;;
+import Game from &#x27;./Game&#x27;;
+
+/**
+ * Frame to implement various games interventions.
+ * The games are developed as a separate HTML5 canvas modules.
+ *
+ * Current implementation of template has 3 scenarios to display :
+ * - Intro page (shows the initial game image with door button)
+ * - Progress page (shows the progress page with slot machines with dynamic button )
+ * - Game instructions page (shows the game instructions set as template parameters)
+ *
+ * After each game, get the response that game is finished, save the data (pass the data to
+ * the appropriate game object array) and proceed to the next game/step.
+ *
+ * Current implementation has 5 game types :
+ * - 0: Light the night sky
+ * - 1: Monster slime
+ * - 2: Catch the rat
+ * - 3: Space mechanic
+ * - 4: Brake the wall
+ *
+ *
+ &#x60;&#x60;&#x60;
+ &quot;frames&quot;: {
+
+        &quot;intro&quot;: {
+            &quot;kind&quot;: &quot;exp-lookit-games&quot;,
+            &quot;source&quot;: &quot;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/intro.png&quot;,
+            &quot;showIntro&quot;: true,
+            &quot;showProgress&quot;: false,
+            &quot;showInstructions&quot;: true
+        },
+
+        &quot;progress-1&quot;: {
+            &quot;kind&quot;: &quot;exp-lookit-games&quot;,
+            &quot;gameType&quot;: 0,
+            &quot;showProgress&quot;: true,
+            &quot;showIntro&quot;: false,
+            &quot;showInstructions&quot;: false,
+            &quot;source_button&quot;: &quot;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/start_button.png&quot;
+        },
+        &quot;game&quot;: {
+            &quot;kind&quot;: &quot;exp-lookit-games&quot;,
+            &quot;gameType&quot;: 0,
+            &quot;gameDescription&quot;: &quot;Light the night game&quot;,
+            &quot;instructions&quot; : &quot;Use mouse to move paddle up and down&quot;,
+            &quot;showIntro&quot; : false,
+            &quot;showProgress&quot;: false,
+            &quot;showInstructions&quot;: true
+        }
+    }
+ &#x60;&#x60;&#x60;
+ * @class ExpFrameGamesComponent
+ * @extends FullScreen
+ * @extends VideoRecord
+ */
+
+export default ExpFrameBaseComponent.extend(FullScreen, VideoRecord, {
+
+    type: &#x27;exp-lookit-games&#x27;,
+    displayFullscreen: false,
+    doUseCamera: true,
+    currentGame: null,
+    layout: layout,
+    meta: {
+        name: &#x27;ExpLookitGames&#x27;,
+        description: &#x27;This frame allows the participant to play a game intended for studies.&#x27;,
+        parameters: {
+            type: &#x27;object&#x27;,
+            properties: {
+                /**
+                 * Set current game type
+                 *
+                 * @property {integer} type
+                 * @default 0
+                 */
+                gameType: {
+                    type: &#x27;integer&#x27;,
+                    default: 0,
+                    description: &#x27;Game type  to display &#x27;
+                },
+
+                /**
+                 * Text to display for game instructions
+                 *
+                 * @property {String} instructions
+                 * @default &#x27;empty&#x27;
+                 */
+                instructions: {
+                    type: &#x27;string&#x27;,
+                    default: &#x27;&#x27;
+                },
+
+                /**
+                 * Text to display for game description
+                 *
+                 * @property {String} gameDescription
+                 * @default &#x27;empty&#x27;
+                 */
+                gameDescription: {
+                    type: &#x27;string&#x27;,
+                    default: &#x27;&#x27;
+                },
+                /**
+                 * Whether to show the instructions for the Game
+                 *
+                 * @property {Boolean} showInstructions
+                 * @default false
+                 */
+                showInstructions: {
+                    type: &#x27;boolean&#x27;,
+                    default: false
+                },
+
+                /**
+                 * Media resource location (image, sound,video)
+                 * @property {String} source
+                 * @default &#x27;empty&#x27;
+                 *
+                 */
+                source: {
+                    type: &#x27;string&#x27;,
+                    default: &#x27;&#x27;
+
+                  },
+                /**
+                 * Media resource location for button
+                 * @property {String} source_button
+                 * @default &#x27;empty&#x27;
+                 */
+                source_button: {
+                  type: &#x27;string&#x27;,
+                  default: &#x27;&#x27;
+
+                },
+
+                /**
+                 * Whether to show the progress page
+                 *
+                 * @property {Boolean} showInstructions
+                 * @default false
+                 */
+                showProgress: {
+                    type: &#x27;boolean&#x27;,
+                    default: false
+                },
+
+                /**
+                 * Whether to show the intro page
+                 *
+                 * @property {Boolean} showInstructions
+                 * @default true
+                 */
+                showIntro: {
+                    type: &#x27;boolean&#x27;,
+                    default: false
+                },
+
+                export_arr: {
+                    type: &#x27;array&#x27;,
+                    default: [],
+                    items: {
+                        type: &#x27;object&#x27;,
+                        properties: {
+
+                            ball_object: {
+                                type: &#x27;object&#x27;,
+                                properties: {
+                                    x: {
+                                        type: &#x27;string&#x27;
+                                    },
+                                    y: {
+
+                                        type: &#x27;string&#x27;
+                                    }
+                                }
+
+                            },
+                            paddle_object: {
+                                type: &#x27;object&#x27;,
+                                properties: {
+                                    x: {
+                                        type: &#x27;string&#x27;
+                                    },
+                                    y: {
+
+                                        type: &#x27;string&#x27;
+                                    }
+                                }
+
+                            },
+                            timestamp: {
+                                type: &#x27;string&#x27;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+        },
+        data: {
+            /**
+             * Parameters captured game data and sent to the server
+             * This might be changed in near future for some game type
+             * @method serializeContent
+             * @param {Array} export_arr Game data array with objects positions locations
+             * @param {Object} items The name of the current game object : ball_object {x,y }, paddle_object{x,y}
+             * @param {Object}  ball_object items The name of the current game object
+             * @param {String} timestamp current timestamp in milliseconds for each x,y point of object
+             * @return {Object} The payload sent to the server
+             */
+            type: &#x27;object&#x27;,
+            properties: {
+                // define data to be sent to the server here
+
+                videoId: {
+                    type: &#x27;string&#x27;
+                },
+                videoList: {
+                    type: &#x27;list&#x27;
+                },
+
+                export_arr: {
+                    type: &#x27;array&#x27;,
+                    default: [],
+                    items: {
+                        type: &#x27;object&#x27;,
+                        properties: {
+
+                            ball_object: {
+                                type: &#x27;object&#x27;,
+                                properties: {
+                                    x: {
+                                        type: &#x27;string&#x27;
+                                    },
+                                    y: {
+
+                                        type: &#x27;string&#x27;
+                                    }
+                                }
+
+                            },
+                            paddle_object: {
+                                type: &#x27;object&#x27;,
+                                properties: {
+                                    x: {
+                                        type: &#x27;string&#x27;
+                                    },
+                                    y: {
+
+                                        type: &#x27;string&#x27;
+                                    }
+                                }
+
+                            },
+                            timestamp: {
+                                type: &#x27;string&#x27;
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            }
+        }
+    },
+
+    actions: {
+        // Define any actions that you need to be able to trigger from within the template here
+
+        play() {
+            this.send(&#x27;showFullscreen&#x27;);
+            this.set(&#x27;showInstructions&#x27;, false);
+            this.set(&#x27;showProgress&#x27;, false);
+            this.set(&#x27;showIntro&#x27;, false);
+            this.set(&#x27;export_arr&#x27;, Ember.A());
+            this.startRecorder();
+            this.hideRecorder();
+            new Game(this, document, this.gameType);
+        }
+    },
+    // Other functions that are just called from within your frame can be defined here, on
+    // the same level as actions and meta. You&#x27;ll be able to call them as this.functionName(arguments)
+    // rather than using this.send(&#x27;actionName&#x27;)
+
+    // Anything that should happen immediately after loading your frame (see
+    // https://guides.emberjs.com/release/components/the-component-lifecycle/ for other
+    // hooks you can use and when they&#x27;re all called). You can delete this if not doing
+    // anything additional.
+    didInsertElement() {
+        this._super(...arguments);
+        if (this.get(&#x27;showProgress&#x27;) === true) {
+            let current_game = this.get(&#x27;gameType&#x27;) + 1;
+            switch (current_game){
+              case 1:
+                  this.set(&#x27;button_position&#x27;,&#x27;button button-1&#x27;);
+                  this.set(&#x27;machine1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine1.png&#x27;);
+                  this.set(&#x27;machine2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine2_off.png&#x27;);
+                  this.set(&#x27;machine3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine3_off.png&#x27;);
+                  this.set(&#x27;machine4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine4_off.png&#x27;);
+                  this.set(&#x27;machine5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine5_off.png&#x27;);
+                  this.set(&#x27;arrow1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow1_on.png&#x27;);
+                  this.set(&#x27;arrow2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow2_off.png&#x27;);
+                  this.set(&#x27;arrow3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow3_off.png&#x27;);
+                  this.set(&#x27;arrow4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow4_off.png&#x27;);
+                  this.set(&#x27;arrow5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow5_off.png&#x27;);
+                  this.set(&#x27;exit_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/exit_off.png&#x27;);
+                  break;
+              case 2:
+                  this.set(&#x27;button_position&#x27;,&#x27;button button-2&#x27;);
+                  this.set(&#x27;machine1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine1.png&#x27;);
+                  this.set(&#x27;machine2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine2.png&#x27;);
+                  this.set(&#x27;machine3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine3_off.png&#x27;);
+                  this.set(&#x27;machine4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine4_off.png&#x27;);
+                  this.set(&#x27;machine5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine5_off.png&#x27;);
+                  this.set(&#x27;arrow1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow1_on.png&#x27;);
+                  this.set(&#x27;arrow2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow2_on.png&#x27;);
+                  this.set(&#x27;arrow3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow3_off.png&#x27;);
+                  this.set(&#x27;arrow4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow4_off.png&#x27;);
+                  this.set(&#x27;arrow5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow5_off.png&#x27;);
+                  this.set(&#x27;exit_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/exit_off.png&#x27;);
+                  break;
+
+              case 3:
+                  this.set(&#x27;button_position&#x27;,&#x27;button button-3&#x27;);
+                  this.set(&#x27;machine1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine1.png&#x27;);
+                  this.set(&#x27;machine2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine2.png&#x27;);
+                  this.set(&#x27;machine3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine3.png&#x27;);
+                  this.set(&#x27;machine4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine4_off.png&#x27;);
+                  this.set(&#x27;machine5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine5_off.png&#x27;);
+                  this.set(&#x27;arrow1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow1_on.png&#x27;);
+                  this.set(&#x27;arrow2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow2_on.png&#x27;);
+                  this.set(&#x27;arrow3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow3_on.png&#x27;);
+                  this.set(&#x27;arrow4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow4_off.png&#x27;);
+                  this.set(&#x27;arrow5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow5_off.png&#x27;);
+                  this.set(&#x27;exit_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/exit_off.png&#x27;);
+                  break;
+
+              case 4:
+                  this.set(&#x27;button_position&#x27;,&#x27;button button-4&#x27;);
+                  this.set(&#x27;machine1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine1.png&#x27;);
+                  this.set(&#x27;machine2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine2.png&#x27;);
+                  this.set(&#x27;machine3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine3.png&#x27;);
+                  this.set(&#x27;machine4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine4.png&#x27;);
+                  this.set(&#x27;machine5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine5_off.png&#x27;);
+                  this.set(&#x27;arrow1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow1_on.png&#x27;);
+                  this.set(&#x27;arrow2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow2_on.png&#x27;);
+                  this.set(&#x27;arrow3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow3_on.png&#x27;);
+                  this.set(&#x27;arrow4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow4_on.png&#x27;);
+                  this.set(&#x27;arrow5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow5_off.png&#x27;);
+                  this.set(&#x27;exit_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/exit_off.png&#x27;);
+                  break;
+
+              case 5:
+                  this.set(&#x27;button_position&#x27;,&#x27;button button-5&#x27;);
+                  this.set(&#x27;machine1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine1.png&#x27;);
+                  this.set(&#x27;machine2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine2.png&#x27;);
+                  this.set(&#x27;machine3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine3.png&#x27;);
+                  this.set(&#x27;machine4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine4.png&#x27;);
+                  this.set(&#x27;machine5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine5.png&#x27;);
+                  this.set(&#x27;arrow1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow1_on.png&#x27;);
+                  this.set(&#x27;arrow2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow2_on.png&#x27;);
+                  this.set(&#x27;arrow3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow3_on.png&#x27;);
+                  this.set(&#x27;arrow4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow4_on.png&#x27;);
+                  this.set(&#x27;arrow5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow5_on.png&#x27;);
+                  this.set(&#x27;exit_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/exit_on.png&#x27;);
+                  break;
+        }
+        }
+
+    },
+
+
+    // Anything that should happen before destroying your frame, e.g. removing a keypress
+    // handlers. You can delete this if not doing anything additional.
+    willDestroyElement() {
+        this._super(...arguments);
+    }
+});
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>

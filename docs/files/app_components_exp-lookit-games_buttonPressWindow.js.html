@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>app/components/exp-lookit-games/buttonPressWindow.js - ember-lookit-frameplayer</title>
+    <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
+    <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
+    <link rel="stylesheet" href="https://yui-s.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
+    <link rel="icon" href="../assets/favicon.ico">
+    <script src="https://yui-s.yahooapis.com/combo?3.9.1/build/yui/yui-min.js"></script>
+</head>
+<body class="yui3-skin-sam">
+<div id="doc">
+    <div id="bd" class="yui3-g">
+        <div class="yui3-u-1-5">
+            <div id="docs-sidebar" class="sidebar apidocs">
+              <h2 style="display:inline;">
+              <div>
+                <img style="float:right; vertical-align:middle;" src="../assets/css/logo.png" height="70">
+                <span>Lookit<br> component<br> docs</span>
+              </div>
+
+              </h2>
+
+
+              <div id="api-list">
+                  <div id="api-tabview">
+              
+                    <div id="api-tabview-panel">
+                        <h2 class="off-left">Collections</h2>
+                        <ul id="api-modules" class="apis modules">
+                            <li class="module-sidebar-components"><a href="../modules/components.html">components</a></li>
+                            <li class="module-sidebar-exp-player"><a href="../modules/exp-player.html">exp-player</a></li>
+                            <li class="module-sidebar-frames"><a href="../modules/frames.html">frames</a></li>
+                            <li class="module-sidebar-games"><a href="../modules/games.html">games</a></li>
+                            <li class="module-sidebar-mixins"><a href="../modules/mixins.html">mixins</a></li>
+                            <li class="module-sidebar-randomizers"><a href="../modules/randomizers.html">randomizers</a></li>
+                            <li class="module-sidebar-services"><a href="../modules/services.html">services</a></li>
+                        </ul>
+                        <h2 class="off-left">All elements</h2>
+                              <div id="api-tabview-filter">
+                      <input type="search" id="api-filter" placeholder="Type to filter">
+                    </div>
+                        <ul id="api-classes" class="apis classes">
+                            <li><a href="../classes/Base.html">Base</a></li>
+                            <li><a href="../classes/ButtonPressWindow.html">ButtonPressWindow</a></li>
+                            <li><a href="../classes/DiscreteBounce.html">DiscreteBounce</a></li>
+                            <li><a href="../classes/DiscreteButtonSpatial.html">DiscreteButtonSpatial</a></li>
+                            <li><a href="../classes/DiscreteCatch.html">DiscreteCatch</a></li>
+                            <li><a href="../classes/DiscreteCatchLift.html">DiscreteCatchLift</a></li>
+                            <li><a href="../classes/Exp-exit-survey.html">Exp-exit-survey</a></li>
+                            <li><a href="../classes/Exp-frame-base.html">Exp-frame-base</a></li>
+                            <li><a href="../classes/Exp-frame-select.html">Exp-frame-select</a></li>
+                            <li><a href="../classes/Exp-lookit-dialogue-page.html">Exp-lookit-dialogue-page</a></li>
+                            <li><a href="../classes/Exp-lookit-exit-survey.html">Exp-lookit-exit-survey</a></li>
+                            <li><a href="../classes/Exp-lookit-geometry-alternation.html">Exp-lookit-geometry-alternation</a></li>
+                            <li><a href="../classes/Exp-lookit-geometry-alternation-open.html">Exp-lookit-geometry-alternation-open</a></li>
+                            <li><a href="../classes/Exp-lookit-instructions.html">Exp-lookit-instructions</a></li>
+                            <li><a href="../classes/Exp-lookit-mood-questionnaire.html">Exp-lookit-mood-questionnaire</a></li>
+                            <li><a href="../classes/Exp-lookit-observation.html">Exp-lookit-observation</a></li>
+                            <li><a href="../classes/Exp-lookit-preferential-looking.html">Exp-lookit-preferential-looking</a></li>
+                            <li><a href="../classes/Exp-lookit-preview-explanation.html">Exp-lookit-preview-explanation</a></li>
+                            <li><a href="../classes/Exp-lookit-story-page.html">Exp-lookit-story-page</a></li>
+                            <li><a href="../classes/Exp-lookit-survey.html">Exp-lookit-survey</a></li>
+                            <li><a href="../classes/Exp-lookit-text.html">Exp-lookit-text</a></li>
+                            <li><a href="../classes/Exp-lookit-video.html">Exp-lookit-video</a></li>
+                            <li><a href="../classes/Exp-lookit-video-assent.html">Exp-lookit-video-assent</a></li>
+                            <li><a href="../classes/Exp-lookit-video-consent.html">Exp-lookit-video-consent</a></li>
+                            <li><a href="../classes/Exp-player.html">Exp-player</a></li>
+                            <li><a href="../classes/Exp-video-config.html">Exp-video-config</a></li>
+                            <li><a href="../classes/Exp-video-config-quality.html">Exp-video-config-quality</a></li>
+                            <li><a href="../classes/Exp-video-consent.html">Exp-video-consent</a></li>
+                            <li><a href="../classes/Exp-video-preview.html">Exp-video-preview</a></li>
+                            <li><a href="../classes/Expand-assets.html">Expand-assets</a></li>
+                            <li><a href="../classes/ExpFrameGamesComponent.html">ExpFrameGamesComponent</a></li>
+                            <li><a href="../classes/Full-screen.html">Full-screen</a></li>
+                            <li><a href="../classes/Game.html">Game</a></li>
+                            <li><a href="../classes/Media-reload.html">Media-reload</a></li>
+                            <li><a href="../classes/Permute.html">Permute</a></li>
+                            <li><a href="../classes/Random-parameter-set.html">Random-parameter-set</a></li>
+                            <li><a href="../classes/Select.html">Select</a></li>
+                            <li><a href="../classes/Session-record.html">Session-record</a></li>
+                            <li><a href="../classes/Utils
+              Shared Utility class for project static methods and constants.html">Utils
+              Shared Utility class for project static methods and constants</a></li>
+                            <li><a href="../classes/Video-record.html">Video-record</a></li>
+                            <li><a href="../classes/video-recorder.html">video-recorder</a></li>
+                        </ul>
+                    </div>
+              
+                  </div>
+              </div>
+            </div>
+        </div>
+        <div class="yui3-u-4-5">
+                <div id="api-options">
+                    Show:
+                    <label for="api-show-inherited">
+                        <input type="checkbox" id="api-show-inherited" checked>
+                        Inherited
+                    </label>
+            
+                    <label for="api-show-protected">
+                        <input type="checkbox" id="api-show-protected">
+                        Protected
+                    </label>
+            
+                    <label for="api-show-private">
+                        <input type="checkbox" id="api-show-private">
+                        Private
+                    </label>
+                    <label for="api-show-deprecated">
+                        <input type="checkbox" id="api-show-deprecated">
+                        Deprecated
+                    </label>
+            
+                </div>
+            
+            <div class="apidocs">
+                <div id="docs-main">
+                    <div class="content">
+<h1 class="file-heading">File: app/components/exp-lookit-games/buttonPressWindow.js</h1>
+
+<div class="file">
+    <pre class="code prettyprint linenums">
+/*
+ * Developed by Gleb Iakovlev on 5/3/19 9:09 PM.
+ * Last modified 4/29/19 11:01 PM.
+ * Copyright (c) Cognoteq Software Solutions 2019.
+ * All rights reserved
+ */
+
+import Base from &#x27;./base&#x27;;
+
+/**
+ *
+ * @submodule games
+ *
+ */
+let target = {};
+let ball = {};
+let keyPressed = {}; // Current key pressed status
+let initialTime = 0;  // initial time for current game trial
+let randomNumber = 0; // Current random number for fireworks (decide which color to display)
+let TfArr = []; // Time Flight array
+const TARGETX = 1.3310; // Current X position
+let jitterT = 0; // Time jitter (variates from 500 ms to 1500 ms), time between sound start and ball starting to fly
+const WINDOW_SIZE = 0.056; //Current window size
+const TARGET_SIZE = 0.02;  // Current target (star) size
+const CENTER = 1.30715; // Appropriate star position in center
+let startTime = 0; // start of the game to wait before music playing
+const INITIAL_DELAY = 2.5;
+const TOTAL_FLIGHT_TIME = 1.5;
+// Media arrays for loading
+let targetImgs = [];
+let sounds = [];
+let soundURLs = [];
+let imageURLs = [];
+let images = [];
+let fireworksURLs = [];
+
+// Media mapping as Enum
+const gameSound = {
+  START: 0,
+  CATCH_GREAT: 1,
+  CATCH_GOOD: 2,
+  FAIL:3
+};
+const gameImage = {
+  BACKGROUND: 0,
+  BALL: 1,
+  STARS: 2,
+  BALLBOX: 3,
+  fireworks: {
+    BLUE: 0,
+    GREEN: 1,
+    RED: 2
+  }
+
+};
+
+
+
+/**
+ * Main implementation of feed  the mouse in the house game.
+ * The user will operate with keyboard keys to predict when ball trajectory will hit the window.
+ * The trajectory is randomized with various values in trajectories array
+ * @class ButtonPressWindow
+ * @extends Base
+ */
+export default class ButtonPressWindow extends Base {
+  /**
+   * @method constructor
+   * @constructor constructor
+   * @param context
+   * @param document
+   */
+  constructor(context, document) {
+
+    super(context, document);
+    fireworksURLs = [super.Utils.Explosion_big_blue, super.Utils.Explosion_big_green, super.Utils.Explosion_big_red, super.Utils.Explosion_small];
+    soundURLs = [super.Utils.fuse, super.Utils.firework_big, super.Utils.firework_small, super.Utils.ballcatchFailSound];
+    imageURLs = [super.Utils.skyline,super.Utils.Fireball,super.Utils.star,super.Utils.boxOfFireworks];
+
+  }
+
+
+  /**
+   * Draw house with roof according to coordinates
+   * @method createShuttle
+   */
+  createShuttle() {
+
+    let leftBorder = (TARGETX - 0.75) * super.Utils.SCALE;
+    let topBorder = (0.8) * super.Utils.SCALE;
+
+    let houseObj = {
+
+      dimensions: {width: 1.54 * super.Utils.SCALE, height: 0.9 * super.Utils.SCALE},
+      position: {x: leftBorder, y: topBorder}
+
+    };
+
+    super.drawImageObject(houseObj, images[gameImage.BACKGROUND]);
+
+  }
+
+  /**
+   * Create target window
+   * @method createTargetWindow
+   */
+  createTargetWindow() {
+
+    super.drawImageObject(target, images[gameImage.STARS]);
+
+  }
+
+  /**
+   * Show the current  ball location .
+   * Center the ball location.
+   * @method showBallLocation
+   */
+  showBallLocation(){
+
+    super.drawBall(ball, images[gameImage.BALL]);
+
+  }
+
+
+  /**
+   * Main point to start the game.
+   * Initialize static parameters and preload sounds here
+   * @method init
+   */
+  init() {
+
+    startTime = new Date().getTime();
+    TfArr = super.uniformArr([0.8, 0.9, 1]); // Fill out uniform the Time Flight array
+    this.setTargetBackground();
+    super.fillAudioArray(soundURLs,sounds);
+    super.fillImageArray(fireworksURLs,targetImgs);
+    super.fillImageArray(imageURLs,images);
+    images.push(targetImgs);
+
+    sounds[gameSound.START].addEventListener(&#x27;onloadeddata&#x27;, this.initGame(), false);
+    sounds[gameSound.START].addEventListener(&#x27;playing&#x27;, function () {
+      initialTime = new Date().getTime();
+    });
+
+    super.init();
+
+  }
+
+
+  /**
+   * Initialize each game round with initial object parameters
+   * Wait for start sound and start the main game loop
+   * @method initGame
+   */
+  initGame() {
+    initialTime = 0;
+    ball.startTime = 0;
+    jitterT = super.trialStartTime();
+    keyPressed.value = 0;
+    this.setTargetBackground();
+
+    ball = {
+      position: {x: 0, y: 0},
+      velocity: 0,
+      radius: 0.02381 * super.Utils.SCALE,
+      restitution: super.Utils.restitution,
+      timeReached: 0
+
+    };
+
+    randomNumber = Math.floor(Math.random() * 3); // Get random value from 0 to 2
+    ball = super.ballObject();
+
+    if(super.currentRounds &gt; 0 ) {
+      sounds[gameSound.START].play();
+    }
+
+    super.initGame();
+
+  }
+
+
+  setTargetBackground() {
+    let topBorder = (1.155) * super.Utils.SCALE;
+    let downBorder = (1.235) * super.Utils.SCALE;
+    let leftBorder = (TARGETX - 0.05) * super.Utils.SCALE;
+    let rightBorder = (TARGETX + 0.05) * super.Utils.SCALE;
+
+    target = {
+
+      dimensions: {width: rightBorder - leftBorder, height: downBorder - topBorder},
+      position: {
+        x: leftBorder,
+        y: topBorder
+      },
+      radius: 0.007143 * super.Utils.SCALE
+    };
+
+  }
+
+  /**
+   * @method dataCollection
+   */
+  dataCollection() {
+    super.dataCollection();
+    //Set  0,1,2,3 as button pressed values (0:  no button pressed, 1 : pressed , missed target, 2 : pressed, within
+    // window, 3 : hit the target)
+
+    let exportData = {
+
+      game_type: &#x27;buttonPressWindow&#x27;,
+      ball_position_x: ball.position.x / this.canvas.width,
+      ball_position_y: (this.canvas.height - ball.position.y) / this.canvas.height,
+      button_pressed: keyPressed.value,
+      trial: super.currentRounds,
+      timestamp: new Date().getTime()
+
+    };
+
+    super.storeData(exportData);
+
+  }
+
+
+  /**
+   * Get current keyboard event on press button
+   * @method keyDownHandler
+   * @param {object} e
+   */
+  keyDownHandler(e) {
+
+    if (e.key === &#x27; &#x27; || e.key === &#x27;Spacebar&#x27;) {
+
+      keyPressed = {value: 1, when: new Date().getTime()};
+    }
+
+  }
+
+  /**
+   * Draw launcher image
+   * @method createLauncher
+   * @param image
+   */
+  createLauncher(image) {
+
+    let initX  = 0.7510;
+    let leftBorder = (initX - 0.05) * super.Utils.SCALE;
+    let topBoarder = (1.3171) * super.Utils.SCALE;
+
+    let launcher = {
+      position: {x:leftBorder, y:topBoarder },
+      dimensions: {width: 0.13605 * super.Utils.SCALE , height:0.1548 * super.Utils.SCALE }
+    };
+
+    super.drawImageObject(launcher, image);
+
+  }
+
+
+  /**
+   *
+   * Main loop of the game
+   * Set initial position of the ball in a box and initiate starting sound.
+   * After that  start ball trajectory.
+   * If ball hits the target or missed the target(window) show the ball in the window
+   * Check if user hits the keyboard key when ball trajectory reached the window bounds.
+   * Increase the score if ball hits the target.
+   * Move the ball to initial position.
+   * Wait for some time until rattle sound played.
+   * @method loop
+   */
+  loop(){
+
+    super.loop();
+    super.generateTrajectoryParamsDiscrete(TfArr);
+    this.createShuttle();
+    this.createTargetWindow();
+
+    // Delay before music start
+    if(initialTime === 0 &amp;&amp; super.currentRounds === 0  &amp;&amp; super.getElapsedTime(startTime) &gt;= INITIAL_DELAY) {
+
+      sounds[gameSound.START].play();
+
+    }
+
+
+    if (ball.state === &#x27;start&#x27;) {
+
+      super.moveBallToStart(ball, images[gameImage.BALL]);
+      if (initialTime &gt; 0 &amp;&amp; super.getElapsedTime(initialTime) &gt; jitterT) {
+        sounds[gameSound.START].pause();
+        sounds[gameSound.START].currentTime = 0;
+        ball.state = &#x27;fall&#x27;;
+        initialTime = new Date().getTime();
+
+
+      }
+
+    }
+
+
+    if (ball.state === &#x27;fall&#x27;) {
+
+      if (initialTime &gt; 0 &amp;&amp; super.getElapsedTime(initialTime) &lt; TOTAL_FLIGHT_TIME) {
+        super.trajectory(ball, initialTime);
+      }
+
+      if (initialTime &gt; 0 &amp;&amp; super.getElapsedTime(initialTime) &gt; 0.1 &amp;&amp; super.ballIsOnFloor(ball)) {
+        sounds[gameSound.FAIL].play();
+        ball.state = &#x27;hit&#x27;;
+      }
+
+
+      super.drawBall(ball, images[gameImage.BALL]);
+      this.createShuttle();
+      this.createTargetWindow();
+
+
+      //Check for target (star) position , if we are within the window size
+      if (keyPressed.value === 1) {
+
+        let position = Math.abs(ball.position.x - CENTER * super.Utils.SCALE );
+
+        if (position &lt; TARGET_SIZE * super.Utils.SCALE) {
+          super.increaseScore();
+          ball.hitstate = &#x27;great&#x27;;
+          keyPressed.value = 3;
+          sounds[gameSound.CATCH_GREAT].play();
+
+
+        } else if (position &lt; (WINDOW_SIZE) * super.Utils.SCALE) {
+          keyPressed.value = 2;
+          ball.hitstate = &#x27;good&#x27;;
+          sounds[gameSound.CATCH_GOOD].play();
+
+        } else {
+          sounds[gameSound.FAIL].play();
+
+        }
+
+        ball.state = &#x27;hit&#x27;;
+
+      }
+
+    }
+
+
+    if (ball.state === &#x27;hit&#x27;) {
+
+      let difference = ball.position.x - CENTER * super.Utils.SCALE;
+      if (ball.hitstate === &#x27;great&#x27;) {
+        let explosion = this.setExplosionPosition(4, 0.03572 * super.Utils.SCALE);
+        super.drawImageObject(explosion, targetImgs[randomNumber]);
+      }
+
+      if (ball.hitstate === &#x27;good&#x27;) {
+        let explosion = this.setExplosionPosition(2, difference);
+        super.drawImageObject(explosion, targetImgs[3]);
+      }
+
+
+      if (super.getElapsedTime(initialTime) &gt; 3.5) {
+        super.finishGame(false);
+      }
+
+      if(ball.hitstate !== &#x27;good&#x27; &amp;&amp; ball.hitstate !== &#x27;great&#x27; ){
+
+        this.showBallLocation();
+      }
+
+    }
+
+    this.createLauncher(images[gameImage.BALLBOX]);
+
+  }
+
+
+  setExplosionPosition(multiplier, difference) {
+
+    return {
+
+      dimensions: {width: target.dimensions.width * multiplier, height: target.dimensions.height * multiplier},
+      position: {
+        x: CENTER * super.Utils.SCALE - (target.dimensions.width * multiplier / 2) + difference,
+        y: ball.position.y - target.dimensions.height * multiplier / 2 + 0.02381 * super.Utils.SCALE
+      }
+
+    };
+  }
+
+
+
+}
+
+    </pre>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../assets/vendor/prettify/prettify-min.js"></script>
+<script>prettyPrint();</script>
+<script src="../assets/js/yui-prettify.js"></script>
+<script src="../assets/../api.js"></script>
+<script src="../assets/js/api-filter.js"></script>
+<script src="../assets/js/api-list.js"></script>
+<script src="../assets/js/api-search.js"></script>
+<script src="../assets/js/apidocs.js"></script>
+</body>
+</html>
