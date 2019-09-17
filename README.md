@@ -73,9 +73,15 @@ Initial height: 0.65 (pixel value before scaling)
 Actual height parameters are calculated from the Initial height by multiplying the  uniformly randomized  values in  vector (1, 5)
 ```
 Height calculation : 
-![equation](http://www.sciweavers.org/upload/Tex2Img_1568674437/eqn.png)
+
+![equation](https://i.ibb.co/vZzbY1T/render-2.png)
+
+
 Gravity : 
-![equation](http://www.sciweavers.org/upload/Tex2Img_1568674567/eqn.png)
+
+![equation](https://i.ibb.co/SdK51QX/render-3.png)
+
+
 ```
 ballvx = 1.051 / Tf 
 initV = 0.5 * GravityVector * Tf
@@ -93,7 +99,7 @@ initBallY : initial Y position of the ball  in pixels, scaled to the actual posi
 initV: initial velocity on y axis 
 g : gravity 
 ````
-![equation](http://www.sciweavers.org/upload/Tex2Img_1568674090/eqn.png)
+![equation](https://i.ibb.co/TM0rXzR/render-4.png)
 ```
 t : time parameter in seconds (usually decimals like : 0.001 ..)
 initX : initial X position of the ball  in pixels, scaled to the actual position via Scaling factor
@@ -113,7 +119,8 @@ ball_velocity  =   initV  -  gravity *  t  , where t is the time since start of 
 paddleVelocity  :  calculated from 9 past  vector values of paddle y coordinates (in pixel values)  and time in seconds
 ````
 ##### Paddle Velocity calculation: 
-![equation](http://www.sciweavers.org/upload/Tex2Img_1568673224/eqn.png)
+
+![equation](https://i.ibb.co/878fL5W/render.png)
 ```
 t : current time lapse in seconds, p : position of paddle on y axis
 ```  
