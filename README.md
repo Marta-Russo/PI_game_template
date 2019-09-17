@@ -25,6 +25,9 @@ Use the resources below to understand :
 Remember to keep develop branch up to date with upstream [ember-lookit-frameplayer](https://github.com/lookit/ember-lookit-frameplayer)
      
 ### Code structure 
+
+[Overall documentation](https://elcrion.github.io/PI_game_template/index.html)
+
 Base class exposes main game logic for all games: 
 - loop() : main game loop to clear canvas and redraw game objects , pretty much all the current trial  logic is implemented here
 - dataCollection(): data collection loop with set frequency (currently 33 HZ). 
@@ -43,7 +46,7 @@ Game implementation class:
 Utils class : Contains static values for media resources used in games
 
 
-For object schema, build the documentation for component with [YUIdoc](https://lookit.readthedocs.io/en/develop/frame-dev-creation.html#documenting-your-frame)
+For modified object schema, build the documentation for component with [YUIdoc](https://lookit.readthedocs.io/en/develop/frame-dev-creation.html#documenting-your-frame)
 
 ### Game aspect ratio 
 Current implementation took aspect ratio 1024 : 768  (4:3) from Matlab version to preserve object sizes and distances with current scaling factor (420).  To partially overcome this ,  calculateCanvas method in Base class is trying to stretch the canvas height or width to full screen and recalculate the scaling factor appropriately.
