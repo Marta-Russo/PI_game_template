@@ -108,7 +108,7 @@ export default ExpFrameBaseComponent.extend(FullScreen, VideoRecord, {
              * Parameters captured game data and sent to the server
              * This might be changed in near future for some game type
              * @method serializeContent
-             * @param {Array} export_arr Game data array with objects positions locations
+             * @param {Array} export_arr Game data array with objects positions positions
              * @param {Object} items The name of the current game object : ball_object {x,y }, paddle_object{x,y}
              * @param {Object}  ball_object items The name of the current game object
              * @param {String} timestamp current timestamp in milliseconds for each x,y point of object

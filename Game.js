@@ -1,20 +1,20 @@
 /*
- * Developed by Gleb Iakovlev on 5/3/19 9:08 PM.
- * Last modified 4/29/19 4:36 PM.
- * Copyright (c) Cognoteq Software Solutions 2019.
- * All rights reserved
- */
+* Developed by Gleb Iakovlev on 4/18/19 11:24 PM.
+* Last modified 4/18/19 11:24 PM.
+* Copyright (c) Cognoteq Software Solutions 2019.
+* All rights reserved
+*/
 
 /**
  *
  * @submodule games
  *
  */
-import FeedCroc from './feedCroc.js';
-import CatchMouse from './catchMouse.js';
-import FeedMouse from './feedMouse.js';
-import FeedMice from './feedMice.js';
-import CatchCheese from './catchCheese.js';
+import DiscreteBounce from './discreteBounce.js';
+import DiscreteCatchLift from './discreteCatchLift.js';
+import ButtonPressWindow from './buttonPressWindow.js';
+import DiscreteButtonSpatial from './discreteButtonSpatial.js';
+import DiscreteCatch from './discreteCatch.js';
 
 /**
  * Game orchestrator to set initial parameters and
@@ -36,41 +36,41 @@ export default class Game {
 
         switch (gameNumber) {
 
-        case 0:
+            case 0:
 
-            game =   new FeedCroc(context, document);
+                game =   new ButtonPressWindow(context, document);
 
-        break;
+                break;
 
-        case 1:
+            case 1:
 
-            game = new CatchCheese(context, document);
+                game = new DiscreteButtonSpatial(context, document);
 
-        break;
+                break;
 
-        case 2:
+            case 2:
 
-            game = new CatchMouse(context, document);
+                game = new DiscreteCatchLift(context, document);
 
-        break;
+                break;
 
-        case 3:
+            case 3:
 
-            game =   new FeedMice(context, document);
+                game =   new DiscreteCatch(context, document);
 
-        break;
+                break;
 
-        case 4:
+            case 4:
 
-            game =  new FeedMouse(context, document);
+                game =  new DiscreteBounce(context, document);
 
-        break;
+                break;
 
-        default:
-            game =  new FeedCroc(context, document);
-        break;
+            default:
+                game =  new ButtonPressWindow(context, document);
+                break;
 
-    }
+        }
 
         game.init();
 
