@@ -9,17 +9,22 @@
  * @class Utils
  * Shared Utility class for project static methods and constants
  */
+
+let SCALE = 420;
+
 export default class Utils{
+
+
 
     static get  frameRate() {  return 1 / 200; } // Seconds
     static get  frameDelay() { return 10; } // ms
     static get  paddleSpeed() {return 1;}
     static get  ballMass() {return 0.1;}
     static get  restitution() {return -1.2;}
-    static get  gameRounds() {return 18;}
+    static get  gameRounds() {return 24;}
     static get  gravityFactor() {return 1;}
-    static get  SCALE(){return 420;}
-
+    static get  SCALE(){return SCALE;}
+    static set  SCALE(val){ SCALE = val;}
 
     //Sound Resources
     //static get  bucketImageResource() {return 'https://piproject.s3.us-east-2.amazonaws.com/Resources/images/';}
@@ -115,7 +120,7 @@ export default class Utils{
     static get Explosion_small() {return this.bucketImageResource + 'Explosion_small.png';}
     static get Fireball() {return this.bucketImageResource + 'Fireball.png';}
     static get boxOfFireworks() {return this.bucketImageResource + 'Box_of_fireworks.png';}
-
+    static get star() {return this.bucketImageResource + 'star.png';}
 
 
 
