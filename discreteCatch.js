@@ -11,14 +11,14 @@ import Base from './base.js';
  * @submodule games
  *
  */
-
+const TOTAL_ROUNDS = 48;
 let basket = {};
 let ball = {};
 let obstructions = []; // Possible obstructions array
 let targetStars = {}; // Start location (shows upon reaching the rim on basket )
 let initialTime = 0; // initial time for current game trial
 let hArray = [];
-let Tf = 0.8; // Time Flight for trajectory
+let Tf = 0.72; // Time Flight for trajectory
 let Height = 0.8; // Current trajectory height
 let obstrArr = []; // Current obstructions  array
 let jitterT = 0;
@@ -68,6 +68,7 @@ export default class DiscreteCatch extends Base {
      */
     constructor(context, document) {
         super(context, document);
+        super.setMaxTrials(TOTAL_ROUNDS);
         soundURLs = [super.Utils.rattleSound,super.Utils.goodCatchSound,super.Utils.failcatchSound];
         imageURls = [super.Utils.ironBasket,super.Utils.gear,super.Utils.basketStarsImage,super.Utils.robotImage];
         obstructionsURLs = [super.Utils.obstruction1, super.Utils.obstruction2, super.Utils.obstruction3];
@@ -119,7 +120,7 @@ export default class DiscreteCatch extends Base {
         basket = super.basketObject(basket);
         obstructionsNum = obstrArr[super.currentRounds];
         ball = super.ballObject();
-
+        // Generate array of obstruction objects
         obstructions = Array(obstructionsNum).fill({}).map((value, index) =>
 
             ( this.getObstruction(index+1))
@@ -137,16 +138,16 @@ export default class DiscreteCatch extends Base {
 
 
     /**
-     * Tree object with coordinates
+     * Obstruction object with coordinates
      * @method getObstruction
      * @param obstructionIndex
-     * @returns {{imageURL: *, position: {x: number, y: number}, dimensions: {width: number, height: number}}}
+     * @return {{imageURL: *, position: {x: number, y: number}, dimensions: {width: number, height: number}}}
      */
     getObstruction(obstructionIndex = 1) {
 
-        let leftBorder = 340  - 55 * obstructionIndex + 0.25 * super.Utils.SCALE;
+        let leftBorder = (1 - 0.105 * obstructionIndex) * super.Utils.SCALE ;
         let topBorder = (0.964) * super.Utils.SCALE;
-        let rightBorder = 390 + 0.25 * super.Utils.SCALE;
+        let rightBorder = 1.18  * super.Utils.SCALE;
         let downBorder = (1.592) * super.Utils.SCALE;
         return {
             position: {x: leftBorder, y: topBorder},
@@ -156,20 +157,26 @@ export default class DiscreteCatch extends Base {
 
     }
 
-
+    /**
+     * trajectory  : 1,2,3 ( Time when ball hits the basket at 500,600,700 ms )
+     * @method dataCollection
+     */
     dataCollection() {
         super.dataCollection();
         let exportData = {
             game_type: 'discreteCatch',
-            ball_position_x: ball.position.x/this.canvas.width,
+            trajectory: hArray[super.currentRounds],
+            ball_position_x: ball.position.x / this.canvas.width ,
             ball_position_y:  (this.canvas.height - ball.position.y)/this.canvas.height,
             paddle_position_x: basket.position.x/this.canvas.width,
             paddle_position_y: (this.canvas.height - basket.position.y)/this.canvas.height,
             trial: super.currentRounds,
-            timestamp: new Date().getTime()
+            timestamp: super.getElapsedTime(initialTime)
 
         };
-        super.storeData(exportData);
+        if(ball.state === 'hit' || ball.state === 'fall') {
+            super.storeData(exportData);
+        }
     }
 
 
@@ -249,8 +256,7 @@ export default class DiscreteCatch extends Base {
         this.createLauncher(images[gameImage.BALLBOX]);
         let paddleBoxColor = super.Utils.blueColor;
         if(ball.state === 'start'){
-
-            super.moveBallToStart(ball, images[gameImage.BALL]);
+            ball = this.ballObject();
 
             if (startTime > 0 &&  !super.paddleIsMoved(basket) && super.getElapsedTime(startTime) > TRAVEL_TIME ){
                 sounds[gameSound.START].play();
@@ -282,7 +288,7 @@ export default class DiscreteCatch extends Base {
             }
 
 
-            super.drawBall(ball,images[gameImage.BALL]);
+            // super.drawBall(ball,images[gameImage.BALL]);
         }
 
 
@@ -302,6 +308,7 @@ export default class DiscreteCatch extends Base {
                 super.increaseScore();
                 consecutiveCounts++;
                 sounds[gameSound.CATCH].play();
+                ball.radius = 0;
 
             }else{
 
@@ -324,25 +331,14 @@ export default class DiscreteCatch extends Base {
 
             }
 
-            if(ball.hitstate === ''){
-
-                super.drawBall(ball,images[gameImage.BALL]);
-            }
-
-
             // Remove ball and show in the starting point,
             //User should set the paddle to initial position , call stop after that
-
-            super.moveBallToStart(ball, images[gameImage.BALL]);
             super.paddleAtZero(basket,false);
-
-
 
         }
 
-
+        super.drawBall(ball,images[gameImage.BALL]);
         obstructions.forEach(obstruction => super.drawImage(obstruction, obstruction.image));
-
         this.basketObject(basket);
         super.createPaddleBox(paddleBoxColor,true);
         super.paddleMove(basket,initialTime,ball);

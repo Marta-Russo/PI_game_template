@@ -13,11 +13,13 @@ import Base from './base.js';
  *
  */
 let target = {};
+const TOTAL_ROUNDS = 30;
 let ball = {};
 let keyPressed = {}; // Current key pressed status
 let initialTime = 0;  // initial time for current game trial
 let randomNumber = 0; // Current random number for fireworks (decide which color to display)
 let TfArr = []; // Time Flight array
+let TfArrIndex = [0.85,1,1.15];
 const TARGETX = 1.3310; // Current X position
 let jitterT = 0; // Time jitter (variates from 500 ms to 1500 ms), time between sound start and ball starting to fly
 const WINDOW_SIZE = 0.056; //Current window size
@@ -57,11 +59,11 @@ const gameImage = {
 
 
 /**
- * @class ButtonPressWindow
- * @extends Base
  * Main implementation of feed  the mouse in the house game.
  * The user will operate with keyboard keys to predict when ball trajectory will hit the window.
  * The trajectory is randomized with various values in trajectories array
+ * @class ButtonPressWindow
+ * @extends Base
  */
 export default class ButtonPressWindow extends Base {
     /**
@@ -73,6 +75,7 @@ export default class ButtonPressWindow extends Base {
     constructor(context, document) {
 
         super(context, document);
+        super.setMaxTrials(TOTAL_ROUNDS);
         fireworksURLs = [super.Utils.Explosion_big_blue, super.Utils.Explosion_big_green, super.Utils.Explosion_big_red, super.Utils.Explosion_small];
         soundURLs = [super.Utils.fuse, super.Utils.firework_big, super.Utils.firework_small, super.Utils.ballcatchFailSound];
         imageURLs = [super.Utils.skyline,super.Utils.Fireball,super.Utils.star,super.Utils.boxOfFireworks];
@@ -128,9 +131,8 @@ export default class ButtonPressWindow extends Base {
      * @method init
      */
     init() {
-
         startTime = new Date().getTime();
-        TfArr = super.uniformArr([0.8, 0.9, 1]); // Fill out uniform the Time Flight array
+        TfArr = super.uniformArr(TfArrIndex); // Fill out uniform the Time Flight array
         this.setTargetBackground();
         super.fillAudioArray(soundURLs,sounds);
         super.fillImageArray(fireworksURLs,targetImgs);
@@ -181,14 +183,12 @@ export default class ButtonPressWindow extends Base {
 
 
     setTargetBackground() {
-        let topBorder = (1.155) * super.Utils.SCALE;
-        let downBorder = (1.235) * super.Utils.SCALE;
-        let leftBorder = (TARGETX - 0.05) * super.Utils.SCALE;
-        let rightBorder = (TARGETX + 0.05) * super.Utils.SCALE;
+        let topBorder = (1.165) * super.Utils.SCALE;
+        let leftBorder = (TARGETX - 0.02) * super.Utils.SCALE;
 
         target = {
 
-            dimensions: {width: rightBorder - leftBorder, height: downBorder - topBorder},
+            dimensions: {width: 0.04 * super.Utils.SCALE , height: 0.04 * super.Utils.SCALE},
             position: {
                 x: leftBorder,
                 y: topBorder
@@ -199,32 +199,35 @@ export default class ButtonPressWindow extends Base {
     }
 
     /**
+     * trajectory  : 1,2,3 ( Time when ball hits the basket at 500,600,700 ms )
      * @method dataCollection
      */
     dataCollection() {
         super.dataCollection();
         //Set  0,1,2,3 as button pressed values (0:  no button pressed, 1 : pressed , missed target, 2 : pressed, within
         // window, 3 : hit the target)
-
+        let currentTrajectory = TfArrIndex.indexOf(TfArr[this.currentRounds]) + 1;
         let exportData = {
 
             game_type: 'buttonPressWindow',
-            ball_position_x: ball.position.x / this.canvas.width,
+            trajectory: currentTrajectory,
+            ball_position_x: ball.position.x/this.canvas.width,
             ball_position_y: (this.canvas.height - ball.position.y) / this.canvas.height,
             button_pressed: keyPressed.value,
             trial: super.currentRounds,
-            timestamp: new Date().getTime()
+            timestamp: super.getElapsedTime(initialTime),
+            target_position: TARGETX
 
         };
-
-        super.storeData(exportData);
-
+        if(ball.state === 'hit' || ball.state === 'fall') {
+            super.storeData(exportData);
+        }
     }
 
 
-    //Might need to set the key as a super parameter
     /**
-     * @method keyDownHandler Get current keyboard event on press button
+     * Get current keyboard event on press button
+     * @method keyDownHandler
      * @param {object} e
      */
     keyDownHandler(e) {
@@ -275,7 +278,6 @@ export default class ButtonPressWindow extends Base {
         super.generateTrajectoryParamsDiscrete(TfArr);
         this.createShuttle();
         this.createTargetWindow();
-
         // Delay before music start
         if(initialTime === 0 && super.currentRounds === 0  && super.getElapsedTime(startTime) >= INITIAL_DELAY) {
 

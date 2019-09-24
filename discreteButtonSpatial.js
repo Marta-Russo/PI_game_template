@@ -12,6 +12,7 @@ import Base from './base.js';
  * @submodule games
  *
  */
+const TOTAL_ROUNDS = 36;
 const INITIAL_DELAY = 2.5;
 let ball = {};
 let targets = [];
@@ -71,12 +72,13 @@ export default class DiscreteButtonSpatial extends Base {
 
     /**
      * @method constructor
-     * @constructor
+     * @constructor constructor
      * @param context
      * @param document
      */
     constructor(context, document) {
         super(context, document);
+        super.setMaxTrials(TOTAL_ROUNDS);
         imageURls = [super.Utils.slimeMonster, super.Utils.slimeBall, super.Utils.splat];
         windowImageURLS = [super.Utils.openWindowYellow, super.Utils.openWindowGreen, super.Utils.openWindowViolet];
         obstrImageURLS = [super.Utils.shuttleNarrow, super.Utils.shuttle, super.Utils.shuttleWide];
@@ -86,8 +88,9 @@ export default class DiscreteButtonSpatial extends Base {
 
     /**
      * Get Current window position and align it according to possible obstruction (shuttle) size
+     * @method getWindow
      * @param index of the target (shuttle) in array of objects
-     * @returns {{image: *, position: {x: number, y: number}, radius: number, dimensions: {width: number, height: number}}}
+     * @return {{image: *, position: {x: number, y: number}, radius: number, dimensions: {width: number, height: number}}}
      */
     getWindow(index) {
         index = index + 1;
@@ -297,6 +300,7 @@ export default class DiscreteButtonSpatial extends Base {
 
     /**
      * Display launcher
+     * @method discreteLauncher
      * @param image of the Launcher
      */
     discreteLauncher(image) {
@@ -444,13 +448,15 @@ export default class DiscreteButtonSpatial extends Base {
     }
 
     /**
+     * Columns structure
+     * slime: 1,2,3 indicating correct location of where the slime will land - top, middle or bottom
+     * window : 0,1,2,3 indicating no button or which button was clicked
+     * ship : 1,2,3 indicating size of spaceship
      * @method dataCollection
      */
     dataCollection() {
         super.dataCollection();
-        //Set  0,1,2,3,4,5,6  as buttons pressed values (0:  no buttons pressed, 1 : upper button pressed  , 2: middle
-        // button pressed , 3 : down button pressed, 4 : upper button correct , 5 : middle button correct , 6 : down
-        // button correct
+
 
         let target_state =  0;
         let index = pressed.findIndex(item => item !== false);
@@ -465,16 +471,18 @@ export default class DiscreteButtonSpatial extends Base {
 
         let exportData = {
             game_type: 'discreteButtonSpatial',
-            ball_position_x: ball.position.x,
-            ball_position_y: ball.position.y,
-            key_pressed: target_state,
+            slime: currentTargetIndex,
+            window: target_state,
+            obstruction_number: obstructions[super.currentRounds],
+            ball_position_x: ball.position.x / this.canvas.width,
+            ball_position_y:(this.canvas.height - ball.position.y)/this.canvas.height,
             trial: super.currentRounds,
-            timestamp: new Date().getTime()
+            timestamp: super.getElapsedTime(initialTime)
 
         };
-
-        super.storeData(exportData);
-
+        if(ball.state === 'hit' || ball.state === 'fall') {
+            super.storeData(exportData);
+        }
     }
 
 }
