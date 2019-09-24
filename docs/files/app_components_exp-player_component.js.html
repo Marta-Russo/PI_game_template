@@ -32,6 +32,7 @@
                             <li class="module-sidebar-components"><a href="../modules/components.html">components</a></li>
                             <li class="module-sidebar-exp-player"><a href="../modules/exp-player.html">exp-player</a></li>
                             <li class="module-sidebar-frames"><a href="../modules/frames.html">frames</a></li>
+                            <li class="module-sidebar-games"><a href="../modules/games.html">games</a></li>
                             <li class="module-sidebar-mixins"><a href="../modules/mixins.html">mixins</a></li>
                             <li class="module-sidebar-randomizers"><a href="../modules/randomizers.html">randomizers</a></li>
                             <li class="module-sidebar-services"><a href="../modules/services.html">services</a></li>
@@ -41,6 +42,12 @@
                       <input type="search" id="api-filter" placeholder="Type to filter">
                     </div>
                         <ul id="api-classes" class="apis classes">
+                            <li><a href="../classes/Base.html">Base</a></li>
+                            <li><a href="../classes/ButtonPressWindow.html">ButtonPressWindow</a></li>
+                            <li><a href="../classes/DiscreteBounce.html">DiscreteBounce</a></li>
+                            <li><a href="../classes/DiscreteButtonSpatial.html">DiscreteButtonSpatial</a></li>
+                            <li><a href="../classes/DiscreteCatch.html">DiscreteCatch</a></li>
+                            <li><a href="../classes/DiscreteCatchLift.html">DiscreteCatchLift</a></li>
                             <li><a href="../classes/Exp-exit-survey.html">Exp-exit-survey</a></li>
                             <li><a href="../classes/Exp-frame-base.html">Exp-frame-base</a></li>
                             <li><a href="../classes/Exp-frame-select.html">Exp-frame-select</a></li>
@@ -65,12 +72,17 @@
                             <li><a href="../classes/Exp-video-consent.html">Exp-video-consent</a></li>
                             <li><a href="../classes/Exp-video-preview.html">Exp-video-preview</a></li>
                             <li><a href="../classes/Expand-assets.html">Expand-assets</a></li>
+                            <li><a href="../classes/ExpFrameGamesComponent.html">ExpFrameGamesComponent</a></li>
                             <li><a href="../classes/Full-screen.html">Full-screen</a></li>
+                            <li><a href="../classes/Game.html">Game</a></li>
                             <li><a href="../classes/Media-reload.html">Media-reload</a></li>
                             <li><a href="../classes/Permute.html">Permute</a></li>
                             <li><a href="../classes/Random-parameter-set.html">Random-parameter-set</a></li>
                             <li><a href="../classes/Select.html">Select</a></li>
                             <li><a href="../classes/Session-record.html">Session-record</a></li>
+                            <li><a href="../classes/Utils
+              Shared Utility class for project static methods and constants.html">Utils
+              Shared Utility class for project static methods and constants</a></li>
                             <li><a href="../classes/Video-record.html">Video-record</a></li>
                             <li><a href="../classes/video-recorder.html">video-recorder</a></li>
                         </ul>
@@ -325,7 +337,9 @@ export default Ember.Component.extend(FullScreen, {
 
         saveFrame(frameId, frameData) {
             // Save the data from a completed frame to the session data item
-            this.get(&#x27;session.sequence&#x27;).push(frameId);
+            if (this.get(&#x27;session.sequence&#x27;) &amp;&amp; frameId != this.get(&#x27;session.sequence&#x27;)[this.get(&#x27;session.sequence&#x27;).length - 1]) {
+                this.get(&#x27;session.sequence&#x27;).push(frameId);
+            }
             this.get(&#x27;session.expData&#x27;)[frameId] = frameData;
             if (this.get(&#x27;session&#x27;).child.content.id === &#x27;TEST_CHILD_DISREGARD&#x27;) {
                 return Ember.RSVP.Promise.resolve();

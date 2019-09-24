@@ -140,10 +140,12 @@ import Utils from &#x27;./utils&#x27;;
 
 const JITTER_MAX_TIME = 2000; // Max value for time Jitter randomizer
 const JITTER_MIN_TIME = 850; // Min value for time Jitter randomizer
+const DATA_COLLECTION_TIME = 20; // Data collection Timeout
 let dataLoop = {}; // controlling data Collection loop
 let gameLoop = {}; // controlling main game loop
 let mouseY = 0; // mouse pointer  position on Y axis
 let currentRounds = 0; // current game trial number
+let maxRounds = 0;
 let initBallY = 0.0; // Initial ball Y position
 let initX = 0.52; // Initial ball X position
 let initV = 0; //  Initial velocity
@@ -188,6 +190,24 @@ export default class Base {
     // this.canvas.requestPointerLock()
     this.calculateCanvas();
     this.paddleBoxParameters();
+
+    this.loopTimer = function () {
+      let inst = this;
+      gameLoop = window.requestAnimationFrame(function () {
+        inst.loop();
+      });
+
+    };
+
+
+    this.dataTimer = function () {
+      let inst = this;
+      dataLoop = setTimeout(function () {
+        inst.dataCollection();
+      }, DATA_COLLECTION_TIME);
+
+    };
+
   }
 
 
@@ -222,21 +242,21 @@ export default class Base {
     //
     // this.Utils.SCALE  =  this.context.scale_factor * (this.canvas.height/height);
 
-    // this.canvas.height = 768 ;
-    // this.canvas.width =  1024;
-    // this.Utils.SCALE  =  420;
+    this.canvas.height = 768 ;
+    this.canvas.width =  1024;
+    this.Utils.SCALE  =  420;
 
-    if(screen.height &lt; screen.width) {
-      this.canvas.height = screen.height;
-      let coefficient = screen.height/768;
-      this.canvas.width = coefficient * 1024;
-      this.Utils.SCALE  =  420 * coefficient;
-    }else{
-      this.canvas.width = screen.width;
-      let coefficient = screen.width/768;
-      this.canvas.height = coefficient * 768;
-      this.Utils.SCALE  =  420 * coefficient;
-    }
+    // if(screen.height &lt; screen.width) {
+    //   this.canvas.height = screen.height;
+    //   let coefficient = screen.height/768;
+    //   this.canvas.width = coefficient * 1024;
+    //   this.Utils.SCALE  =  420 * coefficient;
+    // }else{
+    //   this.canvas.width = screen.width;
+    //   let coefficient = screen.width/768;
+    //   this.canvas.height = coefficient * 768;
+    //   this.Utils.SCALE  =  420 * coefficient;
+    // }
 
 
   }
@@ -250,12 +270,12 @@ export default class Base {
     this.currentScore = 0;
     this.currentRounds = 0;
     clearInterval(dataLoop);
-
+    this.dataTimer();
   }
-  
+
   generateHeights() {
 
-    return this.uniformArr([1, 1]);
+    return this.uniformArr([1,2,3]);
   }
 
 
@@ -269,11 +289,14 @@ export default class Base {
   generateTrajectoryParams(hArr, height, Tf) {
     let currentHeight = hArr[currentRounds] * 0.05 + height;
     initX = 0.52;
+    let val = hArr[currentRounds] - 1;
+    Tf = Tf + val * 0.144;
     gravity = 2 * currentHeight / Math.pow(Tf, 2);
     ballvx = (1.051) / Tf;
     initV = 0.5 * gravity * Tf;
 
   }
+
 
   /**
    * Generate Trajectory  parameters for discrete games (using Time Flight array)
@@ -344,37 +367,12 @@ export default class Base {
   uniformArr(vals) {
     let arr = [];
     vals.forEach((v) =&gt; {
-      arr = arr.concat(Array(Utils.gameRounds / vals.length).fill(v));
+      arr = arr.concat(Array(maxRounds / vals.length).fill(v));
 
     });
 
-    return this.shuffle(arr);
+    return Utils.shuffle(arr);
 
-  }
-
-  /**
-   * Fisher-Yates shuffle for uniform distribution
-   * @method shuffle
-   * @param {array} initial array
-   * @return {array} shuffled array
-   */
-  shuffle(array) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
   }
 
 
@@ -410,20 +408,13 @@ export default class Base {
 
   /**
    * Data collection abstract method
+   * Executing method only once in DATA_COLLECTION_TIME timeout
    * @method dataCollection
    */
   dataCollection() {
 
 
-    this.loopTimer = function () {
-      let inst = this;
-      dataLoop = setTimeout(function () {
-        inst.dataCollection();
-      }, 30);
-
-    };
-
-    this.loopTimer();
+    this.dataTimer();
 
   }
 
@@ -448,14 +439,8 @@ export default class Base {
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.save();
 
-    this.drawScore();
+    //this.drawScore();
 
-    this.loopTimer = function () {
-      let inst = this;
-      gameLoop = window.requestAnimationFrame(function () {
-        inst.loop();
-      });
-    };
     this.loopTimer();
   }
 
@@ -487,7 +472,16 @@ export default class Base {
     currentRounds = val;
   }
 
+  /**
+   * Set maximum number of trials per game
+   * @method setMaxTrials
+   * @param {int} trials
+   */
+  setMaxTrials(trials){
 
+    maxRounds = trials;
+
+  }
 
 
   /**
@@ -584,18 +578,6 @@ export default class Base {
    */
   initGame() {
 
-    this.loopTimer = function () {
-      let inst = this;
-      gameLoop = window.requestAnimationFrame(function () {
-        inst.loop();
-      });
-
-      dataLoop = setTimeout(function () {
-        inst.dataCollection();
-      }, 30);
-
-    };
-
     this.loopTimer();
 
   }
@@ -614,13 +596,14 @@ export default class Base {
     if (score) {
       this.increaseScore();
     }
-    if (this.currentRounds &lt; Utils.gameRounds) {
+    if (this.currentRounds &lt; maxRounds) {
       this.initGame();
 
     } else {
       this.context.set(&#x27;showInstructions&#x27;, true);
       this.context.stopRecorder().finally(() =&gt; {
         this.context.destroyRecorder();
+        this.context.send(&#x27;export&#x27;);
         this.context.send(&#x27;next&#x27;);
       });
     }
@@ -633,7 +616,7 @@ export default class Base {
    */
   clearInterval() {
 
-      window.clearInterval(0);
+    window.clearInterval(0);
 
   }
 
@@ -717,22 +700,20 @@ export default class Base {
     let leftBorder =  (positionX- 0.0175) * Utils.SCALE;
     let downBorder =  (1.3746-positionY) * Utils.SCALE ;
 
-    let  ball = {
+    return {
 
-      position: {x: leftBorder, y:downBorder},
+      position: {x: leftBorder, y: downBorder},
       velocity: 0,
-      radius: (0.037)*Utils.SCALE,
+      radius: (0.037) * Utils.SCALE,
       state: &#x27;start&#x27;,
       impactTime: 0,
-      hitstate:&#x27;&#x27;,
-      startTime:0,
-      impactPosition:0,
-      positions:[{x:0,y:0}],
+      hitstate: &#x27;&#x27;,
+      startTime: 0,
+      impactPosition: 0,
+      positions: [{x: 0, y: 0}],
       color: Utils.yellowColor
 
     };
-
-    return ball;
   }
 
   /**
@@ -799,7 +780,7 @@ export default class Base {
    */
   ballIsOnFloor(ball){
 
-    return ball.position.y &gt; paddleBox.position.y + paddleBox.dimensions.height - 20;
+    return ball.position.y &gt; paddleBox.position.y + paddleBox.dimensions.height - 0.048 * Utils.SCALE;
   }
 
   /**

@@ -54,6 +54,89 @@
             "fors": {},
             "namespaces": {}
         },
+        "app/components/exp-lookit-games/Game.js": {
+            "name": "app/components/exp-lookit-games/Game.js",
+            "modules": {
+                "games": 1
+            },
+            "classes": {
+                "Game": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/components/exp-lookit-games/base.js": {
+            "name": "app/components/exp-lookit-games/base.js",
+            "modules": {},
+            "classes": {
+                "Base": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/components/exp-lookit-games/buttonPressWindow.js": {
+            "name": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "modules": {},
+            "classes": {
+                "ButtonPressWindow": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/components/exp-lookit-games/component.js": {
+            "name": "app/components/exp-lookit-games/component.js",
+            "modules": {},
+            "classes": {
+                "ExpFrameGamesComponent": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/components/exp-lookit-games/discreteBounce.js": {
+            "name": "app/components/exp-lookit-games/discreteBounce.js",
+            "modules": {},
+            "classes": {
+                "DiscreteBounce": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/components/exp-lookit-games/discreteButtonSpatial.js": {
+            "name": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "modules": {},
+            "classes": {
+                "DiscreteButtonSpatial": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/components/exp-lookit-games/discreteCatch.js": {
+            "name": "app/components/exp-lookit-games/discreteCatch.js",
+            "modules": {},
+            "classes": {
+                "DiscreteCatch": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/components/exp-lookit-games/discreteCatchLift.js": {
+            "name": "app/components/exp-lookit-games/discreteCatchLift.js",
+            "modules": {},
+            "classes": {
+                "DiscreteCatchLift": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "app/components/exp-lookit-games/utils.js": {
+            "name": "app/components/exp-lookit-games/utils.js",
+            "modules": {},
+            "classes": {
+                "Utils\nShared Utility class for project static methods and constants": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
         "app/components/exp-lookit-geometry-alternation/component.js": {
             "name": "app/components/exp-lookit-geometry-alternation/component.js",
             "modules": {},
@@ -327,6 +410,7 @@
             "name": "exp-player",
             "submodules": {
                 "frames": 1,
+                "games": 1,
                 "components": 1,
                 "mixins": 1,
                 "randomizers": 1,
@@ -339,6 +423,15 @@
                 "Exp-frame-select": 1,
                 "Exp-lookit-dialogue-page": 1,
                 "Exp-lookit-exit-survey": 1,
+                "Game": 1,
+                "Base": 1,
+                "ButtonPressWindow": 1,
+                "ExpFrameGamesComponent": 1,
+                "DiscreteBounce": 1,
+                "DiscreteButtonSpatial": 1,
+                "DiscreteCatch": 1,
+                "DiscreteCatchLift": 1,
+                "Utils\nShared Utility class for project static methods and constants": 1,
                 "Exp-lookit-geometry-alternation": 1,
                 "Exp-lookit-geometry-alternation-open": 1,
                 "Exp-lookit-instructions": 1,
@@ -413,6 +506,28 @@
             "description": "Reusable frames that can be used as part of user-defined experiments. This is the main reference for researchers\n  looking to build their own experiment definitions on the experimenter platform.",
             "tag": "main",
             "itemtype": "main"
+        },
+        "games": {
+            "name": "games",
+            "submodules": {},
+            "elements": {},
+            "classes": {
+                "Game": 1,
+                "Base": 1,
+                "ButtonPressWindow": 1,
+                "DiscreteBounce": 1,
+                "DiscreteButtonSpatial": 1,
+                "DiscreteCatch": 1,
+                "DiscreteCatchLift": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "exp-player",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/discreteCatchLift.js",
+            "line": 47,
+            "description": "Game orchestrator to set initial parameters and\nexecute requested game\nMight have randomization of the games here"
         },
         "components": {
             "name": "components",
@@ -589,6 +704,144 @@
                 "Full-screen",
                 "Validations"
             ]
+        },
+        "Game": {
+            "name": "Game",
+            "shortname": "Game",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "exp-player",
+            "submodule": "games",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/Game.js",
+            "line": 19,
+            "description": "Game orchestrator to set initial parameters and\nexecute requested game\nMight have randomization of the games here"
+        },
+        "Base": {
+            "name": "Base",
+            "shortname": "Base",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "exp-player",
+            "submodule": "games",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 39,
+            "description": "Base class for common game functions\nTODO : some static methods could be extracted to a separate class, maybe Utils class"
+        },
+        "ButtonPressWindow": {
+            "name": "ButtonPressWindow",
+            "shortname": "ButtonPressWindow",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "exp-player",
+            "submodule": "games",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 61,
+            "description": "Main implementation of feed  the mouse in the house game.\nThe user will operate with keyboard keys to predict when ball trajectory will hit the window.\nThe trajectory is randomized with various values in trajectories array",
+            "extends": "Base"
+        },
+        "ExpFrameGamesComponent": {
+            "name": "ExpFrameGamesComponent",
+            "shortname": "ExpFrameGamesComponent",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "exp-player",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 13,
+            "description": "Frame to implement various games interventions.\nThe games are developed as a separate HTML5 canvas modules.\n\nCurrent implementation of template has 3 scenarios to display :\n- Intro page (shows the initial game image with door button)\n- Progress page (shows the progress page with slot machines with dynamic button )\n- Game instructions page (shows the game instructions set as template parameters)\n\nAfter each game, get the response that game is finished, save the data (pass the data to\nthe appropriate game object array) and proceed to the next game/step.\n\nCurrent implementation has 5 game types :\n- 0: Light the night sky\n- 1: Monster slime\n- 2: Catch the rat\n- 3: Space mechanic\n- 4: Brake the wall\n\n\n```\n\"frames\": {\n\n       \"intro\": {\n           \"kind\": \"exp-lookit-games\",\n           \"source\": \"https://piproject.s3.us-east-2.amazonaws.com/Resources/images/intro.png\",\n           \"showIntro\": true,\n           \"showProgress\": false,\n           \"showInstructions\": true\n       },\n\n       \"progress-1\": {\n           \"kind\": \"exp-lookit-games\",\n           \"gameType\": 0,\n           \"showProgress\": true,\n           \"showIntro\": false,\n           \"showInstructions\": false,\n           \"source_button\": \"https://piproject.s3.us-east-2.amazonaws.com/Resources/images/start_button.png\"\n       },\n       \"game\": {\n           \"kind\": \"exp-lookit-games\",\n           \"gameType\": 0,\n           \"gameDescription\": \"Light the night game\",\n           \"instructions\" : \"Use mouse to move paddle up and down\",\n           \"showIntro\" : false,\n           \"showProgress\": false,\n           \"showInstructions\": true\n       }\n   }\n```",
+            "extends": "VideoRecord"
+        },
+        "DiscreteBounce": {
+            "name": "DiscreteBounce",
+            "shortname": "DiscreteBounce",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "exp-player",
+            "submodule": "games",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 59,
+            "description": "Main implementation of Bounce  game.\nThe user will operate with paddle to bounce the ball into the object target.\nThe trajectory is randomized with various values in trajectories array",
+            "extends": "Base"
+        },
+        "DiscreteButtonSpatial": {
+            "name": "DiscreteButtonSpatial",
+            "shortname": "DiscreteButtonSpatial",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "exp-player",
+            "submodule": "games",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 64,
+            "description": "The user will operate with keyboard keys to predict which ball trajectory will hit which window\nin the obstruction (shuttle).\nThe trajectory is randomized with various values in trajectories array",
+            "extends": "Base"
+        },
+        "DiscreteCatch": {
+            "name": "DiscreteCatch",
+            "shortname": "DiscreteCatch",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "exp-player",
+            "submodule": "games",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 54,
+            "description": "Main implementation of catch game.\nThe user will operate with paddle to catch the ball started\nfrom ball box. The trajectory is randomized with various values in trajectories array\nNumber of obstructions currently randomized from 0 to 3 obstructions shown",
+            "extends": "Base"
+        },
+        "DiscreteCatchLift": {
+            "name": "DiscreteCatchLift",
+            "shortname": "DiscreteCatchLift",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "exp-player",
+            "submodule": "games",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/discreteCatchLift.js",
+            "line": 47,
+            "description": "* Main implementation of Catch the target game.\n The user will with paddle (basket) to catch the target.\n The target will appear with some unpredictable  delay.\n The user should catch the target until object symbolizing the clock is gone.",
+            "extends": "Base"
+        },
+        "Utils\nShared Utility class for project static methods and constants": {
+            "name": "Utils\nShared Utility class for project static methods and constants",
+            "shortname": "Utils\nShared Utility class for project static methods and constants",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "exp-player",
+            "namespace": "",
+            "file": "app/components/exp-lookit-games/utils.js",
+            "line": 8
         },
         "Exp-lookit-geometry-alternation": {
             "name": "Exp-lookit-geometry-alternation",
@@ -1055,7 +1308,7 @@
             "submodule": "randomizers",
             "namespace": "",
             "file": "app/randomizers/random-parameter-set.js",
-            "line": 8,
+            "line": 9,
             "description": "Randomizer to implement flexible condition assignment and counterbalancing by\nallowing the user to specify an arbitrary sequence of frames to create. A\nset of parameters is randomly selected from a list of available parameterSets,\nand these parameters are substituted in to the parameters specified in the\nlist of frames.\n\nFor a more detailed walkthrough, please see\nhttps://lookit.readthedocs.io/en/develop/experiments.html#randomizer-frames\n\nTo use, define a frame with \"kind\": \"choice\" and \"sampler\": \"random-parameter-set\",\nas shown below, in addition to the parameters described under 'properties'.\n\nThis\n\n```json\n\"frames\": {\n   \"test-trials\": {\n       \"sampler\": \"random-parameter-set\",\n       \"kind\": \"choice\",\n       \"commonFrameProperties\": {\n           \"kind\": \"exp-lookit-story-page\",\n           \"baseDir\": \"https://s3.amazonaws.com/lookitcontents/ingroupobligations/\",\n           \"audioTypes\": [\"mp3\", \"ogg\"],\n           \"doRecording\": true,\n           \"autoProceed\": false,\n           \"parentTextBlock\": {\n               \"title\": \"Parents!\",\n               \"text\": \"Common instructions across test trials here\",\n               \"emph\": true\n           }\n       },\n       \"frameList\": [\n           {\n               \"images\": [\n                   {\n                       \"id\": \"agent\",\n                       \"src\": \"AGENTIMG1\",\n                       \"left\": \"40\",\n                       \"width\": \"20\",\n                       \"top\": \"10\"\n                   },\n                   {\n                       \"id\": \"left\",\n                       \"src\": \"LEFTIMG1\",\n                       \"left\": \"10\",\n                       \"width\": \"20\",\n                       \"top\": \"50\"\n                   },\n                   {\n                       \"id\": \"right\",\n                       \"src\": \"RIGHTIMG1\",\n                       \"left\": \"70\",\n                       \"width\": \"20\",\n                       \"top\": \"50\"\n                   }\n               ],\n               \"audioSources\": [\n                   {\n                       \"audioId\": \"questionaudio\",\n                       \"sources\": [{\"stub\": \"QUESTION1AUDIO\"}],\n                       \"highlights\": \"QUESTION1HIGHLIGHTS\"\n                   }\n               ]\n           },\n           {\n               \"images\": [\n                   {\n                       \"id\": \"agent\",\n                       \"src\": \"AGENTIMG2\",\n                       \"left\": \"40\",\n                       \"width\": \"20\",\n                       \"top\": \"10\"\n                   },\n                   {\n                       \"id\": \"left\",\n                       \"src\": \"LEFTIMG2\",\n                       \"left\": \"10\",\n                       \"width\": \"20\",\n                       \"top\": \"50\"\n                   },\n                   {\n                       \"id\": \"right\",\n                       \"src\": \"RIGHTIMG2\",\n                       \"left\": \"70\",\n                       \"width\": \"20\",\n                       \"top\": \"50\"\n                   }\n               ],\n               \"audioSources\": [\n                   {\n                       \"audioId\": \"questionaudio\",\n                       \"sources\": [{\"stub\": \"QUESTION2AUDIO\"}],\n                       \"highlights\": \"QUESTION2HIGHLIGHTS\"\n                   }\n               ]\n           }\n       ],\n       \"parameterSets\": [\n           {\n               \"AGENTIMG1\": \"flurpagent1.jpg\",\n               \"LEFTIMG1\": \"flurpvictim1.jpg\",\n               \"RIGHTIMG1\": \"zazzvictim1.jpg\",\n               \"QUESTION1AUDIO\": \"flurpleftmean1\",\n               \"QUESTION1HIGHLIGHTS\": [\n                   {\"range\": [0.399293,\t3.617124], \"image\": \"agent\"},\n                   {\"range\": [5.085112,\t6.811467], \"image\": \"left\"},\n                   {\"range\": [6.905418,\t8.702236], \"image\": \"right\"}\n               ],\n               \"AGENTIMG2\": \"flurpagent2.jpg\",\n               \"LEFTIMG2\": \"flurpvictim2.jpg\",\n               \"RIGHTIMG2\": \"zazzvictim2.jpg\",\n               \"QUESTION2AUDIO\": \"flurpleftinduct1\",\n               \"QUESTION2HIGHLIGHTS\": [\n                   {\"range\": [0.372569,\t5.309110], \"image\": \"agent\"},\n                   {\"range\": [5.495395,\t7.209213], \"image\": \"left\"},\n                   {\"range\": [5.495395,\t7.209213], \"image\": \"right\"},\n                   {\"range\": [9.966225,\t11.922212], \"image\": \"left\"},\n                   {\"range\": [12.052612,\t14.008600], \"image\": \"right\"}\n               ]\n           },\n           {\n               \"AGENTIMG1\": \"zazzagent1.jpg\",\n               \"LEFTIMG1\": \"flurpvictim1.jpg\",\n               \"RIGHTIMG1\": \"zazzvictim1.jpg\",\n               \"QUESTION1AUDIO\": \"zazzrightnice1\",\n               \"QUESTION1HIGHLIGHTS\": [\n                   {\"range\": [0.348454,\t3.736871], \"image\": \"agent\"},\n                   {\"range\": [5.395033,\t6.884975], \"image\": \"left\"},\n                   {\"range\": [6.969085,\t8.975701], \"image\": \"right\"}\n               ],\n               \"AGENTIMG2\": \"zazzagent2.jpg\",\n               \"LEFTIMG2\": \"flurpvictim2.jpg\",\n               \"RIGHTIMG2\": \"zazzvictim2.jpg\",\n               \"QUESTION2AUDIO\": \"zazzrightinduct1\",\n               \"QUESTION2HIGHLIGHTS\": [\n                   {\"range\": [0.572920,\t5.138376], \"image\": \"agent\"},\n                   {\"range\": [5.335317,\t7.089884], \"image\": \"left\"},\n                   {\"range\": [5.335317,\t7.089884], \"image\": \"right\"},\n                   {\"range\": [9.721735,\t11.565821], \"image\": \"left\"},\n                   {\"range\": [11.655340,\t13.535233], \"image\": \"right\"}\n               ]\n           }\n       ],\n       \"parameterSetWeights\": [1, 1]\n   }\n}\n\n```"
         },
         "Select": {
@@ -1117,7 +1370,19 @@
         },
         {
             "file": "app/components/exp-frame-base/component.js",
-            "line": 375,
+            "line": 228,
+            "description": "An object containing values for any parameters (variables) to use in this frame.\nAny property VALUES in this frame that match any of the property NAMES in `parameters`\nwill be replaced by the corresponding parameter value. For example, suppose your frame\nis:\n\n```\n{\n   'kind': 'FRAME_KIND',\n   'parameters': {\n       'FRAME_KIND': 'exp-lookit-text'\n   }\n}\n```\n\nThen the frame `kind` will be `exp-lookit-text`. This may be useful if you need\nto repeat values for different frame properties, especially if your frame is actually\na randomizer or group. You may use parameters nested within objects (at any depth) or\nwithin lists.\n\nYou can also use selectors to randomly sample from or permute\na list defined in `parameters`. Suppose `STIMLIST` is defined in\n`parameters`, e.g. a list of potential stimuli. Rather than just using `STIMLIST`\nas a value in your frames, you can also:\n\n* Select the Nth element (0-indexed) of the value of `STIMLIST`: (Will cause error if `N >= THELIST.length`)\n```\n   'parameterName': 'STIMLIST#N'\n```\n* Select (uniformly) a random element of the value of `STIMLIST`:\n```\n   'parameterName': 'STIMLIST#RAND'\n```\n* Set `parameterName` to a random permutation of the value of `STIMLIST`:\n```\n   'parameterName': 'STIMLIST#PERM'\n```\n* Select the next element in a random permutation of the value of `STIMLIST`, which is used across all\nsubstitutions in this randomizer. This allows you, for instance, to provide a list\nof possible images in your `parameterSet`, and use a different one each frame with the\nsubset/order randomized per participant. If more `STIMLIST#UNIQ` parameters than\nelements of `STIMLIST` are used, we loop back around to the start of the permutation\ngenerated for this randomizer.\n```\n   'parameterName': 'STIMLIST#UNIQ'\n```",
+            "itemtype": "property",
+            "name": "parameters",
+            "type": "Object[]",
+            "default": "{}",
+            "class": "Exp-frame-base",
+            "module": "exp-player",
+            "submodule": "frames"
+        },
+        {
+            "file": "app/components/exp-frame-base/component.js",
+            "line": 427,
             "description": "The base class does not define any data to save to the server. It does, however, capture some basic event\n  timing data. (such as when the user clicks the \"next\" button)\n\nThis section slightly breaks YUIDoc conventions- rather than being a literal guide to using the code, the\n  \"parameters\" here are abstract descriptions of what data is captured.\n\nEach frame that extends ExpFrameBase will send an array `eventTimings`\nback to the server upon completion. This array is an ordered list (oldest\nto newest) of every EVENT that happened during the frame. Each event is\nrepresented as an object with at least the properties\n`{'eventType': EVENTNAME, 'timestamp': TIMESTAMP}`. Frame-specific events\nmay define additional properties that are sent.",
             "params": [
                 {
@@ -1138,7 +1403,7 @@
         },
         {
             "file": "app/components/exp-frame-base/component.js",
-            "line": 402,
+            "line": 454,
             "description": "Create the time event payload for a particular frame / event. This can be overridden to add fields to every\n event sent by a particular frame",
             "itemtype": "method",
             "name": "makeTimeEvent",
@@ -1165,7 +1430,7 @@
         },
         {
             "file": "app/components/exp-frame-base/component.js",
-            "line": 449,
+            "line": 501,
             "description": "Move to next frame",
             "itemtype": "event",
             "name": "nextFrame",
@@ -1175,7 +1440,7 @@
         },
         {
             "file": "app/components/exp-frame-base/component.js",
-            "line": 504,
+            "line": 556,
             "description": "Move to previous frame",
             "itemtype": "event",
             "name": "previousFrame",
@@ -1574,6 +1839,1548 @@
             "class": "Exp-lookit-exit-survey",
             "module": "exp-player",
             "submodule": "frames"
+        },
+        {
+            "file": "app/components/exp-lookit-games/Game.js",
+            "line": 26,
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                },
+                {
+                    "name": "document",
+                    "description": ""
+                },
+                {
+                    "name": "gameNumber",
+                    "description": "current game id"
+                }
+            ],
+            "class": "Game",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 47,
+            "description": "Constructor to get parameters from caller",
+            "itemtype": "method",
+            "name": "Constructor",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": "from component"
+                },
+                {
+                    "name": "document",
+                    "description": "object from component"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 100,
+            "description": "Calculate canvas based on current Width Height\nof the screen and initial Aspect ratio.\nCurrently using Matlab implementation Aspect ratio (4:3)",
+            "itemtype": "method",
+            "name": "calculateCanvas",
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 140,
+            "description": "Initialize or start the game loop here",
+            "itemtype": "method",
+            "name": "init",
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 157,
+            "description": "Generate main trajectory parameters per trial",
+            "itemtype": "method",
+            "name": "generateTrajectoryParams",
+            "params": [
+                {
+                    "name": "hArr",
+                    "description": "array of equally distributed height"
+                },
+                {
+                    "name": "height",
+                    "description": "height correction coefficient"
+                },
+                {
+                    "name": "Tf",
+                    "description": "Flight time coefficient"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 176,
+            "description": "Generate Trajectory  parameters for discrete games (using Time Flight array)",
+            "itemtype": "method",
+            "name": "generateTrajectoryParamsDiscrete",
+            "params": [
+                {
+                    "name": "TfArr",
+                    "description": "Time Flight array"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 191,
+            "description": "Generate Trajectory  parameters for spatial discrete games  (using init velocity matrix )",
+            "itemtype": "method",
+            "name": "generateTrajectoryParamsDiscreteSpatial",
+            "params": [
+                {
+                    "name": "initVmatrix",
+                    "description": "init velocity matrix"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 206,
+            "description": "Create and draw box for initial paddle location.\nThe box symbolizes initial paddle location in all games",
+            "params": [
+                {
+                    "name": "color",
+                    "description": "Color of the Paddle box",
+                    "type": "Int"
+                },
+                {
+                    "name": "fill",
+                    "description": "Set solid color paddle box",
+                    "type": "Boolean"
+                }
+            ],
+            "itemtype": "method",
+            "name": "createPaddleBox",
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 236,
+            "description": "Create Uniform array of values",
+            "itemtype": "method",
+            "name": "uniformArr",
+            "params": [
+                {
+                    "name": "vals",
+                    "description": "Array of values that  needed to be equally distributed",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "array",
+                "type": "Array"
+            },
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 261,
+            "description": "Abstract method\nTriggered when participant pressed some key on keyboard",
+            "itemtype": "method",
+            "name": "keyDownHandler",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "event",
+                    "type": "Object"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 272,
+            "description": "Abstract method\nTriggered when participant released some key on keyboard",
+            "itemtype": "method",
+            "name": "keyUpHandler",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "event",
+                    "type": "Object"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 284,
+            "description": "Data collection abstract method\nExecuting method only once in DATA_COLLECTION_TIME timeout",
+            "itemtype": "method",
+            "name": "dataCollection",
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 296,
+            "description": "Current score accumulator",
+            "itemtype": "method",
+            "name": "increaseScore",
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 306,
+            "description": "Abstract Main game loop method",
+            "itemtype": "method",
+            "name": "loop",
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 323,
+            "description": "Create initial ball box object to start from",
+            "itemtype": "method",
+            "name": "createLauncher",
+            "params": [
+                {
+                    "name": "Image",
+                    "description": "object",
+                    "type": "Object"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 350,
+            "description": "Set maximum number of trials per game",
+            "itemtype": "method",
+            "name": "setMaxTrials",
+            "params": [
+                {
+                    "name": "trials",
+                    "description": "",
+                    "type": "Int"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 362,
+            "description": "Get shared Utils objects",
+            "itemtype": "method",
+            "name": "Utils",
+            "return": {
+                "description": "",
+                "type": "Utils"
+            },
+            "is_constructor": 1,
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 374,
+            "description": "Get trajectory parameters per each trial",
+            "itemtype": "method",
+            "name": "TrajectoryVars",
+            "return": {
+                "description": "{{initX: number, ballvx: number, gravity: number, initV: number}}",
+                "type": "Object"
+            },
+            "is_constructor": 1,
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 386,
+            "description": "Show current image",
+            "itemtype": "method",
+            "name": "drawImage",
+            "params": [
+                {
+                    "name": "object",
+                    "description": "Current object with x,y position, width , height and URL of the image to show",
+                    "type": "Object"
+                },
+                {
+                    "name": "image",
+                    "description": "Image object",
+                    "type": "Object"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 399,
+            "description": "Fill image array with objects according to URL sources",
+            "itemtype": "method",
+            "name": "fillImageArray",
+            "params": [
+                {
+                    "name": "array",
+                    "description": "of URLs",
+                    "type": "Array"
+                },
+                {
+                    "name": "array",
+                    "description": "of created objects",
+                    "type": "Array"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 418,
+            "description": "Fill audio array with objects according to URL sources",
+            "itemtype": "method",
+            "name": "fillAudioArray",
+            "params": [
+                {
+                    "name": "array",
+                    "description": "of URLs",
+                    "type": "Array"
+                },
+                {
+                    "name": "array",
+                    "description": "of created objects",
+                    "type": "Array"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 438,
+            "description": "Store data and pass to  Lookit platform variable",
+            "itemtype": "method",
+            "name": "storeData",
+            "params": [
+                {
+                    "name": "export",
+                    "description": "Data array of objects with all data passed to Lookit platform",
+                    "type": "Array"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 450,
+            "description": "Initialize current round of the game",
+            "itemtype": "method",
+            "name": "initGame",
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 461,
+            "description": "Finish current round and check for rounds left",
+            "itemtype": "method",
+            "name": "finishGame",
+            "params": [
+                {
+                    "name": "score",
+                    "description": "should increase score",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 488,
+            "description": "Clear all current running game loops",
+            "itemtype": "method",
+            "name": "clearInterval",
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 501,
+            "description": "Basket object per Matlab coordinates",
+            "itemtype": "method",
+            "name": "basketObject",
+            "params": [
+                {
+                    "name": "basket",
+                    "description": "paddle parameters"
+                }
+            ],
+            "return": {
+                "description": "basket parameters",
+                "type": "Object"
+            },
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 525,
+            "description": "Store paddle position and time history for velocity calculation",
+            "itemtype": "method",
+            "name": "paddleHistory",
+            "params": [
+                {
+                    "name": "paddle",
+                    "description": "",
+                    "type": "Object"
+                },
+                {
+                    "name": "trial",
+                    "description": "initial Time in Unixtime",
+                    "type": "Int"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 542,
+            "description": "Paddle object per Matlab coordinates",
+            "itemtype": "method",
+            "name": "paddleObject",
+            "params": [
+                {
+                    "name": "paddle",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "paddle {position: {x: number, y: number}, dimensions: {width: number, height: number}}",
+                "type": "Object"
+            },
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 562,
+            "description": "Create initial ball object with state parameters for all games\nInitial state is always 'start' for each game trial",
+            "itemtype": "method",
+            "name": "ballObject",
+            "return": {
+                "description": "ball  {{color: string, impactPosition: number, startTime: number, positions: {x: number, y:\nnumber}[],\nposition: {x: number, y: number}, velocity: number, state: string, hitstate: string, radius: number, impactTime: number}}",
+                "type": "Object"
+            },
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 594,
+            "description": "Get elapsed time as iterator in seconds",
+            "itemtype": "method",
+            "name": "getElapsedTime",
+            "params": [
+                {
+                    "name": "intialTime",
+                    "description": "Unixtime formatted time",
+                    "type": "Int"
+                }
+            ],
+            "return": {
+                "description": "difference in seconds between current time and intialTime, decimal",
+                "type": "Number"
+            },
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 605,
+            "description": "Projectile motion trajectory per maximum distance",
+            "itemtype": "method",
+            "name": "trajectory",
+            "params": [
+                {
+                    "name": "ball",
+                    "description": "{position: {x: number, y: number}, radius: number, dimensions: {width: number, height:\nnumber}}",
+                    "type": "Object"
+                },
+                {
+                    "name": "initialTime",
+                    "description": "",
+                    "type": "Int"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 626,
+            "description": "Draw the game score",
+            "itemtype": "method",
+            "name": "drawScore",
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 638,
+            "description": "Randomize trial start time",
+            "itemtype": "method",
+            "name": "trialStartTime",
+            "return": {
+                "description": "seconds",
+                "type": "Number"
+            },
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 649,
+            "description": "Check if ball is on the floor and missed target",
+            "itemtype": "method",
+            "name": "ballIsOnFloor",
+            "params": [
+                {
+                    "name": "ball",
+                    "description": ", radius: number, dimensions: {width: number, height:\nnumber}}",
+                    "type": "Position: x: number, y: number"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 661,
+            "description": "Draw ball per x,y ball location",
+            "itemtype": "method",
+            "name": "drawBall",
+            "params": [
+                {
+                    "name": "ball",
+                    "description": "{position: {x: number, y: number}, radius: number, dimensions: {width: number, height:\nnumber}}",
+                    "type": "Object"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 674,
+            "description": "Set position of the ball to initial coordinates to symbolize the start of the game",
+            "itemtype": "method",
+            "name": "moveBallToStart",
+            "params": [
+                {
+                    "name": "ball",
+                    "description": "{position: {x: number, y: number}, radius: number, dimensions: {width: number, height: number}} object parameters set game to be over",
+                    "type": "Object"
+                },
+                {
+                    "name": "Image",
+                    "description": "object",
+                    "type": "Object"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 687,
+            "description": "Check if user returned paddle to initial coordinates and call finish of the game to restart\ncurrent round\nCheck if paddle is stationary for PADDLE_REST_TIME_MS, if yes proceed to the next trial",
+            "itemtype": "method",
+            "name": "paddleAtZero",
+            "params": [
+                {
+                    "name": "paddle",
+                    "description": "{position: {x: number, y: number}, dimensions: {width: number, height: number}}",
+                    "type": "Object"
+                },
+                {
+                    "name": "score",
+                    "description": "should increase score",
+                    "type": "Boolean"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 718,
+            "description": "Check if paddle is moved ahead of time",
+            "itemtype": "method",
+            "name": "paddleIsMoved",
+            "params": [
+                {
+                    "name": "paddle",
+                    "description": "parameters object {position: {x: number, y: number}, dimensions: {width: number, height: number}}",
+                    "type": "Object"
+                },
+                {
+                    "name": "checkPaddleHeight",
+                    "description": "if height needed for reference (bounce game)",
+                    "type": "Boolean"
+                }
+            ],
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 744,
+            "description": "Draw image object according to object parameters",
+            "itemtype": "method",
+            "name": "drawImageObject",
+            "params": [
+                {
+                    "name": "{position:",
+                    "description": "{x: number, y: number}, dimensions: {width: number, height: number}}",
+                    "type": "Object"
+                },
+                {
+                    "name": "image",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 757,
+            "description": "Set paddle coordinates up to velocity\nCheck if paddle not going past the paddle box bottom border\nMove paddle inside paddle Box upon start of the game",
+            "itemtype": "method",
+            "name": "paddleMove",
+            "params": [
+                {
+                    "name": "paddle",
+                    "description": "{position: {x: number, y: number}, dimensions: {width: number, height: number}}",
+                    "type": "Object"
+                },
+                {
+                    "name": "initialTime,",
+                    "description": "Initial time (Unixtime) for current game round",
+                    "type": "Int"
+                },
+                {
+                    "name": "ball",
+                    "description": "{position: {x: number, y: number}, radius: number, dimensions: {width: number, height: number}}",
+                    "type": "Object"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 787,
+            "description": "Walls and target collisions detection",
+            "itemtype": "method",
+            "name": "wallCollision",
+            "params": [
+                {
+                    "name": "ball",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "if hit any edge of the screen",
+                "type": "Boolean"
+            },
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/base.js",
+            "line": 805,
+            "description": "Increment current position cursor by movementY value (difference in y coordinate between the given event and the\nprevious mousemove event )\nCheck initial cursor position, if the positio is lower then low paddle box border, stop t\\\nmouse pointer updates.",
+            "itemtype": "method",
+            "name": "onMouseMove",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "currrent mouse event",
+                    "type": "Event"
+                }
+            ],
+            "class": "Base",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 69,
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                },
+                {
+                    "name": "document",
+                    "description": ""
+                }
+            ],
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 86,
+            "description": "Draw house with roof according to coordinates",
+            "itemtype": "method",
+            "name": "createShuttle",
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 106,
+            "description": "Create target window",
+            "itemtype": "method",
+            "name": "createTargetWindow",
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 116,
+            "description": "Show the current  ball location .\nCenter the ball location.",
+            "itemtype": "method",
+            "name": "showBallLocation",
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 128,
+            "description": "Main point to start the game.\nInitialize static parameters and preload sounds here",
+            "itemtype": "method",
+            "name": "init",
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 152,
+            "description": "Initialize each game round with initial object parameters\nWait for start sound and start the main game loop",
+            "itemtype": "method",
+            "name": "initGame",
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 201,
+            "description": "trajectory  : 1,2,3 ( Time when ball hits the basket at 500,600,700 ms )",
+            "itemtype": "method",
+            "name": "dataCollection",
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 228,
+            "description": "Get current keyboard event on press button",
+            "itemtype": "method",
+            "name": "keyDownHandler",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 242,
+            "description": "Draw launcher image",
+            "itemtype": "method",
+            "name": "createLauncher",
+            "params": [
+                {
+                    "name": "image",
+                    "description": ""
+                }
+            ],
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/buttonPressWindow.js",
+            "line": 263,
+            "description": "Main loop of the game\n Set initial position of the ball in a box and initiate starting sound.\n After that  start ball trajectory.\n If ball hits the target or missed the target(window) show the ball in the window\n Check if user hits the keyboard key when ball trajectory reached the window bounds.\n Increase the score if ball hits the target.\n Move the ball to initial position.\n Wait for some time until rattle sound played.",
+            "itemtype": "method",
+            "name": "loop",
+            "class": "ButtonPressWindow",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 81,
+            "description": "Set current game type",
+            "itemtype": "property",
+            "name": "type",
+            "type": "Integer",
+            "default": "0",
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 93,
+            "description": "Text to display for game instructions",
+            "itemtype": "property",
+            "name": "instructions",
+            "type": "String",
+            "default": "'empty'",
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 104,
+            "description": "Text to display for game description",
+            "itemtype": "property",
+            "name": "gameDescription",
+            "type": "String",
+            "default": "'empty'",
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 114,
+            "description": "Whether to show the instructions for the Game",
+            "itemtype": "property",
+            "name": "showInstructions",
+            "type": "Boolean",
+            "default": "false",
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 125,
+            "description": "Whether to show in full screen",
+            "itemtype": "property",
+            "name": "fullscreen",
+            "type": "Boolean",
+            "default": "false",
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 137,
+            "description": "Media resource location (image, sound,video)",
+            "itemtype": "property",
+            "name": "source",
+            "type": "String",
+            "default": "'empty'",
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 148,
+            "description": "Media resource location for button",
+            "itemtype": "property",
+            "name": "source_button",
+            "type": "String",
+            "default": "'empty'",
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 159,
+            "description": "Whether to show the progress page",
+            "itemtype": "property",
+            "name": "showInstructions",
+            "type": "Boolean",
+            "default": "false",
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 170,
+            "description": "Whether to show the intro page",
+            "itemtype": "property",
+            "name": "showInstructions",
+            "type": "Boolean",
+            "default": "true",
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/component.js",
+            "line": 227,
+            "description": "Parameters captured game data and sent to the server\nThis might be changed in near future for some game type",
+            "itemtype": "method",
+            "name": "serializeContent",
+            "params": [
+                {
+                    "name": "export_arr",
+                    "description": "Game data array with objects positions locations",
+                    "type": "Array"
+                },
+                {
+                    "name": "items",
+                    "description": "The name of the current game object : ball_object {x,y }, paddle_object{x,y}",
+                    "type": "Object"
+                },
+                {
+                    "name": "ball_object",
+                    "description": "items The name of the current game object",
+                    "type": "Object"
+                },
+                {
+                    "name": "timestamp",
+                    "description": "current timestamp in milliseconds for each x,y point of object",
+                    "type": "String"
+                }
+            ],
+            "return": {
+                "description": "The payload sent to the server",
+                "type": "Object"
+            },
+            "class": "ExpFrameGamesComponent",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 70,
+            "description": "Constructor to get parameters from caller",
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": "from component"
+                },
+                {
+                    "name": "document",
+                    "description": "object from component"
+                }
+            ],
+            "class": "DiscreteBounce",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 86,
+            "description": "Main point to start the game.\nInitialize static parameters and preload sounds here",
+            "itemtype": "method",
+            "name": "init",
+            "class": "DiscreteBounce",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 152,
+            "description": "Main loop of the game.\n Set initial position of the ball in a box and starting  sound .\n After that  start ball trajectory.\n If ball hits the target or missed the target (hits any screen edge) wait util user places the paddle to starting position and move\n the ball to initial position.\n Increase the score if ball hits the target.\n Currently game has 2 states when ball hits the target : good (hits the target within the window), very good\n (hits exact target)",
+            "itemtype": "method",
+            "name": "loop",
+            "class": "DiscreteBounce",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 277,
+            "description": "Trajectory of the ball after bounce event",
+            "itemtype": "method",
+            "name": "bounceTrajectory",
+            "class": "DiscreteBounce",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 300,
+            "description": "Handle paddle collision here\n Adjust velocity to the ball by restitution factor\n Release velocity calculation ,  alpha : restitute factor = 0.7\n ball_velocity  =   initV  -  gravity *  t  , where t is the time since start of the trajectory\n paddleVelocity  :  calculated from n past  vector values of paddle y coordinates (in pixel values)  and time in\n seconds",
+            "itemtype": "method",
+            "name": "paddleBallCollision",
+            "class": "DiscreteBounce",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 342,
+            "description": "Calculates release velocity and paddle velocity",
+            "itemtype": "method",
+            "name": "releaseVelocity",
+            "params": [
+                {
+                    "name": "paddleDelta",
+                    "description": "Check if paddle actually moved on Y axis",
+                    "type": "Int"
+                }
+            ],
+            "class": "DiscreteBounce",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 357,
+            "description": "Check if ball reached the target",
+            "itemtype": "method",
+            "name": "collisionDetection",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "DiscreteBounce",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 394,
+            "description": "Initialize each game round with initial object parameters\n Randomize number of obstructions",
+            "itemtype": "method",
+            "name": "initGame",
+            "class": "DiscreteBounce",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteBounce.js",
+            "line": 417,
+            "description": "Export data\n trajectory : 1,2,3 (high, medium or low trajectory).",
+            "itemtype": "method",
+            "name": "dataCollection",
+            "class": "DiscreteBounce",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 73,
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                },
+                {
+                    "name": "document",
+                    "description": ""
+                }
+            ],
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 89,
+            "description": "Get Current window position and align it according to possible obstruction (shuttle) size",
+            "itemtype": "method",
+            "name": "getWindow",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "of the target (shuttle) in array of objects"
+                }
+            ],
+            "return": {
+                "description": ", radius: number, dimensions: {width: number, height: number}}}",
+                "type": "Image: *, position: x: number, y: number"
+            },
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 135,
+            "description": "Draw target  according to coordinates",
+            "itemtype": "method",
+            "name": "createShuttle",
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 156,
+            "description": "Get shuttle image from sources and display according to position parameters",
+            "params": [
+                {
+                    "name": "targetParams",
+                    "description": "target position parameters"
+                }
+            ],
+            "itemtype": "method",
+            "name": "getShuttle",
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 191,
+            "description": "Create the window in the target",
+            "itemtype": "method",
+            "name": "createTargetWindow",
+            "params": [
+                {
+                    "name": "target",
+                    "description": ""
+                }
+            ],
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 202,
+            "description": "Main point to start the game.\nInitialize static parameters and preload sounds here",
+            "itemtype": "method",
+            "name": "init",
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 226,
+            "description": "Initialize each game round with initial object parameters\nRandomize number of obstructions (obstructions)\nReset the sounds sources for older browser versions\nWait for start sound and start the main game loop",
+            "itemtype": "method",
+            "name": "initGame",
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 264,
+            "description": "Show the ball location in window.\nCenter the ball location.",
+            "itemtype": "method",
+            "name": "showBallLocation",
+            "params": [
+                {
+                    "name": "index",
+                    "description": "Index of the object in array"
+                }
+            ],
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 287,
+            "description": "Set appropriate index value in pressed array, according to index of the key pressed",
+            "itemtype": "method",
+            "name": "keyDownHandler",
+            "params": [
+                {
+                    "name": "e",
+                    "description": "event",
+                    "type": "Object"
+                }
+            ],
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 301,
+            "description": "Display launcher",
+            "itemtype": "method",
+            "name": "discreteLauncher",
+            "params": [
+                {
+                    "name": "image",
+                    "description": "of the Launcher"
+                }
+            ],
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 323,
+            "description": "Main loop of the game\nSet initial position of the ball in a box and starting sound .\nAfter that  start ball trajectory.\nIf ball hits the target or missed the target(window) show the ball in the window and selected window\nclicked by user (indicate the window background with color).\nIncrease the score if ball hits the window.\nMove the ball to initial position.\nWait for some time until rattle sound played.",
+            "itemtype": "method",
+            "name": "keyDownHandler",
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 428,
+            "description": "Show selected window",
+            "itemtype": "method",
+            "name": "showWindow",
+            "params": [
+                {
+                    "name": "index",
+                    "description": ""
+                }
+            ],
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteButtonSpatial.js",
+            "line": 450,
+            "description": "Columns structure\nslime: 1,2,3 indicating correct location of where the slime will land - top, middle or bottom\nwindow : 0,1,2,3 indicating no button or which button was clicked\nship : 1,2,3 indicating size of spaceship",
+            "itemtype": "method",
+            "name": "dataCollection",
+            "class": "DiscreteButtonSpatial",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 63,
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": ""
+                },
+                {
+                    "name": "document",
+                    "description": ""
+                }
+            ],
+            "class": "DiscreteCatch",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 79,
+            "description": "Main point to start the game.\nInitialize static parameters and preload sounds here",
+            "itemtype": "method",
+            "name": "init",
+            "class": "DiscreteCatch",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 110,
+            "description": "Initialize each game round with initial object parameters\nRandomize number of obstructions\nWait for start sound and start the main game loop",
+            "itemtype": "method",
+            "name": "initGame",
+            "class": "DiscreteCatch",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 140,
+            "description": "Obstruction object with coordinates",
+            "itemtype": "method",
+            "name": "getObstruction",
+            "params": [
+                {
+                    "name": "obstructionIndex",
+                    "description": ""
+                }
+            ],
+            "return": {
+                "description": ", dimensions: {width: number, height: number}}}",
+                "type": "ImageURL: *, position: x: number, y: number"
+            },
+            "class": "DiscreteCatch",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 160,
+            "description": "trajectory  : 1,2,3 ( Time when ball hits the basket at 500,600,700 ms )",
+            "itemtype": "method",
+            "name": "dataCollection",
+            "class": "DiscreteCatch",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 185,
+            "description": "Check if ball reaches the target",
+            "itemtype": "method",
+            "name": "collisionDetection",
+            "return": {
+                "description": "",
+                "type": "Boolean"
+            },
+            "class": "DiscreteCatch",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 215,
+            "description": "Update location of the basket stars(symbolize that user reached the target) with the basket location",
+            "itemtype": "method",
+            "name": "starsLocationUpdate",
+            "class": "DiscreteCatch",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 230,
+            "description": "Draw initial ball box object",
+            "itemtype": "method",
+            "name": "createLauncher",
+            "params": [
+                {
+                    "name": "BallBox",
+                    "description": "image",
+                    "type": "Image"
+                }
+            ],
+            "class": "DiscreteCatch",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatch.js",
+            "line": 245,
+            "description": "Main loop of the game.\nSet initial position of the ball in a box and starting  sound .\nAfter that  start ball trajectory.\nIf ball hits the target or missed the target wait util user places the paddle to starting position.\nIncrease the score if ball hits the target.",
+            "itemtype": "method",
+            "name": "loop",
+            "class": "DiscreteCatch",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatchLift.js",
+            "line": 56,
+            "itemtype": "method",
+            "name": "constructor",
+            "is_constructor": 1,
+            "params": [
+                {
+                    "name": "context",
+                    "description": "Context of the game"
+                },
+                {
+                    "name": "document",
+                    "description": ""
+                }
+            ],
+            "class": "DiscreteCatchLift",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatchLift.js",
+            "line": 71,
+            "description": "Main point to start the game.\n Initialize initial parameters and preload sounds here",
+            "itemtype": "method",
+            "name": "init",
+            "class": "DiscreteCatchLift",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatchLift.js",
+            "line": 144,
+            "description": "Initialize each game round with initial object parameters\n Randomize number of obstructions\n Reset the sounds sources for older browser versions",
+            "itemtype": "method",
+            "name": "initGame",
+            "class": "DiscreteCatchLift",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatchLift.js",
+            "line": 168,
+            "itemtype": "method",
+            "name": "dataCollection Collect data",
+            "class": "DiscreteCatchLift",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatchLift.js",
+            "line": 190,
+            "description": "Show clock  portion according to angle",
+            "itemtype": "method",
+            "name": "showClock",
+            "class": "DiscreteCatchLift",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/discreteCatchLift.js",
+            "line": 247,
+            "description": "Main loop of the game.\n Set initial position of the ball in a box and starting  sound .\n After that  start showing the target.\n Increase the score if paddle  hits the target.",
+            "itemtype": "method",
+            "name": "loop",
+            "class": "DiscreteCatchLift",
+            "module": "exp-player",
+            "submodule": "games"
+        },
+        {
+            "file": "app/components/exp-lookit-games/utils.js",
+            "line": 203,
+            "description": "Calculates paddle velocity from past n values in paddle vector of y coordinates",
+            "itemtype": "method",
+            "name": "getPaddleVelocity",
+            "params": [
+                {
+                    "name": "time",
+                    "description": "timestamp in Unixtime of paddle position",
+                    "type": "Int"
+                },
+                {
+                    "name": "position",
+                    "description": "{position: {x: number, y: number}, dimensions: {width: number, height: number}}",
+                    "type": "Object"
+                }
+            ],
+            "return": {
+                "description": "sum((time-mean(time)).*(position-mean(position)))/sum((time-mean(time)).*(time-mean(time)))",
+                "type": "Number"
+            },
+            "class": "Utils\nShared Utility class for project static methods and constants",
+            "module": "exp-player"
+        },
+        {
+            "file": "app/components/exp-lookit-games/utils.js",
+            "line": 219,
+            "description": "Fisher-Yates shuffle for uniform distribution",
+            "itemtype": "method",
+            "name": "shuffle",
+            "params": [
+                {
+                    "name": "initial",
+                    "description": "array",
+                    "type": "Array"
+                }
+            ],
+            "return": {
+                "description": "shuffled array",
+                "type": "Array"
+            },
+            "class": "Utils\nShared Utility class for project static methods and constants",
+            "module": "exp-player"
         },
         {
             "file": "app/components/exp-lookit-geometry-alternation/component.js",
@@ -3979,7 +5786,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 350,
+            "line": 349,
             "description": "When participant downloads consent form",
             "itemtype": "event",
             "name": "downloadConsentForm",
@@ -3989,7 +5796,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 365,
+            "line": 364,
             "description": "A list of pages of assent form text/pictures/video for the participant to read through",
             "itemtype": "property",
             "name": "pages",
@@ -4032,7 +5839,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 435,
+            "line": 434,
             "description": "Text on the button to proceed to the next example video/image",
             "itemtype": "property",
             "name": "nextStimulusText",
@@ -4043,7 +5850,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 445,
+            "line": 444,
             "description": "Whether to record webcam video on the last page",
             "itemtype": "property",
             "name": "recordLastPage",
@@ -4054,7 +5861,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 455,
+            "line": 454,
             "description": "Whether to record webcam video during the entire assent frame (if true, overrides recordLastPage)",
             "itemtype": "property",
             "name": "recordWholeProcedure",
@@ -4065,7 +5872,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 465,
+            "line": 464,
             "description": "Text on the button to proceed to the previous example video/image",
             "itemtype": "property",
             "name": "previousStimulusText",
@@ -4076,7 +5883,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 475,
+            "line": 474,
             "description": "Text of the question to ask about whether to participate. Answer options are Yes/No; No means study will stop, Yes means it will proceed.",
             "itemtype": "property",
             "name": "participationQuestion",
@@ -4087,7 +5894,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 485,
+            "line": 484,
             "description": "How many years old the child has to be for this page to be shown. If child\nis younger, the page is skipped. Leave at 0 to always show. This is an\nage in 'calendar years' - it will line up with the child's birthday,\nregardless of leap years etc.",
             "itemtype": "property",
             "name": "minimumYearsToAssent",
@@ -4098,7 +5905,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 503,
+            "line": 502,
             "description": "Parameters captured and sent to the server",
             "itemtype": "method",
             "name": "serializeContent",
@@ -4139,7 +5946,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-assent/component.js",
-            "line": 567,
+            "line": 566,
             "description": "Skip the assent form because the participant is too young to give assent",
             "itemtype": "event",
             "name": "skipAssentDueToParticipantAge",
@@ -4149,7 +5956,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 129,
+            "line": 127,
             "description": "When participant downloads consent form",
             "itemtype": "event",
             "name": "downloadConsentForm",
@@ -4159,7 +5966,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 144,
+            "line": 142,
             "description": "Name of PI running this study",
             "itemtype": "property",
             "name": "PIName",
@@ -4170,7 +5977,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 153,
+            "line": 151,
             "description": "Name of institution running this study (if ambiguous, list institution whose IRB approved the study)",
             "itemtype": "property",
             "name": "institution",
@@ -4181,7 +5988,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 162,
+            "line": 160,
             "description": "Contact information for PI or lab in case of participant questions or concerns. This will directly follow the phrase \"please contact\", so format accordingly: e.g., \"the XYZ lab at xyz@science.edu\" or \"Mary Smith at 123 456 7890\".",
             "itemtype": "property",
             "name": "PIContact",
@@ -4192,7 +5999,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 171,
+            "line": 169,
             "description": "Brief description of purpose of study - 1-2 sentences that describe what you are trying to find out. Language should be as straightforward and accessible as possible! E.g., \"Why do babies love cats? This study will help us find out whether babies love cats because of their soft fur or their twitchy tails.\"",
             "itemtype": "property",
             "name": "purpose",
@@ -4203,7 +6010,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 180,
+            "line": 178,
             "description": "Brief description of study procedures, including any risks or a statement that there are no anticipated risks. We add a statement about the duration (from your study definition) to the start (e.g., \"This study takes about 10 minutes to complete\"), so you don't need to include that. It can be in third person or addressed to the parent. E.g., \"Your child will be shown pictures of lots of different cats, along with noises that cats make like meowing and purring. We are interested in which pictures and sounds make your child smile. We will ask you (the parent) to turn around to avoid influencing your child's responses. There are no anticipated risks associated with participating.\"",
             "itemtype": "property",
             "name": "procedures",
@@ -4214,7 +6021,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 189,
+            "line": 187,
             "description": "Statement about payment/compensation for participation, including a statement that there are no additional benefits anticipated to the participant. E.g., \"After you finish the study, we will email you a $5 BabyStore gift card within approximately three days. To be eligible for the gift card your child must be in the age range for this study, you need to submit a valid consent statement, and we need to see that there is a child with you. But we will send a gift card even if you do not finish the whole study or we are not able to use your child's data! There are no other direct benefits to you or your child from participating, but we hope you will enjoy the experience.\"",
             "itemtype": "property",
             "name": "payment",
@@ -4225,7 +6032,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 198,
+            "line": 196,
             "description": "Study-specific data use statement (optional). This will follow the following more general text: \"The research group led by [PIName] at [institution] will have access to video and other data collected during this session. We will also have access to your account profile, demographic survey, and the child profile for the child who is participating, including changes you make in the future to any of this information. We may study your child’s responses in connection with his or her previous responses to this or other studies run by our group, siblings’ responses to this or other studies run by our group, or demographic survey responses.\"\nYou may want to note what measures you will actually be coding for (looking time, facial expressions, parent-child interaction, etc.) and other more specific information about your use of data from this study here. For instance, you would note if you were building a corpus of naturalistic data that may be used to answer a variety of questions (rather than just collecting data for a single planned study).",
             "itemtype": "property",
             "name": "datause",
@@ -4236,7 +6043,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 208,
+            "line": 206,
             "description": "Whether to include a section on GDPR; only used in template consent_002 + .",
             "itemtype": "property",
             "name": "gdpr",
@@ -4248,7 +6055,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 219,
+            "line": 217,
             "description": "List of types of personal information collected, for GDPR section only. Do not include special category information, which is listed separately.",
             "itemtype": "property",
             "name": "gdpr_personal_data",
@@ -4259,7 +6066,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 228,
+            "line": 226,
             "description": "List of types of special category information collected, for GDPR section only. Include all that apply: racial or ethnic origin; political opinions; religious or philosophical beliefs; trade union membership; processing of genetic data; biometric data; health data; and/or sex life or sexual orientation information",
             "itemtype": "property",
             "name": "gdpr_sensitive_data",
@@ -4270,7 +6077,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 237,
+            "line": 235,
             "description": "Statement about rights of research subjects and how to contact IRB.  Used only in template consent_002+. For instance, MIT's standard language is: You are not waiving any legal claims, rights or remedies because of your participation in this research study.  If you feel you have been treated unfairly, or you have questions regarding your rights as a research subject, you may contact the Chairman of the Committee on the Use of Humans as Experimental Subjects, M.I.T., Room E25-143B, 77 Massachusetts Ave, Cambridge, MA 02139, phone 1-617-253 6787.",
             "itemtype": "property",
             "name": "research_rights_statement",
@@ -4281,7 +6088,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 246,
+            "line": 244,
             "description": "Which consent document template to use. If you are setting up a new study,\nuse the most recent (highest number) of these options. Options: consent_001,\nconsent_002.",
             "itemtype": "property",
             "name": "template",
@@ -4292,7 +6099,7 @@
         },
         {
             "file": "app/components/exp-lookit-video-consent/component.js",
-            "line": 261,
+            "line": 259,
             "description": "Parameters captured and sent to the server",
             "itemtype": "method",
             "name": "serializeContent",
@@ -5361,7 +7168,7 @@
         },
         {
             "file": "app/randomizers/random-parameter-set.js",
-            "line": 194,
+            "line": 183,
             "description": "Object describing common parameters to use in EVERY frame created\nby this randomizer. Parameter names and values are as described in\nthe documentation for the frameType used.",
             "itemtype": "property",
             "name": "commonFrameProperties",
@@ -5372,7 +7179,7 @@
         },
         {
             "file": "app/randomizers/random-parameter-set.js",
-            "line": 202,
+            "line": 191,
             "description": "List of frames to be created by this randomizer. Each frame is an\nobject with any necessary frame-specific properties specified. The\n`kind` of frame can be specified either here (per frame) or in\n`commonFrameProperties`. If a property is defined for a given frame both\nin this frame list and in `commonFrameProperties`, the value in the frame\nlist will take precedence.\n\n(E.g., you could include `'kind': 'normal-frame'` in\n`commmonFrameProperties`, but for a single frame in `frameList`, include\n`'kind': 'special-frame'`.)\n\nAny property VALUES within any of the frames in this list which match\na property NAME in the selected `parameterSet` will be replaced by the\ncorresponding `parameterSet` value. E.g., suppose a frame in `frameList` is\n\n```\n{\n   'leftImage': 'LEFTIMAGE1',\n   'rightImage': 'frog.jpg',\n   'size': 'IMAGESIZE'\n}\n```\n\nand the row that has been selected randomly of `parameterSets` is\n\n```\n{\n   'LEFTIMAGE1': 'toad.jpg',\n   'LEFTIMAGE2': 'dog.jpg',\n   'IMAGESIZE': 250\n}\n```\n\nThen the frame would be transformed into:\n```\n{\n   'leftImage': 'toad.jpg',\n    'rightImage': 'frog.jpg',\n    'size': 250\n}\n```\n\nThe same values may be applied across multiple frames. For instance,\nsuppose `frameList` is\n\n```\n      [\n           {\n               'leftImage': 'LEFTIMAGE1',\n               'rightImage': 'frog.jpg',\n               'size': 'IMAGESIZE'\n           },\n           {\n               'leftImage': 'LEFTIMAGE2',\n               'rightImage': 'frog.jpg',\n               'size': 'IMAGESIZE'\n           }\n       ]\n```\n\nThen the corresponding processed frames would include the values\n```\n      [\n           {\n               'leftImage': 'toad.jpg',\n               'rightImage': 'frog.jpg',\n               'size': 250\n           },\n           {\n               'leftImage': 'dog.jpg',\n               'rightImage': 'frog.jpg',\n               'size': 250\n           }\n       ]\n```\nA property value like `IMAGESIZE` may be placed in a frame definition\nnested within another object (at any depth) or within a list and\nwill still be replaced.\n\nYou can also use selectors to randomly sample from or permute\na list given in a `parameterSet`. Suppose `LISTVAR` is defined in\na `parameterSet` as `THELIST`, e.g. a list of potential stimuli. Within frames in your `frameList`\n(and in `commonFrameProperties`), you can use any of the following:\n\n* Select the Nth element (0-indexed) of `THELIST`: (Will cause error if `N >= THELIST.length`)\n```\n   'parameterName': 'LISTVAR#N'\n```\n* Select (uniformly) a random element of `THELIST`:\n```\n   'parameterName': 'LISTVAR#RAND'\n```\n* Set `parameterName` to a random permutation of `THELIST`:\n```\n   'parameterName': 'LISTVAR#PERM'\n```\n* Select the next element in a random permutation of `THELIST`, which is used across all\nsubstitutions in this randomizer. This allows you, for instance, to provide a list\nof possible images in your `parameterSet`, and use a different one each frame with the\nsubset/order randomized per participant. If more `LISTVAR_UNIQ` parameters than\nelements of `THELIST` are used, we loop back around to the start of the permutation\ngenerated for this randomizer.\n```\n   'parameterName': 'LISTVAR#UNIQ'\n```",
             "itemtype": "property",
             "name": "frameList",
@@ -5383,7 +7190,7 @@
         },
         {
             "file": "app/randomizers/random-parameter-set.js",
-            "line": 312,
+            "line": 301,
             "description": "Array of parameter sets to randomly select from in order to determine\nthe parameters for each frame in this session.\n\nA single element of parameterSets will be applied to a given session.",
             "itemtype": "property",
             "name": "parameterSets",
@@ -5394,7 +7201,7 @@
         },
         {
             "file": "app/randomizers/random-parameter-set.js",
-            "line": 321,
+            "line": 310,
             "description": "[Optional] Array of weights for parameter sets; elements correspond to\nelements of parameterSets. The probability of selecting an element\n`parameterSets[i]` is `parameterSetWeights[i]/sum(parameterSetWeights)`.\n\nIf not provided, all `parameterSets` are weighted equally.\n\nThis is intended to allow manual control of counterbalancing during\ndata collection, e.g. to allow one condition to \"catch up\" if it was\nrandomly selected less often.\n\nInstead of providing a single list of the same length as parameterSets,\nyou may instead provide a list of objects specifying the weights to use within\nvarious age ranges, like this:\n\n```\n   \"parameterSetWeights\": [\n       {\n           \"minAge\": 0,\n           \"maxAge\": 365,\n           \"weights\": [1, 0, 1]\n       },\n       {\n           \"minAge\": 365,\n           \"maxAge\": 10000,\n           \"weights\": [0, 1, 0]\n       },\n   ]\n```\nThe child's age in days will be computed, and the weights used will be based on the\nfirst element of `parameterSetWeights` where the child falls between the min and max\nage. In the example above, children under one year old will be assigned to either\nthe first or third condition; children over a year will be assigned to the second condition.\nThis may be useful for researchers who need to balance condition assignment per\nage bracket. As you code data and realize you are set on 3-year-olds in condition A, for\ninstance, you can stop assigning any more 3-year-olds to that condition.",
             "itemtype": "property",
             "name": "parameterSetWeights",
@@ -5405,7 +7212,7 @@
         },
         {
             "file": "app/randomizers/random-parameter-set.js",
-            "line": 482,
+            "line": 418,
             "description": "Parameters captured and sent to the server",
             "itemtype": "method",
             "name": "conditions",

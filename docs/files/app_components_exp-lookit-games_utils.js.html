@@ -244,7 +244,7 @@ export default class Utils{
   static get Explosion_small() {return this.bucketImageResource + &#x27;Explosion_small.png&#x27;;}
   static get Fireball() {return this.bucketImageResource + &#x27;Fireball.png&#x27;;}
   static get boxOfFireworks() {return this.bucketImageResource + &#x27;Box_of_fireworks.png&#x27;;}
-  static get star() {return this.bucketImageResource + &#x27;star.png&#x27;;}
+  static get star() {return this.bucketImageResource + &#x27;white-star-th.png&#x27;;}
 
 
 
@@ -291,6 +291,82 @@ export default class Utils{
   static  get blueColor() {return &#x27;#1931dd&#x27;;}
   static  get greenColor() {return &#x27;#3CB371&#x27;;}
   static  get scoreColor() {return &#x27;#09b4dd&#x27;;}
+
+
+
+
+  static getArraysum(a) {
+
+    return a.reduce((t, n) =&gt; t + n);
+
+  }
+
+  static getArrayMean(a) {
+
+    return Utils.getArraysum(a) / a.length;
+
+  }
+
+  static subtractFromEachElement(a, val) {
+
+    return a.map((v, index) =&gt; v - val);
+
+  }
+
+  static arrayProduct(a1, a2) {
+
+    return a1.map((value, index) =&gt; value * a2[index]);
+
+  }
+
+  static vectorCalculation(a) {
+
+    return Utils.subtractFromEachElement(a, Utils.getArrayMean(a));
+
+  }
+
+  /**
+   * Calculates paddle velocity from past n values in paddle vector of y coordinates
+   * @method getPaddleVelocity
+   * @param time {int} timestamp in Unixtime of paddle position
+   * @param position {Object} {position: {x: number, y: number}, dimensions: {width: number, height: number}}
+   * @return {number}  sum((time-mean(time)).*(position-mean(position)))/sum((time-mean(time)).*(time-mean(time)))
+   */
+  static getPaddleVelocity(time, position) {
+
+    let timeVector = this.vectorCalculation(time.slice(time.length - 15, time.length));
+    let positionVector = this.vectorCalculation(position.slice(position.length - 15, position.length));
+
+    return Utils.getArraysum(Utils.arrayProduct(timeVector, positionVector)) / Utils.getArraysum(Utils.arrayProduct(timeVector, timeVector));
+  }
+
+
+  /**
+   * Fisher-Yates shuffle for uniform distribution
+   * @method shuffle
+   * @param {array} initial array
+   * @return {array} shuffled array
+   */
+  static shuffle(array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+
+    return array;
+  }
+
+
 }
 
     </pre>

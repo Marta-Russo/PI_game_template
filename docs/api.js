@@ -1,6 +1,12 @@
 YUI.add("yuidoc-meta", function(Y) {
    Y.YUIDoc = { meta: {
     "classes": [
+        "Base",
+        "ButtonPressWindow",
+        "DiscreteBounce",
+        "DiscreteButtonSpatial",
+        "DiscreteCatch",
+        "DiscreteCatchLift",
         "Exp-exit-survey",
         "Exp-frame-base",
         "Exp-frame-select",
@@ -24,13 +30,16 @@ YUI.add("yuidoc-meta", function(Y) {
         "Exp-video-config-quality",
         "Exp-video-consent",
         "Exp-video-preview",
+        "ExpFrameGamesComponent",
         "Expand-assets",
         "Full-screen",
+        "Game",
         "Media-reload",
         "Permute",
         "Random-parameter-set",
         "Select",
         "Session-record",
+        "Utils\nShared Utility class for project static methods and constants",
         "Video-record",
         "video-recorder"
     ],
@@ -38,6 +47,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "components",
         "exp-player",
         "frames",
+        "games",
         "mixins",
         "randomizers",
         "services"
@@ -57,6 +67,11 @@ YUI.add("yuidoc-meta", function(Y) {
             "displayName": "frames",
             "name": "frames",
             "description": "Reusable frames that can be used as part of user-defined experiments. This is the main reference for researchers\n  looking to build their own experiment definitions on the experimenter platform."
+        },
+        {
+            "displayName": "games",
+            "name": "games",
+            "description": "Game orchestrator to set initial parameters and\nexecute requested game\nMight have randomization of the games here"
         },
         {
             "displayName": "mixins",

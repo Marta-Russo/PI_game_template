@@ -248,6 +248,18 @@ export default ExpFrameBaseComponent.extend(FullScreen, VideoRecord, {
                 },
 
                 /**
+                 * Whether to show in full screen
+                 *
+                 * @property {Boolean} fullscreen
+                 * @default false
+                 */
+                fullscreen: {
+                  type: &#x27;boolean&#x27;,
+                  default: false
+
+                },
+
+                /**
                  * Media resource location (image, sound,video)
                  * @property {String} source
                  * @default &#x27;empty&#x27;
@@ -417,7 +429,13 @@ export default ExpFrameBaseComponent.extend(FullScreen, VideoRecord, {
             this.startRecorder();
             this.hideRecorder();
             new Game(this, document, this.gameType);
+        },
+        export(){
+
+          this.jsonToCSVConvertor(this.export_arr,&quot;Data&quot;,true);
+
         }
+
     },
     // Other functions that are just called from within your frame can be defined here, on
     // the same level as actions and meta. You&#x27;ll be able to call them as this.functionName(arguments)
@@ -429,6 +447,10 @@ export default ExpFrameBaseComponent.extend(FullScreen, VideoRecord, {
     // anything additional.
     didInsertElement() {
         this._super(...arguments);
+
+        if(this.get(&#x27;fullscreen&#x27;) === true){
+          this.send(&#x27;showFullscreen&#x27;);
+        }
         if (this.get(&#x27;showProgress&#x27;) === true) {
             let current_game = this.get(&#x27;gameType&#x27;) + 1;
             switch (current_game){
@@ -503,8 +525,24 @@ export default ExpFrameBaseComponent.extend(FullScreen, VideoRecord, {
                   this.set(&#x27;arrow3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow3_on.png&#x27;);
                   this.set(&#x27;arrow4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow4_on.png&#x27;);
                   this.set(&#x27;arrow5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow5_on.png&#x27;);
-                  this.set(&#x27;exit_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/exit_on.png&#x27;);
+                  this.set(&#x27;exit_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/exit_off.png&#x27;);
                   break;
+
+              case 6:
+                  this.set(&#x27;button_position&#x27;,&#x27;button button-6&#x27;);
+                  this.set(&#x27;machine1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine1.png&#x27;);
+                  this.set(&#x27;machine2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine2.png&#x27;);
+                  this.set(&#x27;machine3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine3.png&#x27;);
+                  this.set(&#x27;machine4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine4.png&#x27;);
+                  this.set(&#x27;machine5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_machine5.png&#x27;);
+                  this.set(&#x27;arrow1_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow1_on.png&#x27;);
+                  this.set(&#x27;arrow2_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow2_on.png&#x27;);
+                  this.set(&#x27;arrow3_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow3_on.png&#x27;);
+                  this.set(&#x27;arrow4_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow4_on.png&#x27;);
+                  this.set(&#x27;arrow5_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arrow5_on.png&#x27;);
+                  this.set(&#x27;exit_url&#x27;, &#x27;https://piproject.s3.us-east-2.amazonaws.com/Resources/images/exit_on.png&#x27;);
+                break;
+
         }
         }
 
@@ -515,6 +553,79 @@ export default ExpFrameBaseComponent.extend(FullScreen, VideoRecord, {
     // handlers. You can delete this if not doing anything additional.
     willDestroyElement() {
         this._super(...arguments);
+    },
+    jsonToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
+      //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
+      JSONData = JSON.stringify(JSONData);
+      let arrData = typeof JSONData !== &#x27;object&#x27; ? JSON.parse(JSONData) : JSONData;
+
+      let CSV = &#x27;&#x27;;
+      //Set Report title in first row or line
+
+      CSV += ReportTitle + &#x27;\r\n\n&#x27;;
+
+      //This condition will generate the Label/Header
+      if (ShowLabel) {
+        let row = &quot;&quot;;
+
+        //This loop will extract the label from 1st index of on array
+        for (let index in arrData[0]) {
+
+          //Now convert each value to string and comma-seprated
+          row += index + &#x27;,&#x27;;
+        }
+
+        row = row.slice(0, -1);
+
+        //append Label row with line break
+        CSV += row + &#x27;\r\n&#x27;;
+      }
+
+      //1st loop is to extract each row
+      for (let i = 0; i &lt; arrData.length; i++) {
+        let row = &quot;&quot;;
+
+        //2nd loop will extract each column and convert it in string comma-seprated
+        for (let index in arrData[i]) {
+          row += &#x27;&quot;&#x27; + arrData[i][index] + &#x27;&quot;,&#x27;;
+        }
+
+        row.slice(0, row.length - 1);
+
+        //add a line break after each row
+        CSV += row + &#x27;\r\n&#x27;;
+      }
+
+      if (CSV === &#x27;&#x27;) {
+        alert(&quot;Invalid data&quot;);
+        return;
+      }
+
+      //Generate a file name
+      let fileName = &quot;Report_&quot;;
+      //this will remove the blank-spaces from the title and replace it with an underscore
+      fileName += ReportTitle.replace(/ /g,&quot;_&quot;);
+
+      //Initialize file format you want csv or xls
+      //let uri = &#x27;data:text/csv;charset=utf-8,&#x27; + escape(CSV);
+      let blob = new Blob([CSV], { type: &#x27;text/csv;charset=utf-8;&#x27; });
+      // Now the little tricky part.
+      // you can use either&gt;&gt; window.open(uri);
+      // but this will not work in some browsers
+      // or you will not get the correct file extension
+
+      //this trick will generate a temp &lt;a /&gt; tag
+      let link = document.createElement(&quot;a&quot;);
+      link.href = URL.createObjectURL(blob);
+
+      //set the visibility hidden so it will not effect on your web-layout
+      link.style = &quot;visibility:hidden&quot;;
+      link.download = fileName + &quot;.csv&quot;;
+
+      //this part will append the anchor tag and remove it after automatic click
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
 });
 
