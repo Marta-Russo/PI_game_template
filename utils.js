@@ -14,8 +14,6 @@ let SCALE = 420;
 
 export default class Utils{
 
-
-
     static get  frameRate() {  return 1 / 200; } // Seconds
     static get  frameDelay() { return 10; } // ms
     static get  paddleSpeed() {return 1;}
@@ -25,12 +23,13 @@ export default class Utils{
     static get  gravityFactor() {return 1;}
     static get  SCALE(){return SCALE;}
     static set  SCALE(val){ SCALE = val;}
+    static get  SCREEN_HEIGHT(){return 645;}
+
+
 
     //Sound Resources
     static get  bucketImageResource() {return 'https://piproject.s3.us-east-2.amazonaws.com/Resources/images/';}
-    //static get  bucketImageResource() {return 'Resources/images/';}
     static get  bucketSoundResources() {return 'https://piproject.s3.us-east-2.amazonaws.com/Resources/sounds/';}
-    //static get  bucketSoundResources() {return 'Resources/sounds/';}
     static get  bouncingSound() {return this.bucketSoundResources + 'BallBouncing.mp3';}
     static get  rattleSound() {return this.bucketSoundResources + 'rattling_sound.mp3';}
     static get  doorbellSound() {return this.bucketSoundResources + 'doorbell.mp3';}
@@ -70,7 +69,7 @@ export default class Utils{
 
     static get  monsterLaunch(){return this.bucketSoundResources + 'Monster_launch.mp3';}
     static get  monsterSplash(){return this.bucketSoundResources + 'Monster_splash.mp3';}
-    static get  monsterGrowl(){return this.bucketSoundResources + 'monster_growl.mp3';}
+    static get  monsterGrowl(){return this.bucketSoundResources + 'Monster_growl.mp3';}
 
 
 
@@ -96,8 +95,8 @@ export default class Utils{
 
     // Brick smasher Images
     static get paddleImage() {return this.bucketImageResource + 'Paddle1.png';}
-    static get wallInitial() {return this.bucketImageResource + 'wall_hor.png';}
-    static get wallMissed() {return this.bucketImageResource + 'wall_hor_clip.png';}
+    static get wallInitial() {return this.bucketImageResource + 'BricksWall_button.png';}
+    static get wallMissed() {return this.bucketImageResource + 'BricksWall_button_fallen.png';}
     static get basketBalls() {return this.bucketImageResource + 'BasketballsPile2.png';}
     static get basketBall() {return this.bucketImageResource + 'basketball.png';}
     static get tokenImage() {return this.bucketImageResource + 'coin.png';}
@@ -112,7 +111,7 @@ export default class Utils{
     // Fireworks Images
 
 
-    static get skyline() {return this.bucketImageResource + 'skyline_clipped.png';}
+    static get skyline() {return this.bucketImageResource + 'skyline_clouds_final.png';}
     static get Explosion_big_blue() {return this.bucketImageResource + 'Explosion_big_blue.png';}
     static get Explosion_big_green() {return this.bucketImageResource + 'Explosion_big_green.png';}
     static get Explosion_big_red() {return this.bucketImageResource + 'Explosion_big_red.png';}
@@ -120,7 +119,8 @@ export default class Utils{
     static get Explosion_small() {return this.bucketImageResource + 'Explosion_small.png';}
     static get Fireball() {return this.bucketImageResource + 'Fireball.png';}
     static get boxOfFireworks() {return this.bucketImageResource + 'Box_of_fireworks.png';}
-    static get star() {return this.bucketImageResource + 'star.png';}
+    static get star() {return this.bucketImageResource + 'white-star-th.png';}
+
 
 
 
@@ -166,4 +166,80 @@ export default class Utils{
     static  get blueColor() {return '#1931dd';}
     static  get greenColor() {return '#3CB371';}
     static  get scoreColor() {return '#09b4dd';}
+
+
+
+
+    static getArraysum(a) {
+
+        return a.reduce((t, n) => t + n);
+
+    }
+
+    static getArrayMean(a) {
+
+        return Utils.getArraysum(a) / a.length;
+
+    }
+
+    static subtractFromEachElement(a, val) {
+
+        return a.map((v, index) => v - val);
+
+    }
+
+    static arrayProduct(a1, a2) {
+
+        return a1.map((value, index) => value * a2[index]);
+
+    }
+
+    static vectorCalculation(a) {
+
+        return Utils.subtractFromEachElement(a, Utils.getArrayMean(a));
+
+    }
+
+    /**
+     * Calculates paddle velocity from past n values in paddle vector of y coordinates
+     * @method getPaddleVelocity
+     * @param time {int} timestamp in Unixtime of paddle position
+     * @param position {Object} {position: {x: number, y: number}, dimensions: {width: number, height: number}}
+     * @return {number}  sum((time-mean(time)).*(position-mean(position)))/sum((time-mean(time)).*(time-mean(time)))
+     */
+    static getPaddleVelocity(time, position) {
+
+        let timeVector = this.vectorCalculation(time.slice(time.length - 15, time.length));
+        let positionVector = this.vectorCalculation(position.slice(position.length - 15, position.length));
+
+        return Utils.getArraysum(Utils.arrayProduct(timeVector, positionVector)) / Utils.getArraysum(Utils.arrayProduct(timeVector, timeVector));
+    }
+
+
+    /**
+     * Fisher-Yates shuffle for uniform distribution
+     * @method shuffle
+     * @param {array} initial array
+     * @return {array} shuffled array
+     */
+    static shuffle(array) {
+        let currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+
+        return array;
+    }
+
+
 }
