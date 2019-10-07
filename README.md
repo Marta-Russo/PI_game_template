@@ -123,18 +123,41 @@ paddleVelocity  :  calculated from 9 past  vector values of paddle y coordinates
 ````
 ##### Paddle Velocity calculation: 
 
-![equation](https://i.ibb.co/878fL5W/render.png)
+![equation](https://i.ibb.co/wRBtw4R/render.png)
 ```
 t : current time lapse in seconds, p : position of paddle on y axis
 ```  
 
-#### Catch the cheese game 
+
+#### Bounce game (Smash the brick wall)
 
 ```
-Height : 0.8 
-Time Flight : 0.8
+hArr : [1,5,9]
+InitHeight : 0.65 
+Height : hArr[] * 0.05 + InitHeight
+Time Flight : 0.75
+initX = 0.52;
+gravity = 2 * Height / (Tf*Tf)
+ballvx = (1.051) / Tf
+initV = gravity * Tf/2
+
+
 ```
-#### Feed the Mouse in the house
+
+#### Discrete catch (Space mechanic game)
+
+```
+hArr : [1,5,9]
+InitHeight : 0.8 
+Height : hArr[] * 0.05 + InitHeight
+Time Flight : 0.75
+initX = 0.52;
+gravity = 2 * Height / (Tf*Tf)
+ballvx = (1.051) / Tf
+initV = gravity * Tf/2
+
+```
+#### Button press window (Fireworks game)
 
 ```
 Time Flight is the uniformly distributed array of values : 0.8, 0.9 , 1 
@@ -145,14 +168,13 @@ ballvx = (1.051)/Tf
 initV = Gravity*Tf/2
 ```
 
-#### Feed 3 mice
+#### Discrete button spatial (Slime game)
 
 ```
 Tf : 0.9
 Gravity : 1.8
 ballvx = (1.051)/Tf
 initX = 0.7510
-initBallY = -0.02
 velocity_matrix : uniformly distributed matrix of initial  values : 1,2,3 
 initV: vector value  = 0.15 * velocity_matrix + 0.45 
 ```

@@ -150,7 +150,7 @@ export default class Base {
 
     generateHeights() {
 
-        return this.uniformArr([1,2,3]);
+        return this.uniformArr([1,5,9]);
     }
 
 
@@ -161,11 +161,10 @@ export default class Base {
      * @param height height correction coefficient
      * @param Tf Flight time coefficient
      */
-    generateTrajectoryParams(hArr, height, Tf) {
+    generateTrajectoryParams(hArr, height) {
         let currentHeight = hArr[currentRounds] * 0.05 + height;
+        let Tf = 0.75; // Time Flight for trajectory
         initX = 0.52;
-        let val = hArr[currentRounds] - 1;
-        Tf = Tf + val * 0.144;
         gravity = 2 * currentHeight / Math.pow(Tf, 2);
         ballvx = (1.051) / Tf;
         initV = 0.5 * gravity * Tf;

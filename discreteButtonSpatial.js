@@ -134,7 +134,7 @@ export default class DiscreteButtonSpatial extends Base {
 
     /**
      * Draw target  according to coordinates
-     * @method createShuttle
+     * @method createBackground
      */
     createShuttle() {
 
@@ -438,7 +438,7 @@ export default class DiscreteButtonSpatial extends Base {
 
         }
 
-        let indexArr = [2, 1, 0];
+        let indexArr = [2, 1, 0]; //reverse index to get value
         currentTargetIndex = indexArr[initVmatrix[super.currentRounds] - 1];
 
         //Show ball only on button press
@@ -449,9 +449,9 @@ export default class DiscreteButtonSpatial extends Base {
 
     /**
      * Columns structure
-     * slime: 1,2,3 indicating correct location of where the slime will land - top, middle or bottom
-     * window : 0,1,2,3 indicating no button or which button was clicked
-     * ship : 1,2,3 indicating size of spaceship
+     * window: 1,2,3 indicating correct location of where the slime will land - top, middle or bottom
+     * selected_button : 0,1,2,3 indicating no button or which button was clicked.  0 : Y ,1:G , 2: V, 3 : no button
+     * ship : 1,2,3 indicating size of spaceship (from small to bigger)
      * @method dataCollection
      */
     dataCollection() {
@@ -460,19 +460,16 @@ export default class DiscreteButtonSpatial extends Base {
 
         let target_state =  0;
         let index = pressed.findIndex(item => item !== false);
-        if(keys[index] !== undefined){
-            target_state = index + 1;
 
-            if(index === currentTargetIndex){
-                target_state = target_state +3;
-            }
+        if(keys[index] === undefined){
+            target_state = 3;
         }
 
 
         let exportData = {
             game_type: 'discreteButtonSpatial',
-            slime: currentTargetIndex,
-            window: target_state,
+            window: currentTargetIndex+1,
+            selected_button: target_state,
             obstruction_number: obstructions[super.currentRounds],
             ball_position_x: ball.position.x / this.canvas.width,
             ball_position_y:(this.canvas.height - ball.position.y)/this.canvas.height,
@@ -480,9 +477,9 @@ export default class DiscreteButtonSpatial extends Base {
             timestamp: super.getElapsedTime(initialTime)
 
         };
-        if(ball.state === 'hit' || ball.state === 'fall') {
-            super.storeData(exportData);
-        }
+        // if(ball.state === 'hit' || ball.state === 'fall') {
+        //     super.storeData(exportData);
+        // }
     }
 
 }

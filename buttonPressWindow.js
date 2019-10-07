@@ -22,9 +22,9 @@ let TfArr = []; // Time Flight array
 let TfArrIndex = [0.85,1,1.15];
 const TARGETX = 1.3310; // Current X position
 let jitterT = 0; // Time jitter (variates from 500 ms to 1500 ms), time between sound start and ball starting to fly
-const WINDOW_SIZE = 0.056; //Current window size
+const WINDOW_SIZE = 0.066; //Current window size
 const TARGET_SIZE = 0.02;  // Current target (star) size
-const CENTER = 1.30715; // Appropriate star position in center
+const CENTER = 1.30715;  // Appropriate star position in center
 let startTime = 0; // start of the game to wait before music playing
 const INITIAL_DELAY = 2.5;
 const TOTAL_FLIGHT_TIME = 1.5;
@@ -35,6 +35,8 @@ let soundURLs = [];
 let imageURLs = [];
 let images = [];
 let fireworksURLs = [];
+let STAR_SIZE = 0.03;
+
 
 // Media mapping as Enum
 const gameSound = {
@@ -85,21 +87,21 @@ export default class ButtonPressWindow extends Base {
 
     /**
      * Draw house with roof according to coordinates
-     * @method createShuttle
+     * @method createBackground
      */
-    createShuttle() {
+    createBackground() {
 
-        let leftBorder = (TARGETX - 0.75) * super.Utils.SCALE;
+        let leftBorder = (TARGETX - 0.74) * super.Utils.SCALE;
         let topBorder = (0.8) * super.Utils.SCALE;
 
-        let houseObj = {
+        let backgroundObj = {
 
             dimensions: {width: 1.54 * super.Utils.SCALE, height: 0.9 * super.Utils.SCALE},
             position: {x: leftBorder, y: topBorder}
 
         };
 
-        super.drawImageObject(houseObj, images[gameImage.BACKGROUND]);
+        super.drawImageObject(backgroundObj, images[gameImage.BACKGROUND]);
 
     }
 
@@ -183,12 +185,12 @@ export default class ButtonPressWindow extends Base {
 
 
     setTargetBackground() {
-        let topBorder = (1.165) * super.Utils.SCALE;
-        let leftBorder = (TARGETX - 0.02) * super.Utils.SCALE;
+        let topBorder = (1.178) * super.Utils.SCALE;
+        let leftBorder = (TARGETX - STAR_SIZE/2) * super.Utils.SCALE;
 
         target = {
 
-            dimensions: {width: 0.04 * super.Utils.SCALE , height: 0.04 * super.Utils.SCALE},
+            dimensions: {width: STAR_SIZE * super.Utils.SCALE , height: STAR_SIZE * super.Utils.SCALE},
             position: {
                 x: leftBorder,
                 y: topBorder
@@ -219,9 +221,9 @@ export default class ButtonPressWindow extends Base {
             target_position: TARGETX
 
         };
-        if(ball.state === 'hit' || ball.state === 'fall') {
-            super.storeData(exportData);
-        }
+        // if(ball.state === 'hit' || ball.state === 'fall') {
+        //     super.storeData(exportData);
+        // }
     }
 
 
@@ -276,7 +278,7 @@ export default class ButtonPressWindow extends Base {
 
         super.loop();
         super.generateTrajectoryParamsDiscrete(TfArr);
-        this.createShuttle();
+        this.createBackground();
         this.createTargetWindow();
         // Delay before music start
         if(initialTime === 0 && super.currentRounds === 0  && super.getElapsedTime(startTime) >= INITIAL_DELAY) {
@@ -314,7 +316,7 @@ export default class ButtonPressWindow extends Base {
 
 
             super.drawBall(ball, images[gameImage.BALL]);
-            this.createShuttle();
+            this.createBackground();
             this.createTargetWindow();
 
 
@@ -351,12 +353,12 @@ export default class ButtonPressWindow extends Base {
 
             let difference = ball.position.x - CENTER * super.Utils.SCALE;
             if (ball.hitstate === 'great') {
-                let explosion = this.setExplosionPosition(4, 0.03572 * super.Utils.SCALE);
+                let explosion = this.setExplosionPosition(10, 0.03572 * super.Utils.SCALE);
                 super.drawImageObject(explosion, targetImgs[randomNumber]);
             }
 
             if (ball.hitstate === 'good') {
-                let explosion = this.setExplosionPosition(2, difference);
+                let explosion = this.setExplosionPosition(6, difference);
                 super.drawImageObject(explosion, targetImgs[3]);
             }
 
