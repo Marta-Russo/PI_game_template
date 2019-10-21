@@ -11,14 +11,12 @@ import Base from './base.js';
  * @submodule games
  *
  */
-const TOTAL_ROUNDS = 30;
 let paddle = {}; // Paddle parameters object
 let ball = {}; // Ball parameters object
 let target = {}; // Target parameters object
 let initialTime = 0; // Initial time for current game trial
 let alpha = 0.7; // Restitute factor
 let hArray = []; // Actual height parameters are calculated from the Initial height by multiplying the  uniformly randomized  values in  vector
-let targetLocV = 0.8;
 let jitterT = 0; // Time jitter (variates from 500 ms to 1500 ms), time between sound start and ball starting to fly
 let Height = 0.65; // Current trajectory height
 let token = {}; // Token parameters object
@@ -76,7 +74,6 @@ export default class DiscreteBounce extends Base {
     constructor(context, document) {
 
         super(context, document);
-        super.setMaxTrials(TOTAL_ROUNDS);
         soundURLs = [super.Utils.drumRollSound, super.Utils.bouncingSound, super.Utils.brickHitlarge, super.Utils.brickHitsmall, super.Utils.ballcatchFailSound];
         imageURLs = [this.Utils.paddleImage, super.Utils.wallInitial, super.Utils.wallMissed, super.Utils.basketBall, super.Utils.basketBalls, super.Utils.smallbricksImage, super.Utils.largebricksImage, super.Utils.tokenImage];
 
@@ -108,7 +105,7 @@ export default class DiscreteBounce extends Base {
 
         target = {
 
-            dimensions: {width: 0.4 * super.Utils.SCALE, height: 0.4 * super.Utils.SCALE},
+            dimensions: {width: 0.4 * super.Utils.SCALE, height: 0.43 * super.Utils.SCALE},
             position: {x: leftBorder, y: downBorder}
         };
 
@@ -325,7 +322,7 @@ export default class DiscreteBounce extends Base {
 
                 //Fix for abrupt trajectory, make sure the trajectory is not negative
                 if (paddle.releaseVelocity > 2.5) {
-                  paddle.releaseVelocity = 2.5;
+                    paddle.releaseVelocity = 2.5;
                 }
 
 
@@ -362,16 +359,15 @@ export default class DiscreteBounce extends Base {
 
 
 
-        let YL = (0.42 ) * super.Utils.SCALE;
+        let YL = (0.46 ) * super.Utils.SCALE;
         let YH = (0.4 + 0.35) * super.Utils.SCALE;
 
         let targetx  = (ball.position.y + 1.44 * super.Utils.SCALE) / 1.1;
         if (ball.state !== 'done' && ball.position.y > YL && ball.position.y < YH && ball.position.x > targetx) {
             let currenImpactCoord = Math.abs(ball.position.y - 0.6 * super.Utils.SCALE);
-
             if (currenImpactCoord < 0.27 * super.Utils.SCALE) {
 
-                ball.hitstate  = (currenImpactCoord < 0.03 * super.Utils.SCALE)?'very good':'good';
+                ball.hitstate  = (currenImpactCoord < 0.015 * super.Utils.SCALE)?'very good':'good';
 
             } else {
 
@@ -426,17 +422,18 @@ export default class DiscreteBounce extends Base {
             trajectory: hArray[super.currentRounds],
             ball_position_x: ball.position.x / this.canvas.width,
             ball_position_y: (this.canvas.height - ball.position.y) / this.canvas.height,
-            paddle_center_x: paddle.position.x + paddle.dimensions.width / 2,
-            paddle_width: paddle.dimensions.width,
+            paddle_center_x: paddle.position.x / this.canvas.width  +  (paddle.dimensions.width / this.canvas.width) / 2,
+            paddle_width: paddle.dimensions.width / this.canvas.width,
             paddle_position_y: (this.canvas.height - paddle.position.y) / this.canvas.height,
             trial: super.currentRounds,
+            trialType: this.context.trialType,
             timestamp: super.getElapsedTime(initialTime)
 
         };
 
-        // if(ball.state === 'hit' || ball.state === 'bounce' || ball.state === 'fall') {
-        //     super.storeData(exportData);
-        // }
+        if(ball.state === 'hit' || ball.state === 'bounce' || ball.state === 'fall') {
+            super.storeData(exportData);
+        }
 
     }
 
