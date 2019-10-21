@@ -10,15 +10,15 @@ export default  class testGame{
     constructor(document) {
 
         this.export_arr = [];
-        this.maxTime = 25;
-        this.minTime = 10;
+        this.trialType = 'intervention';
+        this.trialsNumber = 30;
         this.document = document;
     }
 
 
     init() {
 
-        new Game(this,this.document,4);
+        new Game(this,this.document,2);
     }
 
 }

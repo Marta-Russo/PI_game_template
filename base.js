@@ -4,7 +4,7 @@
  * Copyright (c) Cognoteq Software Solutions 2019.
  * All rights reserved
  */
-import Utils from './utils.js';
+import Utils from './utils';
 
 /**
  *
@@ -34,7 +34,7 @@ let paddleBox = {
 
 // let INITIAL_SCREEN_WIDTH = this.canvas.width/1024; // X  screen from matlab
 // let INITIAL_SCREEN_HEIGHT = this.canvas.height/768; // Y screen from matlab
-const PADDLE_REST_TIME_MS = 3000;
+const PADDLE_REST_TIME_MS = 2500;
 
 /**
  * Base class for common game functions
@@ -65,7 +65,7 @@ export default class Base {
         // this.canvas.requestPointerLock()
         this.calculateCanvas();
         this.paddleBoxParameters();
-
+        maxRounds = this.context.trialsNumber;
         this.loopTimer = function () {
             let inst = this;
             gameLoop = window.requestAnimationFrame(function () {
@@ -117,21 +117,21 @@ export default class Base {
         //
         // this.Utils.SCALE  =  this.context.scale_factor * (this.canvas.height/height);
 
-        this.canvas.height = 768 ;
-        this.canvas.width =  1024;
-        this.Utils.SCALE  =  420;
+        // this.canvas.height = 768 ;
+        // this.canvas.width =  1024;
+        // this.Utils.SCALE  =  420;
 
-        // if(screen.height < screen.width) {
-        //   this.canvas.height = screen.height;
-        //   let coefficient = screen.height/768;
-        //   this.canvas.width = coefficient * 1024;
-        //   this.Utils.SCALE  =  420 * coefficient;
-        // }else{
-        //   this.canvas.width = screen.width;
-        //   let coefficient = screen.width/768;
-        //   this.canvas.height = coefficient * 768;
-        //   this.Utils.SCALE  =  420 * coefficient;
-        // }
+        if(screen.height < screen.width) {
+            this.canvas.height = screen.height;
+            let coefficient = screen.height/768;
+            this.canvas.width = coefficient * 1024;
+            this.Utils.SCALE  =  420 * coefficient;
+        }else{
+            this.canvas.width = screen.width;
+            let coefficient = screen.width/768;
+            this.canvas.height = coefficient * 768;
+            this.Utils.SCALE  =  420 * coefficient;
+        }
 
 
     }
@@ -152,6 +152,7 @@ export default class Base {
 
         return this.uniformArr([1,5,9]);
     }
+
 
 
     /**
@@ -230,6 +231,16 @@ export default class Base {
 
     }
 
+
+    get currentRounds() {
+
+        return currentRounds;
+    }
+
+    set currentRounds(val) {
+
+        currentRounds = val;
+    }
 
 
     /**
@@ -333,17 +344,6 @@ export default class Base {
 
         this.ctx.drawImage(image, leftBorder, topBorder, rightBorder - leftBorder, downBorder - topBorder);
 
-    }
-
-
-    get currentRounds() {
-
-        return currentRounds;
-    }
-
-    set currentRounds(val) {
-
-        currentRounds = val;
     }
 
     /**
@@ -475,9 +475,9 @@ export default class Base {
 
         } else {
             this.context.set('showInstructions', true);
+            this.context.send('export');
             this.context.stopRecorder().finally(() => {
                 this.context.destroyRecorder();
-                this.context.send('export');
                 this.context.send('next');
             });
         }
