@@ -12,7 +12,6 @@ import Base from './base.js';
  * @submodule games
  *
  */
-const TOTAL_ROUNDS = 36;
 const INITIAL_DELAY = 2.5;
 let ball = {};
 let targets = [];
@@ -24,7 +23,7 @@ let initVmatrix = []; //Initial velocity matrix uniformly distributed and random
 let obstructions = []; // Array of possible obstructions parameters
 let jitterT = 0; // Time jitter (variates from 500 ms to 1500 ms), time between sound start and ball starting to fly
 let startTime = 0; // start of the game to wait before music playing
-
+let buttonPressDelay = 0;
 // Media arrays for loading
 let windowImgs = [];
 let windowImageURLS = [];
@@ -78,7 +77,6 @@ export default class DiscreteButtonSpatial extends Base {
      */
     constructor(context, document) {
         super(context, document);
-        super.setMaxTrials(TOTAL_ROUNDS);
         imageURls = [super.Utils.slimeMonster, super.Utils.slimeBall, super.Utils.splat];
         windowImageURLS = [super.Utils.openWindowYellow, super.Utils.openWindowGreen, super.Utils.openWindowViolet];
         obstrImageURLS = [super.Utils.shuttleNarrow, super.Utils.shuttle, super.Utils.shuttleWide];
@@ -234,6 +232,7 @@ export default class DiscreteButtonSpatial extends Base {
         initialTime = 0;
         pressed = Array(3).fill(false);
         jitterT = super.trialStartTime();
+        buttonPressDelay = 0;
         ball = {
             position: {x: 0, y: 0},
             radius: 0.02385 * super.Utils.SCALE,
@@ -387,22 +386,14 @@ export default class DiscreteButtonSpatial extends Base {
 
 
         if (ball.state === 'hit') {
-            if (index >= 0) {
-                let target = targets[index];
-                this.createWindow(target);
-                this.showWindow(index);
-            }
-            // Check if current index of the pressed item corresponds to the actual target index
-            if (index === currentTargetIndex) {
 
-                sounds[gameSound.CATCH].play();
-
-            } else {
-                sounds[gameSound.FAIL].play();
+            if(buttonPressDelay === 0){
+                buttonPressDelay = new Date().getTime();
             }
 
-
-            ball.state = 'hit target';
+            if(buttonPressDelay >0 && super.getElapsedTime(buttonPressDelay) >= 0.5) {
+                this.checkHitState(index);
+            }
 
         }
 
@@ -424,6 +415,28 @@ export default class DiscreteButtonSpatial extends Base {
 
     }
 
+    /**
+     * Show result after button press
+     * @param index index of the selected button
+     */
+    checkHitState(index) {
+        if (index >= 0) {
+            let target = targets[index];
+            this.createWindow(target);
+            this.showWindow(index);
+        }
+        // Check if current index of the pressed item corresponds to the actual target index
+        if (index === currentTargetIndex) {
+
+            sounds[gameSound.CATCH].play();
+
+        } else {
+            sounds[gameSound.FAIL].play();
+        }
+
+
+        ball.state = 'hit target';
+    }
 
     /**
      * Show selected window
@@ -458,10 +471,8 @@ export default class DiscreteButtonSpatial extends Base {
         super.dataCollection();
 
 
-        let target_state =  0;
-        let index = pressed.findIndex(item => item !== false);
-
-        if(keys[index] === undefined){
+        let target_state = pressed.findIndex(item => item !== false);
+        if(keys[target_state] === undefined){
             target_state = 3;
         }
 
@@ -474,12 +485,13 @@ export default class DiscreteButtonSpatial extends Base {
             ball_position_x: ball.position.x / this.canvas.width,
             ball_position_y:(this.canvas.height - ball.position.y)/this.canvas.height,
             trial: super.currentRounds,
+            trialType: this.context.trialType,
             timestamp: super.getElapsedTime(initialTime)
 
         };
-        // if(ball.state === 'hit' || ball.state === 'fall') {
-        //     super.storeData(exportData);
-        // }
+        if(ball.state === 'hit' || ball.state === 'fall') {
+            super.storeData(exportData);
+        }
     }
 
 }

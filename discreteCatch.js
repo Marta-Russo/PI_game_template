@@ -11,14 +11,13 @@ import Base from './base.js';
  * @submodule games
  *
  */
-const TOTAL_ROUNDS = 48;
+
 let basket = {};
 let ball = {};
 let obstructions = []; // Possible obstructions array
 let targetStars = {}; // Start location (shows upon reaching the rim on basket )
 let initialTime = 0; // initial time for current game trial
 let hArray = [];
-let Tf = 0.72; // Time Flight for trajectory
 let Height = 0.8; // Current trajectory height
 let obstrArr = []; // Current obstructions  array
 let jitterT = 0;
@@ -26,7 +25,7 @@ let radiusRim = 0.1; //Rim size on basket
 let obstructionsNum = 0; // Current number of obstructions (randomized each trial)
 let consecutiveCounts = 0;  // Calculate number of consecutive successful attempts
 let startTime = 0;
-
+const GEAR_RADIUS = 0.05;
 const TRAVEL_TIME = 1.5;
 
 // Media arrays for loading
@@ -68,7 +67,6 @@ export default class DiscreteCatch extends Base {
      */
     constructor(context, document) {
         super(context, document);
-        super.setMaxTrials(TOTAL_ROUNDS);
         soundURLs = [super.Utils.rattleSound,super.Utils.goodCatchSound,super.Utils.failcatchSound];
         imageURls = [super.Utils.ironBasket,super.Utils.gear,super.Utils.basketStarsImage,super.Utils.robotImage];
         obstructionsURLs = [super.Utils.obstruction1, super.Utils.obstruction2, super.Utils.obstruction3];
@@ -159,6 +157,7 @@ export default class DiscreteCatch extends Base {
 
     /**
      * trajectory  : 1,2,3 ( Time when ball hits the basket at 500,600,700 ms )
+     * obstruction : 0,1,2,3 (number of obstructions displayed)
      * @method dataCollection
      */
     dataCollection() {
@@ -170,7 +169,9 @@ export default class DiscreteCatch extends Base {
             ball_position_y:  (this.canvas.height - ball.position.y)/this.canvas.height,
             paddle_position_x: basket.position.x/this.canvas.width,
             paddle_position_y: (this.canvas.height - basket.position.y)/this.canvas.height,
+            obstruction: obstructions.size,
             trial: super.currentRounds,
+            trialType: this.context.trialType,
             timestamp: super.getElapsedTime(initialTime)
 
         };
@@ -241,6 +242,17 @@ export default class DiscreteCatch extends Base {
 
     }
 
+    /**
+     * Override base  method to increase ball size
+     * @param ball {object}
+     * @param images {object}
+     */
+    drawBall(ball,images) {
+
+        this.ctx.drawImage(images, ball.position.x, ball.position.y, GEAR_RADIUS * super.Utils.SCALE , GEAR_RADIUS * super.Utils.SCALE);
+
+    }
+
 
     /**
      * Main loop of the game.
@@ -252,7 +264,7 @@ export default class DiscreteCatch extends Base {
      */
     loop() {
         super.loop();
-        super.generateTrajectoryParams(hArray,Height,Tf);
+        super.generateTrajectoryParams(hArray,Height);
         this.createLauncher(images[gameImage.BALLBOX]);
         let paddleBoxColor = super.Utils.blueColor;
         if(ball.state === 'start'){
@@ -287,8 +299,6 @@ export default class DiscreteCatch extends Base {
                 ball.state = 'hit';
             }
 
-
-            // super.drawBall(ball,images[gameImage.BALL]);
         }
 
 
@@ -336,8 +346,9 @@ export default class DiscreteCatch extends Base {
             super.paddleAtZero(basket,false);
 
         }
-
-        super.drawBall(ball,images[gameImage.BALL]);
+        if( ball.hitstate !== 'good' &&  ball.hitstate !== 'very good'  ) {
+            this.drawBall(ball, images[gameImage.BALL]);
+        }
         obstructions.forEach(obstruction => super.drawImage(obstruction, obstruction.image));
         this.basketObject(basket);
         super.createPaddleBox(paddleBoxColor,true);
