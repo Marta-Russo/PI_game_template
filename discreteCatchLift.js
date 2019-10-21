@@ -13,7 +13,6 @@ import Base from './base.js';
  * @submodule games
  *
  */
-const TOTAL_ROUNDS = 20;
 let target = {}; // Current target (rat)  position parameters
 let clockObject = {}; //  Object symbolizes clock (pizza) location parameters
 let basket = {}; // Paddle (basket) position parameters
@@ -62,7 +61,6 @@ export default class DiscreteCatchLift extends Base {
     constructor(context, document) {
 
         super(context, document);
-        super.setMaxTrials(TOTAL_ROUNDS);
         soundURLs = [super.Utils.drumRollSound, super.Utils.cheese_ser1Sound, super.Utils.cheese_ser2Sound, super.Utils.cheese_ser3Sound, super.Utils.swooshSound, super.Utils.ballcatchFailSound] ;
         imageURLs = [super.Utils.rectangleCage, super.Utils.rat, super.Utils.pizza,super.Utils.cheeseMissedImage];
     }
@@ -153,7 +151,7 @@ export default class DiscreteCatchLift extends Base {
         jitterT = super.trialStartTime();
         target.state = 'start';
         target.lastTime = new Date().getTime();
-
+        target.pizzaTimeDelay =0;
         this.setClockObject();
         super.createPaddleBox();
         basket = super.basketObject(basket);
@@ -177,6 +175,7 @@ export default class DiscreteCatchLift extends Base {
             mice_x: target.position.x / this.canvas.width,
             mice_y: (this.canvas.height - target.position.y) / this.canvas.height,
             trial: super.currentRounds,
+            trialType: this.context.trialType,
             mice_state: target.state,
             timestamp: super.getElapsedTime(initialTime)
 
@@ -255,9 +254,9 @@ export default class DiscreteCatchLift extends Base {
     loop() {
         super.loop();
         let paddleBoxColor = super.Utils.blueColor;
-        super.createPaddleBox(paddleBoxColor);
         basket = super.basketObject(basket);
         super.paddleMove(basket, initialTime, target);
+        super.createPaddleBox(paddleBoxColor);
         super.drawImageObject(clockObject, images[gameImage.CLOCK]);
 
         if (initialTime === 0 && super.currentRounds === 0 && !super.paddleIsMoved(basket)) {
@@ -276,13 +275,24 @@ export default class DiscreteCatchLift extends Base {
         if (target.state === 'start' && initialTime > 0 && super.getElapsedTime(initialTime) > jitterT) {
             sounds[gameSound.START].pause();
             sounds[gameSound.START].currentTime = 0;
-            target.state = 'show';
+            target.state = 'showTarget';
             target.showTime = new Date().getTime();
         }
 
-        if (target.state === 'show') {
-            this.clockState();
+        // Add delay between showing the target (rat) and pizza (clock)
+        if(target.state === 'showTarget') {
+            if(target.pizzaTimeDelay === 0 ) {
+                target.pizzaTimeDelay = new Date().getTime();
+            }
+            if(target.pizzaTimeDelay >0 && super.getElapsedTime(target.pizzaTimeDelay) > 0.2){
+                target.state = 'showClock';
+            }
             super.drawImageObject(target, images[gameImage.TARGET]);
+        }
+
+
+        if (target.state === 'showClock') {
+            this.clockState();
 
         }
 
@@ -294,7 +304,7 @@ export default class DiscreteCatchLift extends Base {
 
         }
 
-        if (target.state === 'show') {
+        if (target.state === 'showClock') {
 
 
             if (target.showTime > 0 && super.getElapsedTime(target.showTime) > 1) {
