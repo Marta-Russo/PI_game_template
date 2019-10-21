@@ -1,0 +1,574 @@
+{
+    "frames": {
+        "intro-group": {
+            "kind": "group",
+            "frameList": [
+                {
+                "id" : "intro",
+                "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/intro.png",
+                "instructions": "You come across an abandoned arcade and you decide to enter. ",
+                "showInstructions": true
+                },
+                {
+                    "id": "arcade-1",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_place.png",
+                    "instructions": "The door closes and locks behind you. To exit the arcade, you have to play five games. At the end of each game you will get to the next level. After the fifth game, the exit door will open. ",
+                    "showInstructions": true
+
+                },
+
+                {
+                    "id": "arcade-2",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/arcade_place.png",
+                    "instructions": "You might find some games easy and other games hard. The most important thing is to keep trying your best in each game and try to play until the end. Don’t worry if you don’t succeed at every try, just try your best. You might notice that the games are from a long time ago, so they are simpler than video games you might play now. ",
+                    "showInstructions": true
+
+                },
+
+                {
+                    "id" : "map",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/map.png",
+                    "instructions": "",
+                    "showInstructions": true
+                },
+
+                {
+                    "id" : "controls",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/controllers.png",
+                    "instructions": "To play the games, sometimes you will press buttons on your computer’s keyboard. Other times, you will use your mouse or trackpad.",
+                    "showInstructions": true
+
+                },
+                {
+                    "id" : "instr",
+                    "source": "",
+                    "instructions": "Before each game you will hear and see instructions to tell you how to play.  ",
+                    "showInstructions": true
+                },
+                {
+                    "id" : "researchers",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/researchers.png",
+                    "instructions": "Please try your best to keep playing until the end of each game. This will help the scientists to have the same information from everyone who is doing this research study. Thanks for your help, and good luck playing!",
+                    "showInstructions": true
+                }
+
+
+            ],
+
+            "commonFrameProperties": {
+                "kind":  "exp-lookit-games"
+            }
+        },
+    
+        "exit-survey": {
+            "kind": "exp-lookit-exit-survey",
+            "debriefing": {
+                "text": "Thank you for participating in this study! ",
+                "title": "Thank you!"
+            }
+        },
+        
+
+
+        "game1-group": {
+            "kind": "group",
+            "frameList": [
+                {
+                    "id" : "map",
+                    "instructions": "Click on the START button to play the first game.",
+                    "showProgress": true,
+                    "sourceButton": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/start_button.png"
+
+                },
+                 {  
+                     "id" : "button-window-instr-1",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/fireworks_1.png",
+                    "instructions": "A fireworks event is happening on a cloudy night. Your job is to try to set off each firework between the clouds so everyone can see the show. ",
+                    "showInstructions": true
+                },
+                
+                {
+                    "id" : "button-window-instr-2",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/fireworks_2.png",
+                    "instructions": "Each firework will start in the box. You will hear a sound when the fuse starts to burn.",
+                    "showInstructions": true
+                },
+        
+                {
+                    "id" : "button-window-instr-3",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/fireworks_3.png",
+                    "instructions": "When the fuse ends, the firework will shoot into the air. ",
+                    "showInstructions": true
+                },
+        
+                {
+                    "id" : "button-window-instr-4",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/fireworks_4.png",
+                    "instructions": "When you press the space bar, the firework will explode. Try to press  when the firework is between the clouds right at the star. ",
+                    "showInstructions": true
+                },
+        
+                {
+                    "id" : "button-window-instr-5",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/fireworks_5.png",
+                    "instructions": "If you explode the firework between the clouds, you will see a small display and hear an explosion sound.  ",
+                    "showInstructions": true
+                },
+                
+                {
+                    "id" : "button-window-instr-6",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/fireworks_6.png",
+                    "instructions": "If you explode it right at the star, you will see a bigger display and hear a bigger explosion. ",
+                    "showInstructions": true
+                },
+        
+                   
+                 {
+                    "id" : "button-window-instr-7",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/fireworks_7.png",
+                    "instructions": "If you explode the firework too low or behind a cloud, there will be no explosion, but you will be able to see where it stopped.  ",
+                    "showInstructions": true
+                },
+                {    "id" : "watch-example",
+                    "source": "",
+                    "instructions": "Now watch a few examples to see the game. ",
+                    "showInstructions": true
+                },
+                {   "id": "lets-practice",
+                    "source": "",
+                    "instructions": "Let’s practice a few times. Remember, press the space bar to explode the firework. Try to explode it on the star between the clouds. ",
+                    "showInstructions": true
+                },
+                {   "id": "demo-game",
+                    "playGame": true,
+                    "trialType" : "demo",
+                    "trialsNumber": 6
+                },
+                {
+                    "id": "get-ready",
+                    "source": "",
+                    "instructions": "Get ready to play the game. Try to finish the level by exploding all of the fireworks. You will know you are finished when you see the map page again.  ",
+                    "showInstructions": true
+
+                },
+                {   "id": "game",
+                    "playGame": true,
+                    "trialsNumber": 30
+                },
+
+                {    "id": "finish-game",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/finish_1.png",
+                    "instructions": "Excellent! You finished the level. ",
+                    "showInstructions": true
+                }
+
+            ],
+
+            "commonFrameProperties": {
+                "kind":  "exp-lookit-games",
+                "gameType": 0
+            }
+            
+        },
+
+
+        "game2-group": {
+            "kind": "group",
+            "frameList": [
+                {
+                    "id" : "map",
+                    "instructions": "Click on the START button to play the second game.",
+                    "showProgress": true,
+                    "sourceButton": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/start_button.png"
+
+                },
+                 {  
+                     "id" : "discrete-button-spatial-1",
+                     "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/slime_1.png",
+                     "instructions": "In this game, an alien is doing target practice by throwing slime balls into your spaceship. Your job is to open the door where the slime landed to get it out.  ",
+                     "showInstructions": true
+                },
+                
+                {
+                    "id" : "discrete-button-spatial-2",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/slime_2.png",
+                    "instructions": " You will hear the alien growling. When she throws the slime, watch closely and choose the window where it landed.    ",
+                    "showInstructions": true
+                },
+        
+                {
+                    "id" : "discrete-button-spatial-3",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/slime_3.png",
+                    "instructions": "Then, press the button on your keyboard that goes with the window you want to open: Y for yellow, G for Green or V for Violet.    ",
+                    "showInstructions": true
+                },
+        
+                {
+                    "id" : "discrete-button-spatial-4",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/slime_4.png",
+                    "instructions": "When you press the button, the window you selected will open. If you select the right door, you will see the slime behind it.   ",
+                    "showInstructions": true
+                },
+        
+                {
+                    "id" : "discrete-button-spatial-5",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/slime_5.png",
+                    "instructions": "If you select the wrong window, the window you chose will be empty and the slime will show up in the location where the alien really threw it.  ",
+                    "showInstructions": true
+                },
+                
+               
+                {    "id" : "watch-example",
+                    "source": "",
+                    "instructions": "Now watch some examples of the game. Try to see if you can tell if the person playing was right or wrong. If they are right, the door that opens will have the slime in it.   ",
+                    "showInstructions": true
+                },
+        
+
+                {
+                    "id": "lets-practice",
+                    "source": "",
+                    "instructions": "Let’s practice a few times. Remember, press the button that goes with the door you want to open: Y for yellow, G for Green or V for Violet. Try to get the slime out of your spaceship!   ",
+                    "showInstructions": true
+
+                },
+
+                {   "id": "demo-game",
+                    "playGame": true,
+                    "trialType" : "demo",
+                    "trialsNumber": 6
+                },
+
+                {   "id": "get-ready",
+                    "source": "",
+                    "instructions": "Get ready to play the whole game. Try to finish the level by getting out as much slime as you can. You will know you are finished when you see the map page again. ",
+                    "showInstructions": true
+                },  
+                {   "id": "game",
+                    "playGame": true,
+                    "trialsNumber": 36
+                },
+                {
+                    "id": "finish-game",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/finish_2.png",
+                    "instructions": "Excellent! You finished the second level. ",
+                    "showInstructions": true
+                    
+                }
+
+            ],
+
+            "commonFrameProperties": {
+                "kind":  "exp-lookit-games",
+                "gameType": 1
+            }
+            
+        },
+
+
+        "game3-group": {
+            "kind": "group",
+            "frameList": [
+
+                {
+                    "id" : "map",
+                    "instructions": "Click on the START button to play the third game.",
+                    "showProgress": true,
+                    "sourceButton": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/start_button.png"
+
+                },
+                 {
+                    "id" : "catch-instr-1",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/pizza_1.png",
+                    "instructions": "In this game, your goal is to trap a rat before he eats your pizza. ",
+                    "showInstructions": true
+        
+                },
+        
+                {
+                    "id" : "catch-instr-2",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/pizza_2.png",
+                    "instructions": "To start, the cage needs to be inside the box. Use your mouse to move the cage up and down. The box will be red until you put the cage inside it. ",
+                    "showInstructions": true
+        
+                },
+        
+                 {
+                    "id" : "catch-instr-3",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/pizza_3.png",
+                    "instructions": "You will hear a drum roll. Next, the rat will appear.  ",
+                    "showInstructions": true
+        
+                },
+        
+                 {
+        
+                    "id" : "catch-instr-4",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/pizza_4.png",
+                    "instructions": "Move the cage to catch the rat. The faster you catch it, the more pizza you will have left. Remember, start with the cage in the box and do not lift the cage until the rat appears.   ",
+                    "showInstructions": true
+        
+                },
+                
+               
+                {    "id" : "watch-example",
+                    "source": "",
+                    "instructions": "Watch a few examples. See how much pizza survives each time!",
+                    "showInstructions": true
+                },
+                {   "id": "lets-practice",
+                    "source": "",
+                    "instructions": "Give it a try. Remember, do not move the cage until the rat appears! ",
+                    "showInstructions": true
+                },
+
+                {   "id": "demo-game",
+                    "playGame": true,
+                    "trialType" : "demo",
+                    "trialsNumber": 6
+                },
+
+                {   "id": "get-ready",
+                    "source": "",
+                    "instructions": "Get ready to play the game. Try to save as much pizza as you can! ",
+                    "showInstructions": true
+                },  
+
+                {   "id": "game",
+                    "playGame": true,
+                    "trialsNumber": 20
+                },
+
+                {
+                    "id": "finish-game",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/finish_3.png",
+                    "instructions": "Excellent! You finished the third level.  ",
+                    "showInstructions": true
+                }
+            ],
+
+            "commonFrameProperties": {
+                "kind":  "exp-lookit-games",
+                "gameType": 2
+            }
+            
+        },
+
+        "game4-group": {
+            "kind": "group",
+            "frameList": [
+                {
+                    "id" : "map",
+                    "instructions": "Click on the START button to play the fourth game.",
+                    "showProgress": true,
+                    "sourceButton": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/start_button.png"
+
+                },
+
+                 {
+                    "id" : "robot-instr-1",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/robot_1.png",
+                    "instructions": "In this game, a robot will throw gears to you. You can use the gears to fix your broken spaceship.  ",
+                    "showInstructions": true
+        
+                },
+               {
+                    "id" : "robot-instr-2",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/robot_2.png",
+                    "instructions": "You will use your computer mouse to move a basket to catch the gears. The robot will throw the gears one at a time.  ",
+                    "showInstructions": true
+        
+                },
+                {
+                    "id" : "robot-instr-3",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/robot_3.png",
+                    "instructions": "To start, use your mouse to move the basket into the box and keep it still. If your basket is not all the way in the box when you start, the box will turn red. Then, you will hear the robot make a sound.   ",
+                    "showInstructions": true
+        
+                },
+                 {
+                    "id" : "robot-instr-4",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/robot_4.png",
+                    "instructions": "Next, she will throw a gear. When you see the gear, move the basket to catch the gear.  ",
+                    "showInstructions": true
+        
+                },
+                 {
+                    "id" : "robot-instr-5",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/robot_5.png",
+                    "instructions": "If you catch the gear, you will see it in your basket and hear a sound.  ",
+                    "showInstructions": true
+        
+                },
+        
+                 {
+                    "id" : "robot-instr-6",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/robot_6.png",
+                    "instructions": "Try to catch the gear right at the red spot on the basket. If you catch the gear at the red spot, you will hear a zapping sound and see red stars! ",
+                    "showInstructions": true
+        
+                },
+                
+                {
+                    "id" : "robot-instr-7",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/robot_7.png",
+                    "instructions": "Sometimes when the robot throws the gear, there will be some space trash between her and your basket. Try your best to catch the gear, even when the space trash is there!   ",
+                    "showInstructions": true
+        
+                },
+                
+               
+                {    "id" : "watch-example",
+                    "source": "",
+                    "instructions": "Watch the game first to see a few examples  ",
+                    "showInstructions": true
+                },
+                {   "id": "lets-practice",
+                    "source": "",
+                    "instructions": "Now you can play a few tries to get some practice. Remember, do not move the basket until the robot throws the gear! To go again, put your basket back in the box.  ",
+                    "showInstructions": true
+                },
+
+                {   "id": "demo-game",
+                    "playGame": true,
+                    "trialType" : "demo",
+                    "trialsNumber": 12
+                },
+
+                {   "id": "get-ready",
+                    "source": "",
+                    "instructions": "Ok, now it’s time to play for longer. Try to catch the gear at the red spot. Try your best to finish the whole level and get to the map. ",
+                    "showInstructions": true
+                },  
+
+                {   "id": "game",
+                    "playGame": true,
+                    "trialsNumber": 36
+                },
+                {
+                    "id": "finish-game",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/finish_4.png",
+                    "instructions": "Excellent! You finished the fourth level.  ",
+                    "showInstructions": true
+                }
+            ],
+
+            "commonFrameProperties": {
+                "kind":  "exp-lookit-games",
+                "gameType": 3
+            }
+            
+        },
+        
+
+        "game5-group": {
+            "kind": "group",
+            "frameList": [
+                {
+                    "id" : "map",
+                    "instructions": "Click on the START button to play the last game.",
+                    "showProgress": true,
+                    "sourceButton": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/start_button.png"
+
+                },
+
+                {
+                    "id" : "bounce-instr-5",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/brick_1.png",
+                    "instructions": "In this game, your goal is to bounce a ball with a paddle to smash a wall of bricks. Behind the wall is a gold token you are trying to get. ",
+                    "showInstructions": true
+                },
+        
+                {
+                    "id" : "bounce-instr-5",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/brick_2.png",
+                    "instructions": "To start, use your mouse to put the white paddle in the box and keep it still. If your paddle is not in the box, it will turn red. Then, you will hear a drumroll.   ",
+                    "showInstructions": true
+                },
+        
+        
+               {
+
+                    "id" : "bounce-instr-5",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/brick_3.png",
+                    "instructions": "Next, a ball will fly toward the paddle. Move the paddle to bounce the ball. Do not lift the paddle before the ball moves.",
+                    "showInstructions": true
+                },
+        
+        
+                {
+                    "id" : "bounce-instr-4",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/brick_4.png",
+                    "instructions": "If you hit the wall, some of the bricks will fall to the ground and you will hear some bricks crash. ",
+                    "showInstructions": true
+                },
+        
+                {
+                    "id" : "bounce-instr-5",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/brick_5.png",
+                    "instructions": "Try your best to bounce the ball to the red button. If you hit it, you will see all of the bricks fall down and you get the token and hear a sound. ",
+                    "showInstructions": true
+                },
+                
+               
+                {    "id" : "watch-example",
+                    "source": "",
+                    "instructions": "Now, watch a few different examples to see how it works. ",
+                    "showInstructions": true
+                },
+                {   "id": "lets-practice",
+                     "source": "",
+                     "instructions": "Now it’s your turn to practice a few times. Remember, do not move the paddle until the ball starts to move.",
+                     "showInstructions": true
+                },
+
+                {   "id": "demo-game",
+                    "playGame": true,
+                    "trialType" : "demo",
+                    "trialsNumber": 6
+                },
+
+                {   "id": "get-ready",
+                    "source": "",
+                    "instructions": "Great! Now you can play for longer. Remember, try to bounce the ball to the red button to break the wall.  ",
+                    "showInstructions": true
+                },  
+
+                {   "id": "game",
+                    "playGame": true,
+                    "trialsNumber": 30
+                },
+                {
+                    "id": "finish-game",
+                    "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/finish_5.png",
+                    "instructions": "Excellent! You finished the last level. ",
+                    "showInstructions": true
+                }
+            ],
+
+            "commonFrameProperties": {
+                "kind":  "exp-lookit-games",
+                "gameType": 4
+            }
+            
+        },
+
+        "controller-instr": {
+            "kind":  "exp-lookit-games",
+            "source": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/controls2.png",
+            "instructions": "For the next games, you will need to use your computer mouse or trackpad.",
+            "showInstructions": true
+        }
+        
+    },
+    "sequence": [
+        "intro-group",
+        "game1-group",
+        "game2-group",
+        "controller-instr",
+        "game3-group",
+        "game4-group",
+        "game5-group",
+        "exit-survey"
+    ]
+}
