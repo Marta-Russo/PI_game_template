@@ -264,7 +264,7 @@ export default class DiscreteBounce extends Base {
         }
 
         super.paddleMove(paddle, initialTime, ball);
-
+        this.createwallBoarders();
 
     }
 
@@ -284,7 +284,7 @@ export default class DiscreteBounce extends Base {
         let leftBorder = (positionX - 0.0175) * super.Utils.SCALE;
         // CLear past ball  positions
         if(ball.positions.length > 80){
-            ball.positions = ball.positions.slice(-80);
+            ball.positions = ball.positions.slice(-80)
         }
         ball.positions.push(ball.position);
         ball.position.x = leftBorder;
@@ -349,6 +349,33 @@ export default class DiscreteBounce extends Base {
         paddle.releaseVelocity = -alpha * (ball.velocity - paddleVelocity) + paddleVelocity;
     }
 
+
+    createwallBoarders(){
+
+        this.ctx.beginPath();
+
+        //Upper bound
+        this.ctx.moveTo(this.getXBoundValues(0.1 ), 0.1)
+        this.ctx.lineTo(this.getXBoundValues(0.49 * super.Utils.SCALE), 0.49 * super.Utils.SCALE);
+        this.ctx.lineTo(this.getXBoundValues(0.367 * super.Utils.SCALE) + 0.248 * super.Utils.SCALE, 0.367 * super.Utils.SCALE);
+        this.ctx.lineTo(this.getXBoundValues(0 ) + 0.248 * super.Utils.SCALE, 0);
+        this.ctx.fillStyle = super.Utils.grayColor;
+        this.ctx.fill();
+
+
+
+        //Lower bound
+        this.ctx.moveTo(this.getXBoundValues(0.768 * super.Utils.SCALE ), 0.768 * super.Utils.SCALE)
+        this.ctx.lineTo(this.getXBoundValues(screen.height), screen.height);
+        this.ctx.lineTo(this.getXBoundValues(screen.height ) + 0.248 * super.Utils.SCALE, screen.height);
+        this.ctx.lineTo(this.getXBoundValues(0.645 * super.Utils.SCALE ) + 0.248 * super.Utils.SCALE, 0.645 * super.Utils.SCALE);
+
+        this.ctx.fillStyle = super.Utils.grayColor;
+        this.ctx.fill();
+
+
+    }
+
     /**
      *
      * Check if ball reached the target
@@ -362,7 +389,13 @@ export default class DiscreteBounce extends Base {
         let YL = (0.46 ) * super.Utils.SCALE;
         let YH = (0.4 + 0.35) * super.Utils.SCALE;
 
-        let targetx  = (ball.position.y + 1.44 * super.Utils.SCALE) / 1.1;
+        let targetx  = this.getXBoundValues(ball.position.y);
+
+        if((ball.position.y < YL && ball.position.x > this.getXBoundValues(YL) )|| (ball.position.y > YH && ball.position.x > this.getXBoundValues(YH))){
+
+            return true;
+        }
+
         if (ball.state !== 'done' && ball.position.y > YL && ball.position.y < YH && ball.position.x > targetx) {
             let currenImpactCoord = Math.abs(ball.position.y - 0.6 * super.Utils.SCALE);
             if (currenImpactCoord < 0.27 * super.Utils.SCALE) {
@@ -384,6 +417,14 @@ export default class DiscreteBounce extends Base {
         return false;
     }
 
+    /**
+     * Get target  bounds for x coordinate according to slope equation
+     * @param y position
+     * @returns {number} x position
+     */
+    getXBoundValues(y) {
+        return (y + 1.44 * super.Utils.SCALE) / 1.1;
+    }
 
     /**
      *
@@ -432,7 +473,7 @@ export default class DiscreteBounce extends Base {
         };
 
         if(ball.state === 'hit' || ball.state === 'bounce' || ball.state === 'fall') {
-            super.storeData(exportData);
+          //  super.storeData(exportData);
         }
 
     }
