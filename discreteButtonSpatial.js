@@ -197,6 +197,9 @@ export default class DiscreteButtonSpatial extends Base {
 
     }
 
+
+
+
     /**
      * Main point to start the game.
      * Initialize static parameters and preload sounds here
@@ -205,8 +208,8 @@ export default class DiscreteButtonSpatial extends Base {
     init() {
         startTime = new Date().getTime();
         initVmatrix = super.uniformArr([1, 2, 3]);
-        obstructions = super.uniformArr([1, 2, 3]);
-
+        // Randomize trajectory for each obstruction
+        obstructions = [1,2,3].flatMap(  () => super.uniformArr([1, 2, 3], initVmatrix.length/3));
         super.fillAudioArray(soundURLs,sounds);
         super.fillImageArray(imageURls,images);
         super.fillImageArray(windowImageURLS,windowImgs);
@@ -490,7 +493,7 @@ export default class DiscreteButtonSpatial extends Base {
 
         };
         if(ball.state === 'hit' || ball.state === 'fall') {
-            super.storeData(exportData);
+          //  super.storeData(exportData);
         }
     }
 
