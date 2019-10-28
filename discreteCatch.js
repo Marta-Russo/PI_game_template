@@ -127,12 +127,7 @@ export default class DiscreteCatch extends Base {
             ( this.getObstruction(index+1))
         );
 
-
         startTime = new Date().getTime();
-
-
-
-
         super.initGame();
 
     }
@@ -170,8 +165,11 @@ export default class DiscreteCatch extends Base {
             trajectory: hArray[super.currentRounds],
             ball_position_x: ball.position.x / this.canvas.width ,
             ball_position_y:  (this.canvas.height - ball.position.y)/this.canvas.height,
-            paddle_position_x: basket.position.x/this.canvas.width,
+            paddle_center_x: basket.position.x / this.canvas.width  +  (basket.dimensions.width / this.canvas.width) / 2,
+            paddle_width: basket.dimensions.width / this.canvas.width,
             paddle_position_y: (this.canvas.height - basket.position.y)/this.canvas.height,
+            red_dot_start_position: (1.3310 - radiusRim),
+            red_dot_width: radiusRim*2,
             obstruction: obstructions[super.currentRounds],
             trial: super.currentRounds,
             trialType: this.context.trialType,
