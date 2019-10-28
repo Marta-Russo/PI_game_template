@@ -27,7 +27,7 @@ let consecutiveCounts = 0;  // Calculate number of consecutive successful attemp
 let startTime = 0;
 const GEAR_RADIUS = 0.05;
 const TRAVEL_TIME = 1.5;
-
+const OBSTRUCTIONS = [0,1,2,3];
 // Media arrays for loading
 let sounds = [];
 let soundURLs = [];
@@ -80,8 +80,10 @@ export default class DiscreteCatch extends Base {
      * @method init
      */
     init() {
-        hArray = super.generateHeights();
-        obstrArr  = super.uniformArr([0,1,2,3]);
+
+        obstrArr  = super.uniformArr(OBSTRUCTIONS);
+        hArray = OBSTRUCTIONS.flatMap(  () => super.uniformArr([1, 5, 9], obstrArr.length/3));
+
         super.fillAudioArray(soundURLs,sounds);
         super.fillImageArray(imageURls,images);
         super.fillImageArray(obstructionsURLs,obstructionImages);
@@ -118,6 +120,7 @@ export default class DiscreteCatch extends Base {
         basket = super.basketObject(basket);
         obstructionsNum = obstrArr[super.currentRounds];
         ball = super.ballObject();
+
         // Generate array of obstruction objects
         obstructions = Array(obstructionsNum).fill({}).map((value, index) =>
 
