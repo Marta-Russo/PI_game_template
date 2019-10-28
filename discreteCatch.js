@@ -169,7 +169,7 @@ export default class DiscreteCatch extends Base {
             ball_position_y:  (this.canvas.height - ball.position.y)/this.canvas.height,
             paddle_position_x: basket.position.x/this.canvas.width,
             paddle_position_y: (this.canvas.height - basket.position.y)/this.canvas.height,
-            obstruction: obstructions.size,
+            obstruction: obstructions[super.currentRounds],
             trial: super.currentRounds,
             trialType: this.context.trialType,
             timestamp: super.getElapsedTime(initialTime)
