@@ -26,7 +26,7 @@ let obstructionsNum = 0; // Current number of obstructions (randomized each tria
 let consecutiveCounts = 0;  // Calculate number of consecutive successful attempts
 let startTime = 0;
 const GEAR_RADIUS = 0.05;
-const TRAVEL_TIME = 1.5;
+const TRAVEL_TIME = 1.3;
 const OBSTRUCTIONS = [0,1,2,3];
 // Media arrays for loading
 let sounds = [];
