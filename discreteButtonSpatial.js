@@ -207,9 +207,9 @@ export default class DiscreteButtonSpatial extends Base {
      */
     init() {
         startTime = new Date().getTime();
-        initVmatrix = super.uniformArr([1, 2, 3]);
+        obstructions = super.uniformArr([1, 2, 3]);
         // Randomize trajectory for each obstruction
-        obstructions = [1,2,3].flatMap(  () => super.uniformArr([1, 2, 3], initVmatrix.length/3));
+        initVmatrix = [1,2,3].flatMap(  () => super.uniformArr([1, 2, 3], obstructions.length/3));
         super.fillAudioArray(soundURLs,sounds);
         super.fillImageArray(imageURls,images);
         super.fillImageArray(windowImageURLS,windowImgs);
@@ -403,11 +403,15 @@ export default class DiscreteButtonSpatial extends Base {
         this.createShuttle();
 
         if (ball.state === 'hit target') {
+
             if (index >= 0) {
                 let target = targets[index];
                 this.createWindow(target);
                 this.showWindow(index);
+            }else{
+                this.showCorrectWindow();
             }
+
             if (super.getElapsedTime(initialTime) >= 3) {
                 super.finishGame(false);
             }
@@ -423,11 +427,14 @@ export default class DiscreteButtonSpatial extends Base {
      * @param index index of the selected button
      */
     checkHitState(index) {
+
+
         if (index >= 0) {
             let target = targets[index];
             this.createWindow(target);
             this.showWindow(index);
         }
+
         // Check if current index of the pressed item corresponds to the actual target index
         if (index === currentTargetIndex) {
 
@@ -440,6 +447,18 @@ export default class DiscreteButtonSpatial extends Base {
 
         ball.state = 'hit target';
     }
+
+
+    showCorrectWindow(){
+
+        let indexArr = [2, 1, 0]; //reverse index to get value
+        currentTargetIndex = indexArr[initVmatrix[super.currentRounds] - 1];
+        let target = targets[currentTargetIndex];
+        this.createWindow(target);
+    }
+
+
+
 
     /**
      * Show selected window
@@ -458,7 +477,7 @@ export default class DiscreteButtonSpatial extends Base {
         currentTargetIndex = indexArr[initVmatrix[super.currentRounds] - 1];
 
         //Show ball only on button press
-        if (index >= 0) {
+        if ( index >= 0) {
             this.showBallLocation(currentTargetIndex);
         }
     }
