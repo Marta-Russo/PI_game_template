@@ -276,7 +276,6 @@ export default class DiscreteCatchLift extends Base {
             sounds[gameSound.START].pause();
             sounds[gameSound.START].currentTime = 0;
             target.state = 'showTarget';
-            target.showTime = new Date().getTime();
         }
 
         // Add delay between showing the target (rat) and pizza (clock)
@@ -284,28 +283,17 @@ export default class DiscreteCatchLift extends Base {
             if(target.pizzaTimeDelay === 0 ) {
                 target.pizzaTimeDelay = new Date().getTime();
             }
-            if(target.pizzaTimeDelay >0 && super.getElapsedTime(target.pizzaTimeDelay) > 0.2){
+            if(target.pizzaTimeDelay >0 && super.getElapsedTime(target.pizzaTimeDelay) > 0.4){
                 target.state = 'showClock';
+                target.showTime = new Date().getTime();
             }
             super.drawImageObject(target, images[gameImage.TARGET]);
         }
 
 
-        if (target.state === 'showClock') {
-            this.clockState();
 
-        }
-
-        if (target.state === 'done') {
-
-
-            super.paddleAtZero(basket, false);
-
-
-        }
 
         if (target.state === 'showClock') {
-
 
             if (target.showTime > 0 && super.getElapsedTime(target.showTime) > 1) {
 
@@ -322,23 +310,19 @@ export default class DiscreteCatchLift extends Base {
             }
 
 
-            if ((target.position.y + 0.0476 * super.Utils.SCALE) - basket.position.y >= 0) {
-                target.state = 'done';
-                if (clockObject.state > 0) {
-                    if (clockObject.state < 4) {
-                        sounds[gameSound.SERIES1].play();
-                    } else if (clockObject.state >= 4 && clockObject.state < 8) {
-                        sounds[gameSound.SERIES2].play();
-                    } else {
-                        sounds[gameSound.SERIES3].play();
-                    }
-                    super.increaseScore();
-                    this.showClock();
-
-                }
+            super.drawImageObject(target, images[gameImage.TARGET]);
+            this.clockState();
+        }
 
 
-            }
+        if(target.state === 'showClock' || target.state === 'showTarget' ){
+            this.collisionDetection();
+        }
+
+
+        if (target.state === 'done') {
+
+            super.paddleAtZero(basket, false);
 
 
         }
@@ -347,4 +331,26 @@ export default class DiscreteCatchLift extends Base {
         this.drawImage(basket, images[gameImage.PADDLE]);
     }
 
+
+
+    collisionDetection() {
+
+        if ((target.position.y + 0.0476 * super.Utils.SCALE) - basket.position.y >= 0) {
+            target.state = 'done';
+            if (clockObject.state > 0) {
+                if (clockObject.state < 4) {
+                    sounds[gameSound.SERIES1].play();
+                } else if (clockObject.state >= 4 && clockObject.state < 8) {
+                    sounds[gameSound.SERIES2].play();
+                } else {
+                    sounds[gameSound.SERIES3].play();
+                }
+                super.increaseScore();
+                //this.showClock();
+
+            }
+
+
+        }
+    }
 }
