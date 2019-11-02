@@ -85,7 +85,6 @@ export default class DiscreteBounce extends Base {
      * @method init
      */
     init() {
-
         document.addEventListener("mousemove", super.onMouseMove);
         paddle = {
 
@@ -97,7 +96,14 @@ export default class DiscreteBounce extends Base {
             times: [],
 
         };
-        hArray = super.generateHeights();
+
+
+        if(this.context.trialType === 'demo'){
+            hArray =   this.context.demoTrajectories;
+        }else{
+            hArray = super.generateHeights();
+        }
+
 
 
         let leftBorder = (1.75) * super.Utils.SCALE;
@@ -162,12 +168,11 @@ export default class DiscreteBounce extends Base {
         paddle = super.paddleObject(paddle);
         let paddleBoxColor = super.Utils.blueColor;
         super.createPaddleBox(paddleBoxColor);
-        super.generateTrajectoryParams(hArray, Height);
+        super.generateTrajectoryParams(hArray[super.currentRounds], Height);
         super.createLauncher(images[gameImage.BALLBOX]);
         super.drawImageObject(paddle, images[gameImage.PADDLE]);
         super.paddleMove(paddle, initialTime, ball);
         this.paddleBallCollision();
-        super.drawImageObject(token, images[gameImage.TOKEN]);
         let hitTheTarget = this.collisionDetection();
         let hitTheWall = super.wallCollision(ball);
 
@@ -193,6 +198,11 @@ export default class DiscreteBounce extends Base {
 
         }
 
+        if ((hitTheTarget || hitTheWall) && ball.state !== 'done') {
+
+            ball.state = 'hit';
+        }
+
 
         if (ball.state === 'fall') {
             if (initialTime > 0 && super.getElapsedTime(initialTime) < 1.2) {
@@ -210,12 +220,9 @@ export default class DiscreteBounce extends Base {
             super.drawBall(ball, images[gameImage.BALL]);
 
         }
+        this.createBackTriangle();
+        super.drawImageObject(token, images[gameImage.TOKEN]);
 
-
-        if ((hitTheTarget || hitTheWall) && ball.state !== 'done') {
-
-            ball.state = 'hit';
-        }
 
 
         if (ball.state === 'hit') {
@@ -250,7 +257,6 @@ export default class DiscreteBounce extends Base {
                 super.drawImageObject(bricks, images[gameImage.BRICKS_SMALL]);
             } else {
                 super.drawImageObject(target, images[gameImage.WALL_INITIAL]);
-                super.drawBall(ball, images[gameImage.BALL]);
             }
 
             super.paddleAtZero(paddle, false);
@@ -284,7 +290,7 @@ export default class DiscreteBounce extends Base {
         let leftBorder = (positionX - 0.0175) * super.Utils.SCALE;
         // CLear past ball  positions
         if(ball.positions.length > 80){
-            ball.positions = ball.positions.slice(-80)
+            ball.positions = ball.positions.slice(-80);
         }
         ball.positions.push(ball.position);
         ball.position.x = leftBorder;
@@ -355,7 +361,7 @@ export default class DiscreteBounce extends Base {
         this.ctx.beginPath();
 
         //Upper bound
-        this.ctx.moveTo(this.getXBoundValues(0.1 ), 0.1)
+        this.ctx.moveTo(this.getXBoundValues(0.1 ), 0.1);
         this.ctx.lineTo(this.getXBoundValues(0.49 * super.Utils.SCALE), 0.49 * super.Utils.SCALE);
         this.ctx.lineTo(this.getXBoundValues(0.367 * super.Utils.SCALE) + 0.248 * super.Utils.SCALE, 0.367 * super.Utils.SCALE);
         this.ctx.lineTo(this.getXBoundValues(0 ) + 0.248 * super.Utils.SCALE, 0);
@@ -365,7 +371,7 @@ export default class DiscreteBounce extends Base {
 
 
         //Lower bound
-        this.ctx.moveTo(this.getXBoundValues(0.768 * super.Utils.SCALE ), 0.768 * super.Utils.SCALE)
+        this.ctx.moveTo(this.getXBoundValues(0.768 * super.Utils.SCALE ), 0.768 * super.Utils.SCALE);
         this.ctx.lineTo(this.getXBoundValues(screen.height), screen.height);
         this.ctx.lineTo(this.getXBoundValues(screen.height ) + 0.248 * super.Utils.SCALE, screen.height);
         this.ctx.lineTo(this.getXBoundValues(0.645 * super.Utils.SCALE ) + 0.248 * super.Utils.SCALE, 0.645 * super.Utils.SCALE);
@@ -375,6 +381,20 @@ export default class DiscreteBounce extends Base {
 
 
     }
+
+
+    createBackTriangle(){
+        this.ctx.beginPath();
+        this.ctx.moveTo(this.getXBoundValues(screen.height ) + 0.248 * super.Utils.SCALE, screen.height);
+        this.ctx.lineTo(screen.width, 0);
+        this.ctx.lineTo(this.getXBoundValues(0 ) + 0.248 * super.Utils.SCALE, 0);
+        this.ctx.fillStyle = super.Utils.blackColor;
+        this.ctx.fill();
+
+
+
+    }
+
 
     /**
      *
@@ -464,7 +484,7 @@ export default class DiscreteBounce extends Base {
             ball_position_x: ball.position.x / this.canvas.width,
             ball_position_y: (this.canvas.height - ball.position.y) / this.canvas.height,
             paddle_center_x: paddle.position.x / this.canvas.width  +  (paddle.dimensions.width / this.canvas.width) / 2,
-            paddle_width: paddle.dimensions.width / this.canvas.width,
+            paddle_x: paddle.position.x / this.canvas.width,
             paddle_position_y: (this.canvas.height - paddle.position.y) / this.canvas.height,
             trial: super.currentRounds,
             trialType: this.context.trialType,
@@ -473,7 +493,7 @@ export default class DiscreteBounce extends Base {
         };
 
         if(ball.state === 'hit' || ball.state === 'bounce' || ball.state === 'fall') {
-          //  super.storeData(exportData);
+         //   super.storeData(exportData);
         }
 
     }
