@@ -4,7 +4,7 @@
  * Copyright (c) Cognoteq Software Solutions 2019.
  * All rights reserved
  */
-import Utils from './utils';
+import Utils from './utils.js';
 
 /**
  *
@@ -158,12 +158,12 @@ export default class Base {
     /**
      * Generate main trajectory parameters per trial
      * @method generateTrajectoryParams
-     * @param hArr array of equally distributed height
-     * @param height height correction coefficient
+     * @param current trial  height
+     * @param heightAdjuster height correction coefficient
      * @param Tf Flight time coefficient
      */
-    generateTrajectoryParams(hArr, height) {
-        let currentHeight = hArr[currentRounds] * 0.05 + height;
+    generateTrajectoryParams(trialHeight, heightAdjuster) {
+        let currentHeight = trialHeight * 0.05 + heightAdjuster;
         let Tf = 0.75; // Time Flight for trajectory
         initX = 0.52;
         gravity = 2 * currentHeight / Math.pow(Tf, 2);
@@ -191,13 +191,13 @@ export default class Base {
     /**
      * Generate Trajectory  parameters for spatial discrete games  (using init velocity matrix )
      * @method generateTrajectoryParamsDiscreteSpatial
-     * @param initVmatrix  init velocity matrix
+     * @param initVelocity  init velocity for trial
      */
-    generateTrajectoryParamsDiscreteSpatial(initVmatrix) {
+    generateTrajectoryParamsDiscreteSpatial(initVelocity) {
         let Tf = 0.9;
         gravity = 1.8;
         ballvx = (1.051) / Tf;
-        initV = 0.15 * initVmatrix[currentRounds] + 0.45;
+        initV = 0.15 * initVelocity + 0.45;
         initX = 0.7510;
         initBallY = -0.02;
     }
@@ -249,10 +249,10 @@ export default class Base {
      * @param vals {array} Array of values that  needed to be equally distributed
      * @return {array} array
      */
-    uniformArr(vals) {
+    uniformArr(vals, arrLength = maxRounds) {
         let arr = [];
         vals.forEach((v) => {
-            arr = arr.concat(Array(maxRounds / vals.length).fill(v));
+            arr = arr.concat(Array(arrLength / vals.length).fill(v));
 
         });
 
@@ -260,6 +260,14 @@ export default class Base {
 
     }
 
+
+    getTrajectoriesObstacles(obstructions,trajectoryParams){
+
+       let array =  obstructions.flatMap(  (obstruction) =>  this.uniformArr(trajectoryParams, maxRounds/obstructions.length).map((trajectory) => [trajectory,obstruction]));
+
+       return Utils.shuffle(array);
+
+    }
 
 
     stop() {
@@ -366,7 +374,7 @@ export default class Base {
      */
     get Utils() {
 
-        return Utils;
+        return  Utils;
     }
 
 
@@ -406,7 +414,7 @@ export default class Base {
         urlArr.forEach(
             url =>{
                 let img = new Image();
-                img.src = url;
+                img.src = this.context.baseDir+url;
                 imgArr.push(img);
             }
 
@@ -425,7 +433,7 @@ export default class Base {
         urlArr.forEach(
             url =>{
                 let audio = new Audio();
-                audio.src = url;
+                audio.src = this.context.baseDir+url;
                 audio.load();
                 audioArr.push(audio);
             }
@@ -804,7 +812,7 @@ export default class Base {
     /**
      * Increment current position cursor by movementY value (difference in y coordinate between the given event and the
      * previous mousemove event )
-     * Check initial cursor position, if the positio is lower then low paddle box border, stop t\
+     * Check initial cursor position, if the position is lower then low paddle box border, stop t\
      * mouse pointer updates.
      * @method onMouseMove
      * @param e {Event} currrent mouse event

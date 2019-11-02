@@ -12,6 +12,7 @@
 
 let SCALE = 420;
 
+
 export default class Utils{
 
     static get  frameRate() {  return 1 / 200; } // Seconds
@@ -27,9 +28,10 @@ export default class Utils{
 
 
 
+
     //Sound Resources
-    static get  bucketImageResource() {return 'https://piproject.s3.us-east-2.amazonaws.com/Resources/images/';}
-    static get  bucketSoundResources() {return 'https://piproject.s3.us-east-2.amazonaws.com/Resources/sounds/';}
+    static get  bucketImageResource() {return '/Resources/images/';}
+    static get  bucketSoundResources() {return '/Resources/sounds/';}
     static get  bouncingSound() {return this.bucketSoundResources + 'BallBouncing.mp3';}
     static get  rattleSound() {return this.bucketSoundResources + 'rattling_sound.mp3';}
     static get  doorbellSound() {return this.bucketSoundResources + 'doorbell.mp3';}
@@ -95,8 +97,8 @@ export default class Utils{
 
     // Brick smasher Images
     static get paddleImage() {return this.bucketImageResource + 'Paddle1.png';}
-    static get wallInitial() {return this.bucketImageResource + 'BricksWall_button.png';}
-    static get wallMissed() {return this.bucketImageResource + 'BricksWall_button_fallen.png';}
+    static get wallInitial() {return this.bucketImageResource + 'BricksWall_button2.png';}
+    static get wallMissed() {return this.bucketImageResource + 'BricksWall_button_fallen2.png';}
     static get basketBalls() {return this.bucketImageResource + 'BasketballsPile2.png';}
     static get basketBall() {return this.bucketImageResource + 'basketball.png';}
     static get tokenImage() {return this.bucketImageResource + 'coin.png';}
