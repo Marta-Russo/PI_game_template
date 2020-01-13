@@ -81,13 +81,25 @@ export default class DiscreteBounce extends PaddleGames {
      * @method init
      */
     init() {
-        document.addEventListener("mousemove", super.onMouseMove);
+        super.paddle = {
+            positions:[],
+            times:[],
+            velocity: super.Utils.paddleSpeed,
+            position:{
+                y: 0,
+                x:0
+            },
+            paddleLastMovedMillis: 0
+        };
+
+
 
         if(this.context.trialType === 'demo'){
             hArray =   this.context.demoTrajectories;
         }else{
             hArray = super.generateHeights();
         }
+
 
 
 
@@ -130,7 +142,9 @@ export default class DiscreteBounce extends PaddleGames {
 
         sounds[gameSound.START].addEventListener('canplaythrough', this.initGame(), false);
         sounds[gameSound.START].addEventListener('playing', super.onSoundEvent);
+        document.addEventListener("mousemove", super.onMouseMove);
         super.init();
+
     }
 
 
@@ -183,7 +197,7 @@ export default class DiscreteBounce extends PaddleGames {
 
         if (super.ball.state === 'start') {
             super.moveBallToStart( images[gameImage.BALL]);
-            if (super.gameState.initialTime > 0 && super.isOutsideBox(super.paddle.dimensions.height*7)) {
+            if (super.gameState.initialTime > 0 && super.isOutsideBox(7)) {
                 super.gameState.initialTime = 0;
                 sounds[gameSound.START].pause();
                 sounds[gameSound.START].currentTime = 0;
@@ -210,7 +224,7 @@ export default class DiscreteBounce extends PaddleGames {
                 super.trajectory();
             }
 
-            if (super.gameState.initialTime > 0 && super.ballIsOnFloor()) {
+            if (super.gameState.initialTime > 0 && super.ballIsOnFloor(super.paddleBox.position.y + super.paddleBox.dimensions.height)) {
                 super.ball.state = 'hit';
             }
             super.drawBall(images[gameImage.BALL]);
@@ -256,6 +270,10 @@ export default class DiscreteBounce extends PaddleGames {
             } else if (super.ball.hitstate === 'good') {
                 super.drawImageObject(target, images[gameImage.WALL_MISSED]);
                 super.drawImageObject(bricks, images[gameImage.BRICKS_SMALL]);
+
+            }else if(super.ball.hitstate === 'bounce'){
+                    super.drawBall(images[gameImage.BALL]);
+                    super.drawImageObject(target, images[gameImage.WALL_INITIAL]);
             } else {
                 super.drawImageObject(target, images[gameImage.WALL_INITIAL]);
             }
@@ -301,6 +319,8 @@ export default class DiscreteBounce extends PaddleGames {
     }
 
 
+
+
     /**
      *
      * Handle paddle collision here
@@ -334,6 +354,7 @@ export default class DiscreteBounce extends PaddleGames {
 
 
                 super.ball.state = 'bounce';
+                super.ball.hitstate = 'bounce';
                 // Update initial position of ball according to trajectory to prevent possible gap
                 this.bounceTrajectory();
             }
@@ -464,8 +485,22 @@ export default class DiscreteBounce extends PaddleGames {
         this.paddleBoxParameters();
         jitterT = super.trialStartTime();
         super.ballObject();
-        super.paddle.times = [];
-        super.paddle.positions = [];
+        super.paddleObject();
+        super.paddle = {
+            positions:[],
+            times:[],
+            dimensions: {
+               height: 0,
+               width:0
+            },
+            position: {
+                x:0,
+                y:0
+            },
+            time: 0,
+            velocity: super.Utils.paddleSpeed,
+            paddleLastMovedMillis: 0
+        };
 
         token.dimensions = {width: 0.21 * super.Utils.SCALE, height: 0.2 * super.Utils.SCALE};
         //For first trial wait for paddle to start in Box position, make sure the paddle is not moved
@@ -475,6 +510,26 @@ export default class DiscreteBounce extends PaddleGames {
 
         super.initGame();
 
+    }
+
+
+    /**
+     * Get ball state as number
+     *  0: no bounce, 1:bounce but ball does not hit any wall , 2: hit on gray wall, 3: breaks first layer of brick, 4:
+     * @returns {number}
+     */
+    ballState() {
+        let ballState = 0;
+        if (super.ball.hitstate === 'good') {
+            ballState = 3;
+        } else if (super.ball.hitstate === 'very good') {
+            ballState = 4;
+        }else if (super.ball.hitstate === 'bounce'){
+            ballState = 1;
+        }else if (super.ball.hitstate === 'hit'){
+            ballState = 2;
+        }
+        return ballState;
     }
 
 
@@ -498,8 +553,8 @@ export default class DiscreteBounce extends PaddleGames {
                 paddle_timestamp: super.paddle.time,
                 trial: super.currentRounds,
                 trialType: this.context.trialType,
-                feedback: super.ballState(),
-                scale: super.Utils.scale,
+                feedback: this.ballState(),
+                scale: super.Utils.SCALE.toFixed(1),
                 window_height: screen.height,
                 window_width: screen.width,
                 timestamp: super.getElapsedTime()
