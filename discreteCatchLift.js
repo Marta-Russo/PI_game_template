@@ -171,6 +171,9 @@ export default class DiscreteCatchLift extends PaddleGames {
                 trialType: this.context.trialType,
                 mice_state: target.state,
                 paddle_timestamp: super.paddle.time,
+                scale: super.Utils.scale,
+                window_height: screen.height,
+                window_width: screen.width,
                 timestamp: super.getElapsedTime()
 
             };

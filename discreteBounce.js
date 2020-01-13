@@ -499,6 +499,9 @@ export default class DiscreteBounce extends PaddleGames {
                 trial: super.currentRounds,
                 trialType: this.context.trialType,
                 feedback: super.ballState(),
+                scale: super.Utils.scale,
+                window_height: screen.height,
+                window_width: screen.width,
                 timestamp: super.getElapsedTime()
 
             };
