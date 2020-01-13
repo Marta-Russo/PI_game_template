@@ -515,8 +515,7 @@ export default class DiscreteBounce extends PaddleGames {
 
     /**
      * Get ball state as number
-     *  0: no bounce, 1:bounce but ball does not hit any wall , 2: hit on gray wall, 3: breaks first layer of brick, 4:
-     * @returns {number}
+     * @returns {number}  0: no bounce, 1:bounce but ball does not hit any wall , 2: hit on gray wall, 3: breaks first layer of brick,4: hit on the red button (bigger coin is displayed)
      */
     ballState() {
         let ballState = 0;
