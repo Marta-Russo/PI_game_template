@@ -533,13 +533,13 @@ export default class Base {
 
     convertYvalue(val){
 
-        return (this.canvas.height - val)/this.canvas.height;
+        return (this.canvas.height - val)/Utils.SCALE;
 
     }
 
     convertXvalue(val){
 
-        return val/this.canvas.width;
+        return val/Utils.SCALE;
 
     }
 
