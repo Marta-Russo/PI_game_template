@@ -65,7 +65,6 @@ export default class Base {
         this.canvas.requestPointerLock =  this.canvas.requestPointerLock || this.canvas.mozRequestPointerLock || this.canvas.webkitRequestPointerLock;
         this.canvas.requestPointerLock();
         this.calculateCanvas();
-        this.paddleBoxParameters();
         this.ballObject();
         this.currentRounds = 0;
         maxRounds = this.context.trialsNumber;
@@ -87,6 +86,7 @@ export default class Base {
         };
 
     }
+
 
 
 
@@ -496,7 +496,6 @@ export default class Base {
 
 
 
-
     /**
      * Create initial ball object with state parameters for all games
      * Initial state is always 'start' for each game trial
@@ -533,13 +532,13 @@ export default class Base {
 
     convertYvalue(val){
 
-        return (this.canvas.height - val)/Utils.SCALE;
+        return ((this.canvas.height - val)/Utils.SCALE).toFixed(3);
 
     }
 
     convertXvalue(val){
 
-        return val/Utils.SCALE;
+        return (val/Utils.SCALE).toFixed(3);
 
     }
 
@@ -636,9 +635,9 @@ export default class Base {
      * number}}
      * @return {boolean}
      */
-    ballIsOnFloor(){
+    ballIsOnFloor(down=Utils.paddleBoxValues.down){
 
-        return ball.position.y > paddleBox.position.y + paddleBox.dimensions.height - 0.048 * Utils.SCALE;
+        return ball.position.y >  down  - 0.048 * Utils.SCALE;
     }
 
 

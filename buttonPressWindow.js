@@ -209,10 +209,10 @@ export default class ButtonPressWindow extends Base {
                 trialType: this.context.trialType,
                 timestamp: super.getElapsedTime(),
                 feedback: super.ballState(),
-                scale: super.Utils.scale,
+                scale: super.Utils.SCALE.toFixed(1),
                 window_height: screen.height,
                 window_width: screen.width,
-                target_position: TARGETX
+                target_position: TARGETX.toFixed(3)
 
             };
 
