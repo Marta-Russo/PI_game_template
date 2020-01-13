@@ -30,8 +30,8 @@ export default class Utils{
 
 
     //Sound Resources
-    static get  bucketImageResource() {return '/Resources/images/';}
-    static get  bucketSoundResources() {return '/Resources/sounds/';}
+    static get  bucketImageResource(){return '/Resources/images/';}
+    static get  bucketSoundResources(){return '/Resources/sounds/';}
     static get  bouncingSound() {return this.bucketSoundResources + 'BallBouncing.mp3';}
     static get  rattleSound() {return this.bucketSoundResources + 'rattling_sound.mp3';}
     static get  doorbellSound() {return this.bucketSoundResources + 'doorbell.mp3';}
@@ -74,7 +74,8 @@ export default class Utils{
     static get  monsterGrowl(){return this.bucketSoundResources + 'Monster_growl.mp3';}
 
 
-
+    //Space Junk Sounds
+    static get  catchSeries(){return this.bucketSoundResources + 'catch_series.mp3';}
 
 
     //Image Resources
@@ -242,6 +243,7 @@ export default class Utils{
 
         return array;
     }
+
 
 
 }
