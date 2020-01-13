@@ -191,8 +191,10 @@ export default class PaddleGames extends Base {
     }
 
 
-    isOutsideBox(paddleHeight = paddle.dimensions.height) {
-        return paddle.position.y < paddleBox.position.y - paddleBox.dimensions.height + paddleHeight;
+    isOutsideBox(paddleHeight = 1) {
+
+        return paddle.position.y < paddleBox.position.y - paddleBox.dimensions.height + paddle.dimensions.height * paddleHeight;
+
     }
 
 
@@ -229,28 +231,16 @@ export default class PaddleGames extends Base {
     }
 
     paddleBoxParameters() {
-        let leftBorder = (1.2035) * super.Utils.SCALE;
-        let topBorder = (1.3671) * super.Utils.SCALE;
-        let rightBorder = (1.4585) * super.Utils.SCALE;
-        let downBorder = (1.5671) * super.Utils.SCALE;
+        let leftBorder = super.Utils.paddleBoxValues.left;
+        let topBorder = super.Utils.paddleBoxValues.top;
+        let rightBorder = super.Utils.paddleBoxValues.right;
+        let downBorder = super.Utils.paddleBoxValues.down;
         paddleBox.position.x = leftBorder;
         paddleBox.position.y = topBorder;
         paddleBox.dimensions.width = rightBorder - leftBorder;
         paddleBox.dimensions.height = downBorder - topBorder;
     }
 
-
-    /**
-     * Check if ball is on the floor and missed target
-     * @method ballIsOnFloor
-     * @param ball {position: {x: number, y: number}, radius: number, dimensions: {width: number, height:
-     * number}}
-     * @return {boolean}
-     */
-    ballIsOnFloor(){
-
-        return super.ball.position.y > paddleBox.position.y + paddleBox.dimensions.height - 0.048 * super.Utils.SCALE;
-    }
 
 
 
@@ -263,20 +253,21 @@ export default class PaddleGames extends Base {
      * @method onMouseMove
      * @param e {Event} current mouse event
      */
-    onMouseMove(e){
+    onMouseMove(e) {
 
-        let border = paddleBox.position.y+paddleBox.dimensions.height - paddle.dimensions.height;
-        mouseY += e.movementY;
-        //Check for down border
-        if(mouseY  > border && e.movementY >0){
-            mouseY =  border;
-        }
+            let border = paddleBox.position.y + paddleBox.dimensions.height - paddle.dimensions.height;
+            mouseY += e.movementY;
+            //Check for down border
+            if (mouseY > border && e.movementY > 0) {
+                mouseY = border;
+            }
 
-        //Check for upper border
-        if(mouseY < paddle.dimensions.height){
-            mouseY =  paddle.dimensions.height;
+            //Check for upper border
+            if (mouseY < paddle.dimensions.height) {
+                mouseY = paddle.dimensions.height;
 
-        }
+            }
+
 
     }
 
