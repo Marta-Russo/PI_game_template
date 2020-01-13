@@ -11,12 +11,12 @@
                     "formSchema": {
                         "schema": {
                             "type": "object",
-                            "title": "Are you from spark?",
+                            "title": "Did you hear about this study through <a href=\"https://sparkforautism.org/portal/page/about-spark/?utm_source=google&utm_medium=cpc&utm_term=spark%20for%20autism&utm_campaign=g-us-search-brand-trademark-exact&utm_content=338394345769&gclid=Cj0KCQiA_rfvBRCPARIsANlV66Oh0hh-ELXWFAzEKYT3ti0613GEEeayc9culAYwe8XAbRJ9TzkgrA0aAt_BEALw_wcB\" target=\"_blank\">SPARK</a> (a research registry for people with autism and their families)?",
                             "properties": {
                                 "spark": {
                                     "enum": [
-                                        "Yes",
-                                        "No"
+                                        "No, I heard about it through a website, social media, e-mail list or another source (i.e. not through SPARK)",
+                                        "Yes, I was notified about this study because I am a participant in SPARK."
                                     ],
                                     "type": "string",
                                     "required": true
@@ -37,6 +37,70 @@
 
                 },
 
+
+                {
+                    
+                    "kind": "exp-lookit-survey",
+                    "formSchema": {
+                        "schema": {
+                            "type": "object",
+                            "title": "Does your child have a diagnosis of autism spectrum disorder, Asperger’s syndrome, or PDD-NOS?",
+                            "properties": {
+                                "diagnosis": {
+                                    "enum": [
+                                        "Yes",
+                                        "No"
+                                    ],
+                                    "type": "string",
+                                    "required": true
+                                }
+                            }
+                        },
+                        "options": {
+                            "fields": {
+                                "diagnosis": {
+                                    "type": "radio",
+                                    "message": "Please answer this question.",
+                                    "validator": "required-field"
+                                }
+                            }
+                        }
+                    },
+                    "showPreviousButton": false
+
+                },
+                
+                {
+                    "kind": "exp-lookit-survey",
+                    "formSchema": {
+                        "schema": {
+                            "type": "object",
+                            "title": "What is your child’s sex?",
+                            "properties": {
+                                "sex": {
+                                    "enum": [
+                                        "Female",
+                                        "Male",
+                                        "Other"
+                                    ],
+                                    "type": "string",
+                                    "required": true
+                                }
+                            }
+                        },
+                        "options": {
+                            "fields": {
+                                "sex": {
+                                    "type": "radio",
+                                    "message": "Please answer this question.",
+                                    "validator": "required-field"
+                                }
+                            }
+                        }
+                    },
+                    "showPreviousButton": false
+                    
+                },
 
                 {
                     "kind": "exp-lookit-survey",
@@ -204,10 +268,11 @@
                             "type": "object",
                             "title": "Does the biological mother of your child have diabetes? ",
                             "properties": {
-                                "q1": {
+                                "q1": {  
                                     "enum": [
                                         "Yes",
-                                        "No"
+                                        "No",
+                                        "unknown"
                                     ],
                                     "type": "string",
                                     "required": true
@@ -514,13 +579,14 @@
                     "formSchema": {
                         "schema": {
                             "type": "object",
-                            "title": "Thank you. No payment. Still want to play ?",
+                            "title": "",
                             "properties": {
                                 "want_to_play": {
                                     "enum": [
                                         "Yes",
                                         "No"
                                     ],
+                                    "title" : "Thank you for completing these questions. <br> At this time, we are not enrolling participants with your teen’s profile.  If your teen wants to, they can still play the games. Your data will not be used for research. Your data may be used to inform study design. However, we are unable to provide compensation for playing the games in this case. <br> Do you still want your teen to play the games?",
                                     "type": "string",
                                     "required": true
                                 }
@@ -542,26 +608,56 @@
              
             ],
             "commonFrameProperties": {
-                "selectNextFrame": "function(frames, frameIndex, frameData, expData, sequence, child, pastSessions) { var goodByePageIndex = frames.length-1;var wantToPlayPageIndex = frames.indexOf(frames.filter((it)=> it.id == '5-question-block' )[0]) +  (frames.filter((it)=> it.id == '5-question-block' )[0].frameOptions.length) ; var childAssentPageIndex = frames.indexOf(frames.filter((it)=> it.id == '6-children-assent' )[0]);var gameIntroPageIndex = frames.indexOf(frames.filter((it)=> it.id == '7-intro-group' )[0]);  var data = frameData.formData;  if (typeof(data) !== 'undefined' && typeof(data.q1) !== 'undefined' && data.q1 == 'Yes') {  return  wantToPlayPageIndex; }else if(typeof(data.readingAbilities)!== undefined && data.readingAbilities == 'No'){return wantToPlayPageIndex;} else if(typeof(data.lastNTq) !== 'undefined' &&  data.lastNTq == 'No'){ return childAssentPageIndex; } else if(typeof(data.want_to_play) !== 'undefined' &&  data.want_to_play == 'Yes'){ return gameIntroPageIndex; } else if(typeof(data.want_to_play) !== 'undefined' &&  data.want_to_play == 'No'){ return goodByePageIndex; } else if(typeof(data.spark) !== 'undefined' &&  data.spark == 'Yes'){return  childAssentPageIndex;} else {return  frameIndex+1;}}",
+                "selectNextFrame": "function(frames, frameIndex, frameData, expData, sequence, child, pastSessions) { var gotosparkPageIndex = frames.length-2; var goodByePageIndex = frames.length-1;var wantToPlayPageIndex = frames.indexOf(frames.filter((it)=> it.id == '5-question-block' )[0]) +  (frames.filter((it)=> it.id == '5-question-block' )[0].frameOptions.length) ; var childAssentPageIndex = frames.indexOf(frames.filter((it)=> it.id == '6-children-assent' )[0]);var gameIntroPageIndex = frames.indexOf(frames.filter((it)=> it.id == '7-intro-games-group' )[0]);  var data = frameData.formData;  if (typeof(data) !== 'undefined' && typeof(data.q1) !== 'undefined' && data.q1 == 'Yes') {  return  wantToPlayPageIndex; }else if(typeof(data.readingAbilities)!== undefined && data.readingAbilities == 'No'){return wantToPlayPageIndex;} else if(typeof(data.lastNTq) !== 'undefined' &&  data.lastNTq == 'No'){ return childAssentPageIndex; } else if(typeof(data.want_to_play) !== 'undefined' &&  data.want_to_play == 'Yes'){ return gameIntroPageIndex; }else if(typeof(data.diagnosis) !== 'undefined' &&  data.diagnosis == 'Yes'){ return gotosparkPageIndex; } else if(typeof(data.want_to_play) !== 'undefined' &&  data.want_to_play == 'No'){ return goodByePageIndex; } else if(typeof(data.spark) !== 'undefined' &&  data.spark === 'Yes, I was notified about this study because I am a participant in SPARK.'){return  childAssentPageIndex;} else {return  frameIndex+1;}}",
                 "generateProperties": "function(expData, sequence, child, pastSessions) {var data = expData['5-question-block'].formData;     if (typeof(data) !== 'undefined' && typeof(data.q1) !== 'undefined' && data.q1 == 'Yes') { console.log('eligible'); return { 'ELIGIBLE': true };}  else { console.log('ineligible'); return {  'ELIGIBLE': false } } }"
             }
         
     },
 
-              "intro":  {
+              "intro-study":  {
 
-                    "kind": "exp-lookit-text",
+                    "kind": "exp-lookit-instructions",
+                    "title": "",
                     "blocks": [
                         {
-                            "emph": true,
-                            "text": "Welcome page"
+                            "text": "",
+                            "image": {
+                                "alt": "logo",
+                                "src": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/instructions/logo.png"
+                            },
+                            "title": ""
                         },
                         {
-                            "text": "Some intro text .... "
+                            "emph": true,
+                            "text": "Welcome to PAIRS!"
+                        },
+                        {
+                            "text": "This study is part of an ongoing collaborative research between the Action Lab at Northeastern University and the Sinha Lab at MIT, in Boston. For more detailed information about what to expect from this study and who can participate, you can visit the <a href=\"http://staging-lookit.cos.io\" target=\"_blank\">PAIRS website.</a>"
+                        },
+                        {
+                            "text" : "You will be asked to complete the following:"
+                            
+                        },
+                        {
+                            "text" : "1) Parent completes a video consent form and answers some questions (parent only, ~15 min.) to determine eligibility;"
+                        },
+                        {
+
+                            "text":"2) If eligible, teen completes a video assent form and then plays engaging computer games (~30 min.) during a time when they are able to focus without interruption. The parent must be present (in the same room) when the teen plays the games. The parent may not help the teen play the games.  Different children in the family can participate if they are between ages 12-17 years. Participation is completely voluntary, and you can stop at any time if you decide you no longer want to do the study. "
+                        },
+                        {
+                            "text":"To play the games, the teen will be asked to read or listen to some instructions, practice the games, and then play them independently, while your parent stays in the room. The games will ask the teen to catch, bounce, or watch a moving object on the screen. The teen will need to press a button or move the mouse/touchpad cursor to play the game. "
+
+                        },
+                        {
+                            "text": "If eligible, and you and your teen complete the study, you will receive compensation in the form of a $10 Amazon gift card. The card code will be sent to the e-mail address that you provided upon signing up for Lookit. You might not be selected for the study, but if your teen wants to, they can still play the games. However, if your teen is not eligible for the study, we are unable to provide compensation for playing the games. "
+
                         }
+                      
                     ],
                     "showNextButton": true,
-                    "showPreviousButton": false
+                    "showPreviousButton": false,
+                    "nextButtonText": "Next"
                     
 
                 },
@@ -575,28 +671,174 @@
             "blocks": [
                 {
                     "emph": true,
-                    "text": "Goodbye"
+                    "text": "Goodbye!"
+                },
+                {
+                    "text": "Thank you for your interest in our research. You may close your browser window to exit or click on the Lookit logo to see if there are other studies that might be a fit for your teen."
                 }
             ],
             "showNextButton": false,
-            "showPreviousButton": false
+            "showPreviousButton": false,
+            "nextButtonText": "Finish"
 
-        },                
+        },     
+        
+        "thank-you":  {
+
+            "kind": "exp-lookit-text",
+            "blocks": [
+                {
+                    "emph": true,
+                    "text": "Thank you!"
+                },
+                {
+                    "text": "Thank you for participating in PAIRS! We hope you enjoyed the games. You will receive an e-mail in the next two weeks with your gift card code. If you have any concerns, you may e-mail the study team at <a href=\"mailto:pairs@mit.edu\"> pairs@mit.edu </a>"
+                }
+            ],
+            "showNextButton": false,
+            "showPreviousButton": false,
+            "nextButtonText": "Finish",
+            "selectNextFrame": "function(frames, frameIndex, frameData, expData, sequence, child, pastSessions) {return frames.length - 3;}"
+
+        },  
+
+
+        "goto-spark":{
+                    
+            "kind": "exp-lookit-text",
+            "blocks": [
+                {
+                    "emph": true,
+                    "text": "Thank you for completing these questions."
+                },
+                {
+                    "text": "If you would like to participate in this and other autism studies, you are invited to visit the <a href=\"https://sparkforautism.org/registration/account_information/#no-back-button\" target=\"_blank\">SPARK</a> website to learn about research studies. At this time, we are not able to enroll participants with autism who are not yet registered in SPARK. Thank you for your understanding."
+                }
+        
+            ],
+            "showPreviousButton": false,
+            "showNextButton": false
+        },
 
 
         "children-assent":  {
 
-                "kind": "exp-lookit-video-consent",
-                "template": "consent_002",
-                "PIName": "Dagmar Sternad",
-                "institution": "Northeastern University",
-                "PIContact": "Dagmar Sternad at 123 456 7890",
-                "purpose": "Some purpose. Child assent ...",
-                "procedures": "Procedures ... ",
-                "payment": "Payment info ...",
-                "datause": "Date use description...",
-                "gdpr": false,
-                "research_rights_statement": "You are not waiving any legal claims, rights or remedies because of your participation in this research study.  If you feel you have been treated unfairly, or you have questions regarding your rights as a research subject, you may contact the Chairman of the Committee on the Use of Humans as Experimental Subjects, M.I.T., Room E25-143B, 77 Massachusetts Ave, Cambridge, MA 02139, phone 1-617-253 6787.",
+                "kind": "exp-lookit-video-assent",
+                "displayFullscreenOverride": true,
+                "baseDir": "https://piproject.s3.us-east-2.amazonaws.com/Resources/images/assent/",
+                "participationQuestion": "Do you want to participate in this study?",
+                "pages": [   
+                    {
+                    "imgSrc": "1.png",
+                    "altText": "image",
+                    "textBlocks": [
+                        {
+                            "text": "Hello! Our names are Dagmar Sternad and Pawan Sinha. We are scientists in Boston, Massachusetts. We study how children and teens move and learn."
+                        }
+                    ],
+                    "audio": ""
+
+                },
+                {
+                    "imgSrc": "2.png",
+                    "altText": "image",
+                    "textBlocks": [
+                        {
+                            "text": "We are asking you to take part in a research study because we are trying to learn more about how real kids like you learn to play different games on a computer."
+                        }
+                    ],
+                    "audio": ""
+                    
+                },
+             
+                {
+
+                    "imgSrc": "3.png",
+                    "altText": "image",
+                    "textBlocks": [
+                        {
+                            "text": "If you agree to be in this study, you will be asked to read or listen to some instructions, practice the games, and then play them on your computer at home, while your parent stays in the room with you. In the games we will ask you to catch, bounce, or watch a moving object on the screen. You will also need to press a button or move your mouse/touchpad cursor to play the game."
+                        }
+                    ],
+                    "audio": ""
+
+                },
+
+                {
+
+                    "imgSrc": "4.png",
+                    "altText": "image",
+                    "textBlocks": [
+                        {
+                            "text": "Some of the games might be easy for you, and some might be hard. The most important thing is to try to do your best in all of the games."
+                        }
+                    ],
+                    "audio": ""
+
+                },
+                {
+                    "imgSrc": "5.png",
+                    "altText": "image",
+                    "textBlocks": [
+                        {
+                            "text": "During the games, you will be recorded from your computer's webcam and microphone. Video recordings are sent to the researches. At the end of the games, you will be prompted to choose a privacy level for your video recordings. You will have the option to withdraw your video from the study at this time. No video clips will be published or shared unless you allow it after playing the games."
+                        }
+                    ],
+                    "audio": ""
+
+                },
+
+                {
+                    "imgSrc": "6.png",
+                    "altText": "image",
+                    "textBlocks": [
+                        {
+                            "text": "After you are done, you will earn a gift certificate to thank you for being in the study ."
+                        }
+                    ],
+                    "audio": ""
+
+                },
+
+                {
+                    "imgSrc": "7.png",
+                    "altText": "image",
+                    "textBlocks": [
+                        {
+                            "text": "You can talk to your parent/caregiver before you decide if you want to do the study. We will also ask your parents if it is okay for yo u to do this study. But even if your parents say “yes” you can still decide not to do it."
+                        }
+                    ],
+                    "audio": ""
+
+                },
+
+                {
+                    "imgSrc": "8.png",
+                    "altText": "image",
+                    "textBlocks": [
+                        {
+                            "text": "If you don’t want to be in this study, you don’t have to participate. Remember, being in this study is you r choice and no one will be upset if you don’t want to , even if you change your mind later and want to stop."
+                        }
+                    ],
+                    "audio": ""
+
+                },
+
+                {
+                    "imgSrc": "9.png",
+                    "altText": "image",
+                    "textBlocks": [
+                        {
+                            "text": "You can ask your parent/caregiver any questions that you have about the study now. If you have a question later that you didn’t think of now, you can e - mail our Study Coordinator at pairs@mit.edu . You can also call the Chairman of the Committee on the Use of Humans as Experimental Subjects at M.I.T. at 1 - 617 - 253 6787 if you feel you have been treated unfairly."
+                        }
+                    ],
+                    "audio": ""
+
+                }
+            
+            ],
+
+
                 "showPreviousButton": false
         },
 
@@ -605,14 +847,15 @@
         "parent-consent": {
             "showPreviousButton": false,
             "kind": "exp-lookit-video-consent",
-            "template": "consent_002",
+            "template": "consent_003",
             "PIName": "Dagmar Sternad",
             "institution": "Northeastern University",
-            "PIContact": "Dagmar Sternad at 123 456 7890",
-            "purpose": "Purose for study, parent consent ...",
-            "procedures": "Procedures ... ",
-            "payment": "Payment info ...",
-            "datause": "Date use description...",
+            "participation": "You and your child are free to choose whether to be in this study. If you and your child choose to participate, it’s okay to stop at any point during the session. Please do pause or stop the session if your child is unable to continue or no longer wants to participate! If this is a study with multiple sessions, it’s okay not to complete all the sessions.",
+            "PIContact": "Prof. Sternad at d.sternad@northeastern.edu or 617-373-5093.",
+            "purpose": "The goal of this study is to assess predictive abilities in children and teens using virtual games in a web - based testing platform. The study will investigate whether children with a diagnosis of autism spectrum disorder perform differently than children who are typically developing in activities that involve catching, bouncing, or reacting to a moving object.",
+            "procedures": "First, you will be asked to complete a brief questionnaire about your child’s health and development to determine if he/she is eligible for this study. If your child is not eligible, they will still have the opportunity to play the games if desired; in this case their data would not be used. However, we are unable to provide compensation for those individuals who are ineligible for the study. If your child is eligible, your child may be asked to participate in up to five games that test their abilities to interact with moving objects. These games are deployed online, so children can play them at home with a parent. We ask that you stay in the room while your child completes the games. We also ask that you do not help them play by making suggestions, reacting to their performance, discussing strategy, or demonstrating the games. It does not matter how well your child does each task; it is more important that he/she tries his/her best. We will help your child understand the tasks by showing them pictures, demonstrating, and asking them to practice the tasks briefly. The game session lasts approximately 30 minutes. You can also opt to participate in a second optional follow - up session within a week of your initial participation, to help us learn how children perform a while after learning the games. The second session is not required in order to be eligible to participate in the first session .",
+            "payment": "Your child will receive compensation valued at $10 for each game session that they complete (up to two visits per child). There are no additional benefits anticipated to you or your child for participation in this research study.",
+            "datause": "The research group led by Pawan Sinha, PhD at Massachusetts Institute of Technology and Dagmar Sternad, PhD at Northeastern University will have access to video and other data collected during this session. We will also have access to your Lookit account profile, demographic survey, and the child profile for the child who is participating, including changes you make in the future to any of this information. For those individuals who participated in the SPARK part of this study, we are asking your consent for the SPARK study, hosted by the Simons Foundation, to share with Massachusetts Institute of Technology and Northeastern University researchers the clinical, demographic and genetic data collected during your participation in SPARK. This information will be shared using your linked research ID number and using a secure transfer system. We are also asking for your consent to share the data we collect during the web-based study at Massachusetts Institute of Technology and Northeastern University with SPARK, in order to add to the information that was collected during your participation in SPARK. Please note that because you are a participant in both studies, SPARK and this study will be able to share and link your identifying information as well as any future data you may contribute to either project. The Simons Foundation funds innovative research and provides coded data access (data with your identifying information removed) to qualified researchers. Researchers can file an application with the Simons Foundation to obtain access to your study data for research purposes. Experts at the Simons Foundation who protect health and science information will look at every request carefully to minimize risks to your privacy.",
             "gdpr": false,
             "research_rights_statement": "You are not waiving any legal claims, rights or remedies because of your participation in this research study.  If you feel you have been treated unfairly, or you have questions regarding your rights as a research subject, you may contact the Chairman of the Committee on the Use of Humans as Experimental Subjects, M.I.T., Room E25-143B, 77 Massachusetts Ave, Cambridge, MA 02139, phone 1-617-253 6787."
         },
@@ -625,14 +868,16 @@
                         "formSchema": {
                             "schema": {
                                 "type": "object",
-                                "title": "Are you using a mouse or trackpad ?",
+                                "title": "Settings",
                                 "properties": {
                                     "controllers": {
                                         "enum": [
                                             "Mouse",
                                             "Trackpad"
                                         ],
+                                        
                                         "type": "string",
+                                        "title": "<ul> <li>  Please make sure your computer or laptop is on a flat surface. Clear the area for the mouse or trackpad so that no objects interfere with your movement. </li>  <li>Set the browser window to the maximum size possible. To do this, press the “/maximize/” button at the top of your browser window. </li> <li> Are you using a mouse or trackpad? If you have both, please use the one you selected for the remainder of the study. </li></ul>  ",
                                         "required": true
                                     }
                                 }
@@ -655,8 +900,8 @@
                         "blocks": [
                                 {
 
-                                    "text": "Please check your audio settings. Play the audio file.",
-                                    "title": "Audio check.",
+                                    "text": "Please press the play button to test the audio. Adjust your computer’s volume setting to a comfortable level.<br>You won’t be able to adjust your volume settings afterwards. ",
+                                    "title": "Audio settings",
                                     "mediaBlock": {
                                         "text": "You should hear rattle sound",
                                         "isVideo": false,
@@ -680,38 +925,72 @@
                     },
 
                     "desktop-settings": {
-                        "kind": "exp-lookit-instructions",
-                        "showWebcam": true,
-                        "webcamBlocks": [
-                            {
-                                "title": "Plse adjust your web camera",
-                                "listblocks": [
-                                    {
-                                        "text": "Some instructions"
-                                    }
-                                ]
-                            }
-                        ],
+            
+            
+                            "kind": "exp-video-config-quality",
+                            "title": "Camera settings",
+                            "introText": "Position your camera so that it shows your entire face if possible. When your teen participates, you will have a chance to adjust the camera again. ",
+                            "requireItemConfirmation": true,
+                            "completedItemText": "Did it!",
+                            "instructionBlocks": [
+                                        {
+                                            "text": "<strong>Make sure the webcam you're using is roughly centered</strong> relative to this monitor. This makes it much easier for us to tell whether your child is looking to the left or right!",
+                                            "image": {
+                                                "src": "https://s3.amazonaws.com/lookitcontents/website/centering.png",
+                                                "alt": "Example images of using centered external webcam on monitor or built-in webcam on laptop."
+                                            }
+                                        },
+                                        {
+                                            "text": "<strong>Turn off any other monitors</strong> connected to your computer, besides the one with the centered webcam. (If there's just one monitor, you're all set!)",
+                                            "image": {
+                                                "src": "https://s3.amazonaws.com/lookitcontents/website/monitors.png",
+                                                "alt": "Example images showing laptop screen turned off if using external monitor and webcam, or external monitor turned off if using built-in webcam and laptop screen."
+                                            }
+                                        },
+                                        {
+                                            "text": "Check the lighting by making sure you can <strong>clearly see your own eyes</strong> on the webcam view to the right. You may need to either turn on a light or reduce light coming from behind you.",
+                                            "image": {
+                                                "src": "https://s3.amazonaws.com/lookitcontents/website/lighting.png",
+                                                "alt": "Example images showing good lighting, room too dark, and backlit scene where eyes are not visible."
+                                            }
+                                        },
+                                        {
+                                            "text": "If it's practical, <strong>minimize exciting things</strong> that are visible behind or to the side of the screen--for instance, by facing a wall instead of the kitchen. (If this isn't practical for you, don't worry about it--just check the box!)",
+                                            "image": {
+                                                "src": "https://s3.amazonaws.com/lookitcontents/website/distractions.png",
+                                                "alt": "Example images showing a child and puppy next to the computer, versus a computer just on its own."
+                                            }
+                                        }
+            
+                                    ],
+                                "requireTestVideo": true,
+                                "showRecordMenu": true,
+                                "recordingInstructionText": "You should be able to see your camera view above. You can create and view a short recording to see how your setup looks.",
+                        
                         "showNextButton": true,
                         "showPreviousButton": false,
                         "nextButtonText": "Next"
                     },
 
-                    "intro-group": {
+                    "intro-games-group": {
                         "kind": "group",
                         "frameList": [
                             {
                                 "id": "intro",
                                 "source": "/Resources/images/intro.png",
                                 "mediaSource": {
-                                    "src": "/Resources/sounds/instructions/intro.mp3",
-                                    "type": "audio/mp3"
+                                    "src": "/Resources/sounds/instructions/1.m4a",
+                                    "type": "audio/mp4"
                                 },
                                 "instructions": "You come across an abandoned arcade and you decide to enter. ",
                                 "showInstructions": true
                             },
                             {
                                 "id": "arcade-1",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/2.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/arcade_place.png",
                                 "instructions": "The door closes and locks behind you. To exit the arcade, you have to play five games. At the end of each game you will get to the next level. After the fifth game, the exit door will open. ",
                                 "showInstructions": true
@@ -720,6 +999,10 @@
             
                             {
                                 "id": "arcade-2",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/3.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/arcade_place.png",
                                 "instructions": "You might find some games easy and other games hard. The most important thing is to keep trying your best in each game and try to play until the end. Don’t worry if you don’t succeed at every try, just try your best. You might notice that the games are from a long time ago, so they are simpler than video games you might play now. ",
                                 "showInstructions": true
@@ -729,12 +1012,20 @@
                             {
                                 "id" : "map",
                                 "source": "/Resources/images/instructions/map.png",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/4.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "",
                                 "showInstructions": true
                             },
             
                             {
                                 "id" : "controls",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/5.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/controllers.png",
                                 "instructions": "To play the games, sometimes you will press buttons on your computer’s keyboard. Other times, you will use your mouse or trackpad.",
                                 "showInstructions": true
@@ -742,12 +1033,20 @@
                             },
                             {
                                 "id" : "instr",
-                                "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/6.m4a",
+                                    "type": "audio/mp4"
+                                },
+                                "source": "/Resources/images/instructions/Slide6.png",
                                 "instructions": "Before each game you will hear and see instructions to tell you how to play.  ",
                                 "showInstructions": true
                             },
                             {
                                 "id" : "researchers",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/7_Please_try_your_best.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/researchers.png",
                                 "instructions": "Please try your best to keep playing until the end of each game. This will help the scientists to have the same information from everyone who is doing this research study. Thanks for your help, and good luck playing!",
                                 "showInstructions": true
@@ -778,12 +1077,21 @@
                             {
                                 "id" : "map",
                                 "instructions": "Click on the START button to play the first game.",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/8_Click_on_the_start_button.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "showProgress": true,
+                                "fullscreen": true,
                                 "sourceButton": "/Resources/images/start_button.png"
             
                             },
                              {  
                                  "id" : "button-window-instr-1",
+                                 "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/9_A_fireworks_event.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/fireworks_1.png",
                                 "instructions": "A fireworks event is happening on a cloudy night. Your job is to try to set off each firework between the clouds so everyone can see the show. ",
                                 "showInstructions": true
@@ -791,6 +1099,10 @@
                             
                             {
                                 "id" : "button-window-instr-2",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/10_Each_firework.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/fireworks_2.png",
                                 "instructions": "Each firework will start in the box. You will hear a sound when the fuse starts to burn.",
                                 "showInstructions": true
@@ -798,6 +1110,10 @@
                     
                             {
                                 "id" : "button-window-instr-3",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/11_When_the_fuse_ends.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/fireworks_3.png",
                                 "instructions": "When the fuse ends, the firework will shoot into the air. ",
                                 "showInstructions": true
@@ -805,6 +1121,10 @@
                     
                             {
                                 "id" : "button-window-instr-4",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/12_When_you_press.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/fireworks_4.png",
                                 "instructions": "When you press the space bar, the firework will explode. Try to press  when the firework is between the clouds right at the star. ",
                                 "showInstructions": true
@@ -812,6 +1132,10 @@
                     
                             {
                                 "id" : "button-window-instr-5",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/13_If_you_explode_clouds.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/fireworks_5.png",
                                 "instructions": "If you explode the firework between the clouds, you will see a small display and hear an explosion sound.  ",
                                 "showInstructions": true
@@ -819,6 +1143,10 @@
                             
                             {
                                 "id" : "button-window-instr-6",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/14_If_you_explode_star.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/fireworks_6.png",
                                 "instructions": "If you explode it right at the star, you will see a bigger display and hear a bigger explosion. ",
                                 "showInstructions": true
@@ -827,12 +1155,20 @@
                                
                              {
                                 "id" : "button-window-instr-7",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/15_If_you_explode_too_low.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/fireworks_7.png",
                                 "instructions": "If you explode the firework too low or behind a cloud, there will be no explosion, but you will be able to see where it stopped.  ",
                                 "showInstructions": true
                             },
                             {    "id" : "watch-example",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/16_Now_watch_video.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Now watch a few examples to see the game. ",
                                 "showInstructions": true
                             },
@@ -849,6 +1185,10 @@
             
                             {   "id": "lets-practice",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/17_Lets_practice.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Let’s practice a few times. Remember, press the space bar to explode the firework. Try to explode it on the star between the clouds. ",
                                 "showInstructions": true
                             },
@@ -867,6 +1207,10 @@
                             {
                                 "id": "get-ready",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/18_Get_ready.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Get ready to play the game. Try to finish the level by exploding all of the fireworks. You will know you are finished when you see the map page again.  ",
                                 "showInstructions": true
             
@@ -877,6 +1221,10 @@
                             },
             
                             {    "id": "finish-game",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/19_Excellent_finished.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/finish_1.png",
                                 "instructions": "Excellent! You finished the level. ",
                                 "showInstructions": true
@@ -899,12 +1247,21 @@
                             {
                                 "id" : "map",
                                 "instructions": "Click on the START button to play the second game.",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/20_Click_start_2nd.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "showProgress": true,
+                                "fullscreen": true,
                                 "sourceButton": "/Resources/images/start_button.png"
             
                             },
                              {  
                                  "id" : "discrete-button-spatial-1",
+                                 "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/21_In_this_game_slime.m4a",
+                                    "type": "audio/mp4"
+                                },
                                  "source": "/Resources/images/instructions/slime_1.png",
                                  "instructions": "In this game, an alien is doing target practice by throwing slime balls into your spaceship. Your job is to open the door where the slime landed to get it out.  ",
                                  "showInstructions": true
@@ -912,6 +1269,10 @@
                             
                             {
                                 "id" : "discrete-button-spatial-2",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/22_You_will_hear_alien.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/slime_2.png",
                                 "instructions": " You will hear the alien growling. When she throws the slime, watch closely and choose the window where it landed.    ",
                                 "showInstructions": true
@@ -919,6 +1280,10 @@
                     
                             {
                                 "id" : "discrete-button-spatial-3",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/23_Press_button_keyboard.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/slime_3.png",
                                 "instructions": "Then, press the button on your keyboard that goes with the window you want to open: Y for yellow, G for Green or V for Violet.    ",
                                 "showInstructions": true
@@ -926,6 +1291,10 @@
                     
                             {
                                 "id" : "discrete-button-spatial-4",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/24_When_you_press_right.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/slime_4.png",
                                 "instructions": "When you press the button, the window you selected will open. If you select the right door, you will see the slime behind it.   ",
                                 "showInstructions": true
@@ -933,6 +1302,10 @@
                     
                             {
                                 "id" : "discrete-button-spatial-5",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/25_If_you_select_wrong.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/slime_5.png",
                                 "instructions": "If you select the wrong window, the window you chose will be empty and the slime will show up in the location where the alien really threw it.  ",
                                 "showInstructions": true
@@ -941,14 +1314,31 @@
                            
                             {    "id" : "watch-example",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/26_Now_watch_videos.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Now watch some examples of the game. Try to see if you can tell if the person playing was right or wrong. If they are right, the door that opens will have the slime in it.   ",
                                 "showInstructions": true
                             },
                     
+                            {
+                                "kind": "exp-lookit-games",
+                                "showVideo": true,
+                                "fullscreen": true,
+                                "mediaSource": {
+                                    "src": "/Resources/videos/mp4/SlimeQuestDemo.mp4",
+                                    "type": "video/mp4"
+                                }
+                            },
             
                             {
                                 "id": "lets-practice",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/27_Let’s_practice.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Let’s practice a few times. Remember, press the button that goes with the door you want to open: Y for yellow, G for Green or V for Violet. Try to get the slime out of your spaceship!   ",
                                 "showInstructions": true
             
@@ -974,6 +1364,10 @@
             
                             {   "id": "get-ready",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/28_Get_ready_whole_game.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Get ready to play the whole game. Try to finish the level by getting out as much slime as you can. You will know you are finished when you see the map page again. ",
                                 "showInstructions": true
                             },  
@@ -983,6 +1377,10 @@
                             },
                             {
                                 "id": "finish-game",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/29_Excellent_finished_2nd.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/finish_2.png",
                                 "instructions": "Excellent! You finished the second level. ",
                                 "showInstructions": true
@@ -1000,19 +1398,28 @@
                     },
             
             
-                    "game3-group": {
+                    "game5-group": {
                         "kind": "group",
                         "frameList": [
             
                             {
                                 "id" : "map",
                                 "instructions": "Click on the START button to play the third game.",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/31_Click_start_3rd.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "showProgress": true,
+                                "fullscreen": true,
                                 "sourceButton": "/Resources/images/start_button.png"
             
                             },
                              {
                                 "id" : "catch-instr-1",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/32_Game_trap_rat.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/pizza_1.png",
                                 "instructions": "In this game, your goal is to trap a rat before he eats your pizza. ",
                                 "showInstructions": true
@@ -1021,6 +1428,10 @@
                     
                             {
                                 "id" : "catch-instr-2",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/33_To_start_cage.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/pizza_2.png",
                                 "instructions": "To start, the cage needs to be inside the box. Use your mouse to move the cage up and down. The box will be red until you put the cage inside it. ",
                                 "showInstructions": true
@@ -1029,6 +1440,10 @@
                     
                              {
                                 "id" : "catch-instr-3",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/34_Drum_roll.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/pizza_3.png",
                                 "instructions": "You will hear a drum roll. Next, the rat will appear.  ",
                                 "showInstructions": true
@@ -1038,6 +1453,10 @@
                              {
                     
                                 "id" : "catch-instr-4",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/35_Move_cage.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/pizza_4.png",
                                 "instructions": "Move the cage to catch the rat. The faster you catch it, the more pizza you will have left. Remember, start with the cage in the box and do not lift the cage until the rat appears.   ",
                                 "showInstructions": true
@@ -1047,11 +1466,30 @@
                            
                             {    "id" : "watch-example",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/36_Video_examples.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Watch a few examples. See how much pizza survives each time!",
                                 "showInstructions": true
                             },
+            
+                            {
+                                "kind": "exp-lookit-games",
+                                "showVideo": true,
+                                "fullscreen": true,
+                                "mediaSource": {
+                                    "src": "/Resources/videos/mp4/PizzaSnatcherDemo.mp4",
+                                    "type": "video/mp4"
+                                }
+                            },
+            
                             {   "id": "lets-practice",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/37_Give_Try.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Give it a try. Remember, do not move the cage until the rat appears! ",
                                 "showInstructions": true
                             },
@@ -1078,6 +1516,10 @@
             
                             {   "id": "get-ready",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/38_Get_ready_play.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Get ready to play the game. Try to save as much pizza as you can! ",
                                 "showInstructions": true
                             },  
@@ -1086,36 +1528,52 @@
                                 "playGame": true,
                                 "trialsNumber": 20
                             },
-            
+
+
                             {
                                 "id": "finish-game",
-                                "source": "/Resources/images/instructions/finish_3.png",
-                                "instructions": "Excellent! You finished the third level.  ",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/63_Excellent_finished_last.m4a",
+                                    "type": "audio/mp4"
+                                },
+                                "source": "/Resources/images/instructions/finish_5.png",
+                                "instructions": "Excellent! You finished the last level. ",
                                 "showInstructions": true
                             }
+            
+                        
                         ],
             
                         "commonFrameProperties": {
                             "kind":  "exp-lookit-games",
                             "baseDir": "https://piproject.s3.us-east-2.amazonaws.com",
-                            "gameType": 2
+                            "gameType": 4
                         }
                         
                     },
             
-                    "game4-group": {
+                    "game3-group": {
                         "kind": "group",
                         "frameList": [
                             {
                                 "id" : "map",
                                 "instructions": "Click on the START button to play the fourth game.",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/40_Click_4th.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "showProgress": true,
+                                "fullscreen": true,
                                 "sourceButton": "/Resources/images/start_button.png"
             
                             },
             
                              {
                                 "id" : "robot-instr-1",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/41_In_game_robot_gears.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/robot_1.png",
                                 "instructions": "In this game, a robot will throw gears to you. You can use the gears to fix your broken spaceship.  ",
                                 "showInstructions": true
@@ -1123,6 +1581,10 @@
                             },
                            {
                                 "id" : "robot-instr-2",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/42_Use_Computer_mouse.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/robot_2.png",
                                 "instructions": "You will use your computer mouse to move a basket to catch the gears. The robot will throw the gears one at a time.  ",
                                 "showInstructions": true
@@ -1130,6 +1592,10 @@
                             },
                             {
                                 "id" : "robot-instr-3",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/43_Use_mouse_move_basket.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/robot_3.png",
                                 "instructions": "To start, use your mouse to move the basket into the box and keep it still. If your basket is not all the way in the box when you start, the box will turn red. Then, you will hear the robot make a sound.   ",
                                 "showInstructions": true
@@ -1137,6 +1603,10 @@
                             },
                              {
                                 "id" : "robot-instr-4",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/44_Next_throw.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/robot_4.png",
                                 "instructions": "Next, she will throw a gear. When you see the gear, move the basket to catch the gear.  ",
                                 "showInstructions": true
@@ -1144,6 +1614,10 @@
                             },
                              {
                                 "id" : "robot-instr-5",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/45_If_you_catch_gear.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/robot_5.png",
                                 "instructions": "If you catch the gear, you will see it in your basket and hear a sound.  ",
                                 "showInstructions": true
@@ -1152,6 +1626,10 @@
                     
                              {
                                 "id" : "robot-instr-6",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/46_Try_to_catch_red_spot.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/robot_6.png",
                                 "instructions": "Try to catch the gear right at the red spot on the basket. If you catch the gear at the red spot, you will hear a zapping sound and see red stars! ",
                                 "showInstructions": true
@@ -1160,6 +1638,10 @@
                             
                             {
                                 "id" : "robot-instr-7",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/47_Sometimes_space_trash.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/robot_7.png",
                                 "instructions": "Sometimes when the robot throws the gear, there will be some space trash between her and your basket. Try your best to catch the gear, even when the space trash is there!   ",
                                 "showInstructions": true
@@ -1169,11 +1651,30 @@
                            
                             {    "id" : "watch-example",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/48_Watch_video.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Watch the game first to see a few examples  ",
                                 "showInstructions": true
                             },
+            
+                            {
+                                "kind": "exp-lookit-games",
+                                "showVideo": true,
+                                "fullscreen": true,
+                                "mediaSource": {
+                                    "src": "/Resources/videos/mp4/SpaceMechanicDemo.mp4",
+                                    "type": "video/mp4"
+                                }
+                            },
+            
                             {   "id": "lets-practice",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/49_Now_practice.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Now you can play a few tries to get some practice. Remember, do not move the basket until the robot throws the gear! To go again, put your basket back in the box.  ",
                                 "showInstructions": true
                             },
@@ -1200,6 +1701,10 @@
             
                             {   "id": "get-ready",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/51_Play_Longer.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Ok, now it’s time to play for longer. Try to catch the gear at the red spot. Try your best to finish the whole level and get to the map. ",
                                 "showInstructions": true
                             },  
@@ -1208,36 +1713,51 @@
                                 "playGame": true,
                                 "trialsNumber": 36
                             },
+
                             {
                                 "id": "finish-game",
-                                "source": "/Resources/images/instructions/finish_4.png",
-                                "instructions": "Excellent! You finished the fourth level.  ",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/39_Excellent_3rd.m4a",
+                                    "type": "audio/mp4"
+                                },
+                                "source": "/Resources/images/instructions/finish_3.png",
+                                "instructions": "Excellent! You finished the third level.  ",
                                 "showInstructions": true
                             }
+                          
                         ],
             
                         "commonFrameProperties": {
                             "kind":  "exp-lookit-games",
                             "baseDir": "https://piproject.s3.us-east-2.amazonaws.com",
-                            "gameType": 3
+                            "gameType": 2
                         }
                         
                     },
                     
             
-                    "game5-group": {
+                    "game4-group": {
                         "kind": "group",
                         "frameList": [
                             {
                                 "id" : "map",
                                 "instructions": "Click on the START button to play the last game.",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/54_Click_Start_Last_game.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "showProgress": true,
+                                "fullscreen": true,
                                 "sourceButton": "/Resources/images/start_button.png"
             
                             },
             
                             {
                                 "id" : "bounce-instr-5",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/55_Goal_Bounce_Ball.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/brick_1.png",
                                 "instructions": "In this game, your goal is to bounce a ball with a paddle to smash a wall of bricks. Behind the wall is a gold token you are trying to get. ",
                                 "showInstructions": true
@@ -1245,6 +1765,10 @@
                     
                             {
                                 "id" : "bounce-instr-5",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/56_Start_Use_Mouse.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/brick_2.png",
                                 "instructions": "To start, use your mouse to put the white paddle in the box and keep it still. If your paddle is not in the box, it will turn red. Then, you will hear a drumroll.   ",
                                 "showInstructions": true
@@ -1254,6 +1778,10 @@
                            {
             
                                 "id" : "bounce-instr-5",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/57_Ball_fly.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/brick_3.png",
                                 "instructions": "Next, a ball will fly toward the paddle. Move the paddle to bounce the ball. Do not lift the paddle before the ball moves.",
                                 "showInstructions": true
@@ -1262,6 +1790,10 @@
                     
                             {
                                 "id" : "bounce-instr-4",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/58_Hit_Wall.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/brick_4.png",
                                 "instructions": "If you hit the wall, some of the bricks will fall to the ground and you will hear some bricks crash. ",
                                 "showInstructions": true
@@ -1269,6 +1801,10 @@
                     
                             {
                                 "id" : "bounce-instr-5",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/59_Try_bounce_red_button.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "source": "/Resources/images/instructions/brick_5.png",
                                 "instructions": "Try your best to bounce the ball to the red button. If you hit it, you will see all of the bricks fall down and you get the token and hear a sound. ",
                                 "showInstructions": true
@@ -1277,10 +1813,28 @@
                            
                             {    "id" : "watch-example",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/60_Now_watch_video.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Now, watch a few different examples to see how it works. ",
                                 "showInstructions": true
                             },
+                            {
+                                "kind": "exp-lookit-games",
+                                "showVideo": true,
+                                "fullscreen": true,
+                                "mediaSource": {
+                                    "src": "/Resources/videos/mp4/BrickSmasherDemo.mp4",
+                                    "type": "video/mp4"
+                                }
+                            },
+            
                             {   "id": "lets-practice",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/61_Now_practice.m4a",
+                                    "type": "audio/mp4"
+                                },
                                  "source": "",
                                  "instructions": "Now it’s your turn to practice a few times. Remember, do not move the paddle until the ball starts to move.",
                                  "showInstructions": true
@@ -1301,6 +1855,10 @@
             
                             {   "id": "get-ready",
                                 "source": "",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/62_Now_play_longer.m4a",
+                                    "type": "audio/mp4"
+                                },
                                 "instructions": "Great! Now you can play for longer. Remember, try to bounce the ball to the red button to break the wall.  ",
                                 "showInstructions": true
                             },  
@@ -1311,8 +1869,12 @@
                             },
                             {
                                 "id": "finish-game",
-                                "source": "/Resources/images/instructions/finish_5.png",
-                                "instructions": "Excellent! You finished the last level. ",
+                                "mediaSource": {
+                                    "src": "/Resources/sounds/instructions/53_Excellent_finished_4th.m4a",
+                                    "type": "audio/mp4"
+                                },
+                                "source": "/Resources/images/instructions/finish_4.png",
+                                "instructions": "Excellent! You finished the fourth level.  ",
                                 "showInstructions": true
                             }
                         ],
@@ -1320,13 +1882,17 @@
                         "commonFrameProperties": {
                             "kind":  "exp-lookit-games",
                             "baseDir": "https://piproject.s3.us-east-2.amazonaws.com",
-                            "gameType": 4
+                            "gameType": 3
                         }
                         
                     },
             
                     "controller-instr": {
                         "kind":  "exp-lookit-games",
+                        "mediaSource": {
+                            "src": "/Resources/sounds/instructions/30_Computer_mouse_trackpad.m4a",
+                            "type": "audio/mp4"
+                        },
                         "source": "/Resources/images/instructions/controls2.png",
                         "instructions": "For the next games, you will need to use your computer mouse or trackpad.",
                         "baseDir": "https://piproject.s3.us-east-2.amazonaws.com",
@@ -1337,15 +1903,14 @@
 
 
     "sequence": [
-        "video-test",
-        "intro",
+        "intro-study",
         "desktop-settings",
         "controller-settings",
         "audio-check",    
         "parent-consent",  
         "question-block",
         "children-assent",
-        "intro-group",
+        "intro-games-group",
         "game1-group",
         "game2-group",
         "controller-instr",
@@ -1353,6 +1918,8 @@
         "game4-group",
         "game5-group",
         "exit-survey",
+        "thank-you",
+        "goto-spark",
         "good-bye"
     ]
 }
