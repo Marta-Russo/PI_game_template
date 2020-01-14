@@ -22,7 +22,6 @@ let jitterT = 0; // Time jitter (variates from 500 ms to 1500 ms), time between 
 const WINDOW_SIZE = 0.066; //Current window size
 const TARGET_SIZE = 0.02;  // Current target (star) size
 const CENTER = 1.30715;  // Appropriate star position in center
-let startTime = 0; // start of the game to wait before music playing
 const INITIAL_DELAY = 2.5;
 const TOTAL_FLIGHT_TIME = 1.5;
 // Media arrays for loading
@@ -130,7 +129,7 @@ export default class ButtonPressWindow extends Base {
      * @method init
      */
     init() {
-        startTime = new Date().getTime();
+        super.gameState.startTime = new Date().getTime();
 
         if(this.context.trialType === 'demo'){
             TfArr =   this.context.demoTrajectories;
@@ -276,7 +275,7 @@ export default class ButtonPressWindow extends Base {
         this.createBackground();
         this.createTargetWindow();
         // Delay before music start
-        if(super.gameState.initialTime === 0 && super.currentRounds === 0  && super.getElapsedTime(startTime) >= INITIAL_DELAY) {
+        if(super.gameState.initialTime === 0 && super.currentRounds === 0  && super.getElapsedTime(super.gameState.startTime) >= INITIAL_DELAY) {
 
             sounds[gameSound.START].play();
 
