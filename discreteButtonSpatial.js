@@ -195,7 +195,7 @@ export default class ButtonPressWindow extends Base {
     dataCollection() {
         //Set  0,1,2,3 as button pressed values (0:  no button pressed, 1 : pressed , missed target, 2 : pressed, within
         // window, 3 : hit the target)
-        if(super.ball.state === 'hit' || super.ball.state === 'fall') {
+        if(super.ball.state === 'start' || super.ball.state === 'hit' || super.ball.state === 'fall') {
             let currentTrajectory = TfArrIndex.indexOf(TfArr[this.currentRounds]) + 1;
             let exportData = {
 
