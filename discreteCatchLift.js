@@ -89,7 +89,6 @@ export default class DiscreteCatchLift extends PaddleGames {
             lastTime: new Date().getTime()
         };
 
-
         super.paddle = {
             dimensions: {width: 0, height: 0},
             position: {
@@ -151,6 +150,9 @@ export default class DiscreteCatchLift extends PaddleGames {
         if (super.currentRounds > 0 || (super.currentRounds === 0 && !super.paddleIsMoved())) {
             sounds[gameSound.START].play();
         }
+
+        super.paddle.moved = 0;
+
 
         super.initGame();
     }
@@ -258,7 +260,6 @@ export default class DiscreteCatchLift extends PaddleGames {
         super.drawImageObject(clockObject, images[gameImage.CLOCK]);
 
         if (super.gameState.initialTime === 0 ) {
-
             sounds[gameSound.START].play();
         }
 
@@ -301,7 +302,6 @@ export default class DiscreteCatchLift extends PaddleGames {
                 sounds[gameSound.FAIL].play();
             }
 
-
             if (super.paddle.moved === 0 && super.paddle.positions.length > 5 && super.paddle.position.y - target.position.y <= 100) {
 
                 sounds[gameSound.SWOOSH].play();
@@ -321,7 +321,6 @@ export default class DiscreteCatchLift extends PaddleGames {
 
 
         if (target.state === 'done') {
-
             super.paddleAtZero( false);
 
 
