@@ -179,8 +179,21 @@ velocity_matrix : uniformly distributed matrix of initial  values : 1,2,3
 initV: vector value  = 0.15 * velocity_matrix + 0.45 
 ```
 
+## Game and instruction resources 
 
 
+To start working with resources use [official Amazon s3 guide.](https://docs.aws.amazon.com/AmazonS3/latest/gsg/GetStartedWithS3.html)
+ 
 
+#### Folders map : 
+
+* Instructions images location : /Resources/images/instructions/
+* Instructions sounds location : /Resources/sounds/instructions_mp3/
+* Instructions videos location : /Resources/videos/mp4/
+
+#### Game resources  location (configuration in utils.js)
+
+* Game images : /Resources/images/
+* Game sounds : /Resources/sounds/i
 
 
